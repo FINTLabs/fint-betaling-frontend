@@ -9,7 +9,6 @@ export function fetchCustomer() {
 
         CustomerRepository.fetchCustomers().then(([result, json]) => {
             if (result.status === 200) {
-                console.log("json", json);
                 dispatch({type: FETCH_CUSTOMERS_FULFILLED, payload: json});
             }
         }).catch((error) => {

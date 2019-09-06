@@ -1,20 +1,15 @@
-class PaymentApi {
+class PaymentRepository {
 
-    static fetchPayments(orgId) {
-        const url = '/repository/payment';
+    static fetchPayments() {
+        const url = '/api/payment';
         return fetch(url, {
             method: "GET",
             credentials: 'same-origin',
             //headers: new Headers({'x-org-id': orgId})
-        }).then(result => {
-            return result.json();
-        }).catch(
-            error => {
-                console.log(error)
-            }
-        );
+        }).then(result => Promise.all([result, result.json()]))
+            .catch(error => error);
     }
-
+/*
     static getPaymentsByOrderNumber(orgId, number) {
         let url = new URL('/repository/payment/ordrenummer');
         let params = {'ordrenummer': number};
@@ -62,8 +57,8 @@ class PaymentApi {
         }).catch(error => {
             return error
         });
-    }
+    }*/
 
 }
 
-export default PaymentApi
+export default PaymentRepository
