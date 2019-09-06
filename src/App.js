@@ -3,6 +3,8 @@ import './App.css';
 import Scaffold from "./common/scaffold/scaffold";
 import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import store from "./data/redux/store";
 
 const theme = createMuiTheme({
     palette: {
@@ -23,9 +25,11 @@ const theme = createMuiTheme({
 function App() {
     return (
         <MuiThemeProvider theme={theme}>
-            <BrowserRouter basename='/'>
-                <Scaffold/>
-            </BrowserRouter>
+            <Provider store={store}>
+                <BrowserRouter basename='/'>
+                    <Scaffold/>
+                </BrowserRouter>
+            </Provider>
         </MuiThemeProvider>
     );
 }
