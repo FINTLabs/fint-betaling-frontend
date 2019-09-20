@@ -4,6 +4,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -31,29 +32,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function getSteps() {
-    return ['Velg mottakere', 'Velg varer', 'Bekreft betalingsutsendelse'];
+    return ['Velg mottakere', 'Velg varer', 'Bekreft og send'];
 }
 
 export default function PaymentStepper() {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = useState(0);
+    const step = useSelector(state => state.payment.form.step);
     const steps = getSteps();
-
-    function handleNext() {
-        setActiveStep(prevActiveStep => prevActiveStep + 1);
-    }
-
-    function handleBack() {
-        setActiveStep(prevActiveStep => prevActiveStep - 1);
-    }
-
-    function handleReset() {
-        setActiveStep(0);
-    }
 
     return (
         <div>
-            <Stepper className={classes.stepper} activeStep={activeStep}>
+            <Stepper className={classes.stepper} activeStep={step}>
                 {steps.map((label, index) => {
                     const stepProps = {};
                     const labelProps = {};
@@ -73,25 +62,27 @@ export default function PaymentStepper() {
                         </Step>
                     );
                 })}
-            </Stepper>
-            <div>
-                <div>
-                    <div>
-                        <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                            Back
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleNext}
-                            className={classes.button}
-                        >
-                            {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                        </Button>
-                    </div>
-                </div>
 
-            </div>
+            </Stepper>
+
         </div>
     );
+    /*<div>
+                    <div>
+                        <div>
+                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                                Back
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleNext}
+                                className={classes.button}
+                            >
+                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                            </Button>
+                        </div>
+                    </div>
+
+                </div>*/
 }
