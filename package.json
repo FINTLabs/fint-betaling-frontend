@@ -42,6 +42,7 @@
   "devDependencies": {
     "autosuggest-highlight": "^3.1.1",
     "downshift": "^3.3.1",
-    "react-autosuggest": "^9.4.3"
+    "react-autosuggest": "^9.4.3",
+    "react-window": "^1.8.5"
   }
 }

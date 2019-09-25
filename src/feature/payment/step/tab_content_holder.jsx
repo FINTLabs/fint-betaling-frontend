@@ -1,6 +1,6 @@
 import React from 'react';
 import {makeStyles, Paper} from "@material-ui/core";
-import PickPaymentRecipient from "./pick_recipients/pick_payment_recipient";
+import PickPaymentRecipient from "./pick_recipients/pick_recipient";
 
 const useStyles = makeStyles({
     root: {

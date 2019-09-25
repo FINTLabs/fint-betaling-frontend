@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import RecipientSearch from "./recipient_search";
 import {updateSearchBy, updateSearchValue} from "../../../../data/redux/actions/payment";
 import {GROUP} from "../../constants";
+import RecipientList from "./recipient_list";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -65,9 +66,6 @@ const PickPaymentRecipient = () => {
                 <AddIcon className={classes.extendedIcon}/>
                 Legg til
             </Fab>
-            <Dialog disableBackdropClick disableEscapeKeyDown open={state.open} onClose={handleClose}>
-                <DialogTitle>Velg mottaker</DialogTitle>
-                <DialogContent>
                     <form className={classes.container}>
                         <FormControl component="fieldset" className={classes.formControl}>
                             <RadioGroup aria-label="recipientType" name="recipientType" value={recipientType}
@@ -78,16 +76,7 @@ const PickPaymentRecipient = () => {
                             <RecipientSearch suggestions={suggestions} recipientType={recipientType}/>
                         </FormControl>
                     </form>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose} color="secondary">
-                        Cancel
-                    </Button>
-                    <Button onClick={handleClose} color="secondary">
-                        Ok
-                    </Button>
-                </DialogActions>
-            </Dialog>
+                    <RecipientList/>
         </div>
     );
 };

@@ -1,4 +1,9 @@
-import {INITIALIZE_PAYMENT, UPDATE_PAYMENT_SEARCH_BY, UPDATE_PAYMENT_SEARCH_VALUE} from "../actions/actions";
+import {
+    ADD_RECIPIENT,
+    INITIALIZE_PAYMENT,
+    UPDATE_PAYMENT_SEARCH_BY,
+    UPDATE_PAYMENT_SEARCH_VALUE
+} from "../actions/actions";
 
 export const defaultState = {
     payment: {
@@ -23,6 +28,11 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 form: {searchValue: action.payload, searchBy: state.form.searchBy, step: state.form.step}
+            };
+        case ADD_RECIPIENT:
+            return {
+                ...state,
+                form: {recipients: action.payload, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step}
             };
         /*case UPDATE_PAYMENT_STEP:
             return {
