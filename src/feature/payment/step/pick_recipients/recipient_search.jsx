@@ -4,16 +4,10 @@ import Autosuggest from "react-autosuggest";
 import {updateSearchValue} from "../../../../data/redux/actions/payment";
 import {useDispatch, useSelector} from "react-redux";
 import deburr from "lodash/deburr";
-import match from "autosuggest-highlight/match";
-import parse from "autosuggest-highlight/parse";
-import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import {ListItemIcon, makeStyles} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import {GROUP} from "../../constants";
-import AddIcon from "@material-ui/icons/Add";
-import List from "@material-ui/core/List";
-import GroupAndPersonList from "./group_and_person_list";
-
+import RecipientSuggestItem from "./recipient_suggest_item";
 
 const useStyles = makeStyles(theme => ({
 
@@ -59,10 +53,8 @@ const RecipientSearch = (props) => {
     const searchLabel = "Søk";
     const searchPlaceHolder = recipientType === GROUP ? "Gruppenavn" : "Navn";
 
-    console.log("stateSugg:", stateSuggestions);
 
     useEffect(() => {
-        console.log("useEffect kjører....");
         setSuggestions(suggestions);
     }, [suggestions]);
 
@@ -124,7 +116,6 @@ const RecipientSearch = (props) => {
     }
 
     function renderSuggestion(suggestion, {query, isHighlighted}) {
-        return;
     }
 
     function handleAddToRecipient(event) {
@@ -138,31 +129,32 @@ const RecipientSearch = (props) => {
 
 
     const handleSuggestionsFetchRequested = ({value}) => {
-        setSuggestions(getSuggestions(value).sort());
+        setSuggestions(getSuggestions(value));
     };
 
     const handleSuggestionsClearRequested = () => {
-        setSuggestions(suggestions);
-    };
-
-    const autosuggestProps = {
-        renderInputComponent,
-        suggestions: stateSuggestions,
-        onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
-        onSuggestionsClearRequested: handleSuggestionsClearRequested,
-        getSuggestionValue,
-        renderSuggestion,
+        if (searchValue<1){
+            setSuggestions(suggestions);
+        }
     };
 
     function handleSearchValue(event) {
-        console.log("handleSearchValue", event.target.value);
+        if (event.nativeEvent.data === null) {
+            setSuggestions(suggestions);
+        }
         dispatch(updateSearchValue(event.target.value));
     }
 
     return (
         <Paper>
             <Autosuggest
-                {...autosuggestProps}
+                renderInputComponent={renderInputComponent}
+                getSuggestionValue={getSuggestionValue}
+                suggestions={stateSuggestions}
+                onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
+                onSuggestionsClearRequested={handleSuggestionsClearRequested}
+                renderSuggestion={renderSuggestion}
+
                 inputProps={{
                     classes,
                     id: 'react-autosuggest-simple',
@@ -177,10 +169,8 @@ const RecipientSearch = (props) => {
                     suggestionsList: classes.suggestionsList,
                     suggestion: classes.suggestion,
                 }}
-                renderSuggestionsContainer={options => (
-                    <GroupAndPersonList {...options.containerProps} recipientType={recipientType} options={options}/>
-                )}
             />
+            <RecipientSuggestItem suggestions={stateSuggestions} query={searchValue}/>
         </Paper>
     );
 };
