@@ -5,7 +5,7 @@ import {updateSearchValue} from "../../../../data/redux/actions/payment";
 import {useDispatch, useSelector} from "react-redux";
 import deburr from "lodash/deburr";
 import TextField from "@material-ui/core/TextField";
-import {makeStyles} from "@material-ui/core";
+import {Box, makeStyles} from "@material-ui/core";
 import {GROUP} from "../../constants";
 import RecipientSuggestItem from "./recipient_suggest_item";
 
@@ -39,6 +39,10 @@ const useStyles = makeStyles(theme => ({
     },
     divider: {
         height: theme.spacing(2),
+    },
+    container: {
+        margin:theme.spacing(1),
+        maxWidth: 200,
     },
 }));
 
@@ -133,7 +137,7 @@ const RecipientSearch = (props) => {
     };
 
     const handleSuggestionsClearRequested = () => {
-        if (searchValue<1){
+        if (searchValue < 1) {
             setSuggestions(suggestions);
         }
     };
@@ -146,32 +150,34 @@ const RecipientSearch = (props) => {
     }
 
     return (
-        <Paper>
-            <Autosuggest
-                renderInputComponent={renderInputComponent}
-                getSuggestionValue={getSuggestionValue}
-                suggestions={stateSuggestions}
-                onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
-                onSuggestionsClearRequested={handleSuggestionsClearRequested}
-                renderSuggestion={renderSuggestion}
+        <Box>
+            <Paper className={classes.container}>
+                <Autosuggest
+                    renderInputComponent={renderInputComponent}
+                    getSuggestionValue={getSuggestionValue}
+                    suggestions={stateSuggestions}
+                    onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={handleSuggestionsClearRequested}
+                    renderSuggestion={renderSuggestion}
 
-                inputProps={{
-                    classes,
-                    id: 'react-autosuggest-simple',
-                    label: searchLabel,
-                    placeholder: searchPlaceHolder,
-                    value: searchValue,
-                    onChange: handleSearchValue,
-                }}
-                theme={{
-                    container: classes.containerSuggestions,
-                    suggestionsContainerOpen: classes.suggestionsContainerOpen,
-                    suggestionsList: classes.suggestionsList,
-                    suggestion: classes.suggestion,
-                }}
-            />
-            <RecipientSuggestItem suggestions={stateSuggestions} query={searchValue}/>
-        </Paper>
+                    inputProps={{
+                        classes,
+                        id: 'react-autosuggest-simple',
+                        label: searchLabel,
+                        placeholder: searchPlaceHolder,
+                        value: searchValue,
+                        onChange: handleSearchValue,
+                    }}
+                    theme={{
+                        container: classes.containerSuggestions,
+                        suggestionsContainerOpen: classes.suggestionsContainerOpen,
+                        suggestionsList: classes.suggestionsList,
+                        suggestion: classes.suggestion,
+                    }}
+                />
+            </Paper>
+            <RecipientSuggestItem suggestions={stateSuggestions} query={searchValue} />
+        </Box>
     );
 };
 

@@ -16,6 +16,7 @@ import RecipientSearch from "./recipient_search";
 import {updateSearchBy, updateSearchValue} from "../../../../data/redux/actions/payment";
 import {GROUP} from "../../constants";
 import RecipientList from "./recipient_list";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -60,12 +61,7 @@ const PickPaymentRecipient = () => {
     }
 
     return (
-        <div>
-            <Fab color="secondary" variant="extended" size="small" aria-label="add" className={classes.fab}
-                 onClick={handleClickOpen}>
-                <AddIcon className={classes.extendedIcon}/>
-                Legg til
-            </Fab>
+        <Box>
                     <form className={classes.container}>
                         <FormControl component="fieldset" className={classes.formControl}>
                             <RadioGroup aria-label="recipientType" name="recipientType" value={recipientType}
@@ -77,7 +73,7 @@ const PickPaymentRecipient = () => {
                         </FormControl>
                     </form>
                     <RecipientList/>
-        </div>
+        </Box>
     );
 };
 
