@@ -50,13 +50,14 @@ const RecipientSearch = (props) => {
 
     const searchValue = useSelector(state => state.payment.form.searchValue);
     const dispatch = useDispatch();
-    const [anchorEl, setAnchorEl] = React.useState(null);
     const classes = useStyles();
-    const {suggestions, recipientType} = props;
-    const [stateSuggestions, setSuggestions] = useState(suggestions);
+    const {recipientType} = props;
+    const groups = useSelector(state => state.groups.groups);
+    const customers = useSelector(state => state.customers.customers);
+    const suggestions = recipientType.toString() === GROUP ? groups : customers;
+    const [stateSuggestions, setSuggestions] = useState([]);
     const searchLabel = "Søk";
     const searchPlaceHolder = recipientType === GROUP ? "Gruppenavn" : "Navn";
-
 
     useEffect(() => {
         setSuggestions(suggestions);
@@ -176,7 +177,7 @@ const RecipientSearch = (props) => {
                     }}
                 />
             </Paper>
-            <RecipientSuggestItem suggestions={stateSuggestions} query={searchValue} />
+            <RecipientSuggestItem suggestions={stateSuggestions} query={searchValue} recipientType={recipientType}/>
         </Box>
     );
 };

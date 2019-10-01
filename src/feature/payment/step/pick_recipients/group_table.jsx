@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -19,8 +19,6 @@ const useStyles = makeStyles(theme => ({
         wordWrap: 'break-word',
     },
     tableCellArrow: {
-        overflow: 'auto',
-        wordWrap: 'break-word',
         cursor: "pointer",
     },
     tableCellNoPadding: {
@@ -31,15 +29,56 @@ const useStyles = makeStyles(theme => ({
 
 const GroupTable = (props) => {
     const [open, setOpen] = useState([]);
+    const [checked, setChecked] = useState({});
     const classes = useStyles();
     const {suggestions, query, onChange} = props;
+
+    useEffect(()=> {
+
+    }, []);
+
+    function handleIndividualCheck(event){
+        console.log(event.target.checked);
+        onChange(event.target.value);
+        setChecked({
+            ...checked, [event.target.value] : event.target.checked
+        });
+    }
+
+    function handleGroupChange(event, individualList) {
+        console.log(event.target.checked);
+        console.log(individualList);
+        let newCheckedState = {};
+        for (let customer = 0; customer < individualList.length; customer++) {
+            const customerNumber = individualList[customer].kundenummer;
+            newCheckedState[customerNumber] = event.target.checked;
+            onChange(customerNumber);
+        }
+        console.log(newCheckedState);
+        setChecked({
+            ...checked, ...newCheckedState
+        });
+    }
+
+    function groupCheckboxCheck(kundeliste) {
+        console.log("kundeliste: ", kundeliste, " og checked :", checked);
+        let status = true;
+        for (let iterator = 0; iterator < kundeliste.length; iterator++) {
+                console.log("Checked checked[kundeliste[iterator]] ? : ", checked[kundeliste[iterator].kundenummer]);
+            if (!checked[kundeliste[iterator].kundenummer]){
+                status = false;
+            }
+        }
+        return status;
+    }
+
     return (
         <Table className={classes.table}>
             <TableHead>
                 <TableRow>
                     <TableCell>Navn</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Beskrivelse</TableCell>
-                    <TableCell align="right" className={classes.tableCell}>Velg som mottaker</TableCell>
+                    <TableCell align="center" className={classes.tableCell}>Velg som mottaker</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Vis innhold</TableCell>
                 </TableRow>
             </TableHead>
@@ -64,7 +103,9 @@ const GroupTable = (props) => {
                                         {suggestion.beskrivelse}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
-                                        <Checkbox onChange={onChange} value={recipient}/>
+                                        <Checkbox onChange={event => handleGroupChange(event,suggestion.kundeliste)}
+                                                  value={suggestion.kundeliste}
+                                        checked={groupCheckboxCheck(suggestion.kundeliste)}/>
                                     </TableCell>
                                     <TableCell
                                         align="center"
@@ -120,7 +161,9 @@ const GroupTable = (props) => {
                                                                         </TableCell>
                                                                         <TableCell align="center"
                                                                                    className={classes.tableCell}>
-                                                                            <Checkbox onChange={onChange} value={kunde.kundenummer}/>
+                                                                            <Checkbox onChange={handleIndividualCheck}
+                                                                                      value={kunde.kundenummer}
+                                                                                      checked={checked[kunde.kundenummer] || false}/>
                                                                         </TableCell>
                                                                     </TableRow>
                                                                 );
@@ -142,4 +185,4 @@ const GroupTable = (props) => {
     );
 };
 
-export default GroupTable;
+export default GroupTable

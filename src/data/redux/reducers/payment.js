@@ -4,6 +4,7 @@ import {
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE
 } from "../actions/actions";
+import {GROUP} from "../../../feature/payment/constants";
 
 export const defaultState = {
     payment: {
@@ -11,7 +12,7 @@ export const defaultState = {
     },
     form: {
         step: 0,
-        searchBy: 'group',
+        searchBy: GROUP,
         searchValue: '',
     }
 };

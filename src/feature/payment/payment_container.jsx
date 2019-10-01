@@ -1,12 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Box, makeStyles} from "@material-ui/core";
 import PaymentStepper from "./payment_stepper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import TabContentHolder from "./step/tab_content_holder";
 import {useDispatch} from "react-redux";
 import {fetchCustomer} from "../../data/redux/actions/customers";
 import {fetchGroup} from "../../data/redux/actions/groups";
+import PickPaymentRecipient from "./step/pick_recipients/pick_recipient";
 
 const useStyles = makeStyles({
     root: {
@@ -31,7 +29,7 @@ const PaymentContainer = () => {
     return (
         <Box className={classes.root}>
             <PaymentStepper/>
-            <TabContentHolder value={value}/>
+            <PickPaymentRecipient/>
         </Box>
     );
 };
