@@ -8,6 +8,7 @@ import parse from "autosuggest-highlight/parse";
 import Checkbox from "@material-ui/core/Checkbox";
 import Table from "@material-ui/core/Table";
 import {makeStyles} from "@material-ui/core";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -24,7 +25,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const IndividualTable = (props) => {
-    const {suggestions, query, onChange} = props;
+    const query = useSelector(state => state.payment.form.searchValue);
+    let suggestions = useSelector(state => state.payment.form.filteredSuggestions);
+    suggestions = query.length === 0 ? [] : suggestions;
+    const {onChange} = props;
     const classes = useStyles();
     return (
         <Table className={classes.table}>

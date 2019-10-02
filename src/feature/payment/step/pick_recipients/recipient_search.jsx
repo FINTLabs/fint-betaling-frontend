@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Paper from "@material-ui/core/Paper";
 import Autosuggest from "react-autosuggest";
-import {updateSearchValue} from "../../../../data/redux/actions/payment";
+import {updateSearchValue, updateSuggestions} from "../../../../data/redux/actions/payment";
 import {useDispatch, useSelector} from "react-redux";
 import deburr from "lodash/deburr";
 import TextField from "@material-ui/core/TextField";
@@ -46,22 +46,21 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const RecipientSearch = (props) => {
+const RecipientSearch = () => {
 
     const searchValue = useSelector(state => state.payment.form.searchValue);
+    const recipientType = useSelector(state => state.payment.form.searchBy).toString();
     const dispatch = useDispatch();
-    const classes = useStyles();
-    const {recipientType} = props;
-    const groups = useSelector(state => state.groups.groups);
-    const customers = useSelector(state => state.customers.customers);
-    const suggestions = recipientType.toString() === GROUP ? groups : customers;
-    const [stateSuggestions, setSuggestions] = useState([]);
+    const filteredSuggestions = useSelector(state => state.payment.form.filteredSuggestions);
+    const groups = useSelector(state=> state.groups.groups);
+    const individual = useSelector(state=> state.customers.customers);
+    const suggestions = recipientType === GROUP ?
+        groups
+        :
+        individual;
     const searchLabel = "Søk";
+    const classes = useStyles();
     const searchPlaceHolder = recipientType === GROUP ? "Gruppenavn" : "Navn";
-
-    useEffect(() => {
-        setSuggestions(suggestions);
-    }, [suggestions]);
 
     function renderInputComponent(inputProps) {
         const {
@@ -102,10 +101,10 @@ const RecipientSearch = (props) => {
         return suggestions.filter(suggestion => {
             let keep;
             if (recipientType === GROUP) {
-                keep = count < 5 && suggestion.navn.slice(0, input.length).toLowerCase() === input;
+                keep = count < 10 && suggestion.navn.slice(0, input.length).toLowerCase() === input;
             } else {
                 keep = (
-                    count < 5 && (
+                    count < 10 && (
                         (suggestion.fulltNavn && suggestion.fulltNavn.slice(0, input.length).toLowerCase() === input) ||
                         (suggestion.navn.fornavn && suggestion.navn.fornavn.slice(0, input.length).toLowerCase() === input) ||
                         (suggestion.navn.mellomnavn && suggestion.navn.mellomnavn.slice(0, input.length).toLowerCase() === input) ||
@@ -134,19 +133,16 @@ const RecipientSearch = (props) => {
 
 
     const handleSuggestionsFetchRequested = ({value}) => {
-        setSuggestions(getSuggestions(value));
+        dispatch(updateSuggestions(getSuggestions(value)));
     };
 
     const handleSuggestionsClearRequested = () => {
         if (searchValue < 1) {
-            setSuggestions(suggestions);
+            dispatch(updateSuggestions(suggestions));
         }
     };
 
     function handleSearchValue(event) {
-        if (event.nativeEvent.data === null) {
-            setSuggestions(suggestions);
-        }
         dispatch(updateSearchValue(event.target.value));
     }
 
@@ -156,7 +152,7 @@ const RecipientSearch = (props) => {
                 <Autosuggest
                     renderInputComponent={renderInputComponent}
                     getSuggestionValue={getSuggestionValue}
-                    suggestions={stateSuggestions}
+                    suggestions={filteredSuggestions}
                     onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
                     onSuggestionsClearRequested={handleSuggestionsClearRequested}
                     renderSuggestion={renderSuggestion}
@@ -177,7 +173,7 @@ const RecipientSearch = (props) => {
                     }}
                 />
             </Paper>
-            <RecipientSuggestItem suggestions={stateSuggestions} query={searchValue} recipientType={recipientType}/>
+            <RecipientSuggestItem/>
         </Box>
     );
 };

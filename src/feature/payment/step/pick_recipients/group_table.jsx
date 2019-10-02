@@ -9,6 +9,8 @@ import TableBody from "@material-ui/core/TableBody";
 import Checkbox from "@material-ui/core/Checkbox";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import {Collapse, makeStyles} from "@material-ui/core";
+import {useDispatch, useSelector} from "react-redux";
+import {updateGroupContentOpen} from "../../../../data/redux/actions/payment";
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -28,20 +30,26 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const GroupTable = (props) => {
-    const [open, setOpen] = useState([]);
+    const query = useSelector(state => state.payment.form.searchValue);
+    let suggestions = useSelector(state => state.payment.form.filteredSuggestions);
+    const dispatch = useDispatch();
+    suggestions = query.length === 0 ? [] : suggestions;
+
+    const groupContentOpen = useSelector(state => state.payment.form.groupContentOpen);
+    console.log("groupContentOpen: ", groupContentOpen);
     const [checked, setChecked] = useState({});
     const classes = useStyles();
-    const {suggestions, query, onChange} = props;
+    const {onChange} = props;
 
-    useEffect(()=> {
+    useEffect(() => {
 
     }, []);
 
-    function handleIndividualCheck(event){
+    function handleIndividualCheck(event) {
         console.log(event.target.checked);
         onChange(event.target.value);
         setChecked({
-            ...checked, [event.target.value] : event.target.checked
+            ...checked, [event.target.value]: event.target.checked
         });
     }
 
@@ -61,15 +69,26 @@ const GroupTable = (props) => {
     }
 
     function groupCheckboxCheck(kundeliste) {
-        console.log("kundeliste: ", kundeliste, " og checked :", checked);
+        //console.log("kundeliste: ", kundeliste, " og checked :", checked);
         let status = true;
         for (let iterator = 0; iterator < kundeliste.length; iterator++) {
-                console.log("Checked checked[kundeliste[iterator]] ? : ", checked[kundeliste[iterator].kundenummer]);
-            if (!checked[kundeliste[iterator].kundenummer]){
+            //console.log("Checked checked[kundeliste[iterator]] ? : ", checked[kundeliste[iterator].kundenummer]);
+            if (!checked[kundeliste[iterator].kundenummer]) {
                 status = false;
             }
         }
         return status;
+    }
+
+    function handleGroupOpenClick(recipient) {
+        /*const newArray = [];
+        newArray[recipient] = !groupContentOpen[recipient];
+        console.log(newArray);
+        dispatch(updateGroupContentOpen(...groupContentOpen, newArray));*/
+        const newArray = Object.assign({},groupContentOpen);
+        newArray[recipient] = !groupContentOpen[recipient];
+        console.log(newArray);
+        dispatch(updateGroupContentOpen(newArray));
     }
 
     return (
@@ -103,17 +122,16 @@ const GroupTable = (props) => {
                                         {suggestion.beskrivelse}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
-                                        <Checkbox onChange={event => handleGroupChange(event,suggestion.kundeliste)}
+                                        <Checkbox onChange={event => handleGroupChange(event, suggestion.kundeliste)}
                                                   value={suggestion.kundeliste}
-                                        checked={groupCheckboxCheck(suggestion.kundeliste)}/>
+                                                  checked={groupCheckboxCheck(suggestion.kundeliste)}/>
                                     </TableCell>
                                     <TableCell
                                         align="center"
                                         className={classes.tableCellArrow}
                                         onClick={() =>
-                                            setOpen({
-                                                ...open, [recipient]: !open[recipient]
-                                            })}
+                                            handleGroupOpenClick(recipient)
+                                        }
                                     >
                                         <ArrowDropDown/>
                                     </TableCell>
@@ -121,7 +139,7 @@ const GroupTable = (props) => {
                                 <TableRow>
                                     <TableCell className={classes.tableCellNoPadding}/>
                                     <TableCell className={classes.tableCellNoPadding} colSpan={3}>
-                                        <Collapse in={open[recipient]} timeout="auto" unmountOnExit
+                                        <Collapse in={groupContentOpen[recipient]} timeout="auto" unmountOnExit
                                                   style={{display: "block", float: "bottom"}}>
                                             <Table className={classes.table}>
                                                 <TableHead>
