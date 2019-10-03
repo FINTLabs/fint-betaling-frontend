@@ -4,8 +4,10 @@
   "private": true,
   "proxy": "http://localhost:8080",
   "dependencies": {
-    "@material-ui/core": "^4.4.0",
+    "@material-ui/core": "^4.4.2",
     "@material-ui/icons": "^4.2.1",
+    "lodash": "latest",
+    "material-table": "^1.50.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
@@ -36,5 +38,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autosuggest-highlight": "^3.1.1",
+    "browserify": "^16.5.0",
+    "downshift": "^3.3.1",
+    "react-autosuggest": "^9.4.3",
+    "react-window": "^1.8.5"
   }
 }

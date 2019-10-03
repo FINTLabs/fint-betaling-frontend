@@ -8,6 +8,17 @@ import {fetchMe} from "../../data/redux/actions/me";
 import {fetchMva} from "../../data/redux/actions/mva";
 import {fetchOrderLines} from "../../data/redux/actions/orderlines";
 import {fetchPayment} from "../../data/redux/actions/payments";
+import {Box, makeStyles} from "@material-ui/core";
+import PaymentInformationList from "./payment_information/payment_information_list";
+import CardMenu from "./card_menu/card_menu";
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        margin: "auto",
+        width: '100%',
+        overflowX: 'auto',
+    },
+}));
 
 const DashboardContainer = () => {
 
@@ -20,8 +31,9 @@ const DashboardContainer = () => {
     const orderLines = useSelector(state => state.orderLines);
     const payments = useSelector(state => state.payments);
 
-
     const dispatch = useDispatch();
+
+    const classes = useStyles();
 
 
     useEffect(() => {
@@ -49,9 +61,10 @@ const DashboardContainer = () => {
     } else {
 
         return (
-            <div>
-                Dashboard
-            </div>
+            <Box className={classes.root}>
+                <CardMenu/>
+                <PaymentInformationList/>
+            </Box>
         );
     }
 };

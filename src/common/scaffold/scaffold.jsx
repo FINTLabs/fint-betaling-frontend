@@ -19,8 +19,10 @@ import VigoLogo from "../../assets/vigo-logo-no-iks.svg";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import NewInvoice from "@material-ui/icons/NoteAdd";
 import InvoiceHistory from "@material-ui/icons/History";
+import LogOut from "@material-ui/icons/ExitToApp"
 import Routes from "./routes";
 import {Link} from "react-router-dom";
+import OrganisationSelector from "./organisation-selector";
 
 const drawerWidth = 240;
 
@@ -86,6 +88,9 @@ const useStyles = makeStyles(theme => ({
         textDecoration: 'none',
         color: "rgba(0, 0, 0, 0.87)",
     },
+    organisationButton: {
+        background: "red"
+    }
 }));
 
 export default function Scaffold() {
@@ -124,6 +129,7 @@ export default function Scaffold() {
                     <Typography variant="h6" noWrap>
                         FINT Betaling
                     </Typography>
+                    <OrganisationSelector className={classes.organisationButton}/>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -159,6 +165,12 @@ export default function Scaffold() {
                         <ListItem button>
                             <ListItemIcon><InvoiceHistory/></ListItemIcon>
                             <ListItemText primary="Sendte betalinger"/>
+                        </ListItem>
+                    </Link>
+                    <Link to="/logg-ut" className={classes.menuLink}>
+                        <ListItem button>
+                            <ListItemIcon><LogOut/></ListItemIcon>
+                            <ListItemText primary="Logg ut"/>
                         </ListItem>
                     </Link>
                 </List>
