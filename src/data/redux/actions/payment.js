@@ -1,8 +1,9 @@
 import {
-    ADD_RECIPIENT,
-    INITIALIZE_PAYMENT, UPDATE_GROUP_CONTENT_OPEN,
+    INITIALIZE_PAYMENT,
+    UPDATE_GROUP_CONTENT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE,
+    UPDATE_RECIPIENTS,
     UPDATE_SUGGESTIONS
 } from "./actions";
 
@@ -11,11 +12,13 @@ export function initialiazePayment() {
         dispatch({type: INITIALIZE_PAYMENT});
     }
 }
+
 export function updateSearchBy(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_PAYMENT_SEARCH_BY, payload: value});
     }
 }
+
 export function updateSearchValue(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_PAYMENT_SEARCH_VALUE, payload: value});
@@ -34,8 +37,9 @@ export function updateGroupContentOpen(value) {
     }
 }
 
-export function addRecipient(value) {
+export function updateRecipients(value) {
+    console.log("VALUE: ", value);
     return function (dispatch) {
-        dispatch({type: ADD_RECIPIENT, payload: value});
+        dispatch({type: UPDATE_RECIPIENTS, payload: value});
     }
 }

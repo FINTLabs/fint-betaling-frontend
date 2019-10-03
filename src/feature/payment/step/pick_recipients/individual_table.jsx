@@ -8,7 +8,8 @@ import parse from "autosuggest-highlight/parse";
 import Checkbox from "@material-ui/core/Checkbox";
 import Table from "@material-ui/core/Table";
 import {makeStyles} from "@material-ui/core";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import {updateRecipients} from "../../../../data/redux/actions/payment";
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -24,12 +25,20 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const IndividualTable = (props) => {
+const IndividualTable = () => {
     const query = useSelector(state => state.payment.form.searchValue);
     let suggestions = useSelector(state => state.payment.form.filteredSuggestions);
+    const recipients = useSelector(state => state.payment.payment.recipients);
     suggestions = query.length === 0 ? [] : suggestions;
-    const {onChange} = props;
     const classes = useStyles();
+    const dispatch = useDispatch();
+
+    function handleIndividualCheck(event) {
+        const newArray = Object.assign({}, recipients);
+        newArray[event.target.value] = event.target.checked;
+        dispatch(updateRecipients(newArray));
+    }
+
     return (
         <Table className={classes.table}>
             <TableHead>
@@ -71,7 +80,7 @@ const IndividualTable = (props) => {
                                                 : "" : ""}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
-                                        <Checkbox onChange={onChange} value={suggestion.kundenummer}/>
+                                        <Checkbox checked={recipients[suggestion.kundenummer] || false} onChange={handleIndividualCheck} value={suggestion.kundenummer}/>
                                     </TableCell>
                                 </TableRow>
                             );

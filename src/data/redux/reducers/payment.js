@@ -1,14 +1,16 @@
 import {
-    ADD_RECIPIENT,
-    INITIALIZE_PAYMENT, UPDATE_GROUP_CONTENT_OPEN,
+    INITIALIZE_PAYMENT,
+    UPDATE_GROUP_CONTENT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
-    UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_SUGGESTIONS
+    UPDATE_PAYMENT_SEARCH_VALUE,
+    UPDATE_RECIPIENTS,
+    UPDATE_SUGGESTIONS
 } from "../actions/actions";
 import {GROUP} from "../../../feature/payment/constants";
 
 export const defaultState = {
     payment: {
-        recipients: [],
+        recipients: {},
     },
     form: {
         step: 0,
@@ -42,10 +44,14 @@ export default function reducer(state = defaultState, action) {
                 ...state,
                 form: {groupContentOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step}
             };
-        case ADD_RECIPIENT:
+        case UPDATE_RECIPIENTS:
+            console.log("ACTION.VALUE: ", action.payload);
             return {
                 ...state,
-                form: {recipients: action.payload, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step}
+                payment: {
+                    recipients: action.payload,
+                }
+
             };
         /*case UPDATE_PAYMENT_STEP:
             return {

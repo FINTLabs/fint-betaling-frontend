@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
@@ -10,7 +10,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import {Collapse, makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {updateGroupContentOpen} from "../../../../data/redux/actions/payment";
+import {updateGroupContentOpen, updateRecipients} from "../../../../data/redux/actions/payment";
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -29,55 +29,44 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const GroupTable = (props) => {
+const GroupTable = () => {
     const query = useSelector(state => state.payment.form.searchValue);
     let suggestions = useSelector(state => state.payment.form.filteredSuggestions);
     const dispatch = useDispatch();
     suggestions = query.length === 0 ? [] : suggestions;
 
     const groupContentOpen = useSelector(state => state.payment.form.groupContentOpen);
-    console.log("groupContentOpen: ", groupContentOpen);
-    const [checked, setChecked] = useState({});
+    const recipients = useSelector(state => state.payment.payment.recipients);
     const classes = useStyles();
-    const {onChange} = props;
 
-    useEffect(() => {
-
-    }, []);
+    console.log("checked:", recipients);
 
     function handleIndividualCheck(event) {
-        console.log(event.target.checked);
-        onChange(event.target.value);
-        setChecked({
-            ...checked, [event.target.value]: event.target.checked
-        });
+        const newArray = Object.assign({}, recipients);
+        newArray[event.target.value] = event.target.checked;
+        dispatch(updateRecipients(newArray));
     }
 
     function handleGroupChange(event, individualList) {
         console.log(event.target.checked);
         console.log(individualList);
-        let newCheckedState = {};
+        const newArray = Object.assign({}, recipients);
         for (let customer = 0; customer < individualList.length; customer++) {
             const customerNumber = individualList[customer].kundenummer;
-            newCheckedState[customerNumber] = event.target.checked;
-            onChange(customerNumber);
+            newArray[customerNumber] = event.target.checked;
         }
-        console.log(newCheckedState);
-        setChecked({
-            ...checked, ...newCheckedState
-        });
+        dispatch(updateRecipients(newArray));
     }
 
     function groupCheckboxCheck(kundeliste) {
-        //console.log("kundeliste: ", kundeliste, " og checked :", checked);
         let status = true;
         for (let iterator = 0; iterator < kundeliste.length; iterator++) {
-            //console.log("Checked checked[kundeliste[iterator]] ? : ", checked[kundeliste[iterator].kundenummer]);
-            if (!checked[kundeliste[iterator].kundenummer]) {
+            if (!recipients[kundeliste[iterator].kundenummer]) {
                 status = false;
             }
         }
         return status;
+
     }
 
     function handleGroupOpenClick(recipient) {
@@ -85,7 +74,7 @@ const GroupTable = (props) => {
         newArray[recipient] = !groupContentOpen[recipient];
         console.log(newArray);
         dispatch(updateGroupContentOpen(...groupContentOpen, newArray));*/
-        const newArray = Object.assign({},groupContentOpen);
+        const newArray = Object.assign({}, groupContentOpen);
         newArray[recipient] = !groupContentOpen[recipient];
         console.log(newArray);
         dispatch(updateGroupContentOpen(newArray));
@@ -181,7 +170,7 @@ const GroupTable = (props) => {
                                                                                    className={classes.tableCell}>
                                                                             <Checkbox onChange={handleIndividualCheck}
                                                                                       value={kunde.kundenummer}
-                                                                                      checked={checked[kunde.kundenummer] || false}/>
+                                                                                      checked={recipients[kunde.kundenummer] || false}/>
                                                                         </TableCell>
                                                                     </TableRow>
                                                                 );
