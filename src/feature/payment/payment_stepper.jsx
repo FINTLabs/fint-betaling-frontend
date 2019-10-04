@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import {useSelector} from "react-redux";
 
 const useStyles = makeStyles(theme => ({
@@ -16,19 +15,20 @@ const useStyles = makeStyles(theme => ({
     },
     stepper: {
         width: "80%",
-        margin: "auto"
+        margin: "auto",
     },
 
     root: {
         "&$active": {
-            color: theme.palette.secondary.main
+            color: theme.palette.secondary.main,
+            iconTextColor: theme.palette.secondary.contrastText,
         },
         "&$completed": {
-            color: theme.palette.secondary.dark
+            color: theme.palette.secondary.dark,
         }
     },
     active: {},
-    completed: {}
+    completed: {},
 }));
 
 function getSteps() {
@@ -67,22 +67,4 @@ export default function PaymentStepper() {
 
         </div>
     );
-    /*<div>
-                    <div>
-                        <div>
-                            <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                                Back
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={handleNext}
-                                className={classes.button}
-                            >
-                                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                            </Button>
-                        </div>
-                    </div>
-
-                </div>*/
 }
