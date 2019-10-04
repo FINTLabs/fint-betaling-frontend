@@ -8,7 +8,7 @@ import parse from "autosuggest-highlight/parse";
 import Checkbox from "@material-ui/core/Checkbox";
 import Table from "@material-ui/core/Table";
 import {makeStyles} from "@material-ui/core";
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {updateRecipients} from "../../../../data/redux/actions/payment";
 
 const useStyles = makeStyles(theme => ({
@@ -34,8 +34,8 @@ const IndividualTable = () => {
     const dispatch = useDispatch();
 
     function handleIndividualCheck(event) {
-        const newArray = Object.assign({}, recipients);
-        newArray[event.target.value] = event.target.checked;
+        const newArray = {...recipients};
+        newArray[event.target.value] = {"checked": event.target.checked, "name": event.target.name};
         dispatch(updateRecipients(newArray));
     }
 
@@ -80,11 +80,13 @@ const IndividualTable = () => {
                                                 : "" : ""}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
-                                        <Checkbox checked={recipients[suggestion.kundenummer] || false} onChange={handleIndividualCheck} value={suggestion.kundenummer}/>
+                                        <Checkbox
+                                            checked={recipients[suggestion.kundenummer] ? recipients[suggestion.kundenummer].checked : false}
+                                            onChange={handleIndividualCheck} name={suggestion.fulltNavn}
+                                            value={suggestion.kundenummer}/>
                                     </TableCell>
                                 </TableRow>
                             );
-
                         }
                     )
                 }
