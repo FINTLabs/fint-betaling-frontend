@@ -10,38 +10,68 @@ import {updateSearchBy, updateSearchValue, updateSuggestions} from "../../../../
 import {GROUP, INDIVIDUAL} from "../../constants";
 import RecipientList from "./recipient_list";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import ConfirmRecipients from "./confirm_recipients";
 
 const useStyles = makeStyles(theme => ({
-    root: {},
+    root: {
+        display: 'flex',
+    },
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        minHeight: 500,
-        margin: "auto",
+        justifyContent:"center"
     },
     formControl: {
-        width: "60%",
-        marginLeft: "auto",
-        marginRight: "auto",
+        flex:"1/3",
+        margin: theme.spacing(3),
     },
     extendedIcon: {
         marginRight: theme.spacing(1),
     },
+    confirmButton: {
+        color: theme.palette.secondary.contrastText,
+        "&:enabled": {
+            backgroundColor: theme.palette.secondary.main,
+        },
+        "&:disabled": {
+        },
+        margin: theme.spacing(1),
+    },
+    recipientSearch: {},
 }));
 
 const PickPaymentRecipient = () => {
+
+    const [open, setOpen] = React.useState(false);
 
     const classes = useStyles();
     const recipientType = useSelector(state => state.payment.form.searchBy);
     const dispatch = useDispatch();
     const groups = useSelector(state => state.groups.groups);
     const individual = useSelector(state => state.customers.customers);
-    dispatch(updateSuggestions(recipientType.toString() === GROUP ? groups : individual));
+    const recipients = useSelector(state => state.payment.payment.recipients);
+
+    const keys = Object.keys(recipients);
+    let confirmButtonDisabled = true;
+    for (let recipientKeyCounter = 0; recipientKeyCounter < keys.length; recipientKeyCounter++) {
+        if (recipients[keys[recipientKeyCounter]].checked === true) {
+            confirmButtonDisabled = false;
+        }
+    }
 
     function handleSearchBy(event) {
         dispatch(updateSearchBy(event.target.value));
         dispatch(updateSearchValue(""));
         dispatch(updateSuggestions(event.target.value === GROUP ? groups : individual));
+    }
+
+    function handleClickOpen() {
+        setOpen(true);
+    }
+
+    function handleClose() {
+        setOpen(false);
     }
 
     return (
@@ -55,6 +85,12 @@ const PickPaymentRecipient = () => {
                         <FormControlLabel value={INDIVIDUAL.toString()} control={<Radio/>} label="Person"/>
                     </RadioGroup>
                     <RecipientSearch/>
+
+                    <ConfirmRecipients open={open} onClose={handleClose} handleAllRemoved={handleClose}/>
+                    <Button disabled={confirmButtonDisabled} variant="outlined" className={classes.confirmButton}
+                            onClick={handleClickOpen}>
+                        Gå videre
+                    </Button>
                 </FormControl>
             </form>
         </Box>
