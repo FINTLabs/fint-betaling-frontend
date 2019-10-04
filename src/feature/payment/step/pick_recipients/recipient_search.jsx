@@ -12,12 +12,8 @@ import RecipientSuggestItem from "./recipient_suggest_item";
 const useStyles = makeStyles(theme => ({
 
     textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
     },
     root: {
-        height: 250,
-        flexGrow: 1,
     },
     containerSuggestions: {
         position: 'relative',
@@ -41,8 +37,11 @@ const useStyles = makeStyles(theme => ({
         height: theme.spacing(2),
     },
     container: {
-        margin: theme.spacing(1),
-        maxWidth: 200,
+        flex:"1",
+        overflow: "auto",
+    },
+    recipientSuggestItem: {
+      flexBasis: "40%",
     },
 }));
 
@@ -168,7 +167,7 @@ const RecipientSearch = () => {
                     }}
                 />
             </Paper>
-            <RecipientSuggestItem/>
+            <RecipientSuggestItem className={classes.recipientSuggestItem}/>
         </Box>
     );
 };

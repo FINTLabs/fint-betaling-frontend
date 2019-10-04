@@ -24,7 +24,6 @@ const RecipientList = () => {
     const dispatch = useDispatch();
 
     function handleDelete(key, label) {
-        console.log("Du slettet: ", key, label);
         const newArray = {...recipientList};
         newArray[key] = {"checked": false, "name": label};
         dispatch(updateRecipients(newArray))
@@ -43,7 +42,6 @@ const RecipientList = () => {
                                         value={key}
                                         onDelete={() => handleDelete(key, recipientList[key].name)}
                                         icon={PaymentIcon}
-                                        deleteIcon={DoneIcon}
                                         label={recipientList[key].name}
                                         className={classes.chip}
                                     >
