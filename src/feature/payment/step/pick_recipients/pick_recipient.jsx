@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {makeStyles} from "@material-ui/core";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -34,8 +34,8 @@ const PickPaymentRecipient = () => {
     const classes = useStyles();
     const recipientType = useSelector(state => state.payment.form.searchBy);
     const dispatch = useDispatch();
-    const groups = useSelector(state=> state.groups.groups);
-    const individual = useSelector(state=> state.customers.customers);
+    const groups = useSelector(state => state.groups.groups);
+    const individual = useSelector(state => state.customers.customers);
     dispatch(updateSuggestions(recipientType.toString() === GROUP ? groups : individual));
 
     function handleSearchBy(event) {

@@ -45,7 +45,6 @@ export default function reducer(state = defaultState, action) {
                 form: {groupContentOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step}
             };
         case UPDATE_RECIPIENTS:
-            console.log("ACTION.VALUE: ", action.payload);
             return {
                 ...state,
                 payment: {

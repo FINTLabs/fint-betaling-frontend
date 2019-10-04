@@ -38,7 +38,6 @@ export function updateGroupContentOpen(value) {
 }
 
 export function updateRecipients(value) {
-    console.log("VALUE: ", value);
     return function (dispatch) {
         dispatch({type: UPDATE_RECIPIENTS, payload: value});
     }

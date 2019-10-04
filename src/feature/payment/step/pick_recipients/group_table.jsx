@@ -12,6 +12,7 @@ import {Collapse, makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {updateGroupContentOpen, updateRecipients} from "../../../../data/redux/actions/payment";
 
+
 const useStyles = makeStyles(theme => ({
     table: {
         overflow: 'auto',
@@ -39,21 +40,17 @@ const GroupTable = () => {
     const recipients = useSelector(state => state.payment.payment.recipients);
     const classes = useStyles();
 
-    console.log("checked:", recipients);
-
     function handleIndividualCheck(event) {
-        const newArray = Object.assign({}, recipients);
-        newArray[event.target.value] = event.target.checked;
+        const newArray = {...recipients};
+        newArray[event.target.value] = {"checked": event.target.checked, "name": event.target.name};
         dispatch(updateRecipients(newArray));
     }
 
     function handleGroupChange(event, individualList) {
-        console.log(event.target.checked);
-        console.log(individualList);
-        const newArray = Object.assign({}, recipients);
+        const newArray = {...recipients};
         for (let customer = 0; customer < individualList.length; customer++) {
             const customerNumber = individualList[customer].kundenummer;
-            newArray[customerNumber] = event.target.checked;
+            newArray[customerNumber] = {"checked": event.target.checked, "name": individualList[customer].fulltNavn};
         }
         dispatch(updateRecipients(newArray));
     }
@@ -61,22 +58,16 @@ const GroupTable = () => {
     function groupCheckboxCheck(kundeliste) {
         let status = true;
         for (let iterator = 0; iterator < kundeliste.length; iterator++) {
-            if (!recipients[kundeliste[iterator].kundenummer]) {
+            if (!recipients[kundeliste[iterator].kundenummer] || !recipients[kundeliste[iterator].kundenummer].checked) {
                 status = false;
             }
         }
         return status;
-
     }
 
     function handleGroupOpenClick(recipient) {
-        /*const newArray = [];
+        const newArray = {...groupContentOpen};
         newArray[recipient] = !groupContentOpen[recipient];
-        console.log(newArray);
-        dispatch(updateGroupContentOpen(...groupContentOpen, newArray));*/
-        const newArray = Object.assign({}, groupContentOpen);
-        newArray[recipient] = !groupContentOpen[recipient];
-        console.log(newArray);
         dispatch(updateGroupContentOpen(newArray));
     }
 
@@ -169,8 +160,9 @@ const GroupTable = () => {
                                                                         <TableCell align="center"
                                                                                    className={classes.tableCell}>
                                                                             <Checkbox onChange={handleIndividualCheck}
+                                                                                      name={kunde.fulltNavn}
                                                                                       value={kunde.kundenummer}
-                                                                                      checked={recipients[kunde.kundenummer] || false}/>
+                                                                                      checked={recipients[kunde.kundenummer] ? recipients[kunde.kundenummer].checked : false}/>
                                                                         </TableCell>
                                                                     </TableRow>
                                                                 );
@@ -188,7 +180,6 @@ const GroupTable = () => {
                 )
             }
         </Table>
-
     );
 };
 

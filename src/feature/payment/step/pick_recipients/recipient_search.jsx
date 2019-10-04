@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Paper from "@material-ui/core/Paper";
 import Autosuggest from "react-autosuggest";
 import {updateSearchValue, updateSuggestions} from "../../../../data/redux/actions/payment";
@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
         height: theme.spacing(2),
     },
     container: {
-        margin:theme.spacing(1),
+        margin: theme.spacing(1),
         maxWidth: 200,
     },
 }));
@@ -52,8 +52,8 @@ const RecipientSearch = () => {
     const recipientType = useSelector(state => state.payment.form.searchBy).toString();
     const dispatch = useDispatch();
     const filteredSuggestions = useSelector(state => state.payment.form.filteredSuggestions);
-    const groups = useSelector(state=> state.groups.groups);
-    const individual = useSelector(state=> state.customers.customers);
+    const groups = useSelector(state => state.groups.groups);
+    const individual = useSelector(state => state.customers.customers);
     const suggestions = recipientType === GROUP ?
         groups
         :
@@ -120,11 +120,6 @@ const RecipientSearch = () => {
     }
 
     function renderSuggestion(suggestion, {query, isHighlighted}) {
-    }
-
-    function handleAddToRecipient(event) {
-        console.log("handleAddToReciptient: ", event, event.currentTarget.dataset.value);
-        //dispatch(addRecipient(event.target.value));
     }
 
     function getSuggestionValue(suggestion) {
