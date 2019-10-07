@@ -7,7 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import {ListItemIcon, ListItemText, makeStyles} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Delete from '@material-ui/icons/Delete';
-import {updateRecipients} from "../../../../data/redux/actions/payment";
+import {updateRecipients, updateStep} from "../../../../data/redux/actions/payment";
 import Box from "@material-ui/core/Box";
 
 
@@ -69,6 +69,10 @@ function ConfirmRecipients(props) {
         dispatch(updateRecipients(newArray));
     }
 
+    function handleConfirmClick() {
+        dispatch(updateStep(1));
+    }
+
     if (recipients && Object.keys(recipients).length > 0) {
         let recipientKeys = Object.keys(recipients);
         return (
@@ -94,8 +98,8 @@ function ConfirmRecipients(props) {
                     }
                 </List>
                 <Box className={classes.buttonBox}>
-                    <Button variant="outlined" className={classes.cancelButton}>Tilbake</Button>
-                    <Button variant="outlined" className={classes.confirmButton}>Velg varer</Button>
+                    <Button variant="outlined" className={classes.cancelButton} onClick={onClose}>Tilbake</Button>
+                    <Button variant="outlined" className={classes.confirmButton} onClick={handleConfirmClick}>Velg varer</Button>
                 </Box>
             </Dialog>
         );

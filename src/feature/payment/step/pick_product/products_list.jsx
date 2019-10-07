@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import PaymentIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Chip from '@material-ui/core/Chip';
 import {Box, makeStyles, Typography} from "@material-ui/core";
-import {updateRecipients, updateStep} from "../../../../data/redux/actions/payment";
+import {updateProducts, updateRecipients, updateStep} from "../../../../data/redux/actions/payment";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -22,58 +22,66 @@ const useStyles = makeStyles(theme => ({
     chip: {
         flexDirection: "row",
         margin: theme.spacing(0.5),
-        backgroundColor: theme.palette.secondary.main,
+        backgroundColor: theme.palette.secondary.dark,
         color: theme.palette.secondary.contrastText,
     },
 }));
 
-const RecipientList = () => {
+const ProductList = () => {
     const classes = useStyles();
-    const recipientList = useSelector(state => state.payment.payment.recipients);
+    const productList = useSelector(state => state.payment.payment.products);
     const dispatch = useDispatch();
 
-    function countRecipients(recipientList) {
+    function countRecipients(productList) {
         let count = 0;
-        const keys = Object.keys(recipientList);
+        const keys = Object.keys(productList);
         keys.map(key => {
-            if (recipientList[key].checked)
+            if (productList[key].checked)
                 count++;
         })
         return count;
     };
 
     function handleDelete(key, label) {
-
-        if (countRecipients(recipientList) < 2) {
-            dispatch(updateStep(0));
-        }
-        const newArray = {...recipientList};
-        newArray[key] = {"checked": false, "name": label};
-        dispatch(updateRecipients(newArray))
+        const newArray = {...productList};
+        newArray[key] = {"checked": false};
+        dispatch(updateProducts(newArray))
+    }
+    function getTotalPrice(productList) {
+        let total = 0;
+        const keys = Object.keys(productList);
+        keys.map(key => {
+            if (productList[key].checked){
+                console.log(productList[key].price);
+            total = total+ parseInt(productList[key].price);
+            }
+        })
+        return (total/100).toFixed(2);
     }
 
-    const recipientHeaderText = countRecipients(recipientList) > 0 ?
-        <Typography variant="h6">Mine mottakere:</Typography> : "";
-    const recipientCountText = countRecipients(recipientList) > 0 ?
-        <Typography variant="h7">Antall: {countRecipients(recipientList)}</Typography> : "";
+    const productHeaderText = countRecipients(productList) > 0 ?
+        <Typography variant="h6">Valgte produkt:</Typography> : "";
 
-    let recipientListKeys = Object.keys(recipientList);
-    if (recipientList && Object.keys(recipientList).length > 0) {
+
+    const productPriceText = countRecipients(productList) > 0 ?
+        <Typography variant="h7">Totalt beløp: {getTotalPrice(productList)} </Typography> : "";
+    let productListKeys = Object.keys(productList);
+    if (productList && Object.keys(productList).length > 0) {
         return (
             <div className={classes.root}>
-                {recipientHeaderText}
+                {productHeaderText}
                 <Box className={classes.chipBox}>
                     {
-                        recipientListKeys.map(key => {
-                                if (recipientList[key].checked) {
+                        productListKeys.map(key => {
+                                if (productList[key].checked) {
                                     return (
                                         <Chip
                                             size="small"
                                             key={key}
                                             value={key}
-                                            onDelete={() => handleDelete(key, recipientList[key].name)}
+                                            onDelete={() => handleDelete(key, productList[key].name)}
                                             icon={PaymentIcon}
-                                            label={recipientList[key].name}
+                                            label={productList[key].name}
                                             className={classes.chip}
                                         >
                                         </Chip>
@@ -83,7 +91,7 @@ const RecipientList = () => {
                         )
                     }
                 </Box>
-                    {recipientCountText}
+                {productPriceText}
             </div>
         );
     } else {
@@ -91,4 +99,4 @@ const RecipientList = () => {
     }
 };
 
-export default RecipientList;
+export default ProductList;
