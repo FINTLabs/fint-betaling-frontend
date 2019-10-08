@@ -6,7 +6,12 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import {useDispatch, useSelector} from "react-redux";
 import RecipientSearch from "./recipient_search";
-import {updateSearchBy, updateSearchValue, updateSuggestions} from "../../../../data/redux/actions/payment";
+import {
+    updateConfirmRecipientsOpen,
+    updateSearchBy,
+    updateSearchValue, updateStep,
+    updateSuggestions
+} from "../../../../data/redux/actions/payment";
 import {GROUP, INDIVIDUAL} from "../../constants";
 import RecipientList from "./recipient_list";
 import Box from "@material-ui/core/Box";
@@ -43,8 +48,8 @@ const useStyles = makeStyles(theme => ({
 
 const PickPaymentRecipient = () => {
 
-    const [open, setOpen] = React.useState(false);
 
+    const open = useSelector(state => state.payment.form.confirmRecipientsOpen);
     const classes = useStyles();
     const recipientType = useSelector(state => state.payment.form.searchBy);
     const dispatch = useDispatch();
@@ -59,6 +64,7 @@ const PickPaymentRecipient = () => {
             confirmButtonDisabled = false;
         }
     }
+    console.log("open: ", open);
 
     function handleSearchBy(event) {
         dispatch(updateSearchBy(event.target.value));
@@ -66,12 +72,12 @@ const PickPaymentRecipient = () => {
         dispatch(updateSuggestions(event.target.value === GROUP ? groups : individual));
     }
 
-    function handleClickOpen() {
-        setOpen(true);
+    function handleConfirmButtonOpen() {
+        dispatch(updateConfirmRecipientsOpen(true));
     }
 
-    function handleClose() {
-        setOpen(false);
+    function handleCloseConfirmRecipients() {
+        dispatch(updateConfirmRecipientsOpen(false));
     }
 
     return (
@@ -86,9 +92,9 @@ const PickPaymentRecipient = () => {
                     </RadioGroup>
                     <RecipientSearch/>
 
-                    <ConfirmRecipients open={open} onClose={handleClose} handleAllRemoved={handleClose}/>
+                    <ConfirmRecipients open={open} onClose={handleCloseConfirmRecipients} handleAllRemoved={handleCloseConfirmRecipients}/>
                     <Button disabled={confirmButtonDisabled} variant="outlined" className={classes.confirmButton}
-                            onClick={handleClickOpen}>
+                            onClick={handleConfirmButtonOpen}>
                         Gå videre
                     </Button>
                 </FormControl>
