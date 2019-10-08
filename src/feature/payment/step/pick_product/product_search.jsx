@@ -50,11 +50,7 @@ const ProductSearch = () => {
     const suggestions = useSelector(state => state.orderLines.orderLines);
     const searchLabel = "Søk";
     const classes = useStyles();
-    const searchPlaceHolder = "Produkt";
-
-    console.log("Sugg: ", suggestions, filteredSuggestions);
-    console.log("SearchValue: ", searchValue);
-
+    const searchPlaceHolder = "Produktnavn eller produktkode";
 
     function renderInputComponent(inputProps) {
         const {

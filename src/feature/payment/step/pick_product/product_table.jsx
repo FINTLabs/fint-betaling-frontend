@@ -9,7 +9,11 @@ import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 import Checkbox from "@material-ui/core/Checkbox";
 import {makeStyles} from "@material-ui/core";
-import {updateProducts} from "../../../../data/redux/actions/payment";
+import {updateProductAmount, updateProducts} from "../../../../data/redux/actions/payment";
+import TextField from "@material-ui/core/TextField";
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -22,7 +26,12 @@ const useStyles = makeStyles(theme => ({
     tableCellNoPadding: {
         paddingTop: 0,
         paddingBottom: 0,
-    }
+    },
+    fab: {
+        backgroundColor: theme.palette.secondary.main,
+        color: theme.palette.secondary.contrastText,
+
+    },
 }));
 
 const ProductTable = () => {
@@ -31,16 +40,26 @@ const ProductTable = () => {
     let suggestions = useSelector(state => state.payment.product.filteredSuggestions);
     const query = useSelector(state => state.payment.product.searchValue);
     const pickedProducts = useSelector(state => state.payment.payment.products);
+    const productAmount = useSelector(state => state.payment.product.amount);
     suggestions = query.length === 0 ? [] : suggestions;
 
-    function handleIndividualCheck(event, kode, name, price) {
-        console.log(kode);
+    function handleIndividualCheck(event, code, name, price) {
         const newArray = {...pickedProducts};
-        newArray[kode] = {"checked": event.target.checked, "name": name, "price": price};
+        newArray[code] = {"checked": event.target.checked, "name": name, "price": price};
+        if (!productAmount[code]) {
+            event.target.value = 1;
+            handleAmountChange(event, code);
+        }
         dispatch(updateProducts(newArray));
     }
 
-    console.log(pickedProducts);
+    console.log(productAmount);
+
+    function handleAmountChange(event, code) {
+        const newArray = {...productAmount};
+        newArray[code] = {"amount": event.target.value};
+        dispatch(updateProductAmount(newArray));
+    }
 
     return (
         <Table className={classes.table}>
@@ -48,9 +67,10 @@ const ProductTable = () => {
                 <TableRow>
                     <TableCell>Kode</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Navn</TableCell>
+                    <TableCell align="right" className={classes.tableCell}>Enhet pris</TableCell>
+                    <TableCell align="right" className={classes.tableCell}>Antall</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Pris</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Velg</TableCell>
-
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -72,18 +92,42 @@ const ProductTable = () => {
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
                                         {suggestion.kode ?
-                                                suggestion.kode
-                                                : ""}
+                                            suggestion.kode
+                                            : ""}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
                                         {suggestion.pris ?
-                                            (suggestion.pris/100).toFixed(2)
-                                                : ""}
+                                            (suggestion.pris / 100).toFixed(2)
+                                            : ""}
+                                    </TableCell>
+                                    <TableCell align="right" className={classes.tableCell}>
+                                        <TextField
+                                            id="filled-number"
+                                            label="Antall"
+                                            value={productAmount[suggestion.kode] ? productAmount[suggestion.kode].amount ? productAmount[suggestion.kode].amount : 1 : 1}
+                                            onChange={(e) => handleAmountChange(e, suggestion.kode)}
+                                            type="number"
+                                            className={classes.textField}
+                                            InputLabelProps={{
+                                                shrink: true,
+                                            }}
+                                            InputProps={{inputProps: {min: 1, max: 10}}}
+                                            margin="normal"
+                                            variant="filled"
+                                        />
+                                    </TableCell>
+                                    <TableCell align="right" className={classes.tableCell}>
+                                        {suggestion.pris ?
+                                            (
+                                                (suggestion.pris / 100) *
+                                                (productAmount[suggestion.kode] ? productAmount[suggestion.kode].amount ? productAmount[suggestion.kode].amount : 1 : 1)
+                                            ).toFixed(2)
+                                            : ""}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
                                         <Checkbox
                                             checked={pickedProducts[suggestion.kode] ? pickedProducts[suggestion.kode].checked : false}
-                                            onChange={ (e) => handleIndividualCheck(e, suggestion.kode, suggestion.navn, suggestion.pris)}
+                                            onChange={(e) => handleIndividualCheck(e, suggestion.kode, suggestion.navn, suggestion.pris)}
                                         />
                                     </TableCell>
                                 </TableRow>

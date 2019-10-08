@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from "@material-ui/core";
-import {updateProductSuggestions,} from "../../../../data/redux/actions/payment";
+import {updateProductSuggestions, updateStep,} from "../../../../data/redux/actions/payment";
 import Box from "@material-ui/core/Box";
 import RecipientList from "../pick_recipients/recipient_list";
 import FormControl from "@material-ui/core/FormControl";
@@ -38,7 +38,6 @@ const useStyles = makeStyles(theme => ({
 
 const PickProducts = () => {
 
-    const products = useSelector(state => state.orderLines.orderLines);
     const pickedProducts = useSelector(state => state.payment.payment.products);
     const classes = useStyles();
     let confirmButtonDisabled = true;
@@ -51,6 +50,10 @@ const PickProducts = () => {
         }
     }
 
+    function handleOnClickConfirmProducts() {
+        dispatch(updateStep(2));
+    }
+
     return (
         <Box classes={classes.root}>
             <RecipientList/>
@@ -59,7 +62,12 @@ const PickProducts = () => {
                 <FormControl component="fieldset" className={classes.formControl}>
                     <ProductSearch/>
 
-                    <Button disabled={confirmButtonDisabled} variant="outlined" className={classes.confirmButton}>
+                    <Button
+                        disabled={confirmButtonDisabled}
+                        variant="outlined"
+                        className={classes.confirmButton}
+                        onClick={handleOnClickConfirmProducts}
+                    >
                         Gå videre
                     </Button>
                 </FormControl>

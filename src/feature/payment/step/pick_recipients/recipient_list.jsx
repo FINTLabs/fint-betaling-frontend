@@ -4,6 +4,7 @@ import PaymentIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Chip from '@material-ui/core/Chip';
 import {Box, makeStyles, Typography} from "@material-ui/core";
 import {updateRecipients, updateStep} from "../../../../data/redux/actions/payment";
+import {countChecked} from "../../utils/list_utils";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -32,19 +33,9 @@ const RecipientList = () => {
     const recipientList = useSelector(state => state.payment.payment.recipients);
     const dispatch = useDispatch();
 
-    function countRecipients(recipientList) {
-        let count = 0;
-        const keys = Object.keys(recipientList);
-        keys.map(key => {
-            if (recipientList[key].checked)
-                count++;
-        })
-        return count;
-    };
-
     function handleDelete(key, label) {
 
-        if (countRecipients(recipientList) < 2) {
+        if (countChecked(recipientList) < 2) {
             dispatch(updateStep(0));
         }
         const newArray = {...recipientList};
@@ -52,10 +43,11 @@ const RecipientList = () => {
         dispatch(updateRecipients(newArray))
     }
 
-    const recipientHeaderText = countRecipients(recipientList) > 0 ?
+    const recipientCounted = countChecked(recipientList);
+    const recipientHeaderText = recipientCounted > 0 ?
         <Typography variant="h6">Mine mottakere:</Typography> : "";
-    const recipientCountText = countRecipients(recipientList) > 0 ?
-        <Typography variant="h7">Antall: {countRecipients(recipientList)}</Typography> : "";
+    const recipientCountText = recipientCounted > 0 ?
+        <Typography variant="h7">Antall: {recipientCounted}</Typography> : "";
 
     let recipientListKeys = Object.keys(recipientList);
     if (recipientList && Object.keys(recipientList).length > 0) {

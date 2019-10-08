@@ -1,9 +1,9 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import PaymentIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Chip from '@material-ui/core/Chip';
 import {Box, makeStyles, Typography} from "@material-ui/core";
-import {updateProducts, updateRecipients, updateStep} from "../../../../data/redux/actions/payment";
+import {updateProducts} from "../../../../data/redux/actions/payment";
+import {countChecked, getTotalPrice} from "../../utils/list_utils";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,42 +30,24 @@ const useStyles = makeStyles(theme => ({
 const ProductList = () => {
     const classes = useStyles();
     const productList = useSelector(state => state.payment.payment.products);
+    const productAmount = useSelector(state => state.payment.product.amount);
+    const recipients = useSelector(state => state.payment.payment.recipients);
     const dispatch = useDispatch();
 
-    function countRecipients(productList) {
-        let count = 0;
-        const keys = Object.keys(productList);
-        keys.map(key => {
-            if (productList[key].checked)
-                count++;
-        })
-        return count;
-    };
-
-    function handleDelete(key, label) {
+    function handleDelete(key) {
         const newArray = {...productList};
         newArray[key] = {"checked": false};
         dispatch(updateProducts(newArray))
     }
-    function getTotalPrice(productList) {
-        let total = 0;
-        const keys = Object.keys(productList);
-        keys.map(key => {
-            if (productList[key].checked){
-                console.log(productList[key].price);
-            total = total+ parseInt(productList[key].price);
-            }
-        })
-        return (total/100).toFixed(2);
-    }
 
-    const productHeaderText = countRecipients(productList) > 0 ?
+    const productHeaderText = countChecked(productList) > 0 ?
         <Typography variant="h6">Valgte produkt:</Typography> : "";
 
+    const productPriceText = countChecked(productList) > 0 ?
+        <Typography variant="h7">Total beløp per mottaker: {getTotalPrice(productList, productAmount, recipients)} </Typography> : "";
 
-    const productPriceText = countRecipients(productList) > 0 ?
-        <Typography variant="h7">Totalt beløp: {getTotalPrice(productList)} </Typography> : "";
     let productListKeys = Object.keys(productList);
+
     if (productList && Object.keys(productList).length > 0) {
         return (
             <div className={classes.root}>
@@ -74,14 +56,14 @@ const ProductList = () => {
                     {
                         productListKeys.map(key => {
                                 if (productList[key].checked) {
+                                    const labelText = productList[key].name + " x" + productAmount[key].amount;
                                     return (
                                         <Chip
                                             size="small"
                                             key={key}
                                             value={key}
-                                            onDelete={() => handleDelete(key, productList[key].name)}
-                                            icon={PaymentIcon}
-                                            label={productList[key].name}
+                                            onDelete={() => handleDelete(key)}
+                                            label={labelText}
                                             className={classes.chip}
                                         >
                                         </Chip>

@@ -50,7 +50,15 @@ const GroupTable = () => {
         const newArray = {...recipients};
         for (let customer = 0; customer < individualList.length; customer++) {
             const customerNumber = individualList[customer].kundenummer;
-            newArray[customerNumber] = {"checked": event.target.checked, "name": individualList[customer].fulltNavn};
+            newArray[customerNumber] = {
+                "checked": event.target.checked,
+                "name": individualList[customer].fulltNavn,
+                "email": individualList[customer].kontaktinformasjon ? individualList[customer].kontaktinformasjon.epostadresse : "",
+                "cellPhoneNumber": individualList[customer].kontaktinformasjon ? individualList[customer].kontaktinformasjon.mobiltelefonnummer : "",
+                "addressLine": individualList[customer].postadresse ? individualList[customer].postadresse.adresselinje : "",
+                "addressZip": individualList[customer].postadresse ? individualList[customer].postadresse.postnummer : "",
+                "addressPlace": individualList[customer].postadresse ? individualList[customer].postadresse.poststed : "",
+            };
         }
         dispatch(updateRecipients(newArray));
     }

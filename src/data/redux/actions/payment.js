@@ -1,9 +1,15 @@
 import {
-    INITIALIZE_PAYMENT, UPDATE_CONFIRM_RECIPIENTS_OPEN,
-    UPDATE_GROUP_CONTENT_OPEN,
+    INITIALIZE_PAYMENT,
+    UPDATE_CONFIRM_RECIPIENTS_OPEN,
+    UPDATE_GROUP_CONTENT_OPEN, UPDATE_NEW_PRODUCT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
-    UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PRODUCT_SEARCH_VALUE, UPDATE_PRODUCT_SUGGESTIONS, UPDATE_PRODUCTS,
-    UPDATE_RECIPIENTS, UPDATE_STEP,
+    UPDATE_PAYMENT_SEARCH_VALUE,
+    UPDATE_PRODUCT_AMOUNT,
+    UPDATE_PRODUCT_SEARCH_VALUE,
+    UPDATE_PRODUCT_SUGGESTIONS,
+    UPDATE_PRODUCTS,
+    UPDATE_RECIPIENTS,
+    UPDATE_STEP,
     UPDATE_SUGGESTIONS
 } from "./actions";
 
@@ -67,5 +73,10 @@ export function updateProducts(value) {
 export function updateConfirmRecipientsOpen(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_CONFIRM_RECIPIENTS_OPEN, payload: value});
+    }
+}
+export function updateProductAmount(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_PRODUCT_AMOUNT, payload: value});
     }
 }

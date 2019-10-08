@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
     tableCellNoPadding: {
         paddingTop: 0,
         paddingBottom: 0,
-    }
+    },
+
 }));
 
 const IndividualTable = () => {
@@ -33,9 +34,17 @@ const IndividualTable = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    function handleIndividualCheck(event) {
+    function handleIndividualCheck(event, email, cellPhoneNumber, addressLine, addressZip, addressPlace) {
         const newArray = {...recipients};
-        newArray[event.target.value] = {"checked": event.target.checked, "name": event.target.name};
+        newArray[event.target.value] = {
+            "checked": event.target.checked,
+            "name": event.target.name,
+            "email": email,
+            "cellPhoneNumber": cellPhoneNumber,
+            "addressLine": addressLine,
+            "addressZip": addressZip,
+            "addressPlace": addressPlace,
+        };
         dispatch(updateRecipients(newArray));
     }
 
@@ -82,7 +91,14 @@ const IndividualTable = () => {
                                     <TableCell align="center" className={classes.tableCell}>
                                         <Checkbox
                                             checked={recipients[suggestion.kundenummer] ? recipients[suggestion.kundenummer].checked : false}
-                                            onChange={handleIndividualCheck} name={suggestion.fulltNavn}
+                                            onChange={(e)=> handleIndividualCheck(
+                                                e,
+                                                suggestion.kontaktinformasjon ? suggestion.kontaktinformasjon.epostadresse : "",
+                                                suggestion.kontaktinformasjon ? suggestion.kontaktinformasjon.mobiltelefonnummer : "",
+                                                suggestion.postadresse ? suggestion.postadresse.adresselinje : "",
+                                                suggestion.postadresse ? suggestion.postadresse.postnummer : "",
+                                                suggestion.postadresse ? suggestion.postadresse.poststed : "",
+                                            )} name={suggestion.fulltNavn}
                                             value={suggestion.kundenummer}/>
                                     </TableCell>
                                 </TableRow>

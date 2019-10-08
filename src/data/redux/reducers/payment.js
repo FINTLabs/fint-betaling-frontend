@@ -1,9 +1,15 @@
 import {
-    INITIALIZE_PAYMENT, UPDATE_CONFIRM_RECIPIENTS_OPEN,
-    UPDATE_GROUP_CONTENT_OPEN,
+    INITIALIZE_PAYMENT,
+    UPDATE_CONFIRM_RECIPIENTS_OPEN,
+    UPDATE_GROUP_CONTENT_OPEN, UPDATE_NEW_PRODUCT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
-    UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PRODUCT_SEARCH_VALUE, UPDATE_PRODUCT_SUGGESTIONS, UPDATE_PRODUCTS,
-    UPDATE_RECIPIENTS, UPDATE_STEP,
+    UPDATE_PAYMENT_SEARCH_VALUE,
+    UPDATE_PRODUCT_AMOUNT,
+    UPDATE_PRODUCT_SEARCH_VALUE,
+    UPDATE_PRODUCT_SUGGESTIONS,
+    UPDATE_PRODUCTS,
+    UPDATE_RECIPIENTS,
+    UPDATE_STEP,
     UPDATE_SUGGESTIONS
 } from "../actions/actions";
 import {GROUP} from "../../../feature/payment/constants";
@@ -24,6 +30,7 @@ export const defaultState = {
     product: {
         searchValue: '',
         filteredSuggestions: [],
+        amount: [],
     },
 };
 
@@ -71,14 +78,14 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 product: {
-                    searchValue: action.payload, filteredSuggestions : state.product.filteredSuggestions,
+                    searchValue: action.payload, filteredSuggestions : state.product.filteredSuggestions, amount: state.product.amount,
                 }
             };
         case UPDATE_PRODUCT_SUGGESTIONS:
             return {
                 ...state,
                 product: {
-                    filteredSuggestions: action.payload, searchValue : state.product.searchValue,
+                    filteredSuggestions: action.payload, searchValue : state.product.searchValue, amount: state.product.amount,
                 }
             };
         case UPDATE_PRODUCTS:
@@ -88,6 +95,14 @@ export default function reducer(state = defaultState, action) {
                     products: action.payload, recipients : state.payment.recipients,
                 }
             };
+        case UPDATE_PRODUCT_AMOUNT:
+            return {
+                ...state,
+                product: {
+                    amount: action.payload, searchValue: state.product.searchValue, filteredSuggestions :state.product.filteredSuggestions,
+                }
+            };
+
         default:
             return state;
 
