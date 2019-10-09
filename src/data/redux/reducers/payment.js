@@ -1,6 +1,6 @@
 import {
     INITIALIZE_PAYMENT,
-    UPDATE_CONFIRM_RECIPIENTS_OPEN,
+    UPDATE_CONFIRM_RECIPIENTS_OPEN, UPDATE_EXPIRATION_DATE,
     UPDATE_GROUP_CONTENT_OPEN, UPDATE_NEW_PRODUCT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE,
@@ -18,6 +18,7 @@ export const defaultState = {
     payment: {
         recipients: {},
         products: {},
+        expirationDate: '',
     },
     form: {
         step: 0,
@@ -66,7 +67,7 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 payment: {
-                    recipients: action.payload, products: state.payment.products,
+                    recipients: action.payload, products: state.payment.products, expirationDate: state.payment.expirationDate,
                 }
             };
         case UPDATE_STEP:
@@ -92,7 +93,14 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 payment: {
-                    products: action.payload, recipients : state.payment.recipients,
+                    products: action.payload, recipients : state.payment.recipients, expirationDate: state.payment.expirationDate,
+                }
+            };
+        case UPDATE_EXPIRATION_DATE:
+            return {
+                ...state,
+                payment: {
+                    expirationDate: action.payload, recipients : state.payment.recipients, products: state.payment.products,
                 }
             };
         case UPDATE_PRODUCT_AMOUNT:

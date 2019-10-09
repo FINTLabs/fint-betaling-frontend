@@ -9,6 +9,8 @@ import PickProducts from "./step/pick_product/pick_products";
 import * as Integer from "lodash";
 import ConfirmSend from "./step/confirm_send/confirm_send";
 import {fetchOrderLines} from "../../data/redux/actions/orderlines";
+import {fetchMva} from "../../data/redux/actions/mva";
+import {fetchDate} from "../../data/redux/actions/dates";
 
 const useStyles = makeStyles({
     root: {
@@ -24,6 +26,8 @@ const PaymentContainer = () => {
             dispatch(fetchCustomer());
             dispatch(fetchGroup());
             dispatch(fetchOrderLines());
+            dispatch(fetchMva());
+            dispatch(fetchDate());
         }, []
     );
 

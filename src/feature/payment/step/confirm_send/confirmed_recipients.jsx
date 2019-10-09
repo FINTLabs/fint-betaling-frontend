@@ -8,22 +8,29 @@ import TableBody from "@material-ui/core/TableBody";
 
 const useStyles = makeStyles(theme => ({
     root: {
+        display: "flex",
         width: '100%',
-        maxHeight: "250px",
-        overflow: "auto",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: theme.spacing(1),
     },
     paper: {
         marginTop: theme.spacing(3),
-        width: '100%',
-        overflowX: 'auto',
         marginBottom: theme.spacing(2),
     },
+    tableWrapper: {
+        maxHeight: 200,
+        overflow: 'auto',
+    },
     table: {
-        minWidth: 650,
     },
     tableBody: {
-        maxHeight: "60px",
-        overflow: "auto",
+    },
+    recipientHeader: {
+        justifyContent:"center",
+        backgroundColor: theme.palette.secondary.dark,
+        color: theme.palette.secondary.contrastText,
+        width: "200px",
     },
 }));
 
@@ -33,37 +40,43 @@ const ConfirmedRecipients = () => {
     let counter = 1;
     return (
         <Box className={classes.root}>
-            <Table className={classes.table} size="small">
-                <TableHead stickyHeader={true}>
-                    <TableRow>
-                        <TableCell>Nr.</TableCell>
-                        <TableCell align="right">Kundenummer</TableCell>
-                        <TableCell align="right">Navn</TableCell>
-                        <TableCell align="right">E-postadresse</TableCell>
-                        <TableCell align="right">Telefonnummer</TableCell>
-                        <TableCell align="right">Postadresse</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody className={classes.tableBody}>
-                    {
-                        Object.keys(recipients).map(key => {
-                            if (recipients[key].checked) {
-                                return (
-                                    <TableRow key={key}>
-                                        <TableCell>{counter++}</TableCell>
-                                        <TableCell align="right" component="th" scope="row">
-                                            {key}
-                                        </TableCell>
-                                        <TableCell align="right">{recipients[key].name}</TableCell>
-                                        <TableCell align="right">{recipients[key].email}</TableCell>
-                                        <TableCell align="right">{recipients[key].cellPhoneNumber}</TableCell>
-                                        <TableCell align="right">{recipients[key].addressLine + " " + recipients[key].addressZip + " " + recipients[key].addressPlace}</TableCell>
-                                    </TableRow>
-                                )
-                            }
-                        })}
-                </TableBody>
-            </Table>
+            <Typography variant="h5" className={classes.recipientHeader}>
+                Mottakere av faktura
+            </Typography>
+            <div className={classes.tableWrapper}>
+                <Table className={classes.table} stickyHeader size="small">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Nr.</TableCell>
+                            <TableCell align="right">Kundenummer</TableCell>
+                            <TableCell align="right">Navn</TableCell>
+                            <TableCell align="right">E-postadresse</TableCell>
+                            <TableCell align="right">Telefonnummer</TableCell>
+                            <TableCell align="right">Postadresse</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody className={classes.tableBody}>
+                        {
+                            Object.keys(recipients).map(key => {
+                                if (recipients[key].checked) {
+                                    return (
+                                        <TableRow key={key}>
+                                            <TableCell>{counter++}.</TableCell>
+                                            <TableCell align="right" component="th" scope="row">
+                                                {key}
+                                            </TableCell>
+                                            <TableCell align="right">{recipients[key].name}</TableCell>
+                                            <TableCell align="right">{recipients[key].email}</TableCell>
+                                            <TableCell align="right">{recipients[key].cellPhoneNumber}</TableCell>
+                                            <TableCell
+                                                align="right">{recipients[key].addressLine + " " + recipients[key].addressZip + " " + recipients[key].addressPlace}</TableCell>
+                                        </TableRow>
+                                    )
+                                }
+                            })}
+                    </TableBody>
+                </Table>
+            </div>
         </Box>
     );
 };

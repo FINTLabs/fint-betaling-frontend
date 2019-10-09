@@ -44,7 +44,7 @@ const ProductList = () => {
         <Typography variant="h6">Valgte produkt:</Typography> : "";
 
     const productPriceText = countChecked(productList) > 0 ?
-        <Typography variant="h7">Total beløp per mottaker: {getTotalPrice(productList, productAmount, recipients)} </Typography> : "";
+        <Typography variant="h7">Total beløp per mottaker: {getTotalPrice(productList, productAmount)} </Typography> : "";
 
     let productListKeys = Object.keys(productList);
 

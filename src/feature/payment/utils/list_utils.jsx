@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function getTotalPrice(productList, productAmount, recipientList) {
+export function getTotalPrice(productList, productAmount) {
     let total = 0;
     const keys = Object.keys(productList);
     keys.map(key => {

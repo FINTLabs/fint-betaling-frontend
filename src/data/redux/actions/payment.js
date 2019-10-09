@@ -1,6 +1,6 @@
 import {
     INITIALIZE_PAYMENT,
-    UPDATE_CONFIRM_RECIPIENTS_OPEN,
+    UPDATE_CONFIRM_RECIPIENTS_OPEN, UPDATE_EXPIRATION_DATE,
     UPDATE_GROUP_CONTENT_OPEN, UPDATE_NEW_PRODUCT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE,
@@ -78,5 +78,10 @@ export function updateConfirmRecipientsOpen(value) {
 export function updateProductAmount(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_PRODUCT_AMOUNT, payload: value});
+    }
+}
+export function updateExpirationDate(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_EXPIRATION_DATE, payload: value});
     }
 }
