@@ -1,16 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Box, makeStyles} from "@material-ui/core";
 import PaymentStepper from "./payment_stepper";
-import {useDispatch, useSelector} from "react-redux";
-import {fetchCustomer} from "../../data/redux/actions/customers";
-import {fetchGroup} from "../../data/redux/actions/groups";
+import {useSelector} from "react-redux";
 import PickPaymentRecipient from "./step/pick_recipients/pick_recipient";
 import PickProducts from "./step/pick_product/pick_products";
 import * as Integer from "lodash";
 import ConfirmSend from "./step/confirm_send/confirm_send";
-import {fetchOrderLines} from "../../data/redux/actions/orderlines";
-import {fetchMva} from "../../data/redux/actions/mva";
-import {fetchDate} from "../../data/redux/actions/dates";
 
 const useStyles = makeStyles({
     root: {
@@ -21,15 +16,7 @@ const useStyles = makeStyles({
 const PaymentContainer = () => {
     const classes = useStyles();
     const step = useSelector(state => state.payment.form.step);
-    const dispatch = useDispatch();
-    useEffect(() => {
-            dispatch(fetchCustomer());
-            dispatch(fetchGroup());
-            dispatch(fetchOrderLines());
-            dispatch(fetchMva());
-            dispatch(fetchDate());
-        }, []
-    );
+
 
     let content;
     if (Integer.parseInt(step.toString()) === 0) {
