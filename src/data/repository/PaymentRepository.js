@@ -33,7 +33,7 @@ class PaymentRepository {
         }).then(result => {
             return result.json();
         }).catch(error => console.log(error));
-    }
+    }*/
 
     static setPayment(orgId, customers, orderLines, mvaCode, employer, timeFrameDueDate) {
         const request = new Request('/repository/payment',
@@ -57,7 +57,7 @@ class PaymentRepository {
         }).catch(error => {
             return error
         });
-    }*/
+    }
 
 }
 

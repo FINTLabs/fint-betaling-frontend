@@ -8,7 +8,7 @@ import {
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS,
-    UPDATE_RECIPIENTS,
+    UPDATE_RECIPIENTS, UPDATE_SCHOOL,
     UPDATE_STEP,
     UPDATE_SUGGESTIONS
 } from "./actions";
@@ -83,5 +83,10 @@ export function updateProductAmount(value) {
 export function updateExpirationDate(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_EXPIRATION_DATE, payload: value});
+    }
+}
+export function updateSchool(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_SCHOOL, payload: value});
     }
 }

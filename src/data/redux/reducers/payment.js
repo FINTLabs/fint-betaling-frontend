@@ -8,7 +8,7 @@ import {
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS,
-    UPDATE_RECIPIENTS,
+    UPDATE_RECIPIENTS, UPDATE_SCHOOL,
     UPDATE_STEP,
     UPDATE_SUGGESTIONS
 } from "../actions/actions";
@@ -16,6 +16,7 @@ import {GROUP} from "../../../feature/payment/constants";
 
 export const defaultState = {
     payment: {
+        school: '',
         recipients: {},
         products: {},
         expirationDate: '',
@@ -67,7 +68,7 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 payment: {
-                    recipients: action.payload, products: state.payment.products, expirationDate: state.payment.expirationDate,
+                    recipients: action.payload, products: state.payment.products, expirationDate: state.payment.expirationDate, school: state.payment.school,
                 }
             };
         case UPDATE_STEP:
@@ -93,14 +94,21 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 payment: {
-                    products: action.payload, recipients : state.payment.recipients, expirationDate: state.payment.expirationDate,
+                    products: action.payload, recipients : state.payment.recipients, expirationDate: state.payment.expirationDate, school: state.payment.school,
                 }
             };
         case UPDATE_EXPIRATION_DATE:
             return {
                 ...state,
                 payment: {
-                    expirationDate: action.payload, recipients : state.payment.recipients, products: state.payment.products,
+                    expirationDate: action.payload, recipients : state.payment.recipients, products: state.payment.products, school: state.payment.school,
+                }
+            };
+        case UPDATE_SCHOOL:
+            return {
+                ...state,
+                payment: {
+                    school: action.payload, recipients : state.payment.recipients, products: state.payment.products, expirationDate: state.payment.expirationDate,
                 }
             };
         case UPDATE_PRODUCT_AMOUNT:

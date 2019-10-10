@@ -1,6 +1,6 @@
 class GroupRepository {
     static fetchAllCustomerGroups() {
-        const url = '/api/group';
+        const url = '/api/group/basisgruppe';
         return fetch(url, {
             method: "GET",
             //headers: new Headers({ 'x-org-id': orgId })
