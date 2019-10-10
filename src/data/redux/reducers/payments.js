@@ -1,4 +1,4 @@
-import {FETCH_PAYMENTS, FETCH_PAYMENTS_FULFILLED, FETCH_PAYMENTS_REJECTED} from "../actions/actions";
+import {ADD_NEW_PAYMENT, FETCH_PAYMENTS, FETCH_PAYMENTS_FULFILLED, FETCH_PAYMENTS_REJECTED} from "../actions/actions";
 
 
 export const defaultState = {
@@ -20,7 +20,6 @@ export default function reducer(state = defaultState, action) {
 
         case FETCH_PAYMENTS_REJECTED:
             return {...state, isLoading: false, loaded: false, error: true, errorMessage: action.payload};
-
         default:
             return state;
 

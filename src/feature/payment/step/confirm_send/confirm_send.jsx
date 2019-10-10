@@ -4,7 +4,9 @@ import ConfirmedRecipients from "./confirmed_recipients";
 import ConfirmedProducts from "./confirmed_products";
 import ExpirationDatePicker from "./expiration_date_picker";
 import Button from "@material-ui/core/Button";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {addNewPayment} from "../../../../data/redux/actions/payments";
+import {updateStep} from "../../../../data/redux/actions/payment";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,8 +31,7 @@ const useStyles = makeStyles(theme => ({
         "&:enabled": {
             backgroundColor: theme.palette.secondary.main,
         },
-        "&:disabled": {
-        },
+        "&:disabled": {},
         verticalAlign: "bottom",
         margin: theme.spacing(2),
     },
@@ -42,6 +43,68 @@ const ConfirmSend = () => {
     let confirmButtonDisabled = true;
     if (expirationDate)
         confirmButtonDisabled = false;
+    const dispatch = useDispatch();
+    const recipients = useSelector(state => state.payment.payment.recipients);
+    const products = useSelector(state => state.payment.payment.products);
+    const productsAmount = useSelector(state => state.payment.product.amount);
+    const customers = useSelector(state => state.customers.customers);
+    const orderLines = useSelector(state => state.orderLines.orderLines);
+    const mva = useSelector(state => state.mva.mva);
+    const employer = useSelector(state => state.employers.employers);
+
+    function handleSendInvoice() {
+        function getRecipientsAsObjects(recipients) {
+            let list = [];
+            Object.keys(recipients).map(key => {
+                for (let i = 0; i < customers.length; i++) {
+                    const customer = customers[i];
+                    if (key === customer.kundenummer) {
+                        console.log(i + ". " + key);
+                        list.push(customer);
+                    }
+                }
+            });
+            return list;
+        }
+
+        function getProductsAsObjects(products, productsAmount) {
+            let list = [];
+            let orderLineFromProducts;
+            Object.keys(products).map(key => {
+                for (let i = 0; i < orderLines.length; i++) {
+                    if (orderLines[i].kode === key){
+                        orderLineFromProducts = orderLines[i];
+                    console.log(i + ". " + orderLines[i]);
+                    }
+                }
+                    const orderLine = {
+                        amount: productsAmount[key].amount,
+                        description: products[key].name,
+                        orderLine: orderLineFromProducts,
+                    };
+                    list.push(orderLine);
+
+            });
+            console.log("list: ", list);
+            return list;
+        }
+
+
+        const recipientsList = getRecipientsAsObjects(recipients);
+
+        const productList = getProductsAsObjects(products, productsAmount);
+
+        addNewPayment(
+            '',
+            recipientsList,
+            productList,
+            mva[0],
+            employer[0],
+            expirationDate
+            );
+        dispatch(updateStep(3));
+    }
+
     return (
         <Box className={classes.root}>
             <Paper className={classes.confirmPaper}>
@@ -49,7 +112,8 @@ const ConfirmSend = () => {
                 <ConfirmedProducts/>
                 <Box className={classes.expirationContainer}>
                     <ExpirationDatePicker/>
-                    <Button disabled={confirmButtonDisabled} className={classes.confirmButton}>Send fakturaer</Button>
+                    <Button disabled={confirmButtonDisabled} className={classes.confirmButton}
+                            onClick={handleSendInvoice}>Send fakturaer</Button>
                 </Box>
             </Paper>
         </Box>

@@ -6,6 +6,7 @@ import PickPaymentRecipient from "./step/pick_recipients/pick_recipient";
 import PickProducts from "./step/pick_product/pick_products";
 import * as Integer from "lodash";
 import ConfirmSend from "./step/confirm_send/confirm_send";
+import PaymentSent from "./step/payment_sent/payment_sent";
 
 const useStyles = makeStyles({
     root: {
@@ -17,7 +18,6 @@ const PaymentContainer = () => {
     const classes = useStyles();
     const step = useSelector(state => state.payment.form.step);
 
-
     let content;
     if (Integer.parseInt(step.toString()) === 0) {
         content = <PickPaymentRecipient/>;
@@ -25,6 +25,8 @@ const PaymentContainer = () => {
         content = <PickProducts/>
     } else if (Integer.parseInt(step.toString()) === 2) {
         content = <ConfirmSend/>
+    } else if (Integer.parseInt(step.toString()) === 3) {
+        content = <PaymentSent/>
     }
 
     return (

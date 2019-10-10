@@ -13,7 +13,7 @@ export function fetchGroup() {
             }).catch((error) => {
                 dispatch({type: FETCH_GROUPS_REJECTED, payload: error})
             });
-        }, 3000);
+        }, 1000);
 
     }
 }
