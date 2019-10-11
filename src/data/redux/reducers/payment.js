@@ -3,7 +3,7 @@ import {
     UPDATE_CONFIRM_RECIPIENTS_OPEN, UPDATE_EXPIRATION_DATE,
     UPDATE_GROUP_CONTENT_OPEN, UPDATE_NEW_PRODUCT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
-    UPDATE_PAYMENT_SEARCH_VALUE,
+    UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PAYMENTS_SEARCH_BY, UPDATE_PAYMENTS_SEARCH_VALUE, UPDATE_PAYMENTS_SUGGESTIONS,
     UPDATE_PRODUCT_AMOUNT,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
@@ -12,11 +12,12 @@ import {
     UPDATE_STEP,
     UPDATE_SUGGESTIONS
 } from "../actions/actions";
-import {GROUP} from "../../../feature/payment/constants";
+import {GROUP, ORDER_NUMBER} from "../../../feature/payment/constants";
+import payments from "./payments";
 
 export const defaultState = {
     payment: {
-        school: '',
+        school: 'dummyvalue',
         recipients: {},
         products: {},
         expirationDate: '',
@@ -34,6 +35,11 @@ export const defaultState = {
         filteredSuggestions: [],
         amount: [],
     },
+    payments:{
+        searchValue: '',
+        filteredSuggestions: [],
+        searchBy: ORDER_NUMBER,
+    }
 };
 
 export default function reducer(state = defaultState, action) {
@@ -118,7 +124,27 @@ export default function reducer(state = defaultState, action) {
                     amount: action.payload, searchValue: state.product.searchValue, filteredSuggestions :state.product.filteredSuggestions,
                 }
             };
-
+        case UPDATE_PAYMENTS_SEARCH_BY:
+            return {
+                ...state,
+                payments: {
+                    searchBy: action.payload, searchValue: state.payments.searchValue, filteredSuggestions : state.payments.filteredSuggestions,
+                }
+            };
+        case UPDATE_PAYMENTS_SUGGESTIONS:
+            return {
+                ...state,
+                payments: {
+                    filteredSuggestions: action.payload, searchBy: state.payments.searchBy, searchValue : state.payments.searchValue,
+                }
+            };
+        case UPDATE_PAYMENTS_SEARCH_VALUE:
+            return {
+                ...state,
+                payments: {
+                    searchValue: action.payload, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions,
+                }
+            };
         default:
             return state;
 

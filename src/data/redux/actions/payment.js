@@ -1,9 +1,9 @@
 import {
     INITIALIZE_PAYMENT,
     UPDATE_CONFIRM_RECIPIENTS_OPEN, UPDATE_EXPIRATION_DATE,
-    UPDATE_GROUP_CONTENT_OPEN, UPDATE_NEW_PRODUCT_OPEN,
+    UPDATE_GROUP_CONTENT_OPEN, UPDATE_NEW_PRODUCT_OPEN, UPDATE_PAYMENT_ORDER_SEARCH_VALUE,
     UPDATE_PAYMENT_SEARCH_BY,
-    UPDATE_PAYMENT_SEARCH_VALUE,
+    UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PAYMENTS_SEARCH_BY, UPDATE_PAYMENTS_SEARCH_VALUE, UPDATE_PAYMENTS_SUGGESTIONS,
     UPDATE_PRODUCT_AMOUNT,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
@@ -88,5 +88,22 @@ export function updateExpirationDate(value) {
 export function updateSchool(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_SCHOOL, payload: value});
+    }
+}
+
+export function updatePaymentsSearchValue(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_PAYMENTS_SEARCH_VALUE, payload: value});
+    }
+}
+
+export function updatePaymentsSuggestions(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_PAYMENTS_SUGGESTIONS, payload: value});
+    }
+}
+export function updatePaymentsSearchBy(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_PAYMENTS_SEARCH_BY, payload: value});
     }
 }

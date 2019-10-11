@@ -5,7 +5,6 @@ import GroupRepository from "../../repository/GroupRepository";
 export function fetchGroup() {
     return function (dispatch) {
         dispatch({type: FETCH_GROUPS});
-        setTimeout(()=> {
             GroupRepository.fetchAllCustomerGroups().then(([result, json]) => {
                 if (result.status === 200) {
                     dispatch({type: FETCH_GROUPS_FULFILLED, payload: json});
@@ -13,7 +12,5 @@ export function fetchGroup() {
             }).catch((error) => {
                 dispatch({type: FETCH_GROUPS_REJECTED, payload: error})
             });
-        }, 1000);
-
     }
 }

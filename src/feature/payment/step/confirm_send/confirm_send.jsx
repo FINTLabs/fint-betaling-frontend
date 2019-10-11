@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {addNewPayment} from "../../../../data/redux/actions/payments";
 import {updateStep} from "../../../../data/redux/actions/payment";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -17,6 +18,8 @@ const useStyles = makeStyles(theme => ({
         alignContent: "center",
         textAlign: "center",
         flex: "0 0 25rem",
+        flexDirection: "column",
+
     },
     confirmPaper: {
         display: "flex",
@@ -34,6 +37,9 @@ const useStyles = makeStyles(theme => ({
         "&:disabled": {},
         verticalAlign: "bottom",
         margin: theme.spacing(2),
+    },
+    titleText: {
+        color: theme.palette.secondary.main,
     },
 }));
 
@@ -107,6 +113,11 @@ const ConfirmSend = () => {
 
     return (
         <Box className={classes.root}>
+            <Paper>
+                <Typography variant="h4" className={classes.titleText}>
+                    Velg forfall og send
+                </Typography>
+            </Paper>
             <Paper className={classes.confirmPaper}>
                 <ConfirmedRecipients/>
                 <ConfirmedProducts/>
