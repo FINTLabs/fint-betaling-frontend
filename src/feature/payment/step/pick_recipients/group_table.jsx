@@ -63,10 +63,10 @@ const GroupTable = () => {
         dispatch(updateRecipients(newArray));
     }
 
-    function groupCheckboxCheck(kundeliste) {
+    function groupShouldBeChecked(customerList) {
         let status = true;
-        for (let iterator = 0; iterator < kundeliste.length; iterator++) {
-            if (!recipients[kundeliste[iterator].kundenummer] || !recipients[kundeliste[iterator].kundenummer].checked) {
+        for (let iterator = 0; iterator < customerList.length; iterator++) {
+            if (!recipients[customerList[iterator].kundenummer] || !recipients[customerList[iterator].kundenummer].checked) {
                 status = false;
             }
         }
@@ -77,6 +77,17 @@ const GroupTable = () => {
         const newArray = {...groupContentOpen};
         newArray[recipient] = !groupContentOpen[recipient];
         dispatch(updateGroupContentOpen(newArray));
+    }
+
+    function groupCheckboxIndeterminateCheck(customerList) {
+        let partlyChecked = false;
+        for (let iterator = 0; iterator < customerList.length; iterator++) {
+            if (recipients[customerList[iterator].kundenummer] && recipients[customerList[iterator].kundenummer].checked) {
+                partlyChecked = true;
+                console.log("JEg kom hit!");
+            }
+        }
+        return partlyChecked;
     }
 
     return (
@@ -112,7 +123,8 @@ const GroupTable = () => {
                                     <TableCell align="center" className={classes.tableCell}>
                                         <Checkbox onChange={event => handleGroupChange(event, suggestion.kundeliste)}
                                                   value={suggestion.kundeliste}
-                                                  checked={groupCheckboxCheck(suggestion.kundeliste)}/>
+                                                  indeterminate={groupShouldBeChecked(suggestion.kundeliste) ? false : groupCheckboxIndeterminateCheck(suggestion.kundeliste)}
+                                                  checked={groupShouldBeChecked(suggestion.kundeliste)}/>
                                     </TableCell>
                                     <TableCell
                                         align="center"
