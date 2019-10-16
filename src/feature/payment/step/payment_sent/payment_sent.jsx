@@ -1,5 +1,5 @@
 import React from 'react';
-import {ListItemText, makeStyles, Paper, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core";
+import {ListItemText, makeStyles, Paper} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
@@ -50,17 +50,17 @@ const useStyles = makeStyles(theme => ({
     recipientListWrapper: {
         maxHeight: 200,
         overflow: "auto",
-        textAlign:"left",
+        textAlign: "left",
     },
-        listItemBox: {
+    listItemBox: {
         display: "inline",
 
-        },
+    },
     recipientListItem: {
         display: "inline-block",
         flexDirection: "column",
         width: "30%",
-        textAlign:"end",
+        textAlign: "end",
         marginLeft: theme.spacing(2),
     },
     listItemPrimary: {
@@ -85,15 +85,12 @@ const useStyles = makeStyles(theme => ({
 const PaymentSent = () => {
     const classes = useStyles();
     const expirationDays = useSelector(state => state.payment.payment.expirationDate);
-    const dispatch = useDispatch();
     const recipients = useSelector(state => state.payment.payment.recipients);
-    const products = useSelector(state => state.payment.payment.products);
-    const productsAmount = useSelector(state => state.payment.product.amount);
 
     function getTodayDate() {
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
         const yyyy = today.getFullYear();
 
         today = mm + '/' + dd + '/' + yyyy;
@@ -104,7 +101,7 @@ const PaymentSent = () => {
         let expirationDate = new Date();
         expirationDate.setDate(expirationDate.getDate() + parseInt(expirationDays.toString()));
         const dd = String(expirationDate.getDate()).padStart(2, '0');
-        const mm = String(expirationDate.getMonth() + 1).padStart(2, '0'); //January is 0!
+        const mm = String(expirationDate.getMonth() + 1).padStart(2, '0');
         const yyyy = expirationDate.getFullYear();
         expirationDate = mm + '/' + dd + '/' + yyyy;
         return expirationDate;
@@ -143,24 +140,26 @@ const PaymentSent = () => {
                 <Box className={classes.recipientListWrapper}>
                     <List disablePadding>
                         <Box flexDirection="row" className={classes.listItemBox}>
-                        {Object.keys(recipients).map(key => {
-                            if (recipients[key].checked) {
-                                return (
-                                    <ListItem border={1} className={classes.recipientListItem} divider>
-                                        <ListItemText className={classes.listItemPrimary}
-                                                      disableTypography
-                                            primary={<Typography className={classes.listItemPrimaryText}>{recipients[key].name}</Typography>}
-                                        />
-                                        <ListItemText
-                                            primary={<Typography className={classes.listItemSecondaryText}>Klasse: 1XXX</Typography>}
-                                            className={classes.listItemSecondary}
-                                        >
+                            {Object.keys(recipients).map(key => {
+                                if (recipients[key].checked) {
+                                    return (
+                                        <ListItem border={1} className={classes.recipientListItem} divider>
+                                            <ListItemText className={classes.listItemPrimary}
+                                                          disableTypography
+                                                          primary={<Typography
+                                                              className={classes.listItemPrimaryText}>{recipients[key].name}</Typography>}
+                                            />
+                                            <ListItemText
+                                                primary={<Typography className={classes.listItemSecondaryText}>Klasse:
+                                                    1XXX</Typography>}
+                                                className={classes.listItemSecondary}
+                                            >
 
-                                        </ListItemText>
-                                    </ListItem>
-                                )
-                            }
-                        })}
+                                            </ListItemText>
+                                        </ListItem>
+                                    )
+                                }
+                            })}
                         </Box>
                     </List>
                 </Box>

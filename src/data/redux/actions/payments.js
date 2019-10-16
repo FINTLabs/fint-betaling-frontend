@@ -22,7 +22,6 @@ export function addNewPayment() {
     return function (dispatch) {
         dispatch({type: ADD_NEW_PAYMENT});
 
-
         PaymentRepository.setPayment().then(([result, json]) => {
             console.log("Payments Result: ", result);
             console.log("Payments Json: ", json);

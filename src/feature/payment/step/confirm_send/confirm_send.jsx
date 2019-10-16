@@ -5,9 +5,10 @@ import ConfirmedProducts from "./confirmed_products";
 import ExpirationDatePicker from "./expiration_date_picker";
 import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {addNewPayment} from "../../../../data/redux/actions/payments";
+import {addNewPayment, fetchPayment} from "../../../../data/redux/actions/payments";
 import {updateStep} from "../../../../data/redux/actions/payment";
 import Typography from "@material-ui/core/Typography";
+import PaymentRepository from "../../../../data/repository/PaymentRepository";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -57,6 +58,7 @@ const ConfirmSend = () => {
     const orderLines = useSelector(state => state.orderLines.orderLines);
     const mva = useSelector(state => state.mva.mva);
     const employer = useSelector(state => state.employers.employers);
+    const orgId = "fintlabs.no";
 
     function handleSendInvoice() {
         function getRecipientsAsObjects(recipients) {
@@ -100,15 +102,25 @@ const ConfirmSend = () => {
 
         const productList = getProductsAsObjects(products, productsAmount);
 
-        addNewPayment(
-            '',
-            recipientsList,
-            productList,
+        console.log("SENDER INN PAYMENT: ", orgId,
+            JSON.parse(JSON.stringify(recipientsList)),
+            JSON.parse(JSON.stringify(productList)),
+            mva[0],
+            employer[0],
+            expirationDate)
+
+        PaymentRepository.setPayment(
+            orgId,
+            JSON.parse(JSON.stringify(recipientsList)),
+                JSON.parse(JSON.stringify(productList)),
             mva[0],
             employer[0],
             expirationDate
-            );
-        dispatch(updateStep(3));
+            ).then(data => {
+            console.log(data);
+            dispatch(updateStep(3));
+            dispatch(fetchPayment());
+        });
     }
 
     return (

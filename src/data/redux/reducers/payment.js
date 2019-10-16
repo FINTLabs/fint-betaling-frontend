@@ -1,14 +1,21 @@
 import {
     INITIALIZE_PAYMENT,
-    UPDATE_CONFIRM_RECIPIENTS_OPEN, UPDATE_EXPIRATION_DATE,
-    UPDATE_GROUP_CONTENT_OPEN, UPDATE_NEW_PRODUCT_OPEN,
+    UPDATE_CONFIRM_RECIPIENTS_OPEN,
+    UPDATE_EXPIRATION_DATE,
+    UPDATE_GROUP_CONTENT_OPEN,
+    UPDATE_NEW_PRODUCT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
-    UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PAYMENTS_SEARCH_BY, UPDATE_PAYMENTS_SEARCH_VALUE, UPDATE_PAYMENTS_SUGGESTIONS,
+    UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
+    UPDATE_PAYMENTS_DIALOG_OPEN,
+    UPDATE_PAYMENTS_SEARCH_BY,
+    UPDATE_PAYMENTS_SEARCH_VALUE,
+    UPDATE_PAYMENTS_SUGGESTIONS,
     UPDATE_PRODUCT_AMOUNT,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS,
-    UPDATE_RECIPIENTS, UPDATE_SCHOOL,
+    UPDATE_RECIPIENTS,
+    UPDATE_SCHOOL,
     UPDATE_STEP,
     UPDATE_SUGGESTIONS
 } from "../actions/actions";
@@ -39,6 +46,8 @@ export const defaultState = {
         searchValue: '',
         filteredSuggestions: [],
         searchBy: ORDER_NUMBER,
+        dialogOpen: false,
+        dialogOrderNumber: '',
     }
 };
 
@@ -128,21 +137,35 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 payments: {
-                    searchBy: action.payload, searchValue: state.payments.searchValue, filteredSuggestions : state.payments.filteredSuggestions,
+                    searchBy: action.payload, searchValue: state.payments.searchValue, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,
                 }
             };
         case UPDATE_PAYMENTS_SUGGESTIONS:
             return {
                 ...state,
                 payments: {
-                    filteredSuggestions: action.payload, searchBy: state.payments.searchBy, searchValue : state.payments.searchValue,
+                    filteredSuggestions: action.payload, searchBy: state.payments.searchBy, searchValue : state.payments.searchValue, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,
                 }
             };
         case UPDATE_PAYMENTS_SEARCH_VALUE:
             return {
                 ...state,
                 payments: {
-                    searchValue: action.payload, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions,
+                    searchValue: action.payload, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,
+                }
+            };
+        case UPDATE_PAYMENTS_DIALOG_OPEN:
+            return {
+                ...state,
+                payments: {
+                    dialogOpen: action.payload ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOrderNumber: state.payments.dialogOrderNumber,
+                }
+            };
+        case UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER:
+            return {
+                ...state,
+                payments: {
+                    dialogOrderNumber: action.payload ,dialogOpen: state.payments.dialogOpen ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions,
                 }
             };
         default:
