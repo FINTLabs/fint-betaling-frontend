@@ -28,8 +28,7 @@ const useStyles = makeStyles(theme => ({
     },
     recipientHeader: {
         justifyContent:"center",
-        backgroundColor: theme.palette.secondary.dark,
-        color: theme.palette.secondary.contrastText,
+        color: theme.palette.secondary.main,
         width: "200px",
     },
 }));

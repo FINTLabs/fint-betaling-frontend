@@ -28,8 +28,7 @@ const useStyles = makeStyles(theme => ({
     },
     recipientHeader: {
         justifyContent:"center",
-        backgroundColor: theme.palette.secondary.dark,
-        color: theme.palette.secondary.contrastText,
+        color: theme.palette.secondary.main,
         width: "200px",
     },
 }));
@@ -41,8 +40,8 @@ const ConfirmedProducts = () => {
     let counter = 1;
     return (
         <Box className={classes.root}>
-            <Typography variant="h5" className={classes.recipientHeader}>
-                Valgte produkter
+            <Typography variant="h6" className={classes.recipientHeader}>
+                Produkter
             </Typography>
             <div className={classes.tableWrapper}>
                 <Table className={classes.table} stickyHeader size="small">

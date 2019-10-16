@@ -67,7 +67,7 @@ const LoadingPage = (props) => {
     const {progress} = props;
     let linearProgressValue = (progress * 100) / 8;
     let dispatch = useDispatch();
-    const circularProgress = linearProgressValue !== 100 ? <CircularProgress className={classes.progress}/> : <div></div>;
+    const circularProgress = linearProgressValue !== 100 ? <CircularProgress className={classes.progress}/> : <div/>;
     const loadingMessage = linearProgressValue !== 100 ? "Loading... " + linearProgressValue + "%" : "Skoledata ferdig lastet. Venter på ditt skolevalg";
 
     function handleSchoolChange(event) {

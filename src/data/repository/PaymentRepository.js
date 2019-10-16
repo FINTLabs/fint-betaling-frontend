@@ -36,7 +36,8 @@ class PaymentRepository {
     }*/
 
     static setPayment(orgId, customers, orderLines, mvaCode, employer, timeFrameDueDate) {
-        const request = new Request('/repository/payment',
+        console.log("orgId: ", orgId);
+        const request = new Request('/api/payment',
             {
                 method: 'POST',
                 headers: new Headers({
