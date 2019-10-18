@@ -10,7 +10,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import {Collapse, makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {updateGroupContentOpen, updateRecipients} from "../../../../data/redux/actions/payment";
+import {updateGroupContentOpen, updateRecipients, updateSearchPage} from "../../../../data/redux/actions/payment";
+import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
+import TablePagination from "@material-ui/core/TablePagination";
 
 
 const useStyles = makeStyles(theme => ({
@@ -33,6 +35,10 @@ const useStyles = makeStyles(theme => ({
 const GroupTable = () => {
     const query = useSelector(state => state.payment.form.searchValue);
     let suggestions = useSelector(state => state.payment.form.filteredSuggestions);
+    const activePage = useSelector(state => state.payment.form.page);
+    const rowsPerPage = 10;
+    const suggestionLengthTemp = useSelector(state => state.payment.form.suggestionLength);
+    const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
     const dispatch = useDispatch();
     suggestions = query.length === 0 ? [] : suggestions;
 
@@ -88,6 +94,14 @@ const GroupTable = () => {
             }
         }
         return partlyChecked;
+    }
+    function handleChangePage(event, newPage) {
+        console.log("suggestions = ", suggestions);
+        dispatch(updateSearchPage(newPage));
+    }
+
+    function handleChangeRowsPerPage() {
+
     }
 
     return (
@@ -199,7 +213,22 @@ const GroupTable = () => {
                     }
                 )
             }
+            <TablePagination
+                rowsPerPageOptions={rowsPerPage}
+                colSpan={5}
+                count={suggestionsLength}
+                rowsPerPage={rowsPerPage}
+                page={activePage}
+                SelectProps={{
+                    inputProps: { 'aria-label': 'rows per page' },
+                    native: true,
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+            />
         </Table>
+
     );
 };
 

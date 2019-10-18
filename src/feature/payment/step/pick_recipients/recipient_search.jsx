@@ -1,19 +1,25 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Paper from "@material-ui/core/Paper";
 import Autosuggest from "react-autosuggest";
-import {updateSearchValue, updateSuggestions} from "../../../../data/redux/actions/payment";
+import {
+    updateSearchPage,
+    updateSearchValue,
+    updateSuggestionLength,
+    updateSuggestions
+} from "../../../../data/redux/actions/payment";
 import {useDispatch, useSelector} from "react-redux";
 import deburr from "lodash/deburr";
 import TextField from "@material-ui/core/TextField";
-import {Box, makeStyles} from "@material-ui/core";
+import {Box, makeStyles, Typography} from "@material-ui/core";
 import {GROUP} from "../../constants";
 import RecipientSuggestItem from "./recipient_suggest_item";
 
 const useStyles = makeStyles(theme => ({
 
-    textField: {
-    },
+    textField: {},
     root: {
+        minWidth: 700,
+        maxWidth: 700,
     },
     containerSuggestions: {
         position: 'relative',
@@ -37,11 +43,11 @@ const useStyles = makeStyles(theme => ({
         height: theme.spacing(2),
     },
     container: {
-        flex:"1",
+        flex: "1",
         overflow: "auto",
     },
     recipientSuggestItem: {
-      flexBasis: "40%",
+        flexBasis: "40%",
     },
 }));
 
@@ -53,6 +59,8 @@ const RecipientSearch = () => {
     const filteredSuggestions = useSelector(state => state.payment.form.filteredSuggestions);
     const groups = useSelector(state => state.groups.groups);
     const individual = useSelector(state => state.customers.customers);
+    const activePage = useSelector(state => state.payment.form.page);
+    const rowsPerPage = 10;
     const suggestions = recipientType === GROUP ?
         groups
         :
@@ -60,6 +68,11 @@ const RecipientSearch = () => {
     const searchLabel = "Søk";
     const classes = useStyles();
     const searchPlaceHolder = recipientType === GROUP ? "Gruppenavn" : "Navn";
+
+    useEffect(() => {
+        console.log("USE EFFECT KJØRER.....");
+        handleSuggestionsFetchRequested({value: searchValue});
+    }, [activePage])
 
     function renderInputComponent(inputProps) {
         const {
@@ -85,7 +98,7 @@ const RecipientSearch = () => {
     }
 
 
-    function getSuggestions(value) {
+    function getSuggestions(value, page) {
         const inputValue = deburr(value.trim()).toLowerCase();
         const inputLength = inputValue.length;
 
@@ -95,15 +108,31 @@ const RecipientSearch = () => {
     }
 
     function filterSuggestions(input) {
-        let count = 0;
+        let countSuggestion = 0;
+        let countToStartOfActivePage = -1;
+        const keepSuggestionsFromCount = activePage * rowsPerPage;
+
+        console.log("keepSuggestionsFromCount = ", keepSuggestionsFromCount);
+        console.log("activePage = ", activePage);
 
         return suggestions.filter(suggestion => {
             let keep;
             if (recipientType === GROUP) {
-                keep = count < 10 && suggestion.navn.slice(0, input.length).toLowerCase() === input;
+                if (suggestion.navn.slice(0, input.length).toLowerCase() === input){
+                    countToStartOfActivePage += 1;
+                }
+                keep = countSuggestion < rowsPerPage && keepSuggestionsFromCount <= countToStartOfActivePage && suggestion.navn.slice(0, input.length).toLowerCase() === input;
             } else {
+                if (
+                    (suggestion.fulltNavn && suggestion.fulltNavn.slice(0, input.length).toLowerCase() === input) ||
+                    (suggestion.navn.fornavn && suggestion.navn.fornavn.slice(0, input.length).toLowerCase() === input) ||
+                    (suggestion.navn.mellomnavn && suggestion.navn.mellomnavn.slice(0, input.length).toLowerCase() === input) ||
+                    (suggestion.navn.etternavn && suggestion.navn.etternavn.slice(0, input.length).toLowerCase() === input)
+                ){
+                    countToStartOfActivePage += 1;
+                }
                 keep = (
-                    count < 10 && (
+                    countSuggestion < rowsPerPage && keepSuggestionsFromCount <= countToStartOfActivePage && (
                         (suggestion.fulltNavn && suggestion.fulltNavn.slice(0, input.length).toLowerCase() === input) ||
                         (suggestion.navn.fornavn && suggestion.navn.fornavn.slice(0, input.length).toLowerCase() === input) ||
                         (suggestion.navn.mellomnavn && suggestion.navn.mellomnavn.slice(0, input.length).toLowerCase() === input) ||
@@ -111,11 +140,34 @@ const RecipientSearch = () => {
                     )
                 );
             }
-            if (keep) {
-                count += 1;
+            if (keep && keepSuggestionsFromCount <= countToStartOfActivePage) {
+                countSuggestion += 1;
             }
             return keep;
+
         });
+    }
+
+    function getSuggestionsLength(input) {
+        let count = 0;
+        suggestions.map(suggestion => {
+            if (recipientType === GROUP) {
+                if (suggestion.navn.slice(0, input.length).toLowerCase() === input) {
+                    count = count + 1;
+                }
+            } else {
+                if (
+                    suggestion.fulltNavn && suggestion.fulltNavn.slice(0, input.length).toLowerCase() === input ||
+                    suggestion.navn.fornavn && suggestion.navn.fornavn.slice(0, input.length).toLowerCase() === input ||
+                    suggestion.navn.mellomnavn && suggestion.navn.mellomnavn.slice(0, input.length).toLowerCase() === input ||
+                    suggestion.navn.etternavn && suggestion.navn.etternavn.slice(0, input.length).toLowerCase() === input
+
+                ) {
+                    count = count + 1;
+                }
+            }
+        });
+        return count;
     }
 
     function renderSuggestion(suggestion, {query, isHighlighted}) {
@@ -127,21 +179,25 @@ const RecipientSearch = () => {
 
 
     const handleSuggestionsFetchRequested = ({value}) => {
-        dispatch(updateSuggestions(getSuggestions(value)));
+
+        dispatch(updateSuggestionLength(getSuggestionsLength(value)));
+        dispatch(updateSuggestions(getSuggestions(value, activePage)));
     };
 
     const handleSuggestionsClearRequested = () => {
         if (searchValue < 1) {
+            dispatch(updateSearchPage(0));
             dispatch(updateSuggestions(suggestions));
         }
     };
 
     function handleSearchValue(event) {
+        dispatch(updateSearchPage(0));
         dispatch(updateSearchValue(event.target.value));
     }
 
     return (
-        <Box>
+        <Box className={classes.root}>
             <Paper className={classes.container}>
                 <Autosuggest
                     renderInputComponent={renderInputComponent}

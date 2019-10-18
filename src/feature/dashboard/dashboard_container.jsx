@@ -7,7 +7,6 @@ const useStyles = makeStyles(theme => ({
     root: {
         margin: "auto",
         width: '100%',
-        overflowX: 'auto',
     },
 }));
 

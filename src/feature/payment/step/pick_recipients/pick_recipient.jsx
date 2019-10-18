@@ -8,7 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import RecipientSearch from "./recipient_search";
 import {
     updateConfirmRecipientsOpen,
-    updateSearchBy,
+    updateSearchBy, updateSearchPage,
     updateSearchValue, updateStep,
     updateSuggestions
 } from "../../../../data/redux/actions/payment";
@@ -70,6 +70,8 @@ const PickPaymentRecipient = () => {
         dispatch(updateSearchBy(event.target.value));
         dispatch(updateSearchValue(""));
         dispatch(updateSuggestions(event.target.value === GROUP ? groups : individual));
+        dispatch(updateSearchPage(0));
+
     }
 
     function handleConfirmButtonOpen() {
