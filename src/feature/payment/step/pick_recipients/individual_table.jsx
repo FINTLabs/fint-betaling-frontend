@@ -9,11 +9,20 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Table from "@material-ui/core/Table";
 import {makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {updateRecipients} from "../../../../data/redux/actions/payment";
+import {
+    updateRecipients,
+    updateSearchPage,
+    updateSearchValue,
+    updateSuggestions
+} from "../../../../data/redux/actions/payment";
+import TablePagination from "@material-ui/core/TablePagination";
+import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 
 const useStyles = makeStyles(theme => ({
     table: {
         overflow: 'auto',
+        minWidth: "100%",
+        maxWidth: "100%",
     },
     tableCell: {
         overflow: 'auto',
@@ -30,6 +39,10 @@ const IndividualTable = () => {
     const query = useSelector(state => state.payment.form.searchValue);
     let suggestions = useSelector(state => state.payment.form.filteredSuggestions);
     const recipients = useSelector(state => state.payment.payment.recipients);
+    const activePage = useSelector(state => state.payment.form.page);
+    const rowsPerPage = 10;
+    const suggestionLengthTemp = useSelector(state => state.payment.form.suggestionLength);
+    const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
     suggestions = query.length === 0 ? [] : suggestions;
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -46,6 +59,15 @@ const IndividualTable = () => {
             "addressPlace": addressPlace,
         };
         dispatch(updateRecipients(newArray));
+    }
+
+    function handleChangePage(event, newPage) {
+        console.log("suggestions = ", suggestions);
+        dispatch(updateSearchPage(newPage));
+    }
+
+    function handleChangeRowsPerPage() {
+
     }
 
     return (
@@ -106,6 +128,22 @@ const IndividualTable = () => {
                         }
                     )
                 }
+                <TableRow>
+                    <TablePagination
+                        rowsPerPageOptions={rowsPerPage}
+                        colSpan={5}
+                        count={suggestionsLength}
+                        rowsPerPage={rowsPerPage}
+                        page={activePage}
+                        SelectProps={{
+                            inputProps: { 'aria-label': 'rows per page' },
+                            native: true,
+                        }}
+                        onChangePage={handleChangePage}
+                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                        ActionsComponent={TablePaginationActions}
+                    />
+                </TableRow>
             </TableBody>
         </Table>
     );

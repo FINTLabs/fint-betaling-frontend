@@ -16,8 +16,8 @@ import {
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS,
     UPDATE_RECIPIENTS,
-    UPDATE_SCHOOL,
-    UPDATE_STEP,
+    UPDATE_SCHOOL, UPDATE_SEARCH_PAGE,
+    UPDATE_STEP, UPDATE_SUGGESTION_LENGTH,
     UPDATE_SUGGESTIONS
 } from "./actions";
 
@@ -123,5 +123,15 @@ export function updatePaymentsDialogOpen(value) {
 export function updatePaymentsDialogOrderNumber(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER, payload: value});
+    }
+}
+export function updateSearchPage(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_SEARCH_PAGE, payload: value});
+    }
+}
+export function updateSuggestionLength(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_SUGGESTION_LENGTH, payload: value});
     }
 }

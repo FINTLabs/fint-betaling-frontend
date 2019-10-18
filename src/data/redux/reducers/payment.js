@@ -15,8 +15,8 @@ import {
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS,
     UPDATE_RECIPIENTS,
-    UPDATE_SCHOOL,
-    UPDATE_STEP,
+    UPDATE_SCHOOL, UPDATE_SEARCH_PAGE,
+    UPDATE_STEP, UPDATE_SUGGESTION_LENGTH,
     UPDATE_SUGGESTIONS
 } from "../actions/actions";
 import {GROUP, ORDER_NUMBER} from "../../../feature/payment/constants";
@@ -34,8 +34,10 @@ export const defaultState = {
         searchBy: GROUP,
         searchValue: '',
         filteredSuggestions: [],
+        suggestionLength: 0,
         groupContentOpen: {},
         confirmRecipientsOpen: false,
+        page: 0,
     },
     product: {
         searchValue: '',
@@ -58,26 +60,37 @@ export default function reducer(state = defaultState, action) {
             return defaultState;
         case UPDATE_PAYMENT_SEARCH_BY:
             return {...state,
-                form: {searchBy: action.payload, searchValue: state.form.searchValue, step: state.form.step, filteredSuggestions: state.form.filteredSuggestions, groupContentOpen: state.form.groupContentOpen, confirmRecipientsOpen: state.form.confirmRecipientsOpen,}};
+                form: {searchBy: action.payload, searchValue: state.form.searchValue, step: state.form.step, filteredSuggestions: state.form.filteredSuggestions, groupContentOpen: state.form.groupContentOpen, confirmRecipientsOpen: state.form.confirmRecipientsOpen, page: state.form.page,suggestionLength: state.form.suggestionLength}
+            };
         case UPDATE_PAYMENT_SEARCH_VALUE:
             return {
                 ...state,
-                form: {searchValue: action.payload, searchBy: state.form.searchBy, step: state.form.step, filteredSuggestions: state.form.filteredSuggestions, groupContentOpen: state.form.groupContentOpen, confirmRecipientsOpen: state.form.confirmRecipientsOpen,}
+                form: {searchValue: action.payload, searchBy: state.form.searchBy, step: state.form.step, filteredSuggestions: state.form.filteredSuggestions, groupContentOpen: state.form.groupContentOpen, confirmRecipientsOpen: state.form.confirmRecipientsOpen, page: state.form.page,suggestionLength: state.form.suggestionLength}
             };
         case UPDATE_SUGGESTIONS:
             return {
                 ...state,
-                form: {filteredSuggestions: action.payload, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, confirmRecipientsOpen: state.form.confirmRecipientsOpen,}
+                form: {filteredSuggestions: action.payload, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, confirmRecipientsOpen: state.form.confirmRecipientsOpen, page: state.form.page,suggestionLength: state.form.suggestionLength}
             };
         case UPDATE_GROUP_CONTENT_OPEN:
             return {
                 ...state,
-                form: {groupContentOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, confirmRecipientsOpen: state.form.confirmRecipientsOpen,}
+                form: {groupContentOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, confirmRecipientsOpen: state.form.confirmRecipientsOpen, page: state.form.page,suggestionLength: state.form.suggestionLength}
             };
         case UPDATE_CONFIRM_RECIPIENTS_OPEN:
             return {
                 ...state,
-                form: {confirmRecipientsOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen,}
+                form: {confirmRecipientsOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, page: state.form.page,suggestionLength: state.form.suggestionLength}
+            };
+        case UPDATE_SEARCH_PAGE:
+            return {
+                ...state,
+                form: {page: action.payload ,confirmRecipientsOpen: state.form.confirmRecipientsOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, suggestionLength: state.form.suggestionLength}
+            };
+        case UPDATE_SUGGESTION_LENGTH:
+            return {
+                ...state,
+                form: {suggestionLength: action.payload ,confirmRecipientsOpen: state.form.confirmRecipientsOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, page: state.form.page}
             };
         case UPDATE_RECIPIENTS:
             return {
@@ -89,7 +102,7 @@ export default function reducer(state = defaultState, action) {
         case UPDATE_STEP:
             return {
                 ...state,
-                form: {step: action.payload, groupContentOpen: state.form.groupContentOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy}
+                form: {step: action.payload, groupContentOpen: state.form.groupContentOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, page: state.form.page}
             };
         case UPDATE_PRODUCT_SEARCH_VALUE:
             return {
