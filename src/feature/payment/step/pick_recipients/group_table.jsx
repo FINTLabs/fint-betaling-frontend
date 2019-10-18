@@ -13,7 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateGroupContentOpen, updateRecipients, updateSearchPage} from "../../../../data/redux/actions/payment";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 import TablePagination from "@material-ui/core/TablePagination";
-
+import {SEARCH_PAGE_ROWS_AMONT} from "../../constants";
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -36,7 +36,7 @@ const GroupTable = () => {
     const query = useSelector(state => state.payment.form.searchValue);
     let suggestions = useSelector(state => state.payment.form.filteredSuggestions);
     const activePage = useSelector(state => state.payment.form.page);
-    const rowsPerPage = 10;
+    const rowsPerPage = SEARCH_PAGE_ROWS_AMONT;
     const suggestionLengthTemp = useSelector(state => state.payment.form.suggestionLength);
     const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
     const dispatch = useDispatch();
@@ -90,18 +90,16 @@ const GroupTable = () => {
         for (let iterator = 0; iterator < customerList.length; iterator++) {
             if (recipients[customerList[iterator].kundenummer] && recipients[customerList[iterator].kundenummer].checked) {
                 partlyChecked = true;
-                console.log("JEg kom hit!");
             }
         }
         return partlyChecked;
     }
+
     function handleChangePage(event, newPage) {
-        console.log("suggestions = ", suggestions);
         dispatch(updateSearchPage(newPage));
     }
 
     function handleChangeRowsPerPage() {
-
     }
 
     return (
@@ -135,10 +133,12 @@ const GroupTable = () => {
                                         {suggestion.beskrivelse}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
-                                        <Checkbox onChange={event => handleGroupChange(event, suggestion.kundeliste)}
-                                                  value={suggestion.kundeliste}
-                                                  indeterminate={groupShouldBeChecked(suggestion.kundeliste) ? false : groupCheckboxIndeterminateCheck(suggestion.kundeliste)}
-                                                  checked={groupShouldBeChecked(suggestion.kundeliste)}/>
+                                        <Checkbox
+                                            onChange={event => handleGroupChange(event, suggestion.kundeliste)}
+                                            value={suggestion.kundeliste}
+                                            indeterminate={groupShouldBeChecked(suggestion.kundeliste) ? false : groupCheckboxIndeterminateCheck(suggestion.kundeliste)}
+                                            checked={groupShouldBeChecked(suggestion.kundeliste)}
+                                        />
                                     </TableCell>
                                     <TableCell
                                         align="center"
@@ -153,18 +153,24 @@ const GroupTable = () => {
                                 <TableRow>
                                     <TableCell className={classes.tableCellNoPadding}/>
                                     <TableCell className={classes.tableCellNoPadding} colSpan={3}>
-                                        <Collapse in={groupContentOpen[recipient]} timeout="auto" unmountOnExit
-                                                  style={{display: "block", float: "bottom"}}>
+                                        <Collapse
+                                            in={groupContentOpen[recipient]}
+                                            timeout="auto"
+                                            unmountOnExit
+                                            style={{display: "block", float: "bottom"}}>
                                             <Table className={classes.table}>
                                                 <TableHead>
                                                     <TableRow>
                                                         <TableCell>Navn</TableCell>
-                                                        <TableCell align="right"
-                                                                   className={classes.tableCell}>E-postadresse</TableCell>
-                                                        <TableCell align="right"
-                                                                   className={classes.tableCell}>Telefonnummer</TableCell>
-                                                        <TableCell align="right" className={classes.tableCell}>Velg
-                                                            som mottaker</TableCell>
+                                                        <TableCell align="right" className={classes.tableCell}>
+                                                            E-postadresse
+                                                        </TableCell>
+                                                        <TableCell align="right" className={classes.tableCell}>
+                                                            Telefonnummer
+                                                        </TableCell>
+                                                        <TableCell align="right" className={classes.tableCell}>
+                                                            Velg som mottaker
+                                                        </TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
@@ -196,7 +202,8 @@ const GroupTable = () => {
                                                                             <Checkbox onChange={handleIndividualCheck}
                                                                                       name={kunde.fulltNavn}
                                                                                       value={kunde.kundenummer}
-                                                                                      checked={recipients[kunde.kundenummer] ? recipients[kunde.kundenummer].checked : false}/>
+                                                                                      checked={recipients[kunde.kundenummer] ? recipients[kunde.kundenummer].checked : false}
+                                                                            />
                                                                         </TableCell>
                                                                     </TableRow>
                                                                 );
@@ -220,7 +227,7 @@ const GroupTable = () => {
                 rowsPerPage={rowsPerPage}
                 page={activePage}
                 SelectProps={{
-                    inputProps: { 'aria-label': 'rows per page' },
+                    inputProps: {'aria-label': 'rows per page'},
                     native: true,
                 }}
                 onChangePage={handleChangePage}

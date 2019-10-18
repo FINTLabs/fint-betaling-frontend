@@ -9,3 +9,11 @@ export const PAYMENT_PAYED = "PAYMENT_PAYED";
 export const PAYMENT_WAITING = "PAYMENT_WAITING";
 export const PAYMENT_CANCELLED = "PAYMENT_CANCELLED";
 export const PAYMENT_OVER_DUE = "PAYMENT_OVER_DUE";
+
+export const STEP_PICK_RECIPIENTS = 0;
+export const STEP_PICK_PRODUCTS = 1;
+export const STEP_CONFIRM_PAYMENT = 2;
+export const STEP_PAYMENT_CONFIRMED = 3;
+
+export const SEARCH_PAGE_START = 0;
+export const SEARCH_PAGE_ROWS_AMONT = 10;

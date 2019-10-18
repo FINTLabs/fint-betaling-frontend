@@ -8,11 +8,12 @@ import {useDispatch, useSelector} from "react-redux";
 import RecipientSearch from "./recipient_search";
 import {
     updateConfirmRecipientsOpen,
-    updateSearchBy, updateSearchPage,
-    updateSearchValue, updateStep,
+    updateSearchBy,
+    updateSearchPage,
+    updateSearchValue,
     updateSuggestions
 } from "../../../../data/redux/actions/payment";
-import {GROUP, INDIVIDUAL} from "../../constants";
+import {GROUP, INDIVIDUAL, SEARCH_PAGE_START} from "../../constants";
 import RecipientList from "./recipient_list";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -25,10 +26,10 @@ const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent:"center"
+        justifyContent: "center"
     },
     formControl: {
-        flex:"1/3",
+        flex: "1/3",
         margin: theme.spacing(3),
     },
     extendedIcon: {
@@ -39,8 +40,7 @@ const useStyles = makeStyles(theme => ({
         "&:enabled": {
             backgroundColor: theme.palette.secondary.main,
         },
-        "&:disabled": {
-        },
+        "&:disabled": {},
         margin: theme.spacing(1),
     },
     recipientSearch: {},
@@ -48,8 +48,6 @@ const useStyles = makeStyles(theme => ({
 
 const PickPaymentRecipient = () => {
 
-
-    const open = useSelector(state => state.payment.form.confirmRecipientsOpen);
     const classes = useStyles();
     const recipientType = useSelector(state => state.payment.form.searchBy);
     const dispatch = useDispatch();
@@ -64,22 +62,16 @@ const PickPaymentRecipient = () => {
             confirmButtonDisabled = false;
         }
     }
-    console.log("open: ", open);
 
     function handleSearchBy(event) {
         dispatch(updateSearchBy(event.target.value));
         dispatch(updateSearchValue(""));
         dispatch(updateSuggestions(event.target.value === GROUP ? groups : individual));
-        dispatch(updateSearchPage(0));
-
+        dispatch(updateSearchPage(SEARCH_PAGE_START));
     }
 
     function handleConfirmButtonOpen() {
         dispatch(updateConfirmRecipientsOpen(true));
-    }
-
-    function handleCloseConfirmRecipients() {
-        dispatch(updateConfirmRecipientsOpen(false));
     }
 
     return (
@@ -87,15 +79,26 @@ const PickPaymentRecipient = () => {
             <RecipientList/>
             <form className={classes.container}>
                 <FormControl component="fieldset" className={classes.formControl}>
-                    <RadioGroup aria-label="recipientType" name="recipientType" value={recipientType}
+                    <RadioGroup aria-label="recipientType"
+                                name="recipientType"
+                                value={recipientType}
                                 onChange={handleSearchBy}>
-                        <FormControlLabel value={GROUP.toString()} control={<Radio/>} label="Gruppe"/>
-                        <FormControlLabel value={INDIVIDUAL.toString()} control={<Radio/>} label="Person"/>
+                        <FormControlLabel
+                            value={GROUP.toString()}
+                            control={<Radio/>}
+                            label="Gruppe"
+                        />
+                        <FormControlLabel
+                            value={INDIVIDUAL.toString()}
+                            control={<Radio/>}
+                            label="Person"
+                        />
                     </RadioGroup>
                     <RecipientSearch/>
-
-                    <ConfirmRecipients open={open} onClose={handleCloseConfirmRecipients} handleAllRemoved={handleCloseConfirmRecipients}/>
-                    <Button disabled={confirmButtonDisabled} variant="outlined" className={classes.confirmButton}
+                    <ConfirmRecipients/>
+                    <Button disabled={confirmButtonDisabled}
+                            variant="outlined"
+                            className={classes.confirmButton}
                             onClick={handleConfirmButtonOpen}>
                         Gå videre
                     </Button>

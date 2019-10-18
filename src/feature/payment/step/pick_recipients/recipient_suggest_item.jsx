@@ -19,10 +19,6 @@ const RecipientSuggestItem = () => {
         });
     }
 
-    if (!suggestions) {
-        return <div>loading....</div>
-    }
-
     if (recipientType === GROUP) {
         return (
             <GroupTable/>

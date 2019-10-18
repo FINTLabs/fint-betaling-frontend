@@ -8,6 +8,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import ProductSearch from "./product_search";
 import ProductList from "./products_list";
+import {STEP_CONFIRM_PAYMENT} from "../../constants";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -51,7 +52,7 @@ const PickProducts = () => {
     }
 
     function handleOnClickConfirmProducts() {
-        dispatch(updateStep(2));
+        dispatch(updateStep(STEP_CONFIRM_PAYMENT));
     }
 
     return (
