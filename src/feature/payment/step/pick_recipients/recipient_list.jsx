@@ -5,6 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import {Box, makeStyles, Typography} from "@material-ui/core";
 import {updateRecipients, updateStep} from "../../../../data/redux/actions/payment";
 import {countChecked} from "../../utils/list_utils";
+import {STEP_PICK_RECIPIENTS} from "../../constants";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -36,7 +37,7 @@ const RecipientList = () => {
     function handleDelete(key, label) {
 
         if (countChecked(recipientList) < 2) {
-            dispatch(updateStep(0));
+            dispatch(updateStep(STEP_PICK_RECIPIENTS));
         }
         const newArray = {...recipientList};
         newArray[key] = {"checked": false, "name": label};
@@ -75,7 +76,7 @@ const RecipientList = () => {
                         )
                     }
                 </Box>
-                    {recipientCountText}
+                {recipientCountText}
             </div>
         );
     } else {

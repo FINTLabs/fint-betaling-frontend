@@ -9,14 +9,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Table from "@material-ui/core/Table";
 import {makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    updateRecipients,
-    updateSearchPage,
-    updateSearchValue,
-    updateSuggestions
-} from "../../../../data/redux/actions/payment";
+import {updateRecipients, updateSearchPage} from "../../../../data/redux/actions/payment";
 import TablePagination from "@material-ui/core/TablePagination";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
+import {SEARCH_PAGE_ROWS_AMONT} from "../../constants";
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -40,7 +36,7 @@ const IndividualTable = () => {
     let suggestions = useSelector(state => state.payment.form.filteredSuggestions);
     const recipients = useSelector(state => state.payment.payment.recipients);
     const activePage = useSelector(state => state.payment.form.page);
-    const rowsPerPage = 10;
+    const rowsPerPage = SEARCH_PAGE_ROWS_AMONT;
     const suggestionLengthTemp = useSelector(state => state.payment.form.suggestionLength);
     const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
     suggestions = query.length === 0 ? [] : suggestions;
@@ -62,12 +58,10 @@ const IndividualTable = () => {
     }
 
     function handleChangePage(event, newPage) {
-        console.log("suggestions = ", suggestions);
         dispatch(updateSearchPage(newPage));
     }
 
     function handleChangeRowsPerPage() {
-
     }
 
     return (
@@ -113,14 +107,15 @@ const IndividualTable = () => {
                                     <TableCell align="center" className={classes.tableCell}>
                                         <Checkbox
                                             checked={recipients[suggestion.kundenummer] ? recipients[suggestion.kundenummer].checked : false}
-                                            onChange={(e)=> handleIndividualCheck(
-                                                e,
+                                            onChange={(event) => handleIndividualCheck(
+                                                event,
                                                 suggestion.kontaktinformasjon ? suggestion.kontaktinformasjon.epostadresse : "",
                                                 suggestion.kontaktinformasjon ? suggestion.kontaktinformasjon.mobiltelefonnummer : "",
                                                 suggestion.postadresse ? suggestion.postadresse.adresselinje : "",
                                                 suggestion.postadresse ? suggestion.postadresse.postnummer : "",
                                                 suggestion.postadresse ? suggestion.postadresse.poststed : "",
-                                            )} name={suggestion.fulltNavn}
+                                            )}
+                                            name={suggestion.fulltNavn}
                                             value={suggestion.kundenummer}/>
                                     </TableCell>
                                 </TableRow>
@@ -136,7 +131,7 @@ const IndividualTable = () => {
                         rowsPerPage={rowsPerPage}
                         page={activePage}
                         SelectProps={{
-                            inputProps: { 'aria-label': 'rows per page' },
+                            inputProps: {'aria-label': 'rows per page'},
                             native: true,
                         }}
                         onChangePage={handleChangePage}

@@ -9,6 +9,7 @@ import {addNewPayment, fetchPayment} from "../../../../data/redux/actions/paymen
 import {updateStep} from "../../../../data/redux/actions/payment";
 import Typography from "@material-ui/core/Typography";
 import PaymentRepository from "../../../../data/repository/PaymentRepository";
+import {STEP_PAYMENT_CONFIRMED} from "../../constants";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -118,7 +119,7 @@ const ConfirmSend = () => {
             expirationDate
             ).then(data => {
             console.log(data);
-            dispatch(updateStep(3));
+            dispatch(updateStep(STEP_PAYMENT_CONFIRMED));
             dispatch(fetchPayment());
         });
     }

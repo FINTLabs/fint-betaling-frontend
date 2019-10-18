@@ -7,9 +7,9 @@ import ListItem from "@material-ui/core/ListItem";
 import {ListItemIcon, ListItemText, makeStyles} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Delete from '@material-ui/icons/Delete';
-import {updateRecipients, updateStep} from "../../../../data/redux/actions/payment";
+import {updateConfirmRecipientsOpen, updateRecipients, updateStep} from "../../../../data/redux/actions/payment";
 import Box from "@material-ui/core/Box";
-
+import {STEP_PICK_PRODUCTS} from "../../constants";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,9 +30,9 @@ const useStyles = makeStyles(theme => ({
         }
     },
     buttonBox: {
-      display: "flex",
-      justifyContent:"center",
-      margin:theme.spacing(1),
+        display: "flex",
+        justifyContent: "center",
+        margin: theme.spacing(1),
     },
     confirmButton: {
         color: theme.palette.secondary.contrastText,
@@ -45,67 +45,79 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function ConfirmRecipients(props) {
+function ConfirmRecipients() {
     const classes = useStyles();
-    const {onClose, open, handleAllRemoved} = props;
+    const open = useSelector(state => state.payment.form.confirmRecipientsOpen);
     const recipients = useSelector(state => state.payment.payment.recipients);
     const dispatch = useDispatch();
+    let recipientKeys = Object.keys(recipients);
 
     function removeItem(key) {
-        console.log(key);
         const newArray = {...recipients};
         newArray[key] = {"checked": false, "name": ""};
-        const keys = Object.keys(recipients);
         let shouldClose = true;
-        for (let recipientKeyCounter = 0; recipientKeyCounter < keys.length; recipientKeyCounter++) {
-            if (recipients[keys[recipientKeyCounter]].checked === true && recipients[keys[recipientKeyCounter]] !== recipients[key]) {
+        for (let recipientKeyCounter = 0; recipientKeyCounter < recipientKeys.length; recipientKeyCounter++) {
+            if (recipients[recipientKeys[recipientKeyCounter]].checked === true && recipients[recipientKeys[recipientKeyCounter]] !== recipients[key]) {
                 shouldClose = false;
             }
         }
         if (shouldClose) {
-            console.log("Hey!=!=!?!?!?!")
-            handleAllRemoved();
+            handleCloseConfirmRecipients();
         }
         dispatch(updateRecipients(newArray));
     }
 
     function handleConfirmClick() {
-        dispatch(updateStep(1));
+        dispatch(updateStep(STEP_PICK_PRODUCTS));
     }
 
-    if (recipients && Object.keys(recipients).length > 0) {
-        let recipientKeys = Object.keys(recipients);
-        return (
-            <Dialog className={classes.root} onClose={onClose} aria-labelledby="simple-dialog-title" open={open}>
-                <DialogTitle id="simple-dialog-title">Dine mottakere</DialogTitle>
-                <List className={classes.list} hover>
-                    {
-                        recipientKeys.map(key => {
-                            if (recipients[key].checked) {
-                                return (
-                                    <ListItem className={classes.listItem}>
-                                        <ListItemText>
-                                            {recipients[key].name}
-                                        </ListItemText>
-                                        <ListItemIcon className={classes.listItemIcon}>
-                                            <Button onClick={() => removeItem(key)}><Delete
-                                                className={classes.removeIcon}/></Button>
-                                        </ListItemIcon>
-                                    </ListItem>
-                                );
-                            }
-                        })
-                    }
-                </List>
-                <Box className={classes.buttonBox}>
-                    <Button variant="outlined" className={classes.cancelButton} onClick={onClose}>Tilbake</Button>
-                    <Button variant="outlined" className={classes.confirmButton} onClick={handleConfirmClick}>Velg varer</Button>
-                </Box>
-            </Dialog>
-        );
-    } else {
-        return <div></div>
+    function handleCloseConfirmRecipients() {
+        dispatch(updateConfirmRecipientsOpen(false));
     }
+
+    return (
+        <Dialog
+            className={classes.root}
+            onClose={handleCloseConfirmRecipients}
+            aria-labelledby="simple-dialog-title"
+            open={open}
+        >
+            <DialogTitle id="simple-dialog-title">Dine mottakere</DialogTitle>
+            <List className={classes.list} hover>
+                {
+                    recipientKeys.map(key => {
+                        if (recipients[key].checked) {
+                            return (
+                                <ListItem className={classes.listItem}>
+                                    <ListItemText>
+                                        {recipients[key].name}
+                                    </ListItemText>
+                                    <ListItemIcon className={classes.listItemIcon}>
+                                        <Button onClick={() => removeItem(key)}>
+                                            <Delete className={classes.removeIcon}/>
+                                        </Button>
+                                    </ListItemIcon>
+                                </ListItem>
+                            );
+                        }
+                    })
+                }
+            </List>
+            <Box className={classes.buttonBox}>
+                <Button variant="outlined"
+                        className={classes.cancelButton}
+                        onClick={handleCloseConfirmRecipients}>
+                    Tilbake
+                </Button>
+                <Button
+                    variant="outlined"
+                    className={classes.confirmButton}
+                    onClick={handleConfirmClick}>
+                    Velg varer
+                </Button>
+            </Box>
+        </Dialog>
+    );
 }
 
 export default ConfirmRecipients;
