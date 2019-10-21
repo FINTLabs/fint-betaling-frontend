@@ -10,7 +10,7 @@ import {
     UPDATE_PAYMENTS_SEARCH_BY,
     UPDATE_PAYMENTS_SEARCH_VALUE,
     UPDATE_PAYMENTS_SUGGESTIONS,
-    UPDATE_PRODUCT_AMOUNT,
+    UPDATE_PRODUCT_AMOUNT, UPDATE_PRODUCT_LENGTH,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS,
@@ -41,6 +41,7 @@ export const defaultState = {
     },
     product: {
         searchValue: '',
+        productsLength: 0,
         filteredSuggestions: [],
         amount: [],
     },
@@ -108,14 +109,21 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 product: {
-                    searchValue: action.payload, filteredSuggestions : state.product.filteredSuggestions, amount: state.product.amount,
+                    searchValue: action.payload, filteredSuggestions : state.product.filteredSuggestions, amount: state.product.amount, productsLength: state.product.productsLength,
                 }
             };
         case UPDATE_PRODUCT_SUGGESTIONS:
             return {
                 ...state,
                 product: {
-                    filteredSuggestions: action.payload, searchValue : state.product.searchValue, amount: state.product.amount,
+                    filteredSuggestions: action.payload, searchValue : state.product.searchValue, amount: state.product.amount, productsLength: state.product.productsLength,
+                }
+            };
+        case UPDATE_PRODUCT_LENGTH:
+            return {
+                ...state,
+                product: {
+                    productsLength: action.payload,filteredSuggestions: state.product.filteredSuggestions, searchValue : state.product.searchValue, amount: state.product.amount,
                 }
             };
         case UPDATE_PRODUCTS:
@@ -143,7 +151,7 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 product: {
-                    amount: action.payload, searchValue: state.product.searchValue, filteredSuggestions :state.product.filteredSuggestions,
+                    amount: action.payload, searchValue: state.product.searchValue, filteredSuggestions :state.product.filteredSuggestions, productsLength: state.product.productsLength,
                 }
             };
         case UPDATE_PAYMENTS_SEARCH_BY:

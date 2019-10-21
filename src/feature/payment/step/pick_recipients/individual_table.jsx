@@ -42,6 +42,25 @@ const IndividualTable = () => {
     suggestions = query.length === 0 ? [] : suggestions;
     const classes = useStyles();
     const dispatch = useDispatch();
+    const tablePagination = suggestionsLength > 10 ?
+        (
+            <TableRow>
+                <TablePagination
+                    rowsPerPageOptions={rowsPerPage}
+                    colSpan={5}
+                    count={suggestionsLength}
+                    rowsPerPage={rowsPerPage}
+                    page={activePage}
+                    SelectProps={{
+                        inputProps: {'aria-label': 'rows per page'},
+                        native: true,
+                    }}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                />
+            </TableRow>
+        ) : <div/>
 
     function handleIndividualCheck(event, email, cellPhoneNumber, addressLine, addressZip, addressPlace) {
         const newArray = {...recipients};
@@ -123,22 +142,7 @@ const IndividualTable = () => {
                         }
                     )
                 }
-                <TableRow>
-                    <TablePagination
-                        rowsPerPageOptions={rowsPerPage}
-                        colSpan={5}
-                        count={suggestionsLength}
-                        rowsPerPage={rowsPerPage}
-                        page={activePage}
-                        SelectProps={{
-                            inputProps: {'aria-label': 'rows per page'},
-                            native: true,
-                        }}
-                        onChangePage={handleChangePage}
-                        onChangeRowsPerPage={handleChangeRowsPerPage}
-                        ActionsComponent={TablePaginationActions}
-                    />
-                </TableRow>
+                {tablePagination}
             </TableBody>
         </Table>
     );

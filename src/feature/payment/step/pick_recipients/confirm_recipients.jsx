@@ -104,9 +104,10 @@ function ConfirmRecipients() {
                 }
             </List>
             <Box className={classes.buttonBox}>
-                <Button variant="outlined"
-                        className={classes.cancelButton}
-                        onClick={handleCloseConfirmRecipients}>
+                <Button
+                    variant="outlined"
+                    className={classes.cancelButton}
+                    onClick={handleCloseConfirmRecipients}>
                     Tilbake
                 </Button>
                 <Button

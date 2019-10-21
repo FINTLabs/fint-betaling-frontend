@@ -41,10 +41,26 @@ const GroupTable = () => {
     const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
     const dispatch = useDispatch();
     suggestions = query.length === 0 ? [] : suggestions;
-
     const groupContentOpen = useSelector(state => state.payment.form.groupContentOpen);
     const recipients = useSelector(state => state.payment.payment.recipients);
     const classes = useStyles();
+    const tablePagination = suggestionsLength > 10 ?
+        (
+            <TablePagination
+                rowsPerPageOptions={rowsPerPage}
+                colSpan={5}
+                count={suggestionsLength}
+                rowsPerPage={rowsPerPage}
+                page={activePage}
+                SelectProps={{
+                    inputProps: {'aria-label': 'rows per page'},
+                    native: true,
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+            />
+        ) : <div/>;
 
     function handleIndividualCheck(event) {
         const newArray = {...recipients};
@@ -220,22 +236,8 @@ const GroupTable = () => {
                     }
                 )
             }
-            <TablePagination
-                rowsPerPageOptions={rowsPerPage}
-                colSpan={5}
-                count={suggestionsLength}
-                rowsPerPage={rowsPerPage}
-                page={activePage}
-                SelectProps={{
-                    inputProps: {'aria-label': 'rows per page'},
-                    native: true,
-                }}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
-            />
+            {tablePagination}
         </Table>
-
     );
 };
 

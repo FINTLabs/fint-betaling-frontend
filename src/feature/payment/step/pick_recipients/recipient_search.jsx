@@ -60,6 +60,8 @@ const RecipientSearch = () => {
     const groups = useSelector(state => state.groups.groups);
     const individual = useSelector(state => state.customers.customers);
     const activePage = useSelector(state => state.payment.form.page);
+    const suggestionLengthTemp = useSelector(state => state.payment.form.suggestionLength);
+    const suggestionsLength = searchValue.length === 0 ? 0 : suggestionLengthTemp;
     const rowsPerPage = SEARCH_PAGE_ROWS_AMONT;
     const suggestions = recipientType === GROUP ? groups : individual;
     const searchLabel = "Søk";
@@ -93,7 +95,7 @@ const RecipientSearch = () => {
         );
     }
 
-    function getSuggestions(value, page) {
+    function getSuggestions(value) {
         const inputValue = deburr(value.trim()).toLowerCase();
         const inputLength = inputValue.length;
 
@@ -199,7 +201,7 @@ const RecipientSearch = () => {
                     }}
                 />
             </Paper>
-            <RecipientSuggestItem className={classes.recipientSuggestItem}/>
+            {suggestionsLength > 0 ? <RecipientSuggestItem className={classes.recipientSuggestItem}/>: <div/>}
         </Box>
     );
 };

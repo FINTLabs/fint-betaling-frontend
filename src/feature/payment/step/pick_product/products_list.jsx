@@ -31,22 +31,19 @@ const ProductList = () => {
     const classes = useStyles();
     const productList = useSelector(state => state.payment.payment.products);
     const productAmount = useSelector(state => state.payment.product.amount);
-    const recipients = useSelector(state => state.payment.payment.recipients);
     const dispatch = useDispatch();
+    let productListKeys = Object.keys(productList);
+    const productHeaderText = countChecked(productList) > 0 ?
+        <Typography variant="h6">Valgte produkt:</Typography> : "";
+    const productPriceText = countChecked(productList) > 0 ?
+        <Typography variant="h7">Total beløp per
+            mottaker: {getTotalPrice(productList, productAmount)} </Typography> : "";
 
     function handleDelete(key) {
         const newArray = {...productList};
         newArray[key] = {"checked": false};
         dispatch(updateProducts(newArray))
     }
-
-    const productHeaderText = countChecked(productList) > 0 ?
-        <Typography variant="h6">Valgte produkt:</Typography> : "";
-
-    const productPriceText = countChecked(productList) > 0 ?
-        <Typography variant="h7">Total beløp per mottaker: {getTotalPrice(productList, productAmount)} </Typography> : "";
-
-    let productListKeys = Object.keys(productList);
 
     if (productList && Object.keys(productList).length > 0) {
         return (
@@ -64,8 +61,7 @@ const ProductList = () => {
                                             value={key}
                                             onDelete={() => handleDelete(key)}
                                             label={labelText}
-                                            className={classes.chip}
-                                        >
+                                            className={classes.chip}>
                                         </Chip>
                                     )
                                 }
