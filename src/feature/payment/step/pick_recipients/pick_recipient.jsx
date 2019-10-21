@@ -72,6 +72,7 @@ const PickPaymentRecipient = () => {
 
     function handleConfirmButtonOpen() {
         dispatch(updateConfirmRecipientsOpen(true));
+        dispatch(updateSearchPage(SEARCH_PAGE_START));
     }
 
     return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Paper from "@material-ui/core/Paper";
 import Autosuggest from "react-autosuggest";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,7 +6,13 @@ import deburr from "lodash/deburr";
 import TextField from "@material-ui/core/TextField";
 import {Box, makeStyles} from "@material-ui/core";
 import ProductTable from "./product_table";
-import {updateProductSearchValue, updateProductSuggestions} from "../../../../data/redux/actions/payment";
+import {
+    updateProductLength,
+    updateProductSearchValue,
+    updateProductSuggestions,
+    updateSearchPage
+} from "../../../../data/redux/actions/payment";
+import {SEARCH_PAGE_START} from "../../constants";
 
 const useStyles = makeStyles(theme => ({
 
@@ -48,9 +54,16 @@ const ProductSearch = () => {
     const dispatch = useDispatch();
     const filteredSuggestions = useSelector(state => state.payment.product.filteredSuggestions);
     const suggestions = useSelector(state => state.orderLines.orderLines);
+    const activePage = useSelector(state => state.payment.form.page);
+    const productsLengthTemp = useSelector(state => state.payment.product.productsLength);
+    const productsLength = searchValue.length === 0 ? 0 : productsLengthTemp;
     const searchLabel = "Søk";
     const classes = useStyles();
     const searchPlaceHolder = "Produktnavn eller produktkode";
+
+    useEffect(() => {
+        handleSuggestionsFetchRequested({value: searchValue});
+    }, [activePage]);
 
     function renderInputComponent(inputProps) {
         const {
@@ -89,16 +102,31 @@ const ProductSearch = () => {
 
         return suggestions.filter(suggestion => {
             let keep;
-            keep = count < 10 && (
-                suggestion.navn.slice(0, input.length).toLowerCase() === input ||
-                suggestion.kode.slice(0, input.length).toLowerCase() === input
-            );
+            keep = count < 10 && matchedProduct(suggestion, input);
             if (keep) {
                 count += 1;
             }
             return keep;
         });
     }
+
+    function matchedProduct(suggestion, input) {
+        return (
+            suggestion.navn.slice(0, input.length).toLowerCase() === input ||
+            suggestion.kode.slice(0, input.length).toLowerCase() === input
+        );
+    }
+
+    function getProductsLength(input) {
+        let count = 0;
+        suggestions.map(suggestion => {
+            if (matchedProduct(suggestion, input)) {
+                count += 1;
+            }
+        });
+        return count;
+    }
+
 
     function renderSuggestion(suggestion, {query, isHighlighted}) {
     }
@@ -107,18 +135,20 @@ const ProductSearch = () => {
         return suggestion.navn;
     }
 
-
     const handleSuggestionsFetchRequested = ({value}) => {
+        dispatch(updateProductLength(getProductsLength(value)));
         dispatch(updateProductSuggestions(getSuggestions(value)));
     };
 
     const handleSuggestionsClearRequested = () => {
         if (searchValue < 1) {
+            dispatch(updateSearchPage(SEARCH_PAGE_START));
             dispatch(updateProductSuggestions(suggestions));
         }
     };
 
     function handleSearchValue(event) {
+        dispatch(updateSearchPage(SEARCH_PAGE_START));
         dispatch(updateProductSearchValue(event.target.value));
     }
 
@@ -149,7 +179,7 @@ const ProductSearch = () => {
                     }}
                 />
             </Paper>
-            <ProductTable className={classes.recipientSuggestItem}/>
+            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem}/> : <div/>}
         </Box>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from "@material-ui/core";
-import {updateProductSuggestions, updateStep,} from "../../../../data/redux/actions/payment";
+import {updateStep,} from "../../../../data/redux/actions/payment";
 import Box from "@material-ui/core/Box";
 import RecipientList from "../pick_recipients/recipient_list";
 import FormControl from "@material-ui/core/FormControl";
@@ -43,8 +43,8 @@ const PickProducts = () => {
     const classes = useStyles();
     let confirmButtonDisabled = true;
     const dispatch = useDispatch();
-
     const keys = Object.keys(pickedProducts);
+
     for (let productKeyCounter = 0; productKeyCounter < keys.length; productKeyCounter++) {
         if (pickedProducts[keys[productKeyCounter]].checked === true) {
             confirmButtonDisabled = false;

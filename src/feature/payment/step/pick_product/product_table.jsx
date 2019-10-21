@@ -9,10 +9,11 @@ import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 import Checkbox from "@material-ui/core/Checkbox";
 import {makeStyles} from "@material-ui/core";
-import {updateProductAmount, updateProducts} from "../../../../data/redux/actions/payment";
+import {updateProductAmount, updateProducts, updateSearchPage} from "../../../../data/redux/actions/payment";
 import TextField from "@material-ui/core/TextField";
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
+import TablePagination from "@material-ui/core/TablePagination";
+import {SEARCH_PAGE_ROWS_AMONT} from "../../constants";
 
 
 const useStyles = makeStyles(theme => ({
@@ -40,8 +41,30 @@ const ProductTable = () => {
     let suggestions = useSelector(state => state.payment.product.filteredSuggestions);
     const query = useSelector(state => state.payment.product.searchValue);
     const pickedProducts = useSelector(state => state.payment.payment.products);
+    const activePage = useSelector(state => state.payment.form.page);
+    const productsLengthTemp = useSelector(state => state.payment.product.productsLength);
+    const productsLength = query.length === 0 ? 0 : productsLengthTemp;
     const productAmount = useSelector(state => state.payment.product.amount);
     suggestions = query.length === 0 ? [] : suggestions;
+    const rowsPerPage = SEARCH_PAGE_ROWS_AMONT;
+
+    const tablePagination = productsLength > 10 ?
+        (
+            <TablePagination
+                rowsPerPageOptions={rowsPerPage}
+                colSpan={6}
+                count={productsLength}
+                rowsPerPage={rowsPerPage}
+                page={activePage}
+                SelectProps={{
+                    inputProps: {'aria-label': 'rows per page'},
+                    native: true,
+                }}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationActions}
+            />
+        ) : <div/>;
 
     function handleIndividualCheck(event, code, name, price) {
         const newArray = {...pickedProducts};
@@ -53,20 +76,25 @@ const ProductTable = () => {
         dispatch(updateProducts(newArray));
     }
 
-    console.log(productAmount);
-
     function handleAmountChange(event, code) {
         const newArray = {...productAmount};
         newArray[code] = {"amount": event.target.value};
         dispatch(updateProductAmount(newArray));
     }
 
+    function handleChangePage(event, newPage) {
+        dispatch(updateSearchPage(newPage));
+    }
+
+    function handleChangeRowsPerPage() {
+    }
+
     return (
         <Table className={classes.table} size="small">
             <TableHead>
                 <TableRow>
-                    <TableCell>Kode</TableCell>
-                    <TableCell align="right" className={classes.tableCell}>Navn</TableCell>
+                    <TableCell align="left">Navn</TableCell>
+                    <TableCell align="right" className={classes.tableCell}>Kode</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Enhet pris</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Antall</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Pris</TableCell>
@@ -135,6 +163,7 @@ const ProductTable = () => {
                         }
                     )
                 }
+                {tablePagination}
             </TableBody>
         </Table>
     );
