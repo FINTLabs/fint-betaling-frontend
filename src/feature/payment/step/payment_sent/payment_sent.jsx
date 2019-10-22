@@ -1,6 +1,6 @@
 import React from 'react';
 import {ListItemText, makeStyles, Paper} from "@material-ui/core";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import {countChecked} from "../../utils/list_utils";

@@ -5,7 +5,7 @@ import ConfirmedProducts from "./confirmed_products";
 import ExpirationDatePicker from "./expiration_date_picker";
 import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {addNewPayment, fetchPayment} from "../../../../data/redux/actions/payments";
+import {fetchPayment} from "../../../../data/redux/actions/payments";
 import {updateStep} from "../../../../data/redux/actions/payment";
 import Typography from "@material-ui/core/Typography";
 import PaymentRepository from "../../../../data/repository/PaymentRepository";
@@ -81,17 +81,17 @@ const ConfirmSend = () => {
             let orderLineFromProducts;
             Object.keys(products).map(key => {
                 for (let i = 0; i < orderLines.length; i++) {
-                    if (orderLines[i].kode === key){
+                    if (orderLines[i].kode === key) {
                         orderLineFromProducts = orderLines[i];
-                    console.log(i + ". " + orderLines[i]);
+                        console.log(i + ". " + orderLines[i]);
                     }
                 }
-                    const orderLine = {
-                        amount: productsAmount[key].amount,
-                        description: products[key].name,
-                        orderLine: orderLineFromProducts,
-                    };
-                    list.push(orderLine);
+                const orderLine = {
+                    amount: productsAmount[key].amount,
+                    description: products[key].name,
+                    orderLine: orderLineFromProducts,
+                };
+                list.push(orderLine);
 
             });
             console.log("list: ", list);
@@ -113,11 +113,11 @@ const ConfirmSend = () => {
         PaymentRepository.setPayment(
             orgId,
             JSON.parse(JSON.stringify(recipientsList)),
-                JSON.parse(JSON.stringify(productList)),
+            JSON.parse(JSON.stringify(productList)),
             mva[0],
             employer[0],
             expirationDate
-            ).then(data => {
+        ).then(data => {
             console.log(data);
             dispatch(updateStep(STEP_PAYMENT_CONFIRMED));
             dispatch(fetchPayment());

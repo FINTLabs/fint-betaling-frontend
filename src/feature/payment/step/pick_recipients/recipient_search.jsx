@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import deburr from "lodash/deburr";
 import TextField from "@material-ui/core/TextField";
 import {Box, makeStyles} from "@material-ui/core";
-import {GROUP, SEARCH_PAGE_ROWS_AMONT, SEARCH_PAGE_START} from "../../constants";
+import {GROUP, SEARCH_PAGE_ROWS, SEARCH_PAGE_START} from "../../constants";
 import RecipientSuggestItem from "./recipient_suggest_item";
 
 const useStyles = makeStyles(theme => ({
@@ -62,7 +62,7 @@ const RecipientSearch = () => {
     const activePage = useSelector(state => state.payment.form.page);
     const suggestionLengthTemp = useSelector(state => state.payment.form.suggestionLength);
     const suggestionsLength = searchValue.length === 0 ? 0 : suggestionLengthTemp;
-    const rowsPerPage = SEARCH_PAGE_ROWS_AMONT;
+    const rowsPerPage = SEARCH_PAGE_ROWS;
     const suggestions = recipientType === GROUP ? groups : individual;
     const searchLabel = "Søk";
     const classes = useStyles();
@@ -201,7 +201,7 @@ const RecipientSearch = () => {
                     }}
                 />
             </Paper>
-            {suggestionsLength > 0 ? <RecipientSuggestItem className={classes.recipientSuggestItem}/>: <div/>}
+            {suggestionsLength > 0 ? <RecipientSuggestItem className={classes.recipientSuggestItem}/> : <div/>}
         </Box>
     );
 };

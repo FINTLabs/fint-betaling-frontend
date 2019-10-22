@@ -13,7 +13,7 @@ import {updateProductAmount, updateProducts, updateSearchPage} from "../../../..
 import TextField from "@material-ui/core/TextField";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 import TablePagination from "@material-ui/core/TablePagination";
-import {SEARCH_PAGE_ROWS_AMONT} from "../../constants";
+import {SEARCH_PAGE_ROWS} from "../../constants";
 
 
 const useStyles = makeStyles(theme => ({
@@ -46,7 +46,7 @@ const ProductTable = () => {
     const productsLength = query.length === 0 ? 0 : productsLengthTemp;
     const productAmount = useSelector(state => state.payment.product.amount);
     suggestions = query.length === 0 ? [] : suggestions;
-    const rowsPerPage = SEARCH_PAGE_ROWS_AMONT;
+    const rowsPerPage = SEARCH_PAGE_ROWS;
 
     const tablePagination = productsLength > 10 ?
         (

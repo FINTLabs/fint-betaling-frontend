@@ -22,12 +22,10 @@ const useStyles = makeStyles(theme => ({
         maxHeight: 200,
         overflow: 'auto',
     },
-    table: {
-    },
-    tableBody: {
-    },
+    table: {},
+    tableBody: {},
     recipientHeader: {
-        justifyContent:"center",
+        justifyContent: "center",
         color: theme.palette.secondary.main,
         width: "200px",
     },

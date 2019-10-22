@@ -82,7 +82,7 @@ const LoadingPage = (props) => {
             </Typography>
             {circularProgress}
             <Typography className={classes.loadingText}>
-            {loadingMessage}
+                {loadingMessage}
             </Typography>
             <Box className={classes.linearProgressBox}>
                 <LinearProgress className={classes.linearProgress} variant="determinate" value={linearProgressValue}

@@ -14,27 +14,28 @@ import EditDialog from "./edit_dialog";
 const useStyles = makeStyles(theme => ({
     root: {
         display: 'flex',
-        flexDirection:"column",
+        flexDirection: "column",
     },
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent:"center"
+        justifyContent: "center"
     },
     formControl: {
-        flex:"1/3",
+        flex: "1/3",
         margin: theme.spacing(3),
     },
 }));
 
 const PaymentHistoryContainer = () => {
-const classes = useStyles();
-const searchBy = useSelector(state => state.payment.payments.searchBy);
+    const classes = useStyles();
+    const searchBy = useSelector(state => state.payment.payments.searchBy);
     const dispatch = useDispatch();
 
     function handleSearchBy(event) {
         dispatch(updatePaymentsSearchBy(event.target.value));
     }
+
     return (
         <Box className={classes.root}>
             <form className={classes.container}>
