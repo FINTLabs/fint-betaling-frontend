@@ -6,7 +6,7 @@ import ExpirationDatePicker from "./expiration_date_picker";
 import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchPayment} from "../../../../data/redux/actions/payments";
-import {updateStep} from "../../../../data/redux/actions/payment";
+import {updateSentPayment, updateStep} from "../../../../data/redux/actions/payment";
 import Typography from "@material-ui/core/Typography";
 import PaymentRepository from "../../../../data/repository/PaymentRepository";
 import {STEP_PAYMENT_CONFIRMED} from "../../constants";
@@ -68,7 +68,6 @@ const ConfirmSend = () => {
                 for (let i = 0; i < customers.length; i++) {
                     const customer = customers[i];
                     if (key === customer.kundenummer) {
-                        console.log(i + ". " + key);
                         list.push(customer);
                     }
                 }
@@ -83,7 +82,6 @@ const ConfirmSend = () => {
                 for (let i = 0; i < orderLines.length; i++) {
                     if (orderLines[i].kode === key) {
                         orderLineFromProducts = orderLines[i];
-                        console.log(i + ". " + orderLines[i]);
                     }
                 }
                 const orderLine = {
@@ -94,7 +92,6 @@ const ConfirmSend = () => {
                 list.push(orderLine);
 
             });
-            console.log("list: ", list);
             return list;
         }
 
@@ -102,14 +99,6 @@ const ConfirmSend = () => {
         const recipientsList = getRecipientsAsObjects(recipients);
 
         const productList = getProductsAsObjects(products, productsAmount);
-
-        console.log("SENDER INN PAYMENT: ", orgId,
-            JSON.parse(JSON.stringify(recipientsList)),
-            JSON.parse(JSON.stringify(productList)),
-            mva[0],
-            employer[0],
-            expirationDate)
-
         PaymentRepository.setPayment(
             orgId,
             JSON.parse(JSON.stringify(recipientsList)),
@@ -118,9 +107,8 @@ const ConfirmSend = () => {
             employer[0],
             expirationDate
         ).then(data => {
-            console.log(data);
+            dispatch(updateSentPayment(data));
             dispatch(updateStep(STEP_PAYMENT_CONFIRMED));
-            dispatch(fetchPayment());
         });
     }
 
@@ -128,7 +116,7 @@ const ConfirmSend = () => {
         <Box className={classes.root}>
             <Paper>
                 <Typography variant="h4" className={classes.titleText}>
-                    Velg forfall og send
+                    Velg forfall og lagre
                 </Typography>
             </Paper>
             <Paper className={classes.confirmPaper}>
@@ -137,7 +125,7 @@ const ConfirmSend = () => {
                 <Box className={classes.expirationContainer}>
                     <ExpirationDatePicker/>
                     <Button disabled={confirmButtonDisabled} className={classes.confirmButton}
-                            onClick={handleSendInvoice}>Send fakturaer</Button>
+                            onClick={handleSendInvoice}>Lagre faktura</Button>
                 </Box>
             </Paper>
         </Box>

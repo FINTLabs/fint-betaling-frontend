@@ -2,7 +2,7 @@ import {
     INITIALIZE_PAYMENT,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_EXPIRATION_DATE,
-    UPDATE_GROUP_CONTENT_OPEN,
+    UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE,
     UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
@@ -157,5 +157,10 @@ export function updateProductLength(value) {
 export function updateRecipientListOpen(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_RECIPIENT_LIST_OPEN, payload: value});
+    }
+}
+export function updateSentPayment(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_LATEST_SENT_PAYMENTS, payload: value});
     }
 }

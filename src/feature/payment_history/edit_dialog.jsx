@@ -37,7 +37,6 @@ const EditDialog = () => {
     Object.keys(payments).map(key => {
         if (payments[key] && payments[key].ordrenummer && payments[key].ordrenummer === dialogOrderNumber) {
             selectedPayment = payments[key];
-            console.log(payments[key]);
         }
     });
 

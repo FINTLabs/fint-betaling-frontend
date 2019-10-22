@@ -115,7 +115,7 @@ export default function Scaffold() {
     const mva = useSelector(state => state.mva);
     const orderLines = useSelector(state => state.orderLines);
     const payments = useSelector(state => state.payments);
-    const school = useSelector(state => state.payment.payment.school)
+    const school = useSelector(state => state.payment.payment.school);
 
     let amountFinishedLoaded =
         (customers.loaded ? 1 : 0) +

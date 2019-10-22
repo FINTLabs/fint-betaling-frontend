@@ -52,7 +52,6 @@ const RecipientList = () => {
     let count = countChecked(recipientList);
     let countChipsFirst = 0;
     let countChipsSecond = 0;
-    console.log("openCollapse: ", openCollapse);
 
     function updateRecipientExtrasOpen() {
         dispatch(updateRecipientListOpen(!openCollapse));
