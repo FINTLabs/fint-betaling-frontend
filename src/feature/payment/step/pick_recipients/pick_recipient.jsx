@@ -14,7 +14,7 @@ import {
     updateSuggestions
 } from "../../../../data/redux/actions/payment";
 import {GROUP, INDIVIDUAL, SEARCH_PAGE_START} from "../../constants";
-import RecipientList from "./recipient_list";
+import RecipientList from "../recipient_list";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import ConfirmRecipients from "./confirm_recipients";

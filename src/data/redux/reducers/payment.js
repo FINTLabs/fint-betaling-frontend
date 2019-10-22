@@ -13,7 +13,7 @@ import {
     UPDATE_PRODUCT_AMOUNT, UPDATE_PRODUCT_LENGTH,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
-    UPDATE_PRODUCTS,
+    UPDATE_PRODUCTS, UPDATE_RECIPIENT_LIST_OPEN,
     UPDATE_RECIPIENTS,
     UPDATE_SCHOOL, UPDATE_SEARCH_PAGE,
     UPDATE_STEP, UPDATE_SUGGESTION_LENGTH,
@@ -38,6 +38,9 @@ export const defaultState = {
         groupContentOpen: {},
         confirmRecipientsOpen: false,
         page: 0,
+    },
+    recipientList:{
+        open: false,
     },
     product: {
         searchValue: '',
@@ -187,6 +190,13 @@ export default function reducer(state = defaultState, action) {
                 ...state,
                 payments: {
                     dialogOrderNumber: action.payload ,dialogOpen: state.payments.dialogOpen ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions,
+                }
+            };
+        case UPDATE_RECIPIENT_LIST_OPEN:
+            return {
+                ...state,
+                recipientList: {
+                    open: action.payload,
                 }
             };
         default:
