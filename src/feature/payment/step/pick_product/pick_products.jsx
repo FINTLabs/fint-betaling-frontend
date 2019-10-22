@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {makeStyles} from "@material-ui/core";
 import {updateStep,} from "../../../../data/redux/actions/payment";
 import Box from "@material-ui/core/Box";
-import RecipientList from "../pick_recipients/recipient_list";
+import RecipientList from "../recipient_list";
 import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 import ProductSearch from "./product_search";

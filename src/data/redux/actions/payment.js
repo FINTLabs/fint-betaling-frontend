@@ -14,7 +14,7 @@ import {
     UPDATE_PRODUCT_LENGTH,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
-    UPDATE_PRODUCTS,
+    UPDATE_PRODUCTS, UPDATE_RECIPIENT_LIST_OPEN,
     UPDATE_RECIPIENTS,
     UPDATE_SCHOOL,
     UPDATE_SEARCH_PAGE,
@@ -152,5 +152,10 @@ export function updateSuggestionLength(value) {
 export function updateProductLength(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_PRODUCT_LENGTH, payload: value});
+    }
+}
+export function updateRecipientListOpen(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_RECIPIENT_LIST_OPEN, payload: value});
     }
 }
