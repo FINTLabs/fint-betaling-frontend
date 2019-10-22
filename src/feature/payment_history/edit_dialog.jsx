@@ -65,7 +65,8 @@ const EditDialog = () => {
 
     return (
         <Dialog open={dialogOpen} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Ordrenummer: {selectedPayment ? selectedPayment.ordrenummer: ''}</DialogTitle>
+            <DialogTitle
+                id="form-dialog-title">Ordrenummer: {selectedPayment ? selectedPayment.ordrenummer : ''}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
                     Endringer utført på betalingen vil medføre en ny betalingoppfordring til mottakeren.

@@ -16,11 +16,7 @@ import {
     PAYMENT_PAYED,
     PAYMENT_WAITING
 } from "../payment/constants";
-import { CheckCircle } from '@material-ui/icons';
-import { Cancel } from '@material-ui/icons';
-import { RemoveCircle } from '@material-ui/icons';
-import { PaymentRounded } from '@material-ui/icons';
-import { Edit } from '@material-ui/icons';
+import {CheckCircle, Edit, PaymentRounded, RemoveCircle} from '@material-ui/icons';
 import Button from "@material-ui/core/Button";
 import {updatePaymentsDialogOpen, updatePaymentsDialogOrderNumber} from "../../data/redux/actions/payment";
 
@@ -40,9 +36,7 @@ const useStyles = makeStyles(theme => ({
         paddingTop: 0,
         paddingBottom: 0,
     },
-    editIcon: {
-
-    },
+    editIcon: {},
     payedIcon: {
         color: theme.palette.secondary.dark,
         width: '35px',
@@ -92,7 +86,7 @@ const PaymentsTable = () => {
         const status =
             parseInt(suggestion.restBelop) <= 0 ? PAYMENT_PAYED :
                 !suggestion.sentTilEksterntSystem ? PAYMENT_CREATED :
-        suggestion.fakturagrunnlag.forfallsdato < Date.now() ? PAYMENT_OVER_DUE : PAYMENT_WAITING;
+                    suggestion.fakturagrunnlag.forfallsdato < Date.now() ? PAYMENT_OVER_DUE : PAYMENT_WAITING;
 
         let paymentIcon;
         let statusText;
@@ -101,31 +95,32 @@ const PaymentsTable = () => {
             case PAYMENT_PAYED:
                 paymentIcon = <CheckCircle className={classes.payedIcon}></CheckCircle>;
                 statusText = <Typography variant="body2" className={classes.statusText}>Betalt</Typography>;
-            break;
+                break;
             case PAYMENT_CREATED:
                 paymentIcon = <CircularProgress className={classes.createdCircularProgress}/>;
-                statusText = <Typography variant="body2" className={classes.statusText}>Sendes til økonomisystem</Typography>;
-            break;
+                statusText =
+                    <Typography variant="body2" className={classes.statusText}>Sendes til økonomisystem</Typography>;
+                break;
             case PAYMENT_OVER_DUE:
                 paymentIcon = <RemoveCircle className={classes.overDueIcon}></RemoveCircle>;
                 statusText = <Typography variant="body2" className={classes.statusText}>Over forfall</Typography>;
-            break;
+                break;
             case PAYMENT_CANCELLED:
                 paymentIcon = <RemoveCircle className={classes.cancelledIcon}></RemoveCircle>;
                 statusText = <Typography variant="body2" className={classes.statusText}>Kansellert</Typography>;
-            break;
+                break;
             case PAYMENT_WAITING:
                 paymentIcon = <PaymentRounded className={classes.waitingPaymentIcon}></PaymentRounded>;
                 statusText = <Typography variant="body2" className={classes.statusText}>Venter på betaling</Typography>;
-            break;
+                break;
 
 
         }
 
-     return (
-         <TableCell align="left" className={classes.tableCellStatus}>
-             {paymentIcon}{statusText}
-         </TableCell>
+        return (
+            <TableCell align="left" className={classes.tableCellStatus}>
+                {paymentIcon}{statusText}
+            </TableCell>
         );
     }
 
@@ -156,7 +151,7 @@ const PaymentsTable = () => {
 
                             const orderNumberAndName = searchBy === ORDER_NUMBER ?
                                 (<TableRow hover>
-                                            {getStatus(suggestion)}
+                                        {getStatus(suggestion)}
                                         <TableCell align="left" className={classes.tableCell}>
                                             {suggestion.kunde ? suggestion.kunde.fulltNavn : ''}
                                         </TableCell>
@@ -170,21 +165,22 @@ const PaymentsTable = () => {
                                         <TableCell align="right" className={classes.tableCell}>
                                             {suggestion.fakturagrunnlag ?
                                                 suggestion.fakturagrunnlag.netto ?
-                                                    (parseInt(suggestion.fakturagrunnlag.netto)/100).toFixed(2)
+                                                    (parseInt(suggestion.fakturagrunnlag.netto) / 100).toFixed(2)
                                                     : "" : ""}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
                                             {suggestion.restBelop ?
-                                                (parseInt(suggestion.restBelop)/100).toFixed(2)
+                                                (parseInt(suggestion.restBelop) / 100).toFixed(2)
                                                 : ""}
                                         </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}><Button onClick={()=>handleOpenDialog(suggestion.ordrenummer)}><Edit/></Button></TableCell>
+                                        <TableCell align="right" className={classes.tableCell}><Button
+                                            onClick={() => handleOpenDialog(suggestion.ordrenummer)}><Edit/></Button></TableCell>
                                     </TableRow>
                                 )
                                 :
                                 (
                                     <TableRow hover>
-                                            {getStatus(suggestion)}
+                                        {getStatus(suggestion)}
                                         <TableCell align="left" className={classes.tableCell}>
                                             {parts.map(part => (
                                                 <span key={part.text} style={{fontWeight: part.highlight ? 500 : 400}}>
@@ -199,15 +195,16 @@ const PaymentsTable = () => {
                                         <TableCell align="right" className={classes.tableCell}>
                                             {suggestion.fakturagrunnlag ?
                                                 suggestion.fakturagrunnlag.netto ?
-                                                    (parseInt(suggestion.fakturagrunnlag.netto)/100).toFixed(2)
+                                                    (parseInt(suggestion.fakturagrunnlag.netto) / 100).toFixed(2)
                                                     : "" : ""}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
                                             {suggestion.restBelop ?
-                                                (parseInt(suggestion.restBelop)/100).toFixed(2)
-                                                     : ""}
+                                                (parseInt(suggestion.restBelop) / 100).toFixed(2)
+                                                : ""}
                                         </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}><Button onClick={()=>handleOpenDialog(suggestion.ordrenummer)}><Edit/></Button></TableCell>
+                                        <TableCell align="right" className={classes.tableCell}><Button
+                                            onClick={() => handleOpenDialog(suggestion.ordrenummer)}><Edit/></Button></TableCell>
                                     </TableRow>
                                 );
 

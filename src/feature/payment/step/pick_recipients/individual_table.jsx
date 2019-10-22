@@ -12,7 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateRecipients, updateSearchPage} from "../../../../data/redux/actions/payment";
 import TablePagination from "@material-ui/core/TablePagination";
 import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
-import {SEARCH_PAGE_ROWS_AMONT} from "../../constants";
+import {SEARCH_PAGE_ROWS} from "../../constants";
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -36,7 +36,7 @@ const IndividualTable = () => {
     let suggestions = useSelector(state => state.payment.form.filteredSuggestions);
     const recipients = useSelector(state => state.payment.payment.recipients);
     const activePage = useSelector(state => state.payment.form.page);
-    const rowsPerPage = SEARCH_PAGE_ROWS_AMONT;
+    const rowsPerPage = SEARCH_PAGE_ROWS;
     const suggestionLengthTemp = useSelector(state => state.payment.form.suggestionLength);
     const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
     suggestions = query.length === 0 ? [] : suggestions;

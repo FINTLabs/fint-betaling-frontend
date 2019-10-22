@@ -6,9 +6,6 @@ import {Box, makeStyles, Typography} from "@material-ui/core";
 import {updateRecipientListOpen, updateRecipients, updateStep} from "../../../data/redux/actions/payment";
 import {countChecked} from "../utils/list_utils";
 import {STEP_PICK_RECIPIENTS} from "../constants";
-import Collapse from "@material-ui/core/Collapse";
-import {ArrowDownward} from "@material-ui/icons";
-import {ArrowUpward} from "@material-ui/icons";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
@@ -101,7 +98,8 @@ const RecipientList = () => {
                     }
                 )
             }
-            {!openCollapse ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis alle mottakere</Button>: <div/>}
+            {!openCollapse ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis alle
+                mottakere</Button> : <div/>}
             {openCollapse ? recipientListKeys
                 .map(key => {
                         if (recipientList[key].checked) {
@@ -124,8 +122,9 @@ const RecipientList = () => {
                     }
                 ) : <div/>
             }
-            {openCollapse ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis færre mottakere</Button>: <div/>}
-            </div>;
+            {openCollapse ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis færre
+                mottakere</Button> : <div/>}
+        </div>;
 
 
     function handleDelete(key, label) {

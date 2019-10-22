@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, makeStyles} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -34,26 +34,26 @@ const ExpirationDatePicker = () => {
 
     return (
 
-            <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="age-simple">Forfallslengde</InputLabel>
-                <Select
-                    value={expirationDate}
-                    onChange={handleExpirationDateChange}
-                    inputProps={{
-                        name: 'Forfallslengde',
-                        id: 'age-simple',
-                    }}
-                >
-                    {
-                        dates.map(date => {
-                            return (
-                                <MenuItem className={classes.menuItem} key={date} value={date}>{date}</MenuItem>
-                            )
-                        })
-                    }
+        <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="age-simple">Forfallslengde</InputLabel>
+            <Select
+                value={expirationDate}
+                onChange={handleExpirationDateChange}
+                inputProps={{
+                    name: 'Forfallslengde',
+                    id: 'age-simple',
+                }}
+            >
+                {
+                    dates.map(date => {
+                        return (
+                            <MenuItem className={classes.menuItem} key={date} value={date}>{date}</MenuItem>
+                        )
+                    })
+                }
 
-                </Select>
-            </FormControl>
+            </Select>
+        </FormControl>
 
     );
 };

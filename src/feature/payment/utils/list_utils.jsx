@@ -4,12 +4,12 @@ export function getTotalPrice(productList, productAmount) {
     let total = 0;
     const keys = Object.keys(productList);
     keys.map(key => {
-        if (productList[key].checked){
+        if (productList[key].checked) {
             console.log(productList[key].price);
-            total = total+ parseInt(productList[key].price)* productAmount[key].amount;
+            total = total + parseInt(productList[key].price) * productAmount[key].amount;
         }
     })
-    return (total/100).toFixed(2);
+    return (total / 100).toFixed(2);
 }
 
 export function countChecked(list) {

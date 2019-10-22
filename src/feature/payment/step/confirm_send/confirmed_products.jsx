@@ -20,14 +20,11 @@ const useStyles = makeStyles(theme => ({
         marginBottom: theme.spacing(2),
         width: 600,
     },
-    tableWrapper: {
-    },
-    table: {
-    },
-    tableBody: {
-    },
+    tableWrapper: {},
+    table: {},
+    tableBody: {},
     recipientHeader: {
-        justifyContent:"center",
+        justifyContent: "center",
         color: theme.palette.secondary.main,
         width: "200px",
     },
@@ -67,23 +64,24 @@ const ConfirmedProducts = () => {
                                                 {key}
                                             </TableCell>
                                             <TableCell align="right">{productAmounts[key].amount}</TableCell>
-                                            <TableCell align="right">{(parseInt(products[key].price)/100).toFixed(2)}</TableCell>
                                             <TableCell
-                                                align="right">{(parseInt(productAmounts[key].amount) * (parseInt(products[key].price)/100)).toFixed(2)}</TableCell>
+                                                align="right">{(parseInt(products[key].price) / 100).toFixed(2)}</TableCell>
+                                            <TableCell
+                                                align="right">{(parseInt(productAmounts[key].amount) * (parseInt(products[key].price) / 100)).toFixed(2)}</TableCell>
                                         </TableRow>
                                     )
                                 }
                             })}
-                            <TableRow>
-                                <TableCell align="right" colSpan={5}>
-                                    <Typography variant="h6">
-                                        Total pris per elev eks. mva:
-                                    </Typography>
-                                </TableCell>
-                                <TableCell align="right">
-                                    {getTotalPrice(products, productAmounts)}
-                                </TableCell>
-                            </TableRow>
+                        <TableRow>
+                            <TableCell align="right" colSpan={5}>
+                                <Typography variant="h6">
+                                    Total pris per elev eks. mva:
+                                </Typography>
+                            </TableCell>
+                            <TableCell align="right">
+                                {getTotalPrice(products, productAmounts)}
+                            </TableCell>
+                        </TableRow>
                         <TableRow>
                             <TableCell align="right" colSpan={5}>
                                 <Typography variant="h6">
