@@ -1,7 +1,7 @@
 import {
     INITIALIZE_PAYMENT,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
-    UPDATE_EXPIRATION_DATE,
+    UPDATE_EXPIRATION_DATE, UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS,
     UPDATE_NEW_PRODUCT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
@@ -15,9 +15,9 @@ import {
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS, UPDATE_RECIPIENT_LIST_OPEN,
     UPDATE_RECIPIENTS,
-    UPDATE_SCHOOL, UPDATE_SEARCH_PAGE,
+    UPDATE_SCHOOL, UPDATE_SEARCH_PAGE, UPDATE_SELECTED_ORDERS_TO_EXTERNAL,
     UPDATE_STEP, UPDATE_SUGGESTION_LENGTH,
-    UPDATE_SUGGESTIONS
+    UPDATE_SUGGESTIONS, UPDATE_TO_VALUE_EXTERNAL
 } from "../actions/actions";
 import {GROUP, ORDER_NUMBER} from "../../../feature/payment/constants";
 import payments from "./payments";
@@ -55,6 +55,11 @@ export const defaultState = {
         dialogOpen: false,
         dialogOrderNumber: '',
         latestSent: [],
+    },
+    sendToExternalSystem:{
+        fromValue: '',
+        toValue: '',
+        selectedOrders: [],
     }
 };
 
@@ -205,6 +210,27 @@ export default function reducer(state = defaultState, action) {
                 ...state,
                 recipientList: {
                     open: action.payload,
+                }
+            };
+        case UPDATE_FROM_VALUE_EXTERNAL:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    fromValue: action.payload, toValue: state.sendToExternalSystem.toValue,selectedOrders: state.sendToExternalSystem.selectedOrders,
+                }
+            };
+        case UPDATE_TO_VALUE_EXTERNAL:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    toValue: action.payload, fromValue: state.sendToExternalSystem.fromValue, selectedOrders: state.sendToExternalSystem.selectedOrders,
+                }
+            };
+        case UPDATE_SELECTED_ORDERS_TO_EXTERNAL:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    selectedOrders: action.payload, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue,
                 }
             };
         default:
