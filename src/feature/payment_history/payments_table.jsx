@@ -6,7 +6,7 @@ import TableBody from "@material-ui/core/TableBody";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 import Table from "@material-ui/core/Table";
-import {CircularProgress, makeStyles, Typography} from "@material-ui/core";
+import {makeStyles, Typography} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {
     ORDER_NUMBER,
@@ -16,10 +16,9 @@ import {
     PAYMENT_PAYED,
     PAYMENT_WAITING
 } from "../payment/constants";
-import {CheckCircle, Edit, PaymentRounded, RemoveCircle} from '@material-ui/icons';
+import {CheckCircle, Edit, PaymentRounded, PriorityHigh, RemoveCircle, Warning} from '@material-ui/icons';
 import Button from "@material-ui/core/Button";
 import {updatePaymentsDialogOpen, updatePaymentsDialogOrderNumber} from "../../data/redux/actions/payment";
-import {Warning, PriorityHigh} from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -110,11 +109,11 @@ const PaymentsTable = () => {
                 statusText = <Typography variant="body2" className={classes.statusText}>Betalt</Typography>;
                 break;
             case PAYMENT_CREATED:
-                if (suggestion.status === "ERROR"){
-                paymentIcon = <Warning className={classes.warningIcon}/>;
-                statusText =
-                    <Typography variant="body2" className={classes.statusText}>Feil ved innsendelse</Typography>;
-                }else{
+                if (suggestion.status === "ERROR") {
+                    paymentIcon = <Warning className={classes.warningIcon}/>;
+                    statusText =
+                        <Typography variant="body2" className={classes.statusText}>Feil ved innsendelse</Typography>;
+                } else {
                     paymentIcon = <PriorityHigh className={classes.priorityIcon}/>;
                     statusText =
                         <Typography variant="body2" className={classes.statusText}>Ikke sendt</Typography>;
