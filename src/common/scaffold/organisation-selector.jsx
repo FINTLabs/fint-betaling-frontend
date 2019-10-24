@@ -28,7 +28,6 @@ const OrganisationSelector = () => {
     }
 
     function handleClose(selectedOrganisation) {
-        console.log("selectedOrganisation: ", selectedOrganisation);
         //setOrganisation(selectedOrganisation);
         setAnchorEl(null);
     }

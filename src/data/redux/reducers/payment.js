@@ -1,8 +1,8 @@
 import {
-    INITIALIZE_PAYMENT,
+    INITIALIZE_PAYMENT, UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
-    UPDATE_EXPIRATION_DATE,
-    UPDATE_GROUP_CONTENT_OPEN,
+    UPDATE_EXPIRATION_DATE, UPDATE_EXTERNAL_REDIRECT, UPDATE_FROM_VALUE_EXTERNAL,
+    UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS, UPDATE_LOADING_TO_EXTERNAL, UPDATE_NEED_FETCH,
     UPDATE_NEW_PRODUCT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
@@ -15,9 +15,9 @@ import {
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS, UPDATE_RECIPIENT_LIST_OPEN,
     UPDATE_RECIPIENTS,
-    UPDATE_SCHOOL, UPDATE_SEARCH_PAGE,
+    UPDATE_SCHOOL, UPDATE_SEARCH_PAGE, UPDATE_SELECTED_ORDERS_TO_EXTERNAL,
     UPDATE_STEP, UPDATE_SUGGESTION_LENGTH,
-    UPDATE_SUGGESTIONS
+    UPDATE_SUGGESTIONS, UPDATE_TO_VALUE_EXTERNAL
 } from "../actions/actions";
 import {GROUP, ORDER_NUMBER} from "../../../feature/payment/constants";
 import payments from "./payments";
@@ -54,7 +54,19 @@ export const defaultState = {
         searchBy: ORDER_NUMBER,
         dialogOpen: false,
         dialogOrderNumber: '',
-    }
+        latestSent: [],
+    },
+    sendToExternalSystem:{
+        fromValue: '',
+        toValue: '',
+        selectedOrders: [],
+        needFetch: true,
+        loading: false,
+        redirect: false,
+    },
+    backEndResponse:{
+      responseOrder: '',
+    },
 };
 
 export default function reducer(state = defaultState, action) {
@@ -161,35 +173,42 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 payments: {
-                    searchBy: action.payload, searchValue: state.payments.searchValue, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,
+                    searchBy: action.payload, searchValue: state.payments.searchValue, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
                 }
             };
         case UPDATE_PAYMENTS_SUGGESTIONS:
             return {
                 ...state,
                 payments: {
-                    filteredSuggestions: action.payload, searchBy: state.payments.searchBy, searchValue : state.payments.searchValue, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,
+                    filteredSuggestions: action.payload, searchBy: state.payments.searchBy, searchValue : state.payments.searchValue, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
                 }
             };
         case UPDATE_PAYMENTS_SEARCH_VALUE:
             return {
                 ...state,
                 payments: {
-                    searchValue: action.payload, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,
+                    searchValue: action.payload, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
                 }
             };
         case UPDATE_PAYMENTS_DIALOG_OPEN:
             return {
                 ...state,
                 payments: {
-                    dialogOpen: action.payload ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOrderNumber: state.payments.dialogOrderNumber,
+                    dialogOpen: action.payload ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
                 }
             };
         case UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER:
             return {
                 ...state,
                 payments: {
-                    dialogOrderNumber: action.payload ,dialogOpen: state.payments.dialogOpen ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions,
+                    dialogOrderNumber: action.payload ,dialogOpen: state.payments.dialogOpen ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, latestSent: state.payments.latestSent,
+                }
+            };
+        case UPDATE_LATEST_SENT_PAYMENTS:
+            return {
+                ...state,
+                payments: {
+                    latestSent: action.payload ,dialogOrderNumber: state.payments.dialogOrderNumber ,dialogOpen: state.payments.dialogOpen ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions,
                 }
             };
         case UPDATE_RECIPIENT_LIST_OPEN:
@@ -197,6 +216,56 @@ export default function reducer(state = defaultState, action) {
                 ...state,
                 recipientList: {
                     open: action.payload,
+                }
+            };
+        case UPDATE_FROM_VALUE_EXTERNAL:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    fromValue: action.payload, toValue: state.sendToExternalSystem.toValue,selectedOrders: state.sendToExternalSystem.selectedOrders, needFetch: state.sendToExternalSystem.needFetch, loading: state.sendToExternalSystem.loading, redirect: state.sendToExternalSystem.redirect,
+                }
+            };
+        case UPDATE_TO_VALUE_EXTERNAL:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    toValue: action.payload, fromValue: state.sendToExternalSystem.fromValue, selectedOrders: state.sendToExternalSystem.selectedOrders, needFetch: state.sendToExternalSystem.needFetch, loading: state.sendToExternalSystem.loading, redirect: state.sendToExternalSystem.redirect,
+                }
+            };
+        case UPDATE_SELECTED_ORDERS_TO_EXTERNAL:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    selectedOrders: action.payload, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue, needFetch: state.sendToExternalSystem.needFetch, loading: state.sendToExternalSystem.loading, redirect: state.sendToExternalSystem.redirect,
+                }
+            };
+        case UPDATE_NEED_FETCH:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    needFetch: action.payload, selectedOrders: state.sendToExternalSystem.selectedOrders, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue, loading: state.sendToExternalSystem.loading, redirect: state.sendToExternalSystem.redirect,
+                }
+            };
+        case UPDATE_LOADING_TO_EXTERNAL:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    loading: action.payload, needFetch: state.sendToExternalSystem.needFetch, selectedOrders: state.sendToExternalSystem.selectedOrders, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue, redirect: state.sendToExternalSystem.redirect,
+
+                }
+            };
+        case UPDATE_EXTERNAL_REDIRECT:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    redirect: action.payload ,loading: state.sendToExternalSystem.loading, needFetch: state.sendToExternalSystem.needFetch, selectedOrders: state.sendToExternalSystem.selectedOrders, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue,
+                }
+            };
+        case UPDATE_BACK_END_RESPONSE:
+            return {
+                ...state,
+                backEndResponse: {
+                    responseOrder: action.payload,
                 }
             };
         default:

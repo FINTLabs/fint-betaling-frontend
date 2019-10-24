@@ -5,7 +5,6 @@ export function getTotalPrice(productList, productAmount) {
     const keys = Object.keys(productList);
     keys.map(key => {
         if (productList[key].checked) {
-            console.log(productList[key].price);
             total = total + parseInt(productList[key].price) * productAmount[key].amount;
         }
     })

@@ -8,8 +8,6 @@ export function fetchPayment() {
 
 
         PaymentRepository.fetchPayments().then(([result, json]) => {
-            console.log("Payments Result: ", result);
-            console.log("Payments Json: ", json);
             if (result.status === 200) {
                 dispatch({type: FETCH_PAYMENTS_FULFILLED, payload: json});
             }
@@ -23,8 +21,6 @@ export function addNewPayment() {
         dispatch({type: ADD_NEW_PAYMENT});
 
         PaymentRepository.setPayment().then(([result, json]) => {
-            console.log("Payments Result: ", result);
-            console.log("Payments Json: ", json);
             if (result.status === 200) {
                 dispatch({type: FETCH_PAYMENTS_FULFILLED, payload: json});
             }

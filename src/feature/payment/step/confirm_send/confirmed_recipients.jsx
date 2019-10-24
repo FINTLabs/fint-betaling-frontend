@@ -38,7 +38,7 @@ const ConfirmedRecipients = () => {
     return (
         <Box className={classes.root}>
             <Typography variant="h5" className={classes.recipientHeader}>
-                Mottakere av faktura
+                Dine mottakere
             </Typography>
             <div className={classes.tableWrapper}>
                 <Table className={classes.table} stickyHeader size="small">

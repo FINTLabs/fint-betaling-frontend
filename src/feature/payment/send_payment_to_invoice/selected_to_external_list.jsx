@@ -1,11 +1,10 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import PaymentIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import Chip from '@material-ui/core/Chip';
 import {Box, makeStyles, Typography} from "@material-ui/core";
-import {updateRecipientListOpen, updateRecipients, updateStep} from "../../../data/redux/actions/payment";
 import {countChecked} from "../utils/list_utils";
-import {STEP_PICK_RECIPIENTS} from "../constants";
+import {updateRecipientListOpen, updateSelectedOrders} from "../../../data/redux/actions/payment";
+import Chip from "@material-ui/core/Chip";
+import PaymentIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
@@ -30,26 +29,26 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.secondary.contrastText,
     },
     collapseButton: {
-        backgroundColor: theme.palette.secondary.dark,
-        color: theme.palette.secondary.contrastText,
+        color: theme.palette.secondary.main,
         display: "flex",
         margin: "auto",
         marginTop: theme.spacing(1),
     },
 }));
 
-const RecipientList = () => {
+const SelectedToExternalList = () => {
+
+    const selectedOrders = useSelector(state => state.payment.sendToExternalSystem.selectedOrders);
     const classes = useStyles();
-    const recipientList = useSelector(state => state.payment.payment.recipients);
     const openCollapse = useSelector(state => state.payment.recipientList.open);
     const dispatch = useDispatch();
-    const recipientCounted = countChecked(recipientList);
-    const recipientHeaderText = recipientCounted > 0 ?
-        <Typography variant="h6">Mine mottakere:</Typography> : "";
-    const recipientCountText = recipientCounted > 0 ?
-        <Typography variant="h7">Antall: {recipientCounted}</Typography> : "";
-    let recipientListKeys = Object.keys(recipientList);
-    let count = countChecked(recipientList);
+    const selectedOrdersCounted = countChecked(selectedOrders);
+    const recipientHeaderText = selectedOrdersCounted > 0 ?
+        <Typography variant="h6">Mine ordre:</Typography> : "";
+    const recipientCountText = selectedOrdersCounted > 0 ?
+        <Typography variant="h7">Antall: {selectedOrdersCounted}</Typography> : "";
+    let selectedOrderListKeys = Object.keys(selectedOrders);
+    let count = countChecked(selectedOrders);
     let countChipsFirst = 0;
     let countChipsSecond = 0;
 
@@ -58,16 +57,16 @@ const RecipientList = () => {
     }
 
     const chips = count <= 10 ?
-        recipientListKeys.map(key => {
-                if (recipientList[key].checked) {
+        selectedOrderListKeys.map(key => {
+                if (selectedOrders[key].checked) {
                     return (
                         <Chip
                             size="small"
                             key={key}
                             value={key}
-                            onDelete={() => handleDelete(key, recipientList[key].name)}
+                            onDelete={() => handleDelete(key)}
                             icon={PaymentIcon}
-                            label={recipientList[key].name}
+                            label={key}
                             className={classes.chip}
                         >
                         </Chip>
@@ -75,9 +74,9 @@ const RecipientList = () => {
                 }
             }
         ) : <div>
-            {recipientListKeys
+            {selectedOrderListKeys
                 .map(key => {
-                        if (recipientList[key].checked) {
+                        if (selectedOrders[key].checked) {
                             countChipsFirst += 1;
                             if (countChipsFirst <= 10) {
                                 return (
@@ -85,9 +84,9 @@ const RecipientList = () => {
                                         size="small"
                                         key={key}
                                         value={key}
-                                        onDelete={() => handleDelete(key, recipientList[key].name)}
+                                        onDelete={() => handleDelete(key)}
                                         icon={PaymentIcon}
-                                        label={recipientList[key].name}
+                                        label={key}
                                         className={classes.chip}
                                     >
                                     </Chip>
@@ -97,11 +96,12 @@ const RecipientList = () => {
                     }
                 )
             }
-            {!openCollapse ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis alle
-                mottakere</Button> : <div/>}
-            {openCollapse ? recipientListKeys
+            {!openCollapse ?
+                <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis flere</Button> :
+                <div/>}
+            {openCollapse ? selectedOrderListKeys
                 .map(key => {
-                        if (recipientList[key].checked) {
+                        if (selectedOrders[key].checked) {
                             countChipsSecond += 1;
                             if (countChipsSecond > 10) {
                                 return (
@@ -109,9 +109,9 @@ const RecipientList = () => {
                                         size="small"
                                         key={key}
                                         value={key}
-                                        onDelete={() => handleDelete(key, recipientList[key].name)}
+                                        onDelete={() => handleDelete(key)}
                                         icon={PaymentIcon}
-                                        label={recipientList[key].name}
+                                        label={key}
                                         className={classes.chip}
                                     >
                                     </Chip>
@@ -121,22 +121,20 @@ const RecipientList = () => {
                     }
                 ) : <div/>
             }
-            {openCollapse ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis færre
-                mottakere</Button> : <div/>}
+            {openCollapse ?
+                <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis færre</Button> :
+                <div/>}
         </div>;
 
 
-    function handleDelete(key, label) {
+    function handleDelete(key) {
 
-        if (countChecked(recipientList) < 2) {
-            dispatch(updateStep(STEP_PICK_RECIPIENTS));
-        }
-        const newArray = {...recipientList};
-        newArray[key] = {"checked": false, "name": label};
-        dispatch(updateRecipients(newArray))
+        const newArray = {...selectedOrders};
+        newArray[key] = {"checked": false};
+        dispatch(updateSelectedOrders(newArray))
     }
 
-    if (recipientList && Object.keys(recipientList).length > 0) {
+    if (selectedOrders && Object.keys(selectedOrders).length > 0) {
         return (
             <div className={classes.root}>
                 {recipientHeaderText}
@@ -153,4 +151,4 @@ const RecipientList = () => {
     }
 };
 
-export default RecipientList;
+export default SelectedToExternalList;

@@ -1,8 +1,8 @@
 import {
-    INITIALIZE_PAYMENT,
+    INITIALIZE_PAYMENT, UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
-    UPDATE_EXPIRATION_DATE,
-    UPDATE_GROUP_CONTENT_OPEN,
+    UPDATE_EXPIRATION_DATE, UPDATE_EXTERNAL_REDIRECT, UPDATE_FROM_VALUE_EXTERNAL,
+    UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS, UPDATE_LOADING_TO_EXTERNAL, UPDATE_NEED_FETCH,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE,
     UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
@@ -17,10 +17,10 @@ import {
     UPDATE_PRODUCTS, UPDATE_RECIPIENT_LIST_OPEN,
     UPDATE_RECIPIENTS,
     UPDATE_SCHOOL,
-    UPDATE_SEARCH_PAGE,
+    UPDATE_SEARCH_PAGE, UPDATE_SELECTED_ORDERS_TO_EXTERNAL,
     UPDATE_STEP,
     UPDATE_SUGGESTION_LENGTH,
-    UPDATE_SUGGESTIONS
+    UPDATE_SUGGESTIONS, UPDATE_TO_VALUE_EXTERNAL
 } from "./actions";
 
 export function initialiazePayment() {
@@ -157,5 +157,45 @@ export function updateProductLength(value) {
 export function updateRecipientListOpen(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_RECIPIENT_LIST_OPEN, payload: value});
+    }
+}
+export function updateSentPayment(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_LATEST_SENT_PAYMENTS, payload: value});
+    }
+}
+export function updateFromValue(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_FROM_VALUE_EXTERNAL, payload: value});
+    }
+}
+export function updateToValue(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_TO_VALUE_EXTERNAL, payload: value});
+    }
+}
+export function updateSelectedOrders(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_SELECTED_ORDERS_TO_EXTERNAL, payload: value});
+    }
+}
+export function updateNeedFetch(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_NEED_FETCH, payload: value});
+    }
+}
+export function updateLoadingSendingInvoice(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_LOADING_TO_EXTERNAL, payload: value});
+    }
+}
+export function updateRedirectFromExternal(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_EXTERNAL_REDIRECT, payload: value});
+    }
+}
+export function updateSendOrderResponse(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_BACK_END_RESPONSE, payload: value});
     }
 }

@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        justifyContent: "center"
+        justifyContent: "center",
     },
     formControl: {
         flex: "1/3",
