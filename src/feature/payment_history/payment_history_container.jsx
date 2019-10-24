@@ -8,8 +8,9 @@ import Radio from "@material-ui/core/Radio";
 import {makeStyles} from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import {useDispatch, useSelector} from "react-redux";
-import {updatePaymentsSearchBy} from "../../data/redux/actions/payment";
+import {updateNeedFetch, updatePaymentsSearchBy} from "../../data/redux/actions/payment";
 import EditDialog from "./edit_dialog";
+import {fetchPayment} from "../../data/redux/actions/payments";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -31,6 +32,12 @@ const PaymentHistoryContainer = () => {
     const classes = useStyles();
     const searchBy = useSelector(state => state.payment.payments.searchBy);
     const dispatch = useDispatch();
+    const needsFetch = useSelector(state => state.payment.sendToExternalSystem.needFetch);
+
+    if (needsFetch) {
+        dispatch(fetchPayment());
+        dispatch(updateNeedFetch(false));
+    }
 
     function handleSearchBy(event) {
         dispatch(updatePaymentsSearchBy(event.target.value));

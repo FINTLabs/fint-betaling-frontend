@@ -82,11 +82,12 @@ const SendToInvoiceContainer = () => {
     const selectedOrders = useSelector(state => state.payment.sendToExternalSystem.selectedOrders);
     const displayLoading = useSelector(state => state.payment.sendToExternalSystem.loading);
     const redirected = useSelector(state => state.payment.sendToExternalSystem.redirect);
+    const latestPayments = useSelector(state => state.payment.payments.latestSent);
+    const needsFetch = useSelector(state => state.payment.sendToExternalSystem.needFetch);
     const dispatch = useDispatch();
     const suggestions = getNotSentPayments();
     const filteredSuggestions = getFilteredSuggestions();
     const orgId = "fintlabs.no";
-    const needsFetch = useSelector(state => state.payment.sendToExternalSystem.needFetch);
 
     if (needsFetch) {
         dispatch(fetchPayment());
@@ -180,6 +181,8 @@ const SendToInvoiceContainer = () => {
         ).then(data => {
             console.log("data: ", data);
             dispatch(updateSendOrderResponse(data));
+            dispatch(updateFromValue(fromValue));
+            dispatch(updateToValue(toValue));
             dispatch(updateRedirectFromExternal(true));
             dispatch(updateLoadingSendingInvoice(false));
             dispatch(updateNeedFetch(true));

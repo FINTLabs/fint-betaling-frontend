@@ -3,7 +3,7 @@ import {
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_EXPIRATION_DATE, UPDATE_EXTERNAL_REDIRECT, UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS, UPDATE_LOADING_TO_EXTERNAL, UPDATE_NEED_FETCH,
-    UPDATE_NEW_PRODUCT_OPEN,
+    UPDATE_NEW_PRODUCT_OPEN, UPDATE_ORDER_STATUS_CONTENT, UPDATE_ORDER_STATUS_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
     UPDATE_PAYMENTS_DIALOG_OPEN,
@@ -28,6 +28,8 @@ export const defaultState = {
         recipients: {},
         products: {},
         expirationDate: '',
+        statusOpen: false,
+        statusContent: '',
     },
     form: {
         step: 0,
@@ -108,13 +110,6 @@ export default function reducer(state = defaultState, action) {
                 ...state,
                 form: {suggestionLength: action.payload ,confirmRecipientsOpen: state.form.confirmRecipientsOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, page: state.form.page}
             };
-        case UPDATE_RECIPIENTS:
-            return {
-                ...state,
-                payment: {
-                    recipients: action.payload, products: state.payment.products, expirationDate: state.payment.expirationDate, school: state.payment.school,
-                }
-            };
         case UPDATE_STEP:
             return {
                 ...state,
@@ -141,25 +136,46 @@ export default function reducer(state = defaultState, action) {
                     productsLength: action.payload,filteredSuggestions: state.product.filteredSuggestions, searchValue : state.product.searchValue, amount: state.product.amount,
                 }
             };
+        case UPDATE_RECIPIENTS:
+            return {
+                ...state,
+                payment: {
+                    recipients: action.payload, products: state.payment.products, expirationDate: state.payment.expirationDate, school: state.payment.school, statusOpen: state.payment.statusOpen, statusContent: state.payment.statusContent,
+                }
+            };
         case UPDATE_PRODUCTS:
             return {
                 ...state,
                 payment: {
-                    products: action.payload, recipients : state.payment.recipients, expirationDate: state.payment.expirationDate, school: state.payment.school,
+                    products: action.payload, recipients : state.payment.recipients, expirationDate: state.payment.expirationDate, school: state.payment.school, statusOpen: state.payment.statusOpen, statusContent: state.payment.statusContent,
                 }
             };
         case UPDATE_EXPIRATION_DATE:
             return {
                 ...state,
                 payment: {
-                    expirationDate: action.payload, recipients : state.payment.recipients, products: state.payment.products, school: state.payment.school,
+                    expirationDate: action.payload, recipients : state.payment.recipients, products: state.payment.products, school: state.payment.school, statusOpen: state.payment.statusOpen, statusContent: state.payment.statusContent,
                 }
             };
         case UPDATE_SCHOOL:
             return {
                 ...state,
                 payment: {
-                    school: action.payload, recipients : state.payment.recipients, products: state.payment.products, expirationDate: state.payment.expirationDate,
+                    school: action.payload, recipients : state.payment.recipients, products: state.payment.products, expirationDate: state.payment.expirationDate, statusOpen: state.payment.statusOpen, statusContent: state.payment.statusContent,
+                }
+            };
+        case UPDATE_ORDER_STATUS_OPEN:
+            return {
+                ...state,
+                payment: {
+                    statusOpen: action.payload, school: state.payment.school, recipients : state.payment.recipients, products: state.payment.products, expirationDate: state.payment.expirationDate, statusContent: state.payment.statusContent,
+                }
+            };
+        case UPDATE_ORDER_STATUS_CONTENT:
+            return {
+                ...state,
+                payment: {
+                    statusContent: action.payload, school: state.payment.school, recipients : state.payment.recipients, products: state.payment.products, expirationDate: state.payment.expirationDate, statusOpen: state.payment.statusOpen,
                 }
             };
         case UPDATE_PRODUCT_AMOUNT:

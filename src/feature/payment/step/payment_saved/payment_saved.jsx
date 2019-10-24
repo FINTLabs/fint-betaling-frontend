@@ -1,6 +1,6 @@
 import React from 'react';
 import {ListItemText, makeStyles, Paper} from "@material-ui/core";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import {countChecked} from "../../utils/list_utils";
@@ -9,6 +9,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ConfirmedProducts from "../confirm_send/confirmed_products";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
+import {updateFromValue, updateToValue} from "../../../../data/redux/actions/payment";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -105,6 +106,12 @@ const PaymentSaved = () => {
     const expirationDays = useSelector(state => state.payment.payment.expirationDate);
     const recipients = useSelector(state => state.payment.payment.recipients);
     const latestPayments = useSelector(state => state.payment.payments.latestSent);
+    const dispatch = useDispatch();
+
+    if (latestPayments){
+        dispatch(updateFromValue(getFirstOrderNumber()));
+        dispatch(updateToValue(getLastOrderNumber()));
+    }
 
     function getTodayDate() {
         let today = new Date();

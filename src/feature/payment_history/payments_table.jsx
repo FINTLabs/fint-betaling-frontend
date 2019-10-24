@@ -19,6 +19,7 @@ import {
 import {CheckCircle, Edit, PaymentRounded, RemoveCircle} from '@material-ui/icons';
 import Button from "@material-ui/core/Button";
 import {updatePaymentsDialogOpen, updatePaymentsDialogOrderNumber} from "../../data/redux/actions/payment";
+import {Warning, PriorityHigh} from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
     table: {
@@ -51,8 +52,20 @@ const useStyles = makeStyles(theme => ({
     },
     createdCircularProgress: {
         color: theme.palette.secondary.main,
-        width: '30px',
-        height: '30px',
+        width: '35px',
+        height: '35px',
+        verticalAlign: 'text-top'
+    },
+    warningIcon: {
+        color: theme.status.danger,
+        width: '35px',
+        height: '35px',
+        verticalAlign: 'text-top'
+    },
+    priorityIcon: {
+        color: theme.status.danger,
+        width: '35px',
+        height: '35px',
         verticalAlign: 'text-top'
     },
     cancelledIcon: {
@@ -97,9 +110,16 @@ const PaymentsTable = () => {
                 statusText = <Typography variant="body2" className={classes.statusText}>Betalt</Typography>;
                 break;
             case PAYMENT_CREATED:
-                paymentIcon = <CircularProgress className={classes.createdCircularProgress}/>;
+                if (suggestion.status === "ERROR"){
+                paymentIcon = <Warning className={classes.warningIcon}/>;
                 statusText =
-                    <Typography variant="body2" className={classes.statusText}>Sendes til økonomisystem</Typography>;
+                    <Typography variant="body2" className={classes.statusText}>Feil ved innsendelse</Typography>;
+                }else{
+                    paymentIcon = <PriorityHigh className={classes.priorityIcon}/>;
+                    statusText =
+                        <Typography variant="body2" className={classes.statusText}>Ikke sendt</Typography>;
+                }
+
                 break;
             case PAYMENT_OVER_DUE:
                 paymentIcon = <RemoveCircle className={classes.overDueIcon}></RemoveCircle>;
