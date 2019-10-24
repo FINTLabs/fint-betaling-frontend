@@ -1,8 +1,8 @@
 import {
-    INITIALIZE_PAYMENT,
+    INITIALIZE_PAYMENT, UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
-    UPDATE_EXPIRATION_DATE, UPDATE_FROM_VALUE_EXTERNAL,
-    UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS,
+    UPDATE_EXPIRATION_DATE, UPDATE_EXTERNAL_REDIRECT, UPDATE_FROM_VALUE_EXTERNAL,
+    UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS, UPDATE_LOADING_TO_EXTERNAL, UPDATE_NEED_FETCH,
     UPDATE_NEW_PRODUCT_OPEN,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
@@ -60,7 +60,13 @@ export const defaultState = {
         fromValue: '',
         toValue: '',
         selectedOrders: [],
-    }
+        needFetch: true,
+        loading: false,
+        redirect: false,
+    },
+    backEndResponse:{
+      responseOrder: '',
+    },
 };
 
 export default function reducer(state = defaultState, action) {
@@ -216,21 +222,50 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 sendToExternalSystem: {
-                    fromValue: action.payload, toValue: state.sendToExternalSystem.toValue,selectedOrders: state.sendToExternalSystem.selectedOrders,
+                    fromValue: action.payload, toValue: state.sendToExternalSystem.toValue,selectedOrders: state.sendToExternalSystem.selectedOrders, needFetch: state.sendToExternalSystem.needFetch, loading: state.sendToExternalSystem.loading, redirect: state.sendToExternalSystem.redirect,
                 }
             };
         case UPDATE_TO_VALUE_EXTERNAL:
             return {
                 ...state,
                 sendToExternalSystem: {
-                    toValue: action.payload, fromValue: state.sendToExternalSystem.fromValue, selectedOrders: state.sendToExternalSystem.selectedOrders,
+                    toValue: action.payload, fromValue: state.sendToExternalSystem.fromValue, selectedOrders: state.sendToExternalSystem.selectedOrders, needFetch: state.sendToExternalSystem.needFetch, loading: state.sendToExternalSystem.loading, redirect: state.sendToExternalSystem.redirect,
                 }
             };
         case UPDATE_SELECTED_ORDERS_TO_EXTERNAL:
             return {
                 ...state,
                 sendToExternalSystem: {
-                    selectedOrders: action.payload, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue,
+                    selectedOrders: action.payload, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue, needFetch: state.sendToExternalSystem.needFetch, loading: state.sendToExternalSystem.loading, redirect: state.sendToExternalSystem.redirect,
+                }
+            };
+        case UPDATE_NEED_FETCH:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    needFetch: action.payload, selectedOrders: state.sendToExternalSystem.selectedOrders, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue, loading: state.sendToExternalSystem.loading, redirect: state.sendToExternalSystem.redirect,
+                }
+            };
+        case UPDATE_LOADING_TO_EXTERNAL:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    loading: action.payload, needFetch: state.sendToExternalSystem.needFetch, selectedOrders: state.sendToExternalSystem.selectedOrders, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue, redirect: state.sendToExternalSystem.redirect,
+
+                }
+            };
+        case UPDATE_EXTERNAL_REDIRECT:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    redirect: action.payload ,loading: state.sendToExternalSystem.loading, needFetch: state.sendToExternalSystem.needFetch, selectedOrders: state.sendToExternalSystem.selectedOrders, toValue: state.sendToExternalSystem.toValue, fromValue: state.sendToExternalSystem.fromValue,
+                }
+            };
+        case UPDATE_BACK_END_RESPONSE:
+            return {
+                ...state,
+                backEndResponse: {
+                    responseOrder: action.payload,
                 }
             };
         default:

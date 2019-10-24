@@ -9,16 +9,20 @@ import {Box, makeStyles, Paper, Typography} from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import {
     updateFromValue,
+    updateLoadingSendingInvoice,
+    updateNeedFetch,
+    updateRedirectFromExternal,
     updateSelectedOrders,
-    updateSentPayment, updateStep,
+    updateSendOrderResponse,
     updateToValue
 } from "../../../data/redux/actions/payment";
 import Checkbox from "@material-ui/core/Checkbox";
 import SelectedToExternalList from "./selected_to_external_list";
 import Button from "@material-ui/core/Button";
-import PaymentRepository from "../../../data/repository/PaymentRepository";
-import {STEP_PAYMENT_CONFIRMED} from "../constants";
 import InvoiceRepository from "../../../data/repository/InvoiceRepository";
+import {fetchPayment} from "../../../data/redux/actions/payments";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Redirect from "react-router-dom/es/Redirect";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -62,6 +66,10 @@ const useStyles = makeStyles(theme => ({
         margin: "auto",
         marginTop: theme.spacing(1),
     },
+    progress: {
+        margin: theme.spacing(2),
+        color: theme.palette.secondary.main,
+    },
 
 }));
 
@@ -72,10 +80,18 @@ const SendToInvoiceContainer = () => {
     const fromValue = useSelector(state => state.payment.sendToExternalSystem.fromValue);
     const toValue = useSelector(state => state.payment.sendToExternalSystem.toValue);
     const selectedOrders = useSelector(state => state.payment.sendToExternalSystem.selectedOrders);
+    const displayLoading = useSelector(state => state.payment.sendToExternalSystem.loading);
+    const redirected = useSelector(state => state.payment.sendToExternalSystem.redirect);
     const dispatch = useDispatch();
     const suggestions = getNotSentPayments();
     const filteredSuggestions = getFilteredSuggestions();
     const orgId = "fintlabs.no";
+    const needsFetch = useSelector(state => state.payment.sendToExternalSystem.needFetch);
+
+    if (needsFetch) {
+        dispatch(fetchPayment());
+        dispatch(updateNeedFetch(false));
+    }
 
     console.log("suggestions: ", suggestions);
     console.log("filteredSuggestions: ", filteredSuggestions);
@@ -152,20 +168,23 @@ const SendToInvoiceContainer = () => {
     }
 
     function handleConfirmSendPayments() {
-        let orderNumbers = []
+        let orderNumbers = [];
         Object.keys(selectedOrders).map(key => {
-            if (selectedOrders[key].checked){
+            if (selectedOrders[key].checked) {
                 orderNumbers.push(key);
             }
         });
-        console.log("orderNumbers: ", orderNumbers);
-
         InvoiceRepository.sendOrders(
             orgId,
             orderNumbers
         ).then(data => {
             console.log("data: ", data);
+            dispatch(updateSendOrderResponse(data));
+            dispatch(updateRedirectFromExternal(true));
+            dispatch(updateLoadingSendingInvoice(false));
+            dispatch(updateNeedFetch(true));
         });
+        dispatch(updateLoadingSendingInvoice(true));
     }
 
     return (
@@ -259,10 +278,12 @@ const SendToInvoiceContainer = () => {
                 </TableBody>
             </Table>
             {Object.keys(selectedOrders).length > 0 ?
-                <Button className={classes.confirmButton} onClick={handleConfirmSendPayments}>
-                    Send til økonomisystem
-                </Button>
-                : <div/>}
+                !displayLoading ?
+                    <Button className={classes.confirmButton} onClick={handleConfirmSendPayments}>
+                        Send til økonomisystem
+                    </Button>
+                    : <CircularProgress className={classes.progress}/> : <div/>}
+            {redirected ? <Redirect to="/betaling-sendt"/> : <div/>}
         </Box>
     );
 };

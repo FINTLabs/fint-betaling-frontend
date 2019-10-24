@@ -2,16 +2,10 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Box, makeStyles, Typography} from "@material-ui/core";
 import {countChecked} from "../utils/list_utils";
-import {
-    updateRecipientListOpen,
-    updateRecipients,
-    updateSelectedOrders,
-    updateStep
-} from "../../../data/redux/actions/payment";
+import {updateRecipientListOpen, updateSelectedOrders} from "../../../data/redux/actions/payment";
 import Chip from "@material-ui/core/Chip";
 import PaymentIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import Button from "@material-ui/core/Button";
-import {STEP_PICK_RECIPIENTS} from "../constants";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -102,8 +96,9 @@ const SelectedToExternalList = () => {
                     }
                 )
             }
-            {!openCollapse ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis alle
-                mottakere</Button> : <div/>}
+            {!openCollapse ?
+                <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis flere</Button> :
+                <div/>}
             {openCollapse ? selectedOrderListKeys
                 .map(key => {
                         if (selectedOrders[key].checked) {
@@ -126,8 +121,9 @@ const SelectedToExternalList = () => {
                     }
                 ) : <div/>
             }
-            {openCollapse ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis færre
-                mottakere</Button> : <div/>}
+            {openCollapse ?
+                <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis færre</Button> :
+                <div/>}
         </div>;
 
 

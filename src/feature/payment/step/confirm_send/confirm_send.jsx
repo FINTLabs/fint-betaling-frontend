@@ -6,7 +6,7 @@ import ExpirationDatePicker from "./expiration_date_picker";
 import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchPayment} from "../../../../data/redux/actions/payments";
-import {updateSentPayment, updateStep} from "../../../../data/redux/actions/payment";
+import {updateNeedFetch, updateSentPayment, updateStep} from "../../../../data/redux/actions/payment";
 import Typography from "@material-ui/core/Typography";
 import PaymentRepository from "../../../../data/repository/PaymentRepository";
 import {STEP_PAYMENT_CONFIRMED} from "../../constants";
@@ -109,6 +109,7 @@ const ConfirmSend = () => {
         ).then(data => {
             dispatch(updateSentPayment(data));
             dispatch(updateStep(STEP_PAYMENT_CONFIRMED));
+            dispatch(updateNeedFetch(true));
         });
     }
 

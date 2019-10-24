@@ -1,8 +1,8 @@
 import {
-    INITIALIZE_PAYMENT,
+    INITIALIZE_PAYMENT, UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
-    UPDATE_EXPIRATION_DATE, UPDATE_FROM_VALUE_EXTERNAL,
-    UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS,
+    UPDATE_EXPIRATION_DATE, UPDATE_EXTERNAL_REDIRECT, UPDATE_FROM_VALUE_EXTERNAL,
+    UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS, UPDATE_LOADING_TO_EXTERNAL, UPDATE_NEED_FETCH,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE,
     UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
@@ -177,5 +177,25 @@ export function updateToValue(value) {
 export function updateSelectedOrders(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_SELECTED_ORDERS_TO_EXTERNAL, payload: value});
+    }
+}
+export function updateNeedFetch(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_NEED_FETCH, payload: value});
+    }
+}
+export function updateLoadingSendingInvoice(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_LOADING_TO_EXTERNAL, payload: value});
+    }
+}
+export function updateRedirectFromExternal(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_EXTERNAL_REDIRECT, payload: value});
+    }
+}
+export function updateSendOrderResponse(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_BACK_END_RESPONSE, payload: value});
     }
 }
