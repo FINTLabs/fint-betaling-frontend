@@ -2,13 +2,21 @@ import React from 'react';
 import {
   Box, makeStyles, Paper, Typography,
 } from '@material-ui/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 import Button from '@material-ui/core/Button';
+import {Check, Warning} from "@material-ui/icons";
+import {updateNeedFetch, updateOrderStatusContent, updateOrderStatusOpen} from "../../../data/redux/actions/payment";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import {fetchPayment} from "../../../data/redux/actions/payments";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,14 +58,34 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     margin: theme.spacing(1),
     float: 'right',
-
+    },
+    checkIcon: {
+        color: theme.palette.secondary.main,
+    },
+    warningIcon: {
+        color: theme.status.danger,
   },
 }));
 
 const SentToExternalContainer = () => {
   const data = useSelector((state) => state.payment.backEndResponse.responseOrder);
+    const statusOpen = useSelector(state => state.payment.payment.statusOpen);
+    const statusContent = useSelector(state => state.payment.payment.statusContent);
   const classes = useStyles();
-  console.log('Redirected here, with data: ', data);
+  const dispatch = useDispatch();
+
+    console.log('Redirected here, with data: ', data);
+
+    function handleStatusClick(event, errormessage) {
+        console.log("MIN VALUE!? : ", errormessage);
+        dispatch(updateOrderStatusContent(errormessage));
+        dispatch(updateOrderStatusOpen(true));
+    }
+
+    function handleClose() {
+        dispatch(updateOrderStatusOpen(false));
+        dispatch(updateOrderStatusContent(''));
+    }
   return (
     <Box className={classes.root}>
       <Typography variant="h4">Ordre sendt til økonomisystem</Typography>
@@ -71,12 +99,29 @@ const SentToExternalContainer = () => {
                 <TableCell>Ordrenummer</TableCell>
                 <TableCell align="right" className={classes.tableCell}>Mottakernavn</TableCell>
                 <TableCell align="right" className={classes.tableCell}>Restbeløp</TableCell>
+                            <TableCell align="right" className={classes.tableCell}>Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {
                 data.map(
-                  (suggestion) => (
+                                suggestion => {
+                                    const orderStatus =
+                                        (
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {suggestion.status === "ERROR" ?
+                                                    <Warning
+                                                        value={suggestion.error}
+                                                        className={classes.warningIcon}
+                                                        onClick={(e)=> handleStatusClick(e, suggestion.error)}
+                                                    />
+                                                    :
+                                                    <Check value={suggestion.error} className={classes.checkIcon}
+                                                           onClick={handleStatusClick}/>
+                                                }
+                                            </TableCell>
+                                        );
+                                    return (
                     <TableRow hover>
                       <TableCell align="left" className={classes.tableCell}>
                         {suggestion.ordrenummer}
@@ -91,6 +136,7 @@ const SentToExternalContainer = () => {
                         {suggestion.restBelop
                           ? (parseInt(suggestion.restBelop) / 100).toFixed(2) : ''}
                       </TableCell>
+                                            {orderStatus}
                     </TableRow>
                   ),
                 )
@@ -107,6 +153,24 @@ const SentToExternalContainer = () => {
           </Paper>
         )
         : <div />}
+            <Dialog
+                open={statusOpen}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">Status: </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {statusContent ? statusContent : "Godkjent"}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Tilbake
+                    </Button>
+                </DialogActions>
+            </Dialog>
     </Box>
   );
 };
