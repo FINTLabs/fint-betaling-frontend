@@ -3,7 +3,7 @@ import {
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_EXPIRATION_DATE, UPDATE_EXTERNAL_REDIRECT, UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS, UPDATE_LOADING_TO_EXTERNAL, UPDATE_NEED_FETCH,
-    UPDATE_NEW_PRODUCT_OPEN, UPDATE_ORDER_STATUS_CONTENT, UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_NEW_PRODUCT_OPEN, UPDATE_ORDER_STATUS_CONTENT, UPDATE_ORDER_STATUS_OPEN, UPDATE_PAYMENT_FILTER_VALUE,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE, UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
     UPDATE_PAYMENTS_DIALOG_OPEN,
@@ -22,9 +22,10 @@ import {
 import {GROUP, ORDER_NUMBER} from "../../../feature/payment/constants";
 import payments from "./payments";
 
+//TODO remove dummy values
 export const defaultState = {
     payment: {
-        school: 'dummyvalue',
+        school: '',
         recipients: {},
         products: {},
         expirationDate: '',
@@ -51,6 +52,7 @@ export const defaultState = {
         amount: [],
     },
     payments:{
+        filter: 1,
         searchValue: '',
         filteredSuggestions: [],
         searchBy: ORDER_NUMBER,
@@ -88,32 +90,32 @@ export default function reducer(state = defaultState, action) {
         case UPDATE_SUGGESTIONS:
             return {
                 ...state,
-                form: {filteredSuggestions: action.payload, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, confirmRecipientsOpen: state.form.confirmRecipientsOpen, page: state.form.page,suggestionLength: state.form.suggestionLength}
+                form: {filteredSuggestions: action.payload, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, confirmRecipientsOpen: state.form.confirmRecipientsOpen, page: state.form.page,suggestionLength: state.form.suggestionLength, }
             };
         case UPDATE_GROUP_CONTENT_OPEN:
             return {
                 ...state,
-                form: {groupContentOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, confirmRecipientsOpen: state.form.confirmRecipientsOpen, page: state.form.page,suggestionLength: state.form.suggestionLength}
+                form: {groupContentOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, confirmRecipientsOpen: state.form.confirmRecipientsOpen, page: state.form.page,suggestionLength: state.form.suggestionLength, }
             };
         case UPDATE_CONFIRM_RECIPIENTS_OPEN:
             return {
                 ...state,
-                form: {confirmRecipientsOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, page: state.form.page,suggestionLength: state.form.suggestionLength}
+                form: {confirmRecipientsOpen: action.payload, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, page: state.form.page,suggestionLength: state.form.suggestionLength, }
             };
         case UPDATE_SEARCH_PAGE:
             return {
                 ...state,
-                form: {page: action.payload ,confirmRecipientsOpen: state.form.confirmRecipientsOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, suggestionLength: state.form.suggestionLength}
+                form: {page: action.payload ,confirmRecipientsOpen: state.form.confirmRecipientsOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, suggestionLength: state.form.suggestionLength, }
             };
         case UPDATE_SUGGESTION_LENGTH:
             return {
                 ...state,
-                form: {suggestionLength: action.payload ,confirmRecipientsOpen: state.form.confirmRecipientsOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, page: state.form.page}
+                form: {suggestionLength: action.payload ,confirmRecipientsOpen: state.form.confirmRecipientsOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, step: state.form.step, groupContentOpen: state.form.groupContentOpen, page: state.form.page, }
             };
         case UPDATE_STEP:
             return {
                 ...state,
-                form: {step: action.payload, groupContentOpen: state.form.groupContentOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, page: state.form.page}
+                form: {step: action.payload, groupContentOpen: state.form.groupContentOpen, filteredSuggestions: state.form.filteredSuggestions, searchValue: state.form.searchValue, searchBy: state.form.searchBy, page: state.form.page,}
             };
         case UPDATE_PRODUCT_SEARCH_VALUE:
             return {
@@ -189,42 +191,49 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 payments: {
-                    searchBy: action.payload, searchValue: state.payments.searchValue, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
+                    searchBy: action.payload, searchValue: state.payments.searchValue, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent, filter: state.payments.filter,
+                }
+            };
+        case UPDATE_PAYMENT_FILTER_VALUE:
+            return {
+                ...state,
+                payments: {
+                    filter: action.payload, searchBy: state.payments.searchBy, searchValue: state.payments.searchValue, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
                 }
             };
         case UPDATE_PAYMENTS_SUGGESTIONS:
             return {
                 ...state,
                 payments: {
-                    filteredSuggestions: action.payload, searchBy: state.payments.searchBy, searchValue : state.payments.searchValue, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
+                    filteredSuggestions: action.payload, searchBy: state.payments.searchBy, searchValue : state.payments.searchValue, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent, filter: state.payments.filter,
                 }
             };
         case UPDATE_PAYMENTS_SEARCH_VALUE:
             return {
                 ...state,
                 payments: {
-                    searchValue: action.payload, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
+                    searchValue: action.payload, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent, filter: state.payments.filter,
                 }
             };
         case UPDATE_PAYMENTS_DIALOG_OPEN:
             return {
                 ...state,
                 payments: {
-                    dialogOpen: action.payload ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
+                    dialogOpen: action.payload ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent, filter: state.payments.filter,
                 }
             };
         case UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER:
             return {
                 ...state,
                 payments: {
-                    dialogOrderNumber: action.payload ,dialogOpen: state.payments.dialogOpen ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, latestSent: state.payments.latestSent,
+                    dialogOrderNumber: action.payload ,dialogOpen: state.payments.dialogOpen ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, latestSent: state.payments.latestSent, filter: state.payments.filter,
                 }
             };
         case UPDATE_LATEST_SENT_PAYMENTS:
             return {
                 ...state,
                 payments: {
-                    latestSent: action.payload ,dialogOrderNumber: state.payments.dialogOrderNumber ,dialogOpen: state.payments.dialogOpen ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions,
+                    latestSent: action.payload ,dialogOrderNumber: state.payments.dialogOrderNumber ,dialogOpen: state.payments.dialogOpen ,searchValue: state.payments.searchValue, searchBy: state.payments.searchBy, filteredSuggestions : state.payments.filteredSuggestions, filter: state.payments.filter,
                 }
             };
         case UPDATE_RECIPIENT_LIST_OPEN:

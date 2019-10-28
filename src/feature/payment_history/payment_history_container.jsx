@@ -11,6 +11,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {updateNeedFetch, updatePaymentsSearchBy} from "../../data/redux/actions/payment";
 import EditDialog from "./edit_dialog";
 import {fetchPayment} from "../../data/redux/actions/payments";
+import FilterCheckboxes from "./filter_checkboxes";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -52,6 +53,7 @@ const PaymentHistoryContainer = () => {
                         <FormControlLabel value={ORDER_NUMBER.toString()} control={<Radio/>} label="Ordrenummer"/>
                         <FormControlLabel value={CUSTOMER_NAME.toString()} control={<Radio/>} label="Navn"/>
                     </RadioGroup>
+                    <FilterCheckboxes/>
                 </FormControl>
             </form>
             <PaymentSearch/>

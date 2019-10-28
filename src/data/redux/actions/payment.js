@@ -9,7 +9,7 @@ import {
     UPDATE_LATEST_SENT_PAYMENTS,
     UPDATE_LOADING_TO_EXTERNAL,
     UPDATE_NEED_FETCH,
-    UPDATE_ORDER_STATUS_CONTENT, UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_ORDER_STATUS_CONTENT, UPDATE_ORDER_STATUS_OPEN, UPDATE_PAYMENT_FILTER_VALUE,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE,
     UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
@@ -32,6 +32,8 @@ import {
     UPDATE_SUGGESTIONS,
     UPDATE_TO_VALUE_EXTERNAL
 } from "./actions";
+
+//TODO move functions to different files or sort them
 
 export function initialiazePayment() {
     return function (dispatch) {
@@ -217,5 +219,10 @@ export function updateOrderStatusContent(value) {
 export function updateOrderStatusOpen(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_ORDER_STATUS_OPEN, payload: value});
+    }
+}
+export function updatePaymentFilterValue(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_PAYMENT_FILTER_VALUE, payload: value});
     }
 }

@@ -17,3 +17,6 @@ export const STEP_PAYMENT_CONFIRMED = 3;
 
 export const SEARCH_PAGE_START = 0;
 export const SEARCH_PAGE_ROWS = 10;
+
+//TODO: Create constants for filters
+export const FILTER_ALL = 1;
