@@ -24,7 +24,7 @@ import payments from "./payments";
 
 export const defaultState = {
     payment: {
-        school: 'dummyvalue',
+        school: '',
         recipients: {},
         products: {},
         expirationDate: '',
