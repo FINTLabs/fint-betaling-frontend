@@ -20,6 +20,7 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import NewInvoice from "@material-ui/icons/NoteAdd";
 import InvoiceHistory from "@material-ui/icons/History";
 import LogOut from "@material-ui/icons/ExitToApp"
+import {Send} from "@material-ui/icons";
 import Routes from "./routes";
 import {Link} from "react-router-dom";
 import OrganisationSelector from "./organisation-selector";
@@ -229,6 +230,12 @@ export default function Scaffold() {
                             <ListItem button>
                                 <ListItemIcon><InvoiceHistory/></ListItemIcon>
                                 <ListItemText primary="Sendte betalinger"/>
+                            </ListItem>
+                        </Link>
+                        <Link to="/send-til-fakturasystem" className={classes.menuLink}>
+                            <ListItem button>
+                                <ListItemIcon><Send/></ListItemIcon>
+                                <ListItemText primary="Send til fakturasystem"/>
                             </ListItem>
                         </Link>
                         <Link to="/logg-ut" className={classes.menuLink}>
