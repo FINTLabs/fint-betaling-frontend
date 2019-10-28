@@ -5,7 +5,6 @@ import ConfirmedProducts from "./confirmed_products";
 import ExpirationDatePicker from "./expiration_date_picker";
 import Button from "@material-ui/core/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchPayment} from "../../../../data/redux/actions/payments";
 import {updateNeedFetch, updateSentPayment, updateStep} from "../../../../data/redux/actions/payment";
 import Typography from "@material-ui/core/Typography";
 import PaymentRepository from "../../../../data/repository/PaymentRepository";
@@ -59,6 +58,7 @@ const ConfirmSend = () => {
     const orderLines = useSelector(state => state.orderLines.orderLines);
     const mva = useSelector(state => state.mva.mva);
     const employer = useSelector(state => state.employers.employers);
+    //Todo: Remove this orgId and use correct Id from client.
     const orgId = "fintlabs.no";
 
     function handleSendInvoice() {
