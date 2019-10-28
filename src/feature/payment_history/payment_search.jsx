@@ -6,8 +6,18 @@ import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import { Box, makeStyles } from '@material-ui/core';
 import { ORDER_NUMBER } from '../payment/constants';
-import { updatePaymentsSearchValue, updatePaymentsSuggestions } from '../../data/redux/actions/payment';
+import {
+    updateOrderStatusContent, updateOrderStatusOpen,
+    updatePaymentsSearchValue,
+    updatePaymentsSuggestions
+} from '../../data/redux/actions/payment';
 import PaymentsTable from './payments_table';
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,11 +57,12 @@ const useStyles = makeStyles((theme) => ({
 const PaymentSearch = () => {
   const payments = useSelector((state) => state.payments.payments);
   const searchValue = useSelector((state) => state.payment.payments.searchValue);
-  const dispatch = useDispatch();
   const filteredSuggestions = useSelector((state) => state.payment.payments.filteredSuggestions);
-  const suggestions = payments;
-  const searchBy = useSelector((state) => state.payment.payments.searchBy)
-    .toString();
+  const searchBy = useSelector((state) => state.payment.payments.searchBy).toString();
+    const statusOpen = useSelector(state => state.payment.payment.statusOpen);
+    const statusContent = useSelector(state => state.payment.payment.statusContent);
+    const dispatch = useDispatch();
+    const suggestions = payments;
   const searchLabel = 'Søk';
   const classes = useStyles();
   const searchPlaceHolder = searchBy === ORDER_NUMBER ? 'Ordrenummer' : 'Fakturamottaker';
@@ -140,6 +151,17 @@ const PaymentSearch = () => {
     dispatch(updatePaymentsSearchValue(event.target.value));
   }
 
+    function handleStatusClick(event, errormessage) {
+        console.log("MIN VALUE!? : ", errormessage);
+        dispatch(updateOrderStatusContent(errormessage));
+        dispatch(updateOrderStatusOpen(true));
+    }
+
+    function handleClose() {
+        dispatch(updateOrderStatusOpen(false));
+        dispatch(updateOrderStatusContent(''));
+    }
+
   return (
     <Box className={classes.root}>
       <Paper className={classes.container}>
@@ -168,6 +190,24 @@ const PaymentSearch = () => {
         />
       </Paper>
       <PaymentsTable />
+            <Dialog
+                open={statusOpen}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">Status: </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        {statusContent ? statusContent : "Godkjent"}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Tilbake
+                    </Button>
+                </DialogActions>
+            </Dialog>
     </Box>
   );
 };

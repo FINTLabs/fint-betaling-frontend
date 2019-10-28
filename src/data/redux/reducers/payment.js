@@ -11,7 +11,7 @@ import {
   UPDATE_NEED_FETCH,
     UPDATE_EXPIRATION_DATE, UPDATE_EXTERNAL_REDIRECT, UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN, UPDATE_LATEST_SENT_PAYMENTS, UPDATE_LOADING_TO_EXTERNAL, UPDATE_NEED_FETCH,
-    UPDATE_NEW_PRODUCT_OPEN, UPDATE_ORDER_STATUS_CONTENT, UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_NEW_PRODUCT_OPEN, UPDATE_ORDER_STATUS_CONTENT, UPDATE_ORDER_STATUS_OPEN, UPDATE_PAYMENT_FILTER_VALUE,
   UPDATE_PAYMENT_SEARCH_BY,
   UPDATE_PAYMENT_SEARCH_VALUE,
   UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
@@ -36,9 +36,10 @@ import {
 } from '../actions/actions';
 import { GROUP, ORDER_NUMBER } from '../../../feature/payment/constants';
 
+//TODO remove dummy values
 export const defaultState = {
   payment: {
-    school: '',
+        school: '',
     recipients: {},
     products: {},
     expirationDate: '',
@@ -65,6 +66,7 @@ export const defaultState = {
     amount: [],
   },
   payments: {
+        filter: 1,
     searchValue: '',
     filteredSuggestions: [],
     searchBy: ORDER_NUMBER,
@@ -128,8 +130,7 @@ export default function reducer(state = defaultState, action) {
           groupContentOpen: state.form.groupContentOpen,
           confirmRecipientsOpen: state.form.confirmRecipientsOpen,
           page: state.form.page,
-          suggestionLength: state.form.suggestionLength,
-        },
+          suggestionLength: state.form.suggestionLength, },
       };
     case UPDATE_GROUP_CONTENT_OPEN:
       return {
@@ -142,8 +143,7 @@ export default function reducer(state = defaultState, action) {
           step: state.form.step,
           confirmRecipientsOpen: state.form.confirmRecipientsOpen,
           page: state.form.page,
-          suggestionLength: state.form.suggestionLength,
-        },
+          suggestionLength: state.form.suggestionLength, },
       };
     case UPDATE_CONFIRM_RECIPIENTS_OPEN:
       return {
@@ -156,8 +156,7 @@ export default function reducer(state = defaultState, action) {
           step: state.form.step,
           groupContentOpen: state.form.groupContentOpen,
           page: state.form.page,
-          suggestionLength: state.form.suggestionLength,
-        },
+          suggestionLength: state.form.suggestionLength, },
       };
     case UPDATE_SEARCH_PAGE:
       return {
@@ -170,8 +169,7 @@ export default function reducer(state = defaultState, action) {
           searchBy: state.form.searchBy,
           step: state.form.step,
           groupContentOpen: state.form.groupContentOpen,
-          suggestionLength: state.form.suggestionLength,
-        },
+          suggestionLength: state.form.suggestionLength, },
       };
     case UPDATE_SUGGESTION_LENGTH:
       return {
@@ -309,7 +307,14 @@ export default function reducer(state = defaultState, action) {
           filteredSuggestions: state.payments.filteredSuggestions,
           dialogOpen: state.payments.dialogOpen,
           dialogOrderNumber: state.payments.dialogOrderNumber,
-          latestSent: state.payments.latestSent,
+          latestSent: state.payments.latestSent, filter: state.payments.filter,
+                }
+            };
+        case UPDATE_PAYMENT_FILTER_VALUE:
+            return {
+                ...state,
+                payments: {
+                    filter: action.payload, searchBy: state.payments.searchBy, searchValue: state.payments.searchValue, filteredSuggestions : state.payments.filteredSuggestions, dialogOpen: state.payments.dialogOpen, dialogOrderNumber: state.payments.dialogOrderNumber,latestSent: state.payments.latestSent,
         },
       };
     case UPDATE_PAYMENTS_SUGGESTIONS:
@@ -321,7 +326,7 @@ export default function reducer(state = defaultState, action) {
           searchValue: state.payments.searchValue,
           dialogOpen: state.payments.dialogOpen,
           dialogOrderNumber: state.payments.dialogOrderNumber,
-          latestSent: state.payments.latestSent,
+          latestSent: state.payments.latestSent, filter: state.payments.filter,
         },
       };
     case UPDATE_PAYMENTS_SEARCH_VALUE:
@@ -333,7 +338,7 @@ export default function reducer(state = defaultState, action) {
           filteredSuggestions: state.payments.filteredSuggestions,
           dialogOpen: state.payments.dialogOpen,
           dialogOrderNumber: state.payments.dialogOrderNumber,
-          latestSent: state.payments.latestSent,
+          latestSent: state.payments.latestSent, filter: state.payments.filter,
         },
       };
     case UPDATE_PAYMENTS_DIALOG_OPEN:
@@ -345,7 +350,7 @@ export default function reducer(state = defaultState, action) {
           searchBy: state.payments.searchBy,
           filteredSuggestions: state.payments.filteredSuggestions,
           dialogOrderNumber: state.payments.dialogOrderNumber,
-          latestSent: state.payments.latestSent,
+          latestSent: state.payments.latestSent, filter: state.payments.filter,
         },
       };
     case UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER:
@@ -357,7 +362,7 @@ export default function reducer(state = defaultState, action) {
           searchValue: state.payments.searchValue,
           searchBy: state.payments.searchBy,
           filteredSuggestions: state.payments.filteredSuggestions,
-          latestSent: state.payments.latestSent,
+          latestSent: state.payments.latestSent, filter: state.payments.filter,
         },
       };
     case UPDATE_LATEST_SENT_PAYMENTS:
@@ -369,7 +374,7 @@ export default function reducer(state = defaultState, action) {
           dialogOpen: state.payments.dialogOpen,
           searchValue: state.payments.searchValue,
           searchBy: state.payments.searchBy,
-          filteredSuggestions: state.payments.filteredSuggestions,
+          filteredSuggestions: state.payments.filteredSuggestions, filter: state.payments.filter,
         },
       };
     case UPDATE_RECIPIENT_LIST_OPEN:

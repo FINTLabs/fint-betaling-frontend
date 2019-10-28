@@ -22,7 +22,11 @@ import {
 } from "../payment/constants";
 import {CheckCircle, Edit, PaymentRounded, PriorityHigh, RemoveCircle, Warning} from '@material-ui/icons';
 import Button from "@material-ui/core/Button";
-import {updatePaymentsDialogOpen, updatePaymentsDialogOrderNumber} from "../../data/redux/actions/payment";
+import {
+    updateOrderStatusContent, updateOrderStatusOpen,
+    updatePaymentsDialogOpen,
+    updatePaymentsDialogOrderNumber
+} from "../../data/redux/actions/payment";
 
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -94,16 +98,26 @@ const PaymentsTable = () => {
   let suggestions = useSelector((state) => state.payment.payments.filteredSuggestions);
   const searchBy = useSelector((state) => state.payment.payments.searchBy)
     .toString();
+    const filterValue = useSelector(state => state.payment.payments.filter);
   suggestions = query.length === 0 ? [] : suggestions;
   const classes = useStyles();
   const dispatch = useDispatch();
+    const paymentNotSentFeedback = "Ordre er lagret, men ikke sendt til økonomisystem. Klikk på 'Send ordre' i hovedmenyen til venstre for å sende ordre til økonomisystem";
 
+    function handleStatusClick(event, errormessage) {
+        dispatch(updateOrderStatusContent(errormessage));
+        dispatch(updateOrderStatusOpen(true));
+    }
 
-  function getStatus(suggestion) {
-    const status = parseInt(suggestion.restBelop) <= 0 ? PAYMENT_PAYED
+    function getStatus(suggestion){
+        return ( parseInt(suggestion.restBelop) <= 0 ? PAYMENT_PAYED
       : !suggestion.sentTilEksterntSystem ? PAYMENT_CREATED
-        : suggestion.fakturagrunnlag.forfallsdato < Date.now() ? PAYMENT_OVER_DUE : PAYMENT_WAITING;
+        : suggestion.fakturagrunnlag.forfallsdato < Date.now() ? PAYMENT_OVER_DUE : PAYMENT_WAITING
+        )
+    }
 
+    function getStatusIcon(suggestion) {
+        const status = getStatus(suggestion);
     let paymentIcon;
     let statusText;
 
@@ -114,11 +128,11 @@ const PaymentsTable = () => {
         break;
       case PAYMENT_CREATED:
                 if (suggestion.status === "ERROR") {
-                    paymentIcon = <Warning className={classes.warningIcon}/>;
+                    paymentIcon = <Warning className={classes.warningIcon} onClick={(e)=> handleStatusClick(e, suggestion.error)}/>;
                     statusText =
                         <Typography variant="body2" className={classes.statusText}>Feil ved innsendelse</Typography>;
                 } else {
-                    paymentIcon = <PriorityHigh className={classes.priorityIcon}/>;
+                    paymentIcon = <PriorityHigh className={classes.priorityIcon} onClick={(e)=> handleStatusClick(e, paymentNotSentFeedback)}/>;
                     statusText =
                         <Typography variant="body2" className={classes.statusText}>Ikke sendt</Typography>;
                 }
@@ -136,7 +150,6 @@ const PaymentsTable = () => {
         statusText = <Typography variant="body2" className={classes.statusText}>Venter på betaling</Typography>;
         break;
     }
-
     return (
       <TableCell align="left" className={classes.tableCellStatus}>
         {paymentIcon}
@@ -173,7 +186,7 @@ const PaymentsTable = () => {
               const orderNumberAndName = searchBy === ORDER_NUMBER
                 ? (
                   <TableRow hover>
-                    {getStatus(suggestion)}
+                    {getStatusIcon(suggestion)}
                     <TableCell align="left" className={classes.tableCell}>
                       {suggestion.kunde ? suggestion.kunde.fulltNavn : ''}
                     </TableCell>
@@ -206,7 +219,7 @@ const PaymentsTable = () => {
                 )
                 : (
                   <TableRow hover>
-                    {getStatus(suggestion)}
+                                        {getStatusIcon(suggestion)}
                     <TableCell align="left" className={classes.tableCell}>
                       {parts.map((part) => (
                         <span key={part.text} style={{ fontWeight: part.highlight ? 500 : 400 }}>
