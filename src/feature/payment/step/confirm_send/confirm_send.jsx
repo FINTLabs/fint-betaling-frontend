@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Box, makeStyles, Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +10,7 @@ import ExpirationDatePicker from './expiration_date_picker';
 import { updateNeedFetch, updateSentPayment, updateStep } from '../../../../data/redux/actions/payment';
 import PaymentRepository from '../../../../data/repository/PaymentRepository';
 import { STEP_PAYMENT_CONFIRMED } from '../../constants';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,6 +62,7 @@ const ConfirmSend = () => {
   const mva = useSelector((state) => state.mva.mva);
   const employer = useSelector((state) => state.employers.employers);
   const orgId = 'fintlabs.no';
+
 
   function handleSendInvoice() {
     function getRecipientsAsObjects(recipients) {

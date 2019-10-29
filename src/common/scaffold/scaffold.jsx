@@ -34,6 +34,7 @@ import fetchOrderLines from '../../data/redux/actions/orderlines';
 import { fetchPayment } from '../../data/redux/actions/payments';
 import LoadingPage from './loading_page';
 
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -237,7 +238,6 @@ export default function Scaffold() {
             </ListItem>
           </Link>
         </List>
-
       </Drawer>
       <main
         className={clsx(classes.content, {
