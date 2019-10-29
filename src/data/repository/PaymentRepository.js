@@ -1,15 +1,16 @@
 class PaymentRepository {
+  static fetchPayments() {
+    const url = '/api/payment';
+    return fetch(url, {
+      method: 'GET',
+      credentials: 'same-origin',
+      // headers: new Headers({'x-org-id': orgId})
+    })
+      .then((result) => Promise.all([result, result.json()]))
+      .catch((error) => error);
+  }
 
-    static fetchPayments() {
-        const url = '/api/payment';
-        return fetch(url, {
-            method: "GET",
-            credentials: 'same-origin',
-            //headers: new Headers({'x-org-id': orgId})
-        }).then(result => Promise.all([result, result.json()]))
-            .catch(error => error);
-    }
-/*
+  /*
     static getPaymentsByOrderNumber(orgId, number) {
         let url = new URL('/repository/payment/ordrenummer');
         let params = {'ordrenummer': number};
@@ -33,32 +34,29 @@ class PaymentRepository {
         }).then(result => {
             return result.json();
         }).catch(error => console.log(error));
-    }*/
+    } */
 
-    static setPayment(orgId, customers, orderLines, mvaCode, employer, timeFrameDueDate) {
-        const request = new Request('/api/payment',
-            {
-                method: 'POST',
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'x-org-id': orgId
-                }),
-                body: JSON.stringify({
-                    mvaCode: mvaCode,
-                    orderLines: orderLines,
-                    customers: customers,
-                    employer: employer,
-                    timeFrameDueDate: timeFrameDueDate,
-                })
-            });
+  static setPayment(orgId, customers, orderLines, mvaCode, employer, timeFrameDueDate) {
+    const request = new Request('/api/payment',
+      {
+        method: 'POST',
+        headers: new Headers({
+          'Content-Type': 'application/json',
+          'x-org-id': orgId,
+        }),
+        body: JSON.stringify({
+          mvaCode,
+          orderLines,
+          customers,
+          employer,
+          timeFrameDueDate,
+        }),
+      });
 
-        return fetch(request).then(response => {
-            return response.json()
-        }).catch(error => {
-            return error
-        });
-    }
-
+    return fetch(request)
+      .then((response) => response.json())
+      .catch((error) => error);
+  }
 }
 
-export default PaymentRepository
+export default PaymentRepository;
