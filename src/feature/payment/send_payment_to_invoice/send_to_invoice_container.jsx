@@ -12,7 +12,6 @@ import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Redirect from 'react-router-dom/es/Redirect';
 import {
   updateFromValue,
   updateLoadingSendingInvoice,
@@ -25,6 +24,7 @@ import {
 import SelectedToExternalList from './selected_to_external_list';
 import InvoiceRepository from '../../../data/repository/InvoiceRepository';
 import { fetchPayment } from '../../../data/redux/actions/payments';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
