@@ -44,16 +44,20 @@
     ]
   },
   "devDependencies": {
+    "@types/jest": "^24.0.21",
     "autosuggest-highlight": "^3.1.1",
     "browserify": "^16.5.0",
     "downshift": "^3.3.1",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^23.0.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "react-autosuggest": "^9.4.3",
-    "react-window": "^1.8.5"
+    "react-test-renderer": "^16.11.0",
+    "react-window": "^1.8.5",
+    "redux-mock-store": "^1.5.3"
   }
 }

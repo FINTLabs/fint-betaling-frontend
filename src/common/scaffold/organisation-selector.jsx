@@ -48,8 +48,8 @@ const OrganisationSelector = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {organisations.map((organisationChoice) => (
-          <MenuItem onClick={handleClose}>{organisationChoice}</MenuItem>
+        {organisations.map((o) => (
+          <MenuItem key={o} onClick={handleClose}>{o}</MenuItem>
         ))}
       </Menu>
     </Box>
