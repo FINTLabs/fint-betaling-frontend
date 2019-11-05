@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { ListItemText, makeStyles, Paper } from '@material-ui/core';
 import { useDispatch, useSelector} from 'react-redux';
 import Box from '@material-ui/core/Box';
@@ -9,6 +10,18 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import ConfirmedProducts from '../confirm_send/confirmed_products';
 import { countChecked } from '../../utils/list_utils';
+=======
+import {ListItemText, makeStyles, Paper} from "@material-ui/core";
+import {useDispatch, useSelector} from "react-redux";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import {countChecked} from "../../utils/list_utils";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ConfirmedProducts from "../confirm_send/confirmed_products";
+import Button from "@material-ui/core/Button";
+import {Link} from "react-router-dom";
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
 import {updateFromValue, updateToValue} from "../../../../data/redux/actions/payment";
 
 const useStyles = makeStyles((theme) => ({
@@ -102,11 +115,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PaymentSaved = () => {
+<<<<<<< HEAD
   const classes = useStyles();
   const expirationDays = useSelector((state) => state.payment.payment.expirationDate);
   const recipients = useSelector((state) => state.payment.payment.recipients);
   const latestPayments = useSelector((state) => state.payment.payments.latestSent);
     const dispatch = useDispatch();
+=======
+    const classes = useStyles();
+    const expirationDays = useSelector(state => state.payment.payment.expirationDate);
+    const recipients = useSelector(state => state.payment.payment.recipients);
+    const latestPayments = useSelector(state => state.payment.payments.latestSent);
+    const dispatch = useDispatch();
+
+    if (latestPayments){
+        dispatch(updateFromValue(getFirstOrderNumber()));
+        dispatch(updateToValue(getLastOrderNumber()));
+    }
+
+    function getTodayDate() {
+        let today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
 
     if (latestPayments){
         dispatch(updateFromValue(getFirstOrderNumber()));

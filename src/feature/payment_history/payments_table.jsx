@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,6 +10,17 @@ import Table from '@material-ui/core/Table';
 import {makeStyles, Typography} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
 import Button from '@material-ui/core/Button';
+=======
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableBody from "@material-ui/core/TableBody";
+import match from "autosuggest-highlight/match";
+import parse from "autosuggest-highlight/parse";
+import Table from "@material-ui/core/Table";
+import {makeStyles, Typography} from "@material-ui/core";
+import {useDispatch, useSelector} from "react-redux";
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
 import {
     ORDER_NUMBER,
     PAYMENT_CANCELLED,
@@ -18,9 +30,15 @@ import {
     PAYMENT_WAITING
 } from "../payment/constants";
 import {CheckCircle, Edit, PaymentRounded, PriorityHigh, RemoveCircle, Warning} from '@material-ui/icons';
+<<<<<<< HEAD
 import {
     updateOrderStatusContent,
     updateOrderStatusOpen,
+=======
+import Button from "@material-ui/core/Button";
+import {
+    updateOrderStatusContent, updateOrderStatusOpen,
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
     updatePaymentsDialogOpen,
     updatePaymentsDialogOrderNumber
 } from "../../data/redux/actions/payment";
@@ -58,6 +76,21 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.main,
         width: '35px',
         height: '35px',
+<<<<<<< HEAD
+=======
+        verticalAlign: 'text-top'
+    },
+    warningIcon: {
+        color: theme.status.danger,
+        width: '35px',
+        height: '35px',
+        verticalAlign: 'text-top'
+    },
+    priorityIcon: {
+        color: theme.status.danger,
+        width: '35px',
+        height: '35px',
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
         verticalAlign: 'text-top'
     },
     warningIcon: {
@@ -91,10 +124,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const PaymentsTable = () => {
+<<<<<<< HEAD
     const query = useSelector((state) => state.payment.payments.searchValue);
     let suggestions = useSelector((state) => state.payment.payments.filteredSuggestions);
     const searchBy = useSelector((state) => state.payment.payments.searchBy)
         .toString();
+=======
+    const query = useSelector(state => state.payment.payments.searchValue);
+    let suggestions = useSelector(state => state.payment.payments.filteredSuggestions);
+    const searchBy = useSelector(state => state.payment.payments.searchBy).toString();
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
     const filterValue = useSelector(state => state.payment.payments.filter);
     suggestions = query.length === 0 ? [] : suggestions;
     const classes = useStyles();
@@ -106,10 +145,18 @@ const PaymentsTable = () => {
         dispatch(updateOrderStatusOpen(true));
     }
 
+<<<<<<< HEAD
     function getStatus(suggestion) {
         return (parseInt(suggestion.restBelop) <= 0 ? PAYMENT_PAYED
                 : !suggestion.sentTilEksterntSystem ? PAYMENT_CREATED
                     : suggestion.fakturagrunnlag.forfallsdato < Date.now() ? PAYMENT_OVER_DUE : PAYMENT_WAITING
+=======
+    function getStatus(suggestion){
+        return (
+            parseInt(suggestion.restBelop) <= 0 ? PAYMENT_PAYED :
+                !suggestion.sentTilEksterntSystem ? PAYMENT_CREATED :
+                    suggestion.fakturagrunnlag.forfallsdato < Date.now() ? PAYMENT_OVER_DUE : PAYMENT_WAITING
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
         )
     }
 
@@ -125,6 +172,7 @@ const PaymentsTable = () => {
                 break;
             case PAYMENT_CREATED:
                 if (suggestion.status === "ERROR") {
+<<<<<<< HEAD
                     paymentIcon = <Warning className={classes.warningIcon}
                                            onClick={(e) => handleStatusClick(e, suggestion.error)}/>;
                     statusText =
@@ -135,6 +183,17 @@ const PaymentsTable = () => {
                     statusText =
                         <Typography variant="body2" className={classes.statusText}>Ikke sendt</Typography>;
                 }
+=======
+                    paymentIcon = <Warning className={classes.warningIcon} onClick={(e)=> handleStatusClick(e, suggestion.error)}/>;
+                    statusText =
+                        <Typography variant="body2" className={classes.statusText}>Feil ved innsendelse</Typography>;
+                } else {
+                    paymentIcon = <PriorityHigh className={classes.priorityIcon} onClick={(e)=> handleStatusClick(e, paymentNotSentFeedback)}/>;
+                    statusText =
+                        <Typography variant="body2" className={classes.statusText}>Ikke sendt</Typography>;
+                }
+
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
                 break;
             case PAYMENT_OVER_DUE:
                 paymentIcon = <RemoveCircle className={classes.overDueIcon}/>;
@@ -182,9 +241,14 @@ const PaymentsTable = () => {
                             const matches = match(payment, query);
                             const parts = parse(payment, matches);
 
+<<<<<<< HEAD
                             const orderNumberAndName = searchBy === ORDER_NUMBER
                                 ? (
                                     <TableRow hover>
+=======
+                            const orderNumberAndName = searchBy === ORDER_NUMBER ?
+                                (<TableRow hover>
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
                                         {getStatusIcon(suggestion)}
                                         <TableCell align="left" className={classes.tableCell}>
                                             {suggestion.kunde ? suggestion.kunde.fulltNavn : ''}

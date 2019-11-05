@@ -30,8 +30,15 @@ import {
     UPDATE_STEP,
     UPDATE_SUGGESTION_LENGTH,
     UPDATE_SUGGESTIONS,
+<<<<<<< HEAD
     UPDATE_TO_VALUE_EXTERNAL,
 } from './actions';
+
+//TODO move functions to different files or sort them
+=======
+    UPDATE_TO_VALUE_EXTERNAL
+} from "./actions";
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
 
 //TODO move functions to different files or sort them
 
@@ -309,6 +316,21 @@ export function updateSendOrderResponse(value) {
       payload: value,
     });
   };
+}
+export function updateOrderStatusContent(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_ORDER_STATUS_CONTENT, payload: value});
+    }
+}
+export function updateOrderStatusOpen(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_ORDER_STATUS_OPEN, payload: value});
+    }
+}
+export function updatePaymentFilterValue(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_PAYMENT_FILTER_VALUE, payload: value});
+    }
 }
 export function updateOrderStatusContent(value) {
     return function (dispatch) {

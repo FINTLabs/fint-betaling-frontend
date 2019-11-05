@@ -76,6 +76,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SendToInvoiceContainer = () => {
+<<<<<<< HEAD
   const classes = useStyles();
   const payments = useSelector((state) => state.payments.payments);
   const fromValue = useSelector((state) => state.payment.sendToExternalSystem.fromValue);
@@ -89,6 +90,22 @@ const SendToInvoiceContainer = () => {
   const suggestions = getNotSentPayments();
   const filteredSuggestions = getFilteredSuggestions();
   const orgId = 'fintlabs.no';
+=======
+
+    const classes = useStyles();
+    const payments = useSelector(state => state.payments.payments);
+    const fromValue = useSelector(state => state.payment.sendToExternalSystem.fromValue);
+    const toValue = useSelector(state => state.payment.sendToExternalSystem.toValue);
+    const selectedOrders = useSelector(state => state.payment.sendToExternalSystem.selectedOrders);
+    const displayLoading = useSelector(state => state.payment.sendToExternalSystem.loading);
+    const redirected = useSelector(state => state.payment.sendToExternalSystem.redirect);
+    const latestPayments = useSelector(state => state.payment.payments.latestSent);
+    const needsFetch = useSelector(state => state.payment.sendToExternalSystem.needFetch);
+    const dispatch = useDispatch();
+    const suggestions = getNotSentPayments();
+    const filteredSuggestions = getFilteredSuggestions();
+    const orgId = "fintlabs.no";
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
 
   if (needsFetch) {
     dispatch(fetchPayment());
@@ -193,6 +210,7 @@ const SendToInvoiceContainer = () => {
     dispatch(updateLoadingSendingInvoice(true));
   }
 
+<<<<<<< HEAD
   return (
     <Box className={classes.root}>
       <Paper>
@@ -235,6 +253,29 @@ const SendToInvoiceContainer = () => {
               </TableRow>
             )
             : <div />}
+=======
+    function handleConfirmSendPayments() {
+        let orderNumbers = [];
+        Object.keys(selectedOrders).map(key => {
+            if (selectedOrders[key].checked) {
+                orderNumbers.push(key);
+            }
+        });
+        InvoiceRepository.sendOrders(
+            orgId,
+            orderNumbers
+        ).then(data => {
+            console.log("data: ", data);
+            dispatch(updateSendOrderResponse(data));
+            dispatch(updateFromValue(fromValue));
+            dispatch(updateToValue(toValue));
+            dispatch(updateRedirectFromExternal(true));
+            dispatch(updateLoadingSendingInvoice(false));
+            dispatch(updateNeedFetch(true));
+        });
+        dispatch(updateLoadingSendingInvoice(true));
+    }
+>>>>>>> 8aa65f58af34d8e588a7adc5b514a180134876bf
 
         </TableHead>
         <TableBody>
