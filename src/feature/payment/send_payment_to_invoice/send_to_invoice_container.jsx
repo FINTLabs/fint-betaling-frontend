@@ -89,7 +89,6 @@ const SendToInvoiceContainer = () => {
   const suggestions = getNotSentPayments();
   const filteredSuggestions = getFilteredSuggestions();
   const orgId = 'fintlabs.no';
-  const needsFetch = useSelector((state) => state.payment.sendToExternalSystem.needFetch);
 
   if (needsFetch) {
     dispatch(fetchPayment());
