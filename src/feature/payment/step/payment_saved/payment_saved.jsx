@@ -139,13 +139,13 @@ const PaymentSaved = () => {
 
   function getFirstOrderNumber() {
     if (latestPayments) {
-      return latestPayments[0].ordrenummer;
+      return latestPayments[0].orderNumber;
     }
   }
 
   function getLastOrderNumber() {
     if (latestPayments) {
-      return latestPayments[latestPayments.length - 1].ordrenummer;
+      return latestPayments[latestPayments.length - 1].orderNumber;
     }
   }
 

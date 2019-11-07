@@ -1,31 +1,35 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { GROUP } from '../../constants';
+import {useSelector} from 'react-redux';
+import {GROUP} from '../../constants';
 import GroupTable from './group_table';
 import IndividualTable from './individual_table';
 
 const RecipientSuggestItem = () => {
-  const recipientType = useSelector((state) => state.payment.form.searchBy)
-    .toString();
-  const suggestions = useSelector((state) => state.payment.form.filteredSuggestions);
+    const recipientType = useSelector((state) => state.payment.form.searchBy)
+        .toString();
+    const suggestions = useSelector((state) => state.payment.form.filteredSuggestions);
+    const searchValue = useSelector(state => state.payment.form.searchValue);
 
-  if (suggestions && suggestions.length > 1) {
-    suggestions.sort((a, b) => (
-      a.kundenummer
-        ? a.fulltNavn > b.fulltNavn
-          ? 1 : -1
-        : a.navn > b.navn
-          ? 1 : -1));
-  }
+    if (searchValue.trim().length > 0) {
 
-  if (recipientType === GROUP) {
-    return (
-      <GroupTable />
-    );
-  }
-  return (
-    <IndividualTable />
-  );
+        if (suggestions && suggestions.length > 1) {
+            suggestions.sort((a, b) => (
+                 a.name > b.name
+                    ? 1 : -1
+            ));
+        }
+
+        if (recipientType === GROUP) {
+            return (
+                <GroupTable/>
+            );
+        }
+        return (
+            <IndividualTable/>
+        );
+    }else{
+      return <div/>
+    }
 };
 
 export default RecipientSuggestItem;

@@ -246,9 +246,9 @@ const SendToInvoiceContainer = () => {
                     {suggestion.ordrenummer}
                   </TableCell>
                   <TableCell align="right" className={classes.tableCell}>
-                    {suggestion.kunde
-                      ? suggestion.kunde.fulltNavn
-                        ? suggestion.kunde.fulltNavn
+                    {suggestion.customer
+                      ? suggestion.customer.name
+                        ? suggestion.customer.name
                         : '' : ''}
                   </TableCell>
                   <TableCell align="right" className={classes.tableCell}>

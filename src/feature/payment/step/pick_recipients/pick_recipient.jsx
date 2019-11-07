@@ -21,7 +21,7 @@ import ConfirmRecipients from './confirm_recipients';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+
   },
   container: {
     display: 'flex',
@@ -75,7 +75,7 @@ const PickPaymentRecipient = () => {
   }
 
   return (
-    <Box classes={classes.root}>
+    <Box className={classes.root}>
       <RecipientList />
       <form className={classes.container}>
         <FormControl component="fieldset" className={classes.formControl}>

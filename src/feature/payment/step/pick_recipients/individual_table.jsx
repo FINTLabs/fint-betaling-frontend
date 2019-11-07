@@ -98,7 +98,7 @@ const IndividualTable = () => {
         {
           suggestions.map(
             (suggestion) => {
-              const recipient = suggestion.fulltNavn;
+              const recipient = suggestion.name;
               const matches = match(recipient, query);
               const parts = parse(recipient, matches);
 
@@ -125,7 +125,7 @@ const IndividualTable = () => {
                   </TableCell>
                   <TableCell align="center" className={classes.tableCell}>
                     <Checkbox
-                      checked={recipients[suggestion.kundenummer] ? recipients[suggestion.kundenummer].checked : false}
+                      checked={recipients[suggestion.id] ? recipients[suggestion.id].checked : false}
                       onChange={(event) => handleIndividualCheck(
                         event,
                         suggestion.kontaktinformasjon ? suggestion.kontaktinformasjon.epostadresse : '',
@@ -134,8 +134,8 @@ const IndividualTable = () => {
                         suggestion.postadresse ? suggestion.postadresse.postnummer : '',
                         suggestion.postadresse ? suggestion.postadresse.poststed : '',
                       )}
-                      name={suggestion.fulltNavn}
-                      value={suggestion.kundenummer}
+                      name={suggestion.name}
+                      value={suggestion.id}
                     />
                   </TableCell>
                 </TableRow>

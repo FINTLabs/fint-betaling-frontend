@@ -74,10 +74,10 @@ const GroupTable = () => {
   function handleGroupChange(event, individualList) {
     const newArray = { ...recipients };
     for (let customer = 0; customer < individualList.length; customer++) {
-      const customerNumber = individualList[customer].kundenummer;
+      const customerNumber = individualList[customer].id;
       newArray[customerNumber] = {
         checked: event.target.checked,
-        name: individualList[customer].fulltNavn,
+        name: individualList[customer].name,
         email: individualList[customer].kontaktinformasjon ? individualList[customer].kontaktinformasjon.epostadresse : '',
         cellPhoneNumber: individualList[customer].kontaktinformasjon ? individualList[customer].kontaktinformasjon.mobiltelefonnummer : '',
         addressLine: individualList[customer].postadresse ? individualList[customer].postadresse.adresselinje : '',
@@ -91,7 +91,7 @@ const GroupTable = () => {
   function groupShouldBeChecked(customerList) {
     let status = true;
     for (let iterator = 0; iterator < customerList.length; iterator++) {
-      if (!recipients[customerList[iterator].kundenummer] || !recipients[customerList[iterator].kundenummer].checked) {
+      if (!recipients[customerList[iterator].id] || !recipients[customerList[iterator].id].checked) {
         status = false;
       }
     }
@@ -107,7 +107,7 @@ const GroupTable = () => {
   function groupCheckboxIndeterminateCheck(customerList) {
     let partlyChecked = false;
     for (let iterator = 0; iterator < customerList.length; iterator++) {
-      if (recipients[customerList[iterator].kundenummer] && recipients[customerList[iterator].kundenummer].checked) {
+      if (recipients[customerList[iterator].id] && recipients[customerList[iterator].id].checked) {
         partlyChecked = true;
       }
     }
@@ -134,11 +134,11 @@ const GroupTable = () => {
       {
         suggestions.map(
           (suggestion) => {
-            const recipient = suggestion.navn;
+            const recipient = suggestion.name;
             const matches = match(recipient, query);
             const parts = parse(recipient, matches);
             return (
-              <TableBody key={suggestion.navn}>
+              <TableBody key={suggestion.name}>
                 <TableRow hover>
                   <TableCell align="left" className={classes.tableCell}>
                     {parts.map((part) => (
@@ -155,10 +155,10 @@ const GroupTable = () => {
                   </TableCell>
                   <TableCell align="center" className={classes.tableCell}>
                     <Checkbox
-                      onChange={(event) => handleGroupChange(event, suggestion.kundeliste)}
-                      value={suggestion.kundeliste}
-                      indeterminate={groupShouldBeChecked(suggestion.kundeliste) ? false : groupCheckboxIndeterminateCheck(suggestion.kundeliste)}
-                      checked={groupShouldBeChecked(suggestion.kundeliste)}
+                      onChange={(event) => handleGroupChange(event, suggestion.customers)}
+                      value={suggestion.customers}
+                      indeterminate={groupShouldBeChecked(suggestion.customers) ? false : groupCheckboxIndeterminateCheck(suggestion.customers)}
+                      checked={groupShouldBeChecked(suggestion.customers)}
                     />
                   </TableCell>
                   <TableCell
@@ -198,31 +198,31 @@ const GroupTable = () => {
                         </TableHead>
                         <TableBody>
                           {
-                            suggestion.kundeliste.map(
-                              (kunde) => (
-                                <TableRow key={kunde.kundenummer}>
+                            suggestion.customers.map(
+                              (customer) => (
+                                <TableRow key={customer.id}>
                                   <TableCell
                                     align="left"
                                     className={classes.tableCell}
                                   >
-                                    {kunde.fulltNavn}
+                                    {customer.name}
                                   </TableCell>
                                   <TableCell
                                     align="right"
                                     className={classes.tableCell}
                                   >
-                                    {kunde.kontaktinformasjon
-                                      ? kunde.kontaktinformasjon.epostadresse
-                                        ? kunde.kontaktinformasjon.epostadresse
+                                    {customer.kontaktinformasjon
+                                      ? customer.kontaktinformasjon.epostadresse
+                                        ? customer.kontaktinformasjon.epostadresse
                                         : '' : ''}
                                   </TableCell>
                                   <TableCell
                                     align="right"
                                     className={classes.tableCell}
                                   >
-                                    {kunde.kontaktinformasjon
-                                      ? kunde.kontaktinformasjon.mobiltelefonnummer
-                                        ? kunde.kontaktinformasjon.mobiltelefonnummer
+                                    {customer.kontaktinformasjon
+                                      ? customer.kontaktinformasjon.mobiltelefonnummer
+                                        ? customer.kontaktinformasjon.mobiltelefonnummer
                                         : '' : ''}
                                   </TableCell>
                                   <TableCell
@@ -231,9 +231,9 @@ const GroupTable = () => {
                                   >
                                     <Checkbox
                                       onChange={handleIndividualCheck}
-                                      name={kunde.fulltNavn}
-                                      value={kunde.kundenummer}
-                                      checked={recipients[kunde.kundenummer] ? recipients[kunde.kundenummer].checked : false}
+                                      name={customer.name}
+                                      value={customer.id}
+                                      checked={recipients[customer.id] ? recipients[customer.id].checked : false}
                                     />
                                   </TableCell>
                                 </TableRow>

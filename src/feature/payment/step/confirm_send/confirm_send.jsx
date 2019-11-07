@@ -71,7 +71,7 @@ const ConfirmSend = () => {
         .map((key) => {
           for (let i = 0; i < customers.length; i++) {
             const customer = customers[i];
-            if (key === customer.kundenummer) {
+            if (key === customer.id) {
               list.push(customer);
             }
           }
@@ -107,7 +107,6 @@ const ConfirmSend = () => {
       orgId,
       JSON.parse(JSON.stringify(recipientsList)),
       JSON.parse(JSON.stringify(productList)),
-      mva[0],
       employer[0],
       expirationDate,
     )

@@ -178,7 +178,7 @@ const PaymentsTable = () => {
                 {
                     suggestions.map(
                         (suggestion) => {
-                            const payment = searchBy === ORDER_NUMBER ? suggestion.ordrenummer.toString() : suggestion.kunde.fulltNavn;
+                            const payment = searchBy === ORDER_NUMBER ? suggestion.ordrenummer.toString() : suggestion.customer.name;
                             const matches = match(payment, query);
                             const parts = parse(payment, matches);
 
@@ -187,7 +187,7 @@ const PaymentsTable = () => {
                                     <TableRow hover>
                                         {getStatusIcon(suggestion)}
                                         <TableCell align="left" className={classes.tableCell}>
-                                            {suggestion.kunde ? suggestion.kunde.fulltNavn : ''}
+                                            {suggestion.customer ? suggestion.customer.name : ''}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
                                             {parts.map((part) => (

@@ -122,12 +122,12 @@ const SentToExternalContainer = () => {
                                         return (
                                             <TableRow hover>
                                                 <TableCell align="left" className={classes.tableCell}>
-                                                    {suggestion.ordrenummer}
+                                                    {suggestion.orderNumber}
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>
-                                                    {suggestion.kunde
-                                                        ? suggestion.kunde.fulltNavn
-                                                            ? suggestion.kunde.fulltNavn
+                                                    {suggestion.customer
+                                                        ? suggestion.customer.name
+                                                            ? suggestion.customer.name
                                                             : '' : ''}
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>

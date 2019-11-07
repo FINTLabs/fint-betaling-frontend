@@ -36,7 +36,7 @@ const EditDialog = () => {
 
   Object.keys(payments)
     .map((key) => {
-      if (payments[key] && payments[key].ordrenummer && payments[key].ordrenummer === dialogOrderNumber) {
+      if (payments[key] && payments[key].orderNumber && payments[key].orderNumber === dialogOrderNumber) {
         selectedPayment = payments[key];
       }
     });
@@ -70,7 +70,7 @@ const EditDialog = () => {
       >
         Ordrenummer:
         {' '}
-        {selectedPayment ? selectedPayment.ordrenummer : ''}
+        {selectedPayment ? selectedPayment.orderNumber : ''}
       </DialogTitle>
       <DialogContent>
         <DialogContentText>

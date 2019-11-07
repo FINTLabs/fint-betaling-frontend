@@ -106,19 +106,19 @@ const PaymentSearch = () => {
     return suggestions.filter((suggestion) => {
       let keep;
       if (searchBy === ORDER_NUMBER) {
-        keep = count < 10 && suggestion.ordrenummer.toString()
+        keep = count < 10 && suggestion.orderNumber.toString()
           .slice(0, input.length)
           .toLowerCase() === input;
       } else {
         keep = (
           count < 10 && (
-            (suggestion.kunde.fulltNavn && suggestion.kunde.fulltNavn.slice(0, input.length)
+            (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
               .toLowerCase() === input)
-            || (suggestion.kunde.navn.fornavn && suggestion.kunde.navn.fornavn.slice(0, input.length)
+            || (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
               .toLowerCase() === input)
-            || (suggestion.kunde.navn.mellomnavn && suggestion.kunde.navn.mellomnavn.slice(0, input.length)
+            || (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
               .toLowerCase() === input)
-            || (suggestion.kunde.navn.etternavn && suggestion.kunde.navn.etternavn.slice(0, input.length)
+            || (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
               .toLowerCase() === input)
           )
         );
@@ -134,7 +134,7 @@ const PaymentSearch = () => {
   }
 
   function getSuggestionValue(suggestion) {
-    return searchBy === ORDER_NUMBER ? suggestion.ordrenummer : suggestion.kunde.fulltNavn;
+    return searchBy === ORDER_NUMBER ? suggestion.ordrenummer : suggestion.customer.name;
   }
 
   const handleSuggestionsFetchRequested = ({ value }) => {

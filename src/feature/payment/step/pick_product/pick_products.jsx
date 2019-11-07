@@ -12,7 +12,6 @@ import { STEP_CONFIRM_PAYMENT } from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
   },
   container: {
     display: 'flex',
@@ -55,7 +54,7 @@ const PickProducts = () => {
   }
 
   return (
-    <Box classes={classes.root}>
+    <Box className={classes.root}>
       <RecipientList />
       <ProductList />
       <form className={classes.container}>
