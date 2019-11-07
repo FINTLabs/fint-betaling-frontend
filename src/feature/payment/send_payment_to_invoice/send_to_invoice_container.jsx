@@ -103,7 +103,7 @@ const SendToInvoiceContainer = () => {
     const array = [];
     if (payments) {
       for (let index = 0; index < payments.length; index++) {
-        if (!payments[index].sentTilEksterntSystem) {
+        if (payments[index].claimStatus === "STORED") {
           array.push(payments[index]);
         }
       }
@@ -114,7 +114,7 @@ const SendToInvoiceContainer = () => {
   function getFilteredSuggestions() {
     const array = [];
     for (let index = 0; index < suggestions.length; index++) {
-      if (suggestions[index].ordrenummer >= parseInt(fromValue.toString()) && suggestions[index].ordrenummer <= parseInt(toValue.toString())) {
+      if (suggestions[index].orderNumber >= parseInt(fromValue.toString()) && suggestions[index].orderNumber <= parseInt(toValue.toString())) {
         array.push(suggestions[index]);
       }
     }
@@ -144,7 +144,7 @@ const SendToInvoiceContainer = () => {
     }
     for (let index = 0; index < filteredSuggestions.length; index++) {
       console.log(filteredSuggestions[index]);
-      const orderNumber = filteredSuggestions[index].ordrenummer.toString();
+      const orderNumber = filteredSuggestions[index].orderNumber.toString();
       let displayedOrderIsInSelectedOrders = false;
       Object.keys(selectedOrders)
         .map((key) => {
@@ -162,7 +162,7 @@ const SendToInvoiceContainer = () => {
   function handleAllChecked(event) {
     const newArray = { ...selectedOrders };
     for (let index = 0; index < filteredSuggestions.length; index++) {
-      newArray[filteredSuggestions[index].ordrenummer] = {
+      newArray[filteredSuggestions[index].orderNumber] = {
         checked: event.target.checked,
       };
     }
@@ -243,7 +243,7 @@ const SendToInvoiceContainer = () => {
               (suggestion) => (
                 <TableRow hover>
                   <TableCell align="left" className={classes.tableCell}>
-                    {suggestion.ordrenummer}
+                    {suggestion.orderNumber}
                   </TableCell>
                   <TableCell align="right" className={classes.tableCell}>
                     {suggestion.customer
@@ -257,9 +257,9 @@ const SendToInvoiceContainer = () => {
                   </TableCell>
                   <TableCell align="center" className={classes.tableCell}>
                     <Checkbox
-                      checked={selectedOrders[suggestion.ordrenummer] ? selectedOrders[suggestion.ordrenummer].checked : false}
+                      checked={selectedOrders[suggestion.orderNumber] ? selectedOrders[suggestion.orderNumber].checked : false}
                       onChange={handleIndividualCheck}
-                      value={suggestion.ordrenummer}
+                      value={suggestion.orderNumber}
                     />
                   </TableCell>
                 </TableRow>

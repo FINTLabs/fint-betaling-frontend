@@ -66,12 +66,14 @@ const ProductTable = () => {
       />
     ) : <div />;
 
-  function handleIndividualCheck(event, code, name, price) {
+  function handleIndividualCheck(event, code, name, price, uri) {
     const newArray = { ...pickedProducts };
+    console.log("URI: ", uri);
     newArray[code] = {
       checked: event.target.checked,
       name,
       price,
+      uri,
     };
     if (!productAmount[code]) {
       event.target.value = 1;
@@ -164,7 +166,7 @@ const ProductTable = () => {
                   <TableCell align="center" className={classes.tableCell}>
                     <Checkbox
                       checked={pickedProducts[suggestion.kode] ? pickedProducts[suggestion.kode].checked : false}
-                      onChange={(e) => handleIndividualCheck(e, suggestion.kode, suggestion.navn, suggestion.pris)}
+                      onChange={(e) => handleIndividualCheck(e, suggestion.kode, suggestion.navn, suggestion.pris, suggestion._links.self[0].href)}
                     />
                   </TableCell>
                 </TableRow>

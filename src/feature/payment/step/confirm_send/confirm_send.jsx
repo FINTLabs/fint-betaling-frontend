@@ -61,17 +61,19 @@ const ConfirmSend = () => {
   const orderLines = useSelector((state) => state.orderLines.orderLines);
   const mva = useSelector((state) => state.mva.mva);
   const employer = useSelector((state) => state.employers.employers);
-  const orgId = 'fintlabs.no';
+  const orgId = 'fake.fintlabs.no';
 
 
   function handleSendInvoice() {
     function getRecipientsAsObjects(recipients) {
+      console.log("RECIPIENTS: ", recipients);
       const list = [];
       Object.keys(recipients)
         .map((key) => {
           for (let i = 0; i < customers.length; i++) {
             const customer = customers[i];
             if (key === customer.id) {
+              console.log("CUSTOMER ", i , ": ", customer);
               list.push(customer);
             }
           }
@@ -89,13 +91,16 @@ const ConfirmSend = () => {
               orderLineFromProducts = orderLines[i];
             }
           }
+          console.log("products[key] ", products[key]);
           const orderLine = {
-            amount: productsAmount[key].amount,
+            itemUri: products[key].uri,
             description: products[key].name,
-            orderLine: orderLineFromProducts,
+            numberOfItems: productsAmount[key].amount,
+            itemPrice: products[key].price,
           };
           list.push(orderLine);
         });
+      console.log("MY PRODUCT LIST: ", list);
       return list;
     }
 
@@ -103,14 +108,16 @@ const ConfirmSend = () => {
     const recipientsList = getRecipientsAsObjects(recipients);
 
     const productList = getProductsAsObjects(products, productsAmount);
+    console.log("PRINCIPAL URI: ", employer[1]._links.self[0].href);
     PaymentRepository.setPayment(
       orgId,
       JSON.parse(JSON.stringify(recipientsList)),
       JSON.parse(JSON.stringify(productList)),
-      employer[0],
+      employer[1]._links.self[0].href,
       expirationDate,
     )
       .then((data) => {
+        console.log("BACK END RESPONSE: ", data);
         dispatch(updateSentPayment(data));
         dispatch(updateStep(STEP_PAYMENT_CONFIRMED));
         dispatch(updateNeedFetch(true));

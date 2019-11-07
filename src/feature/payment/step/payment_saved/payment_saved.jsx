@@ -125,18 +125,6 @@ const PaymentSaved = () => {
     return today;
   }
 
-  function getExpirationDate() {
-    let expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + parseInt(expirationDays.toString()));
-    const dd = String(expirationDate.getDate())
-      .padStart(2, '0');
-    const mm = String(expirationDate.getMonth() + 1)
-      .padStart(2, '0');
-    const yyyy = expirationDate.getFullYear();
-    expirationDate = `${mm}/${dd}/${yyyy}`;
-    return expirationDate;
-  }
-
   function getFirstOrderNumber() {
     if (latestPayments) {
       return latestPayments[0].orderNumber;
