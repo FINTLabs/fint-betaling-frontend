@@ -11,11 +11,11 @@ import SentToExternalContainer from '../../feature/payment/sent_payment_to_exter
 const Routes = () => (
   <div>
     <Route exact path="/" component={DashboardContainer} />
-    <Route exact path="/betaling" component={PaymentContainer} />
-    <Route exact path="/betalinger" component={PaymentHistoryContainer} />
+    <Route exact path="/opprett-ordre" component={PaymentContainer} />
+    <Route exact path="/ordrehistorikk" component={PaymentHistoryContainer} />
     <Route exact path="/logg-ut" component={LogOutContainer} />
-    <Route exact path="/send-til-fakturasystem" component={SendToInvoiceContainer} />
-    <Route exact path="/betaling-sendt" component={SentToExternalContainer} />
+    <Route exact path="/send-ordrer" component={SendToInvoiceContainer} />
+    <Route exact path="/ordre-sendt" component={SentToExternalContainer} />
 
   </div>
 

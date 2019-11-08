@@ -1,6 +1,6 @@
-class EmployerRepository {
+class PrincipalRepository {
   static fetchEmployers() {
-    const url = '/api/oppdragsgiver';
+    const url = '/api/principal';
 
     return fetch(url, {
       method: 'GET',
@@ -11,4 +11,4 @@ class EmployerRepository {
   }
 }
 
-export default EmployerRepository;
+export default PrincipalRepository;

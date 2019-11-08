@@ -219,16 +219,22 @@ export default function Scaffold() {
             </ListItem>
           </Link>
           <Divider />
-          <Link to="/betaling" className={classes.menuLink}>
+          <Link to="/opprett-ordre" className={classes.menuLink}>
             <ListItem button>
               <ListItemIcon><NewInvoice /></ListItemIcon>
-              <ListItemText primary="Opprett betaling" />
+              <ListItemText primary="Opprett ordre" />
             </ListItem>
           </Link>
-          <Link to="/betalinger" className={classes.menuLink}>
+          <Link to="/send-ordrer" className={classes.menuLink}>
+            <ListItem button>
+              <ListItemIcon><LogOut /></ListItemIcon>
+              <ListItemText primary="Send lagrede ordre" />
+            </ListItem>
+          </Link>
+          <Link to="/ordrehistorikk" className={classes.menuLink}>
             <ListItem button>
               <ListItemIcon><InvoiceHistory /></ListItemIcon>
-              <ListItemText primary="Sendte betalinger" />
+              <ListItemText primary="Ordrehistorikk" />
             </ListItem>
           </Link>
           <Link to="/logg-ut" className={classes.menuLink}>

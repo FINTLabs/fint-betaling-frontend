@@ -125,27 +125,15 @@ const PaymentSaved = () => {
     return today;
   }
 
-  function getExpirationDate() {
-    let expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + parseInt(expirationDays.toString()));
-    const dd = String(expirationDate.getDate())
-      .padStart(2, '0');
-    const mm = String(expirationDate.getMonth() + 1)
-      .padStart(2, '0');
-    const yyyy = expirationDate.getFullYear();
-    expirationDate = `${mm}/${dd}/${yyyy}`;
-    return expirationDate;
-  }
-
   function getFirstOrderNumber() {
     if (latestPayments) {
-      return latestPayments[0].ordrenummer;
+      return latestPayments[0].orderNumber;
     }
   }
 
   function getLastOrderNumber() {
     if (latestPayments) {
-      return latestPayments[latestPayments.length - 1].ordrenummer;
+      return latestPayments[latestPayments.length - 1].orderNumber;
     }
   }
 
@@ -239,7 +227,7 @@ const PaymentSaved = () => {
           Husk! Du må sende de opprettede betalingene til ditt
           fakturasystem
         </Typography>
-        <Link to="/send-til-fakturasystem" className={classes.link}>
+        <Link to="/send-ordrer" className={classes.link}>
           <Button className={classes.confirmButton}>Send til faktureringssystem</Button>
         </Link>
       </Paper>

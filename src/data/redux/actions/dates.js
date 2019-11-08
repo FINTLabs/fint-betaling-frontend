@@ -1,5 +1,5 @@
 import { FETCH_DATES, FETCH_DATES_FULFILLED, FETCH_DATES_REJECTED } from './actions';
-import DateRepository from '../../repository/DateRepository';
+import DateRangeRepository from '../../repository/DateRangeRepository';
 
 
 export default function fetchDate() {
@@ -7,7 +7,7 @@ export default function fetchDate() {
     dispatch({ type: FETCH_DATES });
 
 
-    DateRepository.fetchDates()
+    DateRangeRepository.fetchDates()
       .then(([result, json]) => {
         if (result.status === 200) {
           dispatch({
