@@ -1,6 +1,6 @@
-class OrderLineRepository {
-  static fetchOrderLines() {
-    const url = '/api/orderline';
+class MvaCodeRepository {
+  static fetchMvaCodes() {
+    const url = '/api/mva-code';
     return fetch(url, {
       method: 'GET',
       // headers: new Headers({'x-org-id': orgId})
@@ -10,4 +10,4 @@ class OrderLineRepository {
   }
 }
 
-export default OrderLineRepository;
+export default MvaCodeRepository;

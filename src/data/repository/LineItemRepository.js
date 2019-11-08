@@ -1,7 +1,6 @@
-class DateRepository {
-  static fetchDates() {
-    const url = '/api/dato';
-
+class LineItemRepository {
+  static fetchOrderLines() {
+    const url = '/api/lineitem';
     return fetch(url, {
       method: 'GET',
       // headers: new Headers({'x-org-id': orgId})
@@ -11,4 +10,4 @@ class DateRepository {
   }
 }
 
-export default DateRepository;
+export default LineItemRepository;

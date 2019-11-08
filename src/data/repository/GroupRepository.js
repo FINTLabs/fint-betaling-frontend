@@ -1,6 +1,6 @@
 class GroupRepository {
-  static fetchAllCustomerGroups() {
-    const url = '/api/group/basisgruppe';
+  static fetchAllCustomerGroupsFromSchool() {
+    const url = '/api/group/school';
     return fetch(url, {
       method: 'GET',
       // headers: new Headers({ 'x-org-id': orgId })
@@ -8,34 +8,33 @@ class GroupRepository {
       .then((result) => Promise.all([result, result.json()]))
       .catch((error) => error);
   }
-
-  /*
-      static fetchCustomerGroupsFromBasisgruppe() {
-          const url = '/api/group/basisgruppe';
-          return fetch(url, {
-              method: "GET",
-              //headers: new Headers({ 'x-org-id': orgId })
-          }).then(result => Promise.all([result, result.json()]))
-              .catch(error => error);
-      }
-
-      static fetchCustomerGroupsFromKontaktlarergruppe() {
-          const url = '/api/group/kontaktlarergruppe';
-          return fetch(url, {
-              method: "GET",
-              //headers: new Headers({ 'x-org-id': orgId })
-          }).then(result => Promise.all([result, result.json()]))
-              .catch(error => error);
-      }
-
-      static fetchCustomerGroupsFromUndervisningsgruppe() {
-          const url = '/api/group/undervisningsgruppe';
-          return fetch(url, {
-              method: "GET",
-              //headers: new Headers({ 'x-org-id': orgId })
-          }).then(result => Promise.all([result, result.json()]))
-              .catch(error => error);
-      } */
+  static fetchAllCustomerGroupsFromBasisGroupAndSchool() {
+    const url = '/api/group/basis-group';
+    return fetch(url, {
+      method: 'GET',
+      // headers: new Headers({ 'x-org-id': orgId })
+    })
+        .then((result) => Promise.all([result, result.json()]))
+        .catch((error) => error);
+  }
+  static fetchAllCustomerGroupsFromTeachingGroupAndSchool() {
+    const url = '/api/group/teaching-group';
+    return fetch(url, {
+      method: 'GET',
+      // headers: new Headers({ 'x-org-id': orgId })
+    })
+        .then((result) => Promise.all([result, result.json()]))
+        .catch((error) => error);
+  }
+  static fetchAllCustomerFromContactTeachingGroupAndSchool() {
+    const url = '/api/group/contact-teacher-group';
+    return fetch(url, {
+      method: 'GET',
+      // headers: new Headers({ 'x-org-id': orgId })
+    })
+        .then((result) => Promise.all([result, result.json()]))
+        .catch((error) => error);
+  }
 }
 
 export default GroupRepository;

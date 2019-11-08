@@ -8,7 +8,7 @@ import ConfirmedRecipients from './confirmed_recipients';
 import ConfirmedProducts from './confirmed_products';
 import ExpirationDatePicker from './expiration_date_picker';
 import { updateNeedFetch, updateSentPayment, updateStep } from '../../../../data/redux/actions/payment';
-import PaymentRepository from '../../../../data/repository/PaymentRepository';
+import ClaimRepository from '../../../../data/repository/ClaimRepository';
 import { STEP_PAYMENT_CONFIRMED } from '../../constants';
 
 
@@ -104,7 +104,7 @@ const ConfirmSend = () => {
     const recipientsList = getRecipientsAsObjects(recipients);
 
     const productList = getProductsAsObjects(products, productsAmount);
-    PaymentRepository.setPayment(
+    ClaimRepository.setPayment(
       orgId,
       JSON.parse(JSON.stringify(recipientsList)),
       JSON.parse(JSON.stringify(productList)),

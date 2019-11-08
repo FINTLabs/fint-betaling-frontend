@@ -20,9 +20,9 @@ import {
     updateToValue,
 } from '../../../data/redux/actions/payment';
 import SelectedToExternalList from './selected_to_external_list';
-import InvoiceRepository from '../../../data/repository/InvoiceRepository';
 import {fetchPayment} from '../../../data/redux/actions/payments';
 import {Redirect} from 'react-router-dom';
+import ClaimRepository from "../../../data/repository/ClaimRepository";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -170,7 +170,7 @@ const SendToInvoiceContainer = () => {
                     orderNumbers.push(key);
                 }
             });
-        InvoiceRepository.sendOrders(
+        ClaimRepository.sendOrders(
             orgId,
             orderNumbers,
         )

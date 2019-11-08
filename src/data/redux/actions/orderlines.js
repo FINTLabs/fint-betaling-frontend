@@ -1,5 +1,5 @@
 import { FETCH_ORDER_LINES, FETCH_ORDER_LINES_FULFILLED, FETCH_ORDER_LINES_REJECTED } from './actions';
-import OrderLineRepository from '../../repository/OrderLineRepository';
+import LineItemRepository from '../../repository/LineItemRepository';
 
 
 export default function fetchOrderLines() {
@@ -7,7 +7,7 @@ export default function fetchOrderLines() {
     dispatch({ type: FETCH_ORDER_LINES });
 
 
-    OrderLineRepository.fetchOrderLines()
+    LineItemRepository.fetchOrderLines()
       .then(([result, json]) => {
         if (result.status === 200) {
           dispatch({

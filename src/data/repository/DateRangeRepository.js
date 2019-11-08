@@ -1,6 +1,7 @@
-class MvaRepository {
-  static fetchMvaCodes() {
-    const url = '/api/mvakode';
+class DateRangeRepository {
+  static fetchDates() {
+    const url = '/api/date-range';
+
     return fetch(url, {
       method: 'GET',
       // headers: new Headers({'x-org-id': orgId})
@@ -10,4 +11,4 @@ class MvaRepository {
   }
 }
 
-export default MvaRepository;
+export default DateRangeRepository;

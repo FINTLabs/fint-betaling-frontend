@@ -147,6 +147,7 @@ const RecipientSearch = () => {
 
     function getSuggestionsLength(input) {
         let count = 0;
+        console.log("suggestions: ", suggestions);
         suggestions.map((suggestion) => {
             if (matchedSuggestion(suggestion, input)) {
                 count += 1;

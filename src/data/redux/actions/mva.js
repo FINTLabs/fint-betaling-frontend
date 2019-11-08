@@ -1,5 +1,5 @@
 import { FETCH_MVA, FETCH_MVA_FULFILLED, FETCH_MVA_REJECTED } from './actions';
-import MvaRepository from '../../repository/MvaRepository';
+import MvaCodeRepository from '../../repository/MvaCodeRepository';
 
 
 export default function fetchMva() {
@@ -7,7 +7,7 @@ export default function fetchMva() {
     dispatch({ type: FETCH_MVA });
 
 
-    MvaRepository.fetchMvaCodes()
+    MvaCodeRepository.fetchMvaCodes()
       .then(([result, json]) => {
         if (result.status === 200) {
           dispatch({

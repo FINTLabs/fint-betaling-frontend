@@ -1,7 +1,7 @@
 import {
   FETCH_PAYMENTS, FETCH_PAYMENTS_FULFILLED, FETCH_PAYMENTS_REJECTED,
 } from './actions';
-import PaymentRepository from '../../repository/PaymentRepository';
+import ClaimRepository from '../../repository/ClaimRepository';
 
 
 export function fetchPayment() {
@@ -9,7 +9,7 @@ export function fetchPayment() {
     dispatch({ type: FETCH_PAYMENTS });
 
 
-    PaymentRepository.fetchPayments()
+    ClaimRepository.fetchPayments()
       .then(([result, json]) => {
         if (result.status === 200) {
           dispatch({
