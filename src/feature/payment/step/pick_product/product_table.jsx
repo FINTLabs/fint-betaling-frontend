@@ -68,7 +68,6 @@ const ProductTable = () => {
 
   function handleIndividualCheck(event, code, name, price, uri) {
     const newArray = { ...pickedProducts };
-    console.log("URI: ", uri);
     newArray[code] = {
       checked: event.target.checked,
       name,

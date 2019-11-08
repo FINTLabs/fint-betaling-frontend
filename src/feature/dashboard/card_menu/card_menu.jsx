@@ -36,7 +36,7 @@ const CardMenu = () => {
     <Grid container justify="center" spacing={5} className={classes.root}>
       <Grid item>
         <Card className={classes.card}>
-          <Link to="/betaling" className={classes.cardLink}>
+          <Link to="opprett-ordre" className={classes.cardLink}>
             <CardActionArea target="/betaling">
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -49,7 +49,7 @@ const CardMenu = () => {
             </CardActionArea>
           </Link>
           <CardActions>
-            <Link to="/betaling" className={classes.cardLink}>
+            <Link to="opprett-ordre" className={classes.cardLink}>
               <Button size="small" color="secondary">
                 <InvoiceAdd className={classes.icon} />
                 Opprett betaling
@@ -60,7 +60,7 @@ const CardMenu = () => {
       </Grid>
       <Grid item>
         <Card className={classes.card}>
-          <Link to="/betalinger" className={classes.cardLink}>
+          <Link to="ordrehistorikk" className={classes.cardLink}>
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
@@ -74,7 +74,7 @@ const CardMenu = () => {
             </CardActionArea>
           </Link>
           <CardActions>
-            <Link to="/betalinger" className={classes.cardLink}>
+            <Link to="ordrehistorikk" className={classes.cardLink}>
               <Button size="small" color="secondary">
                 <InvoiceHistory className={classes.icon} />
                 Til betalingsoversikt

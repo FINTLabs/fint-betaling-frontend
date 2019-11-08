@@ -134,7 +134,7 @@ const PaymentSearch = () => {
   }
 
   function getSuggestionValue(suggestion) {
-    return searchBy === ORDER_NUMBER ? suggestion.ordrenummer : suggestion.customer.name;
+    return searchBy === ORDER_NUMBER ? suggestion.orderNumber : suggestion.customer.name;
   }
 
   const handleSuggestionsFetchRequested = ({ value }) => {
@@ -152,7 +152,6 @@ const PaymentSearch = () => {
   }
 
     function handleStatusClick(event, errormessage) {
-        console.log("MIN VALUE!? : ", errormessage);
         dispatch(updateOrderStatusContent(errormessage));
         dispatch(updateOrderStatusOpen(true));
     }

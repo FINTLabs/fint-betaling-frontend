@@ -50,8 +50,6 @@ export default function reducer(state = defaultState, action) {
           let array = [];
           action.payload.map(entry =>
           array[entry.id] = entry.name.split(" "));
-        console.log("lengde burde værre: ", action.payload.length, " og ikke: ", array.length);
-          console.log("Her er resultat: ", array);
             return {
                 ...state,
                 isLoading: false,

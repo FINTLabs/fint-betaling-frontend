@@ -227,7 +227,7 @@ const PaymentSaved = () => {
           Husk! Du må sende de opprettede betalingene til ditt
           fakturasystem
         </Typography>
-        <Link to="/send-til-fakturasystem" className={classes.link}>
+        <Link to="/send-ordrer" className={classes.link}>
           <Button className={classes.confirmButton}>Send til faktureringssystem</Button>
         </Link>
       </Paper>

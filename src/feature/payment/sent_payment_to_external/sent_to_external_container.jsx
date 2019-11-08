@@ -74,7 +74,6 @@ const SentToExternalContainer = () => {
     console.log('Redirected here, with data: ', data);
 
     function handleStatusClick(event, errormessage) {
-        console.log("MIN VALUE!? : ", errormessage);
         dispatch(updateOrderStatusContent(errormessage));
         dispatch(updateOrderStatusOpen(true));
     }

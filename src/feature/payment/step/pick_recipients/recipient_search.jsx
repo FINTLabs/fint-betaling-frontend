@@ -100,7 +100,6 @@ const RecipientSearch = () => {
         const inputValue = deburr(value.trim())
             .toLowerCase();
         const inputLength = inputValue.length;
-        console.log("length: ", inputLength);
 
         return inputLength < 0
             ? []

@@ -66,14 +66,12 @@ const ConfirmSend = () => {
 
   function handleSendInvoice() {
     function getRecipientsAsObjects(recipients) {
-      console.log("RECIPIENTS: ", recipients);
       const list = [];
       Object.keys(recipients)
         .map((key) => {
           for (let i = 0; i < customers.length; i++) {
             const customer = customers[i];
             if (key === customer.id) {
-              console.log("CUSTOMER ", i , ": ", customer);
               list.push(customer);
             }
           }
@@ -91,7 +89,6 @@ const ConfirmSend = () => {
               orderLineFromProducts = orderLines[i];
             }
           }
-          console.log("products[key] ", products[key]);
           const orderLine = {
             itemUri: products[key].uri,
             description: products[key].name,
@@ -100,7 +97,6 @@ const ConfirmSend = () => {
           };
           list.push(orderLine);
         });
-      console.log("MY PRODUCT LIST: ", list);
       return list;
     }
 
@@ -108,7 +104,6 @@ const ConfirmSend = () => {
     const recipientsList = getRecipientsAsObjects(recipients);
 
     const productList = getProductsAsObjects(products, productsAmount);
-    console.log("PRINCIPAL URI: ", employer[1]._links.self[0].href);
     PaymentRepository.setPayment(
       orgId,
       JSON.parse(JSON.stringify(recipientsList)),

@@ -178,7 +178,7 @@ const PaymentsTable = () => {
                 {
                     suggestions.map(
                         (suggestion) => {
-                            const payment = searchBy === ORDER_NUMBER ? suggestion.ordrenummer.toString() : suggestion.customer.name;
+                            const payment = searchBy === ORDER_NUMBER ? suggestion.orderNumber.toString() : suggestion.customer.name;
                             const matches = match(payment, query);
                             const parts = parse(payment, matches);
 
@@ -209,7 +209,7 @@ const PaymentsTable = () => {
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
                                             <Button
-                                                onClick={() => handleOpenDialog(suggestion.ordrenummer)}
+                                                onClick={() => handleOpenDialog(suggestion.orderNumber)}
                                             >
                                                 <Edit/>
                                             </Button>
@@ -227,7 +227,7 @@ const PaymentsTable = () => {
                                             ))}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.ordrenummer ? suggestion.ordrenummer : ''}
+                                            {suggestion.orderNumber ? suggestion.orderNumber : ''}
                                         </TableCell>
 
                                         <TableCell align="right" className={classes.tableCell}>
@@ -243,7 +243,7 @@ const PaymentsTable = () => {
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
                                             <Button
-                                                onClick={() => handleOpenDialog(suggestion.ordrenummer)}
+                                                onClick={() => handleOpenDialog(suggestion.orderNumber)}
                                             >
                                                 <Edit/>
                                             </Button>
