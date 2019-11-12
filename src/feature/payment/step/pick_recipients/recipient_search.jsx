@@ -70,8 +70,9 @@ const RecipientSearch = () => {
     const searchPlaceHolder = recipientType === GROUP ? 'Gruppenavn' : 'Etternavn, Fornavn Mellomnavn';
 
     useEffect(() => {
-        handleSuggestionsFetchRequested({value: searchValue});
-    }, [activePage]);
+        dispatch(updateSuggestionLength(getSuggestionsLength(searchValue)));
+        dispatch(updateSuggestions(getSuggestions(searchValue)));
+    }, [activePage, searchValue,]);
 
     function renderInputComponent(inputProps) {
         const {
@@ -147,11 +148,9 @@ const RecipientSearch = () => {
 
     function getSuggestionsLength(input) {
         let count = 0;
-        console.log("suggestions: ", suggestions);
-        suggestions.map((suggestion) => {
-            if (matchedSuggestion(suggestion, input)) {
+        suggestions.filter(suggestion => matchedSuggestion(suggestion, input)).map(() => {
                 count += 1;
-            }
+                return null;
         });
         return count;
     }
@@ -179,6 +178,7 @@ const RecipientSearch = () => {
         dispatch(updateSearchPage(SEARCH_PAGE_START));
         dispatch(updateSearchValue(event.target.value));
     }
+
 
     return (
         <Box className={classes.root}>

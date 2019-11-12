@@ -189,16 +189,6 @@ export default function reducer(state = defaultState, action) {
                     page: state.form.page,
                 },
             };
-        case UPDATE_RECIPIENTS:
-            return {
-                ...state,
-                payment: {
-                    recipients: action.payload,
-                    products: state.payment.products,
-                    expirationDate: state.payment.expirationDate,
-                    school: state.payment.school,
-                },
-            };
         case UPDATE_STEP:
             return {
                 ...state,

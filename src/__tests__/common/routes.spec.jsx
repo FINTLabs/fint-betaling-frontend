@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 import Routes from '../../common/scaffold/routes';
 
 jest.mock('../../feature/dashboard/dashboard_container', () => () => 'dashboard');
@@ -11,15 +11,15 @@ jest.mock('../../feature/payment/send_payment_to_invoice/send_to_invoice_contain
 jest.mock('../../feature/payment/sent_payment_to_external/sent_to_external_container', () => () => 'sents');
 
 describe('Routes', () => {
-  it('should match snapshot', () => {
-    const tree = renderer.create(
-      <BrowserRouter basename="/">
-        <Routes />
-      </BrowserRouter>,
-    )
-      .toJSON();
+    it('should match snapshot', () => {
+        const tree = renderer.create(
+            <BrowserRouter basename="/">
+                <Routes/>
+            </BrowserRouter>,
+        )
+            .toJSON();
 
-    expect(tree)
-      .toMatchSnapshot();
-  });
+        expect(tree)
+            .toMatchSnapshot();
+    });
 });

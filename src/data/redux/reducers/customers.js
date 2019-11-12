@@ -28,7 +28,7 @@ export default function reducer(state = defaultState, action) {
 
         case FETCH_CUSTOMERS_FULFILLED:
             action.payload.sort((a, b) => (
-                a.name > b.name ? 1:-1
+                    a.name > b.name ? 1 : -1
                 )
             );
             return {
@@ -46,10 +46,10 @@ export default function reducer(state = defaultState, action) {
                 error: true,
                 errorMessage: action.payload,
             };
-      case UPDATE_CUSTOMER_NAMES_SPLIT:
-          let array = [];
-          action.payload.map(entry =>
-          array[entry.id] = entry.name.split(" "));
+        case UPDATE_CUSTOMER_NAMES_SPLIT:
+            let array = [];
+            action.payload.map(entry =>
+                array[entry.id] = entry.name.split(" "));
             return {
                 ...state,
                 isLoading: false,

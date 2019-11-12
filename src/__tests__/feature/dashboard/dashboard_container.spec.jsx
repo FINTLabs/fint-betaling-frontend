@@ -6,11 +6,11 @@ jest.mock('../../../feature/dashboard/card_menu/card_menu', () => () => 'cardmen
 jest.mock('../../../feature/dashboard/payment_information/payment_information_list', () => () => 'paymentlist');
 
 describe('Dashboard container', () => {
-  it('should match the snapshot', () => {
-    const tree = renderer.create(<DashboardContainer />)
-      .toJSON();
+    it('should match the snapshot', () => {
+        const tree = renderer.create(<DashboardContainer/>)
+            .toJSON();
 
-    expect(tree)
-      .toMatchSnapshot();
-  });
+        expect(tree)
+            .toMatchSnapshot();
+    });
 });
