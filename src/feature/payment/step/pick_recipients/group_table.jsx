@@ -78,11 +78,11 @@ const GroupTable = () => {
             newArray[customerNumber] = {
                 checked: event.target.checked,
                 name: individualList[customer].name,
-                email: individualList[customer].kontaktinformasjon ? individualList[customer].kontaktinformasjon.epostadresse : '',
-                cellPhoneNumber: individualList[customer].kontaktinformasjon ? individualList[customer].kontaktinformasjon.mobiltelefonnummer : '',
-                addressLine: individualList[customer].postadresse ? individualList[customer].postadresse.adresselinje : '',
-                addressZip: individualList[customer].postadresse ? individualList[customer].postadresse.postnummer : '',
-                addressPlace: individualList[customer].postadresse ? individualList[customer].postadresse.poststed : '',
+                email: individualList[customer].email ? individualList[customer].email : '',
+                cellPhoneNumber: individualList[customer].mobile ? individualList[customer].mobile : '',
+                addressLine: individualList[customer].postalAddress ? individualList[customer].postalAddress : '',
+                addressZip: individualList[customer].postalCode ? individualList[customer].postalCode : '',
+                addressPlace: individualList[customer].city ? individualList[customer].city : '',
             };
         }
         dispatch(updateRecipients(newArray));

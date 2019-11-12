@@ -39,8 +39,7 @@ const ProductList = () => {
         ? (
             <Typography>
                 Total beløp per
-                mottaker:
-                {getTotalPrice(productList, productAmount)}
+                mottaker: {getTotalPrice(productList, productAmount)},- eks. mva.
             </Typography>
         ) : '';
 
