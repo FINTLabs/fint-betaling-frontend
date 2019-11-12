@@ -81,7 +81,6 @@ const SendToInvoiceContainer = () => {
     const selectedOrders = useSelector((state) => state.payment.sendToExternalSystem.selectedOrders);
     const displayLoading = useSelector((state) => state.payment.sendToExternalSystem.loading);
     const redirected = useSelector((state) => state.payment.sendToExternalSystem.redirect);
-    const latestPayments = useSelector(state => state.payment.payments.latestSent);
     const needsFetch = useSelector(state => state.payment.sendToExternalSystem.needFetch);
     const dispatch = useDispatch();
     const suggestions = getNotSentPayments();
@@ -140,10 +139,8 @@ const SendToInvoiceContainer = () => {
             const orderNumber = filteredSuggestions[index].orderNumber.toString();
             let displayedOrderIsInSelectedOrders = false;
             Object.keys(selectedOrders)
-                .map((key) => {
-                    if (key === orderNumber) {
+                .filter(key => key === orderNumber).forEach(() => {
                         displayedOrderIsInSelectedOrders = true;
-                    }
                 });
             if (!displayedOrderIsInSelectedOrders || !selectedOrders[orderNumber].checked) {
                 allChecked = false;
@@ -165,17 +162,15 @@ const SendToInvoiceContainer = () => {
     function handleConfirmSendPayments() {
         const orderNumbers = [];
         Object.keys(selectedOrders)
-            .map((key) => {
-                if (selectedOrders[key].checked) {
+            .filter(key => selectedOrders[key].checked).map(key =>{
                     orderNumbers.push(key);
-                }
+                    return null;
             });
         ClaimRepository.sendOrders(
             orgId,
             orderNumbers,
         )
             .then((data) => {
-                console.log('data: ', data);
                 dispatch(updateSendOrderResponse(data));
                 dispatch(updateFromValue(fromValue));
                 dispatch(updateToValue(toValue));
@@ -227,14 +222,14 @@ const SendToInvoiceContainer = () => {
                                 <TableCell align="right" className={classes.tableCell}>Velg</TableCell>
                             </TableRow>
                         )
-                        : <div/>}
+                        : <TableRow/>}
 
                 </TableHead>
                 <TableBody>
                     {
                         filteredSuggestions.map(
                             (suggestion) => (
-                                <TableRow hover>
+                                <TableRow hover key={suggestion.orderNumber}>
                                     <TableCell align="left" className={classes.tableCell}>
                                         {suggestion.orderNumber}
                                     </TableCell>
@@ -274,7 +269,7 @@ const SendToInvoiceContainer = () => {
                                 </TableCell>
                             </TableRow>
                         )
-                        : <div/>}
+                        : <TableRow/>}
 
                 </TableBody>
             </Table>

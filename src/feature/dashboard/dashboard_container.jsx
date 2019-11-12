@@ -1,24 +1,22 @@
 import React from 'react';
-import { Box, makeStyles } from '@material-ui/core';
-import PaymentInformationList from './payment_information/payment_information_list';
+import {Box, makeStyles} from '@material-ui/core';
 import CardMenu from './card_menu/card_menu';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    margin: 'auto',
-    width: '100%',
-  },
+    root: {
+        margin: 'auto',
+        width: '100%',
+    },
 }));
 
 const DashboardContainer = () => {
-  const classes = useStyles();
+    const classes = useStyles();
 
-  return (
-    <Box className={classes.root}>
-      <CardMenu />
-      <PaymentInformationList />
-    </Box>
-  );
+    return (
+        <Box className={classes.root}>
+            <CardMenu/>
+        </Box>
+    );
 };
 
 export default DashboardContainer;

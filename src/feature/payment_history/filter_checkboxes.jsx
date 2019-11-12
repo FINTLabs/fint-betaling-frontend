@@ -26,6 +26,7 @@ const FilterCheckboxes = () => {
     const classes = useStyles();
     const filterValue = useSelector(state => state.payment.payments.filter);
     const dispatch = useDispatch();
+
     function handleChange(event) {
         dispatch(updatePaymentFilterValue(event.target.value));
     }

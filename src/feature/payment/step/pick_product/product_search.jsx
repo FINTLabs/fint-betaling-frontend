@@ -12,7 +12,7 @@ import {
     updateProductSuggestions,
     updateSearchPage,
 } from '../../../../data/redux/actions/payment';
-import {SEARCH_PAGE_START} from '../../constants';
+import {SEARCH_PAGE_ROWS, SEARCH_PAGE_START} from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -59,10 +59,12 @@ const ProductSearch = () => {
     const searchLabel = 'Søk';
     const classes = useStyles();
     const searchPlaceHolder = 'Produktnavn eller produktkode';
+    const rowsPerPage = SEARCH_PAGE_ROWS;
 
     useEffect(() => {
-        handleSuggestionsFetchRequested({value: searchValue});
-    }, [activePage]);
+        dispatch(updateProductLength(getProductsLength(searchValue)));
+        dispatch(updateProductSuggestions(getSuggestions(searchValue)));
+    }, [activePage, searchValue]);
 
     function renderInputComponent(inputProps) {
         const {
@@ -98,13 +100,21 @@ const ProductSearch = () => {
     }
 
     function filterSuggestions(input) {
-        let count = 0;
+        let countSuggestion = 0;
+        let countToStartOfActivePage = -1;
+        const keepSuggestionsFromCount = activePage * rowsPerPage;
 
         return suggestions.filter((suggestion) => {
             let keep;
-            keep = count < 10 && matchedProduct(suggestion, input);
-            if (keep) {
-                count += 1;
+            const matched = matchedProduct(suggestion, input);
+            if (matched) {
+                countToStartOfActivePage += 1;
+            }
+            keep = countSuggestion < rowsPerPage
+                && keepSuggestionsFromCount <= countToStartOfActivePage
+                && matched;
+            if (keep && keepSuggestionsFromCount <= countToStartOfActivePage) {
+                countSuggestion += 1;
             }
             return keep;
         });
@@ -123,13 +133,7 @@ const ProductSearch = () => {
     }
 
     function getProductsLength(input) {
-        let count = 0;
-        suggestions.map((suggestion) => {
-            if (matchedProduct(suggestion, input)) {
-                count += 1;
-            }
-        });
-        return count;
+        return suggestions.filter(suggestion => matchedProduct(suggestion, input)).length;
     }
 
 

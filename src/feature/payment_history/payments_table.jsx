@@ -95,7 +95,6 @@ const PaymentsTable = () => {
     let suggestions = useSelector((state) => state.payment.payments.filteredSuggestions);
     const searchBy = useSelector((state) => state.payment.payments.searchBy)
         .toString();
-    const filterValue = useSelector(state => state.payment.payments.filter);
     suggestions = query.length === 0 ? [] : suggestions;
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -148,6 +147,12 @@ const PaymentsTable = () => {
                 paymentIcon = <PaymentRounded className={classes.waitingPaymentIcon}/>;
                 statusText = <Typography variant="body2" className={classes.statusText}>Venter på betaling</Typography>;
                 break;
+            default:
+                paymentIcon = <Warning className={classes.warningIcon}
+                                       onClick={(e) => handleStatusClick(e, suggestion.error)}/>;
+                statusText =
+                    <Typography variant="body2" className={classes.statusText}>Klarte ikke finne ordrestatus</Typography>;
+                break;
         }
         return (
             <TableCell align="left" className={classes.tableCellStatus}>
@@ -184,7 +189,7 @@ const PaymentsTable = () => {
 
                             const orderNumberAndName = searchBy === ORDER_NUMBER
                                 ? (
-                                    <TableRow hover>
+                                    <TableRow hover key={suggestion.orderNumber}>
                                         {getStatusIcon(suggestion)}
                                         <TableCell align="left" className={classes.tableCell}>
                                             {suggestion.customer ? suggestion.customer.name : ''}
@@ -197,14 +202,13 @@ const PaymentsTable = () => {
                                             ))}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.fakturagrunnlag
-                                                ? suggestion.fakturagrunnlag.netto
-                                                    ? (parseInt(suggestion.fakturagrunnlag.netto) / 100).toFixed(2)
-                                                    : '' : ''}
+                                            {suggestion.orignialAmountDue
+                                                    ? (suggestion.orignialAmountDue / 100).toFixed(2)
+                                                    : ''}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.restBelop
-                                                ? (parseInt(suggestion.restBelop) / 100).toFixed(2)
+                                            {suggestion.amountDue
+                                                ? (suggestion.amountDue / 100).toFixed(2)
                                                 : ''}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
@@ -217,7 +221,7 @@ const PaymentsTable = () => {
                                     </TableRow>
                                 )
                                 : (
-                                    <TableRow hover>
+                                    <TableRow hover key={suggestion.orderNumber}>
                                         {getStatusIcon(suggestion)}
                                         <TableCell align="left" className={classes.tableCell}>
                                             {parts.map((part) => (

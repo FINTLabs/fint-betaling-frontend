@@ -71,7 +71,6 @@ const SentToExternalContainer = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    console.log('Redirected here, with data: ', data);
 
     function handleStatusClick(event, errormessage) {
         dispatch(updateOrderStatusContent(errormessage));
@@ -119,7 +118,7 @@ const SentToExternalContainer = () => {
                                                 </TableCell>
                                             );
                                         return (
-                                            <TableRow hover>
+                                            <TableRow hover key={suggestion.orderNumber}>
                                                 <TableCell align="left" className={classes.tableCell}>
                                                     {suggestion.orderNumber}
                                                 </TableCell>
@@ -130,8 +129,8 @@ const SentToExternalContainer = () => {
                                                             : '' : ''}
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>
-                                                    {suggestion.restBelop
-                                                        ? (parseInt(suggestion.restBelop) / 100).toFixed(2) : ''}
+                                                    {suggestion.originalAmountDue
+                                                        ? (parseInt(suggestion.originalAmountDue) / 100).toFixed(2) : ''}
                                                 </TableCell>
                                                 {orderStatus}
                                             </TableRow>

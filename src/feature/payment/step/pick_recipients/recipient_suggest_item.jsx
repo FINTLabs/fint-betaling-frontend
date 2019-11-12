@@ -14,7 +14,7 @@ const RecipientSuggestItem = () => {
 
         if (suggestions && suggestions.length > 1) {
             suggestions.sort((a, b) => (
-                 a.name > b.name
+                a.name > b.name
                     ? 1 : -1
             ));
         }
@@ -27,8 +27,8 @@ const RecipientSuggestItem = () => {
         return (
             <IndividualTable/>
         );
-    }else{
-      return <div/>
+    } else {
+        return <div/>
     }
 };
 
