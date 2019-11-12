@@ -83,23 +83,20 @@ const ConfirmedProducts = () => {
                             )
                         }
                         <TableRow>
-                            <TableCell align="right" colSpan={5}>
-                                <Typography variant="h6">
-                                    Total pris per elev eks. mva:
+                            <TableCell align="right" colSpan={6}>
+                                <Typography variant="body1">
+                                    Alle beløper er uten mva.
                                 </Typography>
-                            </TableCell>
-                            <TableCell align="right">
-                                {getTotalPrice(products, productAmounts)}
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="right" colSpan={5}>
+                            <TableCell align="right" colSpan={6}>
                                 <Typography variant="h6">
-                                    Inkl. mva:
+                                    Total beløp per elev:
                                 </Typography>
                             </TableCell>
                             <TableCell align="right">
-                                {(getTotalPrice(products, productAmounts) * 1.25).toFixed(2)}
+                                {getTotalPrice(products, productAmounts)},-
                             </TableCell>
                         </TableRow>
                     </TableBody>

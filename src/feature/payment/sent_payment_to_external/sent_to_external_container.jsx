@@ -94,7 +94,7 @@ const SentToExternalContainer = () => {
                             <TableRow>
                                 <TableCell>Ordrenummer</TableCell>
                                 <TableCell align="right" className={classes.tableCell}>Mottakernavn</TableCell>
-                                <TableCell align="right" className={classes.tableCell}>Restbeløp</TableCell>
+                                <TableCell align="right" className={classes.tableCell}>Restbeløp eks. mva.</TableCell>
                                 <TableCell align="right" className={classes.tableCell}>Status</TableCell>
                             </TableRow>
                         </TableHead>
@@ -130,7 +130,7 @@ const SentToExternalContainer = () => {
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>
                                                     {suggestion.originalAmountDue
-                                                        ? (parseInt(suggestion.originalAmountDue) / 100).toFixed(2) : ''}
+                                                        ? (parseInt(suggestion.originalAmountDue) / 100).toFixed(2)+",-": ''}
                                                 </TableCell>
                                                 {orderStatus}
                                             </TableRow>
