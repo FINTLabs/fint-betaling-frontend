@@ -2,10 +2,10 @@ import {FETCH_GROUPS, FETCH_GROUPS_FULFILLED, FETCH_GROUPS_REJECTED} from './act
 import GroupRepository from '../../repository/GroupRepository';
 
 
-export default function fetchGroup() {
+export default function fetchGroup(orgId, schoolOrgId) {
     return (dispatch) => {
         dispatch({type: FETCH_GROUPS});
-        GroupRepository.fetchAllCustomerGroupsFromBasisGroupAndSchool()
+        GroupRepository.fetchAllCustomerGroupsFromBasisGroupAndSchool(orgId, schoolOrgId)
             .then(([result, json]) => {
                 if (result.status === 200) {
                     dispatch({
@@ -22,3 +22,4 @@ export default function fetchGroup() {
             });
     };
 }
+

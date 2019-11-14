@@ -4,15 +4,10 @@ import {Box, LinearProgress, ListItemIcon, ListItemText, makeStyles,} from '@mat
 import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import LoadingIcon from '@material-ui/icons/Remove';
 import LoadedIcon from '@material-ui/icons/Done';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import VigoLogo from '../../assets/vigo-logo-no-iks.svg';
-import {updateSchool} from '../../data/redux/actions/payment';
 
 const useStyles = makeStyles((theme) => ({
     loadingContainer: {
@@ -61,17 +56,11 @@ const LoadingPage = (props) => {
     const mva = useSelector((state) => state.mva);
     const orderLines = useSelector((state) => state.orderLines);
     const payments = useSelector((state) => state.payments);
-    const school = useSelector((state) => state.payment.payment.school);
     const classes = useStyles();
     const {progress} = props;
     const linearProgressValue = (progress * 100) / 8;
-    const dispatch = useDispatch();
     const circularProgress = linearProgressValue !== 100 ? <CircularProgress className={classes.progress}/> : <div/>;
     const loadingMessage = linearProgressValue !== 100 ? `Loading... ${linearProgressValue}%` : 'Skoledata ferdig lastet. Venter på ditt skolevalg';
-
-    function handleSchoolChange(event) {
-        dispatch(updateSchool(event.target.value));
-    }
 
     return (
         <Box className={classes.loadingContainer}>
@@ -90,21 +79,6 @@ const LoadingPage = (props) => {
                     value={linearProgressValue}
                     color="secondary"
                 />
-                <FormControl className={classes.formControl}>
-                    <InputLabel htmlFor="age-simple">Velg skole</InputLabel>
-                    <Select
-                        value={school}
-                        onChange={handleSchoolChange}
-                        inputProps={{
-                            name: 'school',
-                            id: 'school-simple',
-                        }}
-                    >
-                        <MenuItem value="Skien VGS">Skien VGS</MenuItem>
-                        <MenuItem value="Porsgrunn VGS">Porsgrunn VGS</MenuItem>
-                        <MenuItem value="Bamble VGS">Bamble VGS</MenuItem>
-                    </Select>
-                </FormControl>
                 <List>
                     <ListItem>
                         <ListItemText>

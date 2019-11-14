@@ -2,15 +2,18 @@ import {
     INITIALIZE_PAYMENT,
     UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
+    UPDATE_CUSTOMERS_LOADED,
     UPDATE_EXPIRATION_DATE,
     UPDATE_EXTERNAL_REDIRECT,
     UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN,
+    UPDATE_GROUPS_LOADED,
     UPDATE_LATEST_SENT_PAYMENTS,
     UPDATE_LOADING_TO_EXTERNAL,
     UPDATE_NEED_FETCH,
     UPDATE_ORDER_STATUS_CONTENT,
     UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_ORG_ID,
     UPDATE_PAYMENT_FILTER_VALUE,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE,
@@ -27,6 +30,7 @@ import {
     UPDATE_RECIPIENT_LIST_OPEN,
     UPDATE_RECIPIENTS,
     UPDATE_SCHOOL,
+    UPDATE_SCHOOL_ORG_ID,
     UPDATE_SEARCH_PAGE,
     UPDATE_SELECTED_ORDERS_TO_EXTERNAL,
     UPDATE_STEP,
@@ -39,7 +43,11 @@ import {GROUP, ORDER_NUMBER} from '../../../feature/payment/constants';
 //TODO remove dummy values
 export const defaultState = {
     payment: {
+        orgId: '',
         school: '',
+        schoolOrgId: '',
+        groupsLoaded: false,
+        customersLoaded: false,
         recipients: {},
         products: {},
         expirationDate: '',
@@ -241,6 +249,10 @@ export default function reducer(state = defaultState, action) {
                     school: state.payment.school,
                     statusOpen: state.payment.statusOpen,
                     statusContent: state.payment.statusContent,
+                    schoolOrgId: state.payment.schoolOrgId,
+                    orgId: state.payment.orgId,
+                    groupsLoaded: state.payment.groupsLoaded,
+                    customersLoaded: state.payment.customersLoaded,
                 }
             };
         case UPDATE_PRODUCTS:
@@ -253,6 +265,10 @@ export default function reducer(state = defaultState, action) {
                     school: state.payment.school,
                     statusOpen: state.payment.statusOpen,
                     statusContent: state.payment.statusContent,
+                    schoolOrgId: state.payment.schoolOrgId,
+                    orgId: state.payment.orgId,
+                    groupsLoaded: state.payment.groupsLoaded,
+                    customersLoaded: state.payment.customersLoaded,
                 },
             };
         case UPDATE_EXPIRATION_DATE:
@@ -265,6 +281,10 @@ export default function reducer(state = defaultState, action) {
                     school: state.payment.school,
                     statusOpen: state.payment.statusOpen,
                     statusContent: state.payment.statusContent,
+                    schoolOrgId: state.payment.schoolOrgId,
+                    orgId: state.payment.orgId,
+                    groupsLoaded: state.payment.groupsLoaded,
+                    customersLoaded: state.payment.customersLoaded,
                 },
             };
         case UPDATE_SCHOOL:
@@ -277,6 +297,10 @@ export default function reducer(state = defaultState, action) {
                     expirationDate: state.payment.expirationDate,
                     statusOpen: state.payment.statusOpen,
                     statusContent: state.payment.statusContent,
+                    schoolOrgId: state.payment.schoolOrgId,
+                    orgId: state.payment.orgId,
+                    groupsLoaded: state.payment.groupsLoaded,
+                    customersLoaded: state.payment.customersLoaded,
                 }
             };
         case UPDATE_ORDER_STATUS_OPEN:
@@ -289,6 +313,10 @@ export default function reducer(state = defaultState, action) {
                     products: state.payment.products,
                     expirationDate: state.payment.expirationDate,
                     statusContent: state.payment.statusContent,
+                    schoolOrgId: state.payment.schoolOrgId,
+                    orgId: state.payment.orgId,
+                    groupsLoaded: state.payment.groupsLoaded,
+                    customersLoaded: state.payment.customersLoaded,
                 }
             };
         case UPDATE_ORDER_STATUS_CONTENT:
@@ -301,7 +329,75 @@ export default function reducer(state = defaultState, action) {
                     products: state.payment.products,
                     expirationDate: state.payment.expirationDate,
                     statusOpen: state.payment.statusOpen,
+                    schoolOrgId: state.payment.schoolOrgId,
+                    orgId: state.payment.orgId,
+                    groupsLoaded: state.payment.groupsLoaded,
+                    customersLoaded: state.payment.customersLoaded,
                 },
+            };
+        case UPDATE_SCHOOL_ORG_ID:
+            return {
+                ...state,
+                payment: {
+                    schoolOrgId: action.payload,
+                    statusContent: state.payment.statusContent,
+                    school: state.payment.school,
+                    recipients: state.payment.recipients,
+                    products: state.payment.products,
+                    expirationDate: state.payment.expirationDate,
+                    statusOpen: state.payment.statusOpen,
+                    orgId: state.payment.orgId,
+                    groupsLoaded: state.payment.groupsLoaded,
+                    customersLoaded: state.payment.customersLoaded,
+                },
+            };
+        case UPDATE_ORG_ID:
+            return {
+                ...state,
+                payment: {
+                    orgId: action.payload,
+                    schoolOrgId: state.payment.schoolOrgId,
+                    statusContent: state.payment.statusContent,
+                    school: state.payment.school,
+                    recipients: state.payment.recipients,
+                    products: state.payment.products,
+                    expirationDate: state.payment.expirationDate,
+                    statusOpen: state.payment.statusOpen,
+                    groupsLoaded: state.payment.groupsLoaded,
+                    customersLoaded: state.payment.customersLoaded,
+                },
+            };
+        case UPDATE_GROUPS_LOADED:
+            return {
+                ...state,
+                payment: {
+                    groupsLoaded: action.payload,
+                    school: state.payment.school,
+                    recipients: state.payment.recipients,
+                    products: state.payment.products,
+                    expirationDate: state.payment.expirationDate,
+                    statusOpen: state.payment.statusOpen,
+                    statusContent: state.payment.statusContent,
+                    schoolOrgId: state.payment.schoolOrgId,
+                    orgId: state.payment.orgId,
+                    customersLoaded: state.payment.customersLoaded,
+                }
+            };
+        case UPDATE_CUSTOMERS_LOADED:
+            return {
+                ...state,
+                payment: {
+                    customersLoaded: action.payload,
+                    groupsLoaded: state.payment.groupsLoaded,
+                    school: state.payment.school,
+                    recipients: state.payment.recipients,
+                    products: state.payment.products,
+                    expirationDate: state.payment.expirationDate,
+                    statusOpen: state.payment.statusOpen,
+                    statusContent: state.payment.statusContent,
+                    schoolOrgId: state.payment.schoolOrgId,
+                    orgId: state.payment.orgId,
+                }
             };
         case UPDATE_PRODUCT_AMOUNT:
             return {
