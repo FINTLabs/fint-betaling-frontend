@@ -4,7 +4,7 @@ import {
     FETCH_CUSTOMERS_REJECTED,
     UPDATE_CUSTOMER_NAMES_SPLIT
 } from './actions';
-import CustomerRepository from '../../repository/CustomerRepository';
+import GroupRepository from "../../repository/GroupRepository";
 
 
 export default function fetchCustomer(orgId, schoolOrgId) {
@@ -12,16 +12,16 @@ export default function fetchCustomer(orgId, schoolOrgId) {
         dispatch({type: FETCH_CUSTOMERS});
 
 
-        CustomerRepository.fetchCustomers(orgId, schoolOrgId)
+        GroupRepository.fetchAllCustomerGroupsFromSchool(orgId, schoolOrgId)
             .then(([result, json]) => {
                 if (result.status === 200) {
                     dispatch({
                         type: FETCH_CUSTOMERS_FULFILLED,
-                        payload: json,
+                        payload: json.customers,
                     });
                     dispatch({
                         type: UPDATE_CUSTOMER_NAMES_SPLIT,
-                        payload: json,
+                        payload: json.customers,
                     });
                 }
             })
