@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {useDispatch, useSelector} from "react-redux";
-import {setSchool, updateCustomersLoaded, updateGroupsLoaded} from "../../data/redux/actions/payment";
+import {setSchool, setSchoolOrgId, updateCustomersLoaded, updateGroupsLoaded} from "../../data/redux/actions/payment";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,8 +29,9 @@ const OrganisationSelector = () => {
         setAnchorEl(event.currentTarget);
     }
 
-    function handleSchoolClick(school) {
-        dispatch(setSchool(school));
+    function handleSchoolClick(school, schoolOrgId) {
+        dispatch(setSchool(school)); localStorage.setItem("school", school);
+        dispatch(setSchoolOrgId(schoolOrgId)); localStorage.setItem("schoolOrgId", schoolOrgId);
         dispatch(updateGroupsLoaded(false));
         dispatch(updateCustomersLoaded(false));
         setAnchorEl(null);
@@ -57,7 +58,7 @@ const OrganisationSelector = () => {
                 {organisationUnits.map((o) => (
                     <MenuItem
                         key={o.organisationNumber}
-                        onClick={() => handleSchoolClick(o.name)}
+                        onClick={() => handleSchoolClick(o.name, o.organisationNumber)}
                     >
                         {o.name}
                     </MenuItem>
