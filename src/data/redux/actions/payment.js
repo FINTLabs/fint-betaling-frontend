@@ -2,15 +2,18 @@ import {
     INITIALIZE_PAYMENT,
     UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
+    UPDATE_CUSTOMERS_LOADED,
     UPDATE_EXPIRATION_DATE,
     UPDATE_EXTERNAL_REDIRECT,
     UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN,
+    UPDATE_GROUPS_LOADED,
     UPDATE_LATEST_SENT_PAYMENTS,
     UPDATE_LOADING_TO_EXTERNAL,
     UPDATE_NEED_FETCH,
     UPDATE_ORDER_STATUS_CONTENT,
     UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_ORG_ID,
     UPDATE_PAYMENT_FILTER_VALUE,
     UPDATE_PAYMENT_SEARCH_BY,
     UPDATE_PAYMENT_SEARCH_VALUE,
@@ -27,6 +30,7 @@ import {
     UPDATE_RECIPIENT_LIST_OPEN,
     UPDATE_RECIPIENTS,
     UPDATE_SCHOOL,
+    UPDATE_SCHOOL_ORG_ID,
     UPDATE_SEARCH_PAGE,
     UPDATE_SELECTED_ORDERS_TO_EXTERNAL,
     UPDATE_STEP,
@@ -40,6 +44,51 @@ import {
 export function initialiazePayment() {
     return (dispatch) => {
         dispatch({type: INITIALIZE_PAYMENT});
+    };
+}
+
+export default function setOrgId(orgId) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_ORG_ID,
+            payload: orgId,
+        });
+    };
+}
+
+export function setSchool(school) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_SCHOOL,
+            payload: school,
+        });
+    };
+}
+
+export function setSchoolOrgId(schoolOrgId) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_SCHOOL_ORG_ID,
+            payload: schoolOrgId,
+        });
+    };
+}
+
+export function updateGroupsLoaded(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_GROUPS_LOADED,
+            payload: value,
+        });
+    };
+}
+
+export function updateCustomersLoaded(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_CUSTOMERS_LOADED,
+            payload: value,
+        });
     };
 }
 

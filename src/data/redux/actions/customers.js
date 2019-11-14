@@ -7,12 +7,12 @@ import {
 import CustomerRepository from '../../repository/CustomerRepository';
 
 
-export default function fetchCustomer() {
+export default function fetchCustomer(orgId, schoolOrgId) {
     return (dispatch) => {
         dispatch({type: FETCH_CUSTOMERS});
 
 
-        CustomerRepository.fetchCustomers()
+        CustomerRepository.fetchCustomers(orgId, schoolOrgId)
             .then(([result, json]) => {
                 if (result.status === 200) {
                     dispatch({

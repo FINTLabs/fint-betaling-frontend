@@ -3,10 +3,12 @@ import {Box, makeStyles, Typography,} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import {useDispatch, useSelector} from "react-redux";
+import {setSchool, updateCustomersLoaded, updateGroupsLoaded} from "../../data/redux/actions/payment";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        marginRight: theme.spacing(1),
+        marginLeft: "auto",
     },
     organisationButton: {
         margin: theme.spacing(2),
@@ -18,23 +20,31 @@ const useStyles = makeStyles((theme) => ({
 
 const OrganisationSelector = () => {
     const classes = useStyles();
-    const [organisation] = useState('');
-    const [organisations] = useState(['FINTLabs', 'Viken FK', 'Innlandet FK']);
+    const school = useSelector(state => state.payment.payment.school);
+    const organisationUnits = useSelector(state => state.me.me.organisationUnits);
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
 
     function handleClick(event) {
         setAnchorEl(event.currentTarget);
     }
 
-    function handleClose() {
+    function handleSchoolClick(school) {
+        dispatch(setSchool(school));
+        dispatch(updateGroupsLoaded(false));
+        dispatch(updateCustomersLoaded(false));
+        setAnchorEl(null);
+    }
+
+    function handleClose(event) {
         setAnchorEl(null);
     }
 
     return (
-        <Box>
+        <Box className={classes.root}>
             <Button className={classes.organisationButton} onClick={handleClick}>
                 <Typography variant="h6" noWrap>
-                    {organisation || 'Velg organisasjon'}
+                    {school || 'Velg organisasjon'}
                 </Typography>
             </Button>
             <Menu
@@ -44,8 +54,13 @@ const OrganisationSelector = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                {organisations.map((o) => (
-                    <MenuItem key={o} onClick={handleClose}>{o}</MenuItem>
+                {organisationUnits.map((o) => (
+                    <MenuItem
+                        key={o.organisationNumber}
+                        onClick={() => handleSchoolClick(o.name)}
+                    >
+                        {o.name}
+                    </MenuItem>
                 ))}
             </Menu>
         </Box>

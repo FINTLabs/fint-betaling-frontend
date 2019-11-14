@@ -60,7 +60,7 @@ const GroupTable = () => {
                 onChangeRowsPerPage={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
             />
-        ) : <div/>;
+        ) : <TableCell/>;
 
     function handleIndividualCheck(event) {
         const newArray = {...recipients};
