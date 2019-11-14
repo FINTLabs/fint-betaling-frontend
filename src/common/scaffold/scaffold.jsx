@@ -128,11 +128,39 @@ export default function Scaffold() {
     const groupsLoaded = useSelector(state => state.payment.payment.groupsLoaded);
     const customersLoaded = useSelector(state => state.payment.payment.customersLoaded);
     const dispatch = useDispatch();
+    const localStorageSchool = localStorage.getItem("school");
+    const localStorageSchoolOrgId = localStorage.getItem("schoolOrgId");
+
+    useEffect(() => {
+        dispatch(fetchCustomer());
+        dispatch(fetchDate());
+        dispatch(fetchEmployer());
+        dispatch(fetchMe());
+        dispatch(fetchMva());
+        dispatch(fetchOrderLines());
+        dispatch(fetchPayment());
+    }, [dispatch]);
+
+    console.log("LocalStorageSchool = ", localStorageSchool);
+    console.log("localStorageSchoolOrgId = ", localStorageSchoolOrgId);
+    console.log("NOW School = ", school);
+    console.log("NOW SchoolOrgId = ", schoolOrgId);
+
 
     if (me.loaded && school.toString() === '') {
+        console.log("do I enter here?");
+        console.log("MY TEST: ",  me.me.organisationUnits.some(ou => ou.name === localStorageSchool));
         dispatch(setOrgId(me.me.organisation.organisationNumber));
-        dispatch(setSchoolOrgId(me.me.organisationUnits[0].organisationNumber));
-        dispatch(setSchool(me.me.organisationUnits[0].name));
+        dispatch(setSchoolOrgId(
+            localStorageSchoolOrgId &&
+            me.me.organisationUnits.some(ou => ou.organisationNumber === localStorageSchoolOrgId) ?
+                localStorageSchoolOrgId :
+                me.me.organisationUnits[0].organisationNumber));
+        dispatch(setSchool(
+            localStorageSchool &&
+            me.me.organisationUnits.some(ou => ou.name === localStorageSchool) ?
+            localStorageSchool :
+            me.me.organisationUnits[0].name));
     }
     if (schoolOrgId.toString() !== '' && !groupsLoaded) {
         dispatch(updateGroupsLoaded(true));
@@ -160,16 +188,6 @@ export default function Scaffold() {
     function handleDrawerClose() {
         setOpen(false);
     }
-
-    useEffect(() => {
-        dispatch(fetchCustomer());
-        dispatch(fetchDate());
-        dispatch(fetchEmployer());
-        dispatch(fetchMe());
-        dispatch(fetchMva());
-        dispatch(fetchOrderLines());
-        dispatch(fetchPayment());
-    }, [dispatch]);
 
 
     if (

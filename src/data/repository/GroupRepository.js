@@ -1,9 +1,12 @@
 class GroupRepository {
-    static fetchAllCustomerGroupsFromSchool() {
+    static fetchAllCustomerGroupsFromSchool(orgId, schoolOrgId) {
         const url = '/api/group/school';
         return fetch(url, {
             method: 'GET',
-            // headers: new Headers({ 'x-org-id': orgId })
+            headers: new Headers({
+                'ORG_ID': orgId,
+                'SCHOOL_ORG_ID': schoolOrgId
+            })
         })
             .then((result) => Promise.all([result, result.json()]))
             .catch((error) => error);
