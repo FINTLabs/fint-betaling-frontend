@@ -156,6 +156,15 @@ export default function Scaffold() {
 
 
     if (me.loaded && school.toString() === '') {
+        localStorage.setItem("school", localStorageSchool &&
+        me.me.organisationUnits.some(ou => ou.name === localStorageSchool) ?
+            localStorageSchool :
+            me.me.organisationUnits[0].name);
+        localStorage.setItem("schoolOrgId",
+            localStorageSchoolOrgId &&
+            me.me.organisationUnits.some(ou => ou.organisationNumber === localStorageSchoolOrgId) ?
+                localStorageSchoolOrgId :
+                me.me.organisationUnits[0].organisationNumber);
         dispatch(setOrgId(me.me.organisation.organisationNumber));
         dispatch(setSchoolOrgId(
             localStorageSchoolOrgId &&
