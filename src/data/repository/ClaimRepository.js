@@ -28,7 +28,15 @@ class ClaimRepository {
             .catch((error) => error);
     }
 
-    static setPayment(orgId, customers, orderLines, principalUri, requestedNumberOfDaysToPaymentDeadline) {
+    static setPayment(
+        orgId,
+        customers,
+        orderItems,
+        requestedNumberOfDaysToPaymentDeadline,
+        organisationUnit,
+        principal,
+        createdBy
+    ) {
         const request = new Request('/api/claim',
             {
                 method: 'POST',
@@ -36,11 +44,13 @@ class ClaimRepository {
                     'Content-Type': 'application/json',
                     'x-org-id': orgId,
                 }),
-                body: JSON.stringify({
-                    orderLines,
+                body: JSON.stringify({//Todo create Order from model
+                    orderItems,
                     customers,
-                    principalUri,
                     requestedNumberOfDaysToPaymentDeadline,
+                    organisationUnit,
+                    principal,
+                    createdBy,
                 }),
             });
 

@@ -56,7 +56,7 @@ const ProductList = () => {
                 <Box className={classes.chipBox}>
                     {
                         productListKeys.filter(key => productList[key].checked).map(key => {
-                            const labelText = `${productList[key].name} x${productAmount[key].amount}`;
+                            const labelText = `${productList[key].description} x${productAmount[key].amount}`;
                             return (
                                 <Chip
                                     size="small"

@@ -151,7 +151,7 @@ const GroupTable = () => {
                                         ))}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
-                                        {suggestion.beskrivelse}
+                                        {suggestion.description}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
                                         <Checkbox
@@ -211,19 +211,13 @@ const GroupTable = () => {
                                                                         align="right"
                                                                         className={classes.tableCell}
                                                                     >
-                                                                        {customer.kontaktinformasjon
-                                                                            ? customer.kontaktinformasjon.epostadresse
-                                                                                ? customer.kontaktinformasjon.epostadresse
-                                                                                : '' : ''}
+                                                                        {customer.email || ''}
                                                                     </TableCell>
                                                                     <TableCell
                                                                         align="right"
                                                                         className={classes.tableCell}
                                                                     >
-                                                                        {customer.kontaktinformasjon
-                                                                            ? customer.kontaktinformasjon.mobiltelefonnummer
-                                                                                ? customer.kontaktinformasjon.mobiltelefonnummer
-                                                                                : '' : ''}
+                                                                        {customer.mobile || ''}
                                                                     </TableCell>
                                                                     <TableCell
                                                                         align="center"

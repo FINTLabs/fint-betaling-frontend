@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import {updateExpirationDate} from '../../../../data/redux/actions/payment';
+import {updateRequestedNumberOfDaysToPaymentDeadLine} from '../../../../data/redux/actions/payment';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -24,11 +24,11 @@ const useStyles = makeStyles((theme) => ({
 const ExpirationDatePicker = () => {
     const classes = useStyles();
     const dates = useSelector((state) => state.dates.dates);
-    const expirationDate = useSelector((state) => state.payment.payment.expirationDate);
+    const requestedNumberOfDaysToPaymentDeadLine = useSelector((state) => state.payment.payment.expirationDate);
     const dispatch = useDispatch();
 
-    function handleExpirationDateChange(event) {
-        dispatch(updateExpirationDate(event.target.value));
+    function handleRequestedNumberOfDaysToPaymentDeadLineChange(event) {
+        dispatch(updateRequestedNumberOfDaysToPaymentDeadLine(event.target.value));
     }
 
     return (
@@ -36,8 +36,8 @@ const ExpirationDatePicker = () => {
         <FormControl className={classes.formControl}>
             <InputLabel htmlFor="age-simple">Forfallslengde</InputLabel>
             <Select
-                value={expirationDate}
-                onChange={handleExpirationDateChange}
+                value={requestedNumberOfDaysToPaymentDeadLine}
+                onChange={handleRequestedNumberOfDaysToPaymentDeadLineChange}
                 inputProps={{
                     name: 'Forfallslengde',
                     id: 'age-simple',

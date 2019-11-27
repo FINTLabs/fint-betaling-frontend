@@ -103,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PaymentSaved = () => {
     const classes = useStyles();
-    const expirationDays = useSelector((state) => state.payment.payment.expirationDate);
+    const requestedNumberOfDaysToPaymentDeadLineDays = useSelector((state) => state.payment.payment.requestedNumberOfDaysToPaymentDeadLine);
     const recipients = useSelector((state) => state.payment.payment.recipients);
     const latestPayments = useSelector((state) => state.payment.payments.latestSent);
     const dispatch = useDispatch();
@@ -141,7 +141,7 @@ const PaymentSaved = () => {
         <Box className={classes.root}>
             <Paper className={classes.titlePaper}>
                 <Typography variant="h5" className={classes.titleText}>
-                    Opprettede betalinger
+                    Opprettet ordre
                 </Typography>
             </Paper>
             <Paper className={classes.tablePaper}>
@@ -162,27 +162,15 @@ const PaymentSaved = () => {
                     </Box>
                     <Box className={classes.mainTextExpirationDate}>
                         <Typography>
-                            Valgt forfall:
+                            Forfall:
                             {' '}
-                            {expirationDays}
+                            {requestedNumberOfDaysToPaymentDeadLineDays}
                             {' '}
                             dager
                         </Typography>
                     </Box>
                 </Box>
                 <Box>
-                    <Typography>
-                        {countChecked(recipients)}
-                        {' '}
-                        betalinger med ordrenummer
-                        fra:
-                        {' '}
-                        {getFirstOrderNumber()}
-                        {' '}
-                        til:
-                        {' '}
-                        {getLastOrderNumber()}
-                    </Typography>
                     <Typography variant="h6" className={classes.recipientTitle}>
                         Mottakere
                     </Typography>

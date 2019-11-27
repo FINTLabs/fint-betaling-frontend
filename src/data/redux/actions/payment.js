@@ -191,7 +191,7 @@ export function updateProductAmount(value) {
     };
 }
 
-export function updateExpirationDate(value) {
+export function updateRequestedNumberOfDaysToPaymentDeadLine(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_EXPIRATION_DATE,

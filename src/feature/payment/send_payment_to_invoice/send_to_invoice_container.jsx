@@ -240,8 +240,8 @@ const SendToInvoiceContainer = () => {
                                                 : '' : ''}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
-                                        {suggestion.restBelop
-                                            ? (parseInt(suggestion.restBelop) / 100).toFixed(2) : ''}
+                                        {suggestion.originalAmountDue
+                                            ? (parseInt(suggestion.originalAmountDue) / 100).toFixed(2) : ''}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
                                         <Checkbox
@@ -277,7 +277,7 @@ const SendToInvoiceContainer = () => {
                 ? !displayLoading
                     ? (
                         <Button className={classes.confirmButton} onClick={handleConfirmSendPayments}>
-                            Send til økonomisystem
+                            Send ordre til fakturering
                         </Button>
                     )
                     : <CircularProgress className={classes.progress}/> : <div/>}

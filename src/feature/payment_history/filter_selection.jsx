@@ -43,10 +43,10 @@ const FilterCheckboxes = () => {
                         id: 'filter-simple',
                     }}
                 >
-                    <MenuItem value={1}>Alle</MenuItem>
-                    <MenuItem value={2}>Ubetalt</MenuItem>
-                    <MenuItem value={3}>Ikke sendt</MenuItem>
-                    <MenuItem value={4}>Error</MenuItem>
+                    <MenuItem value={"ALL"}>Alle</MenuItem>
+                    <MenuItem value={"SENT"}>Ubetalt</MenuItem>
+                    <MenuItem value={"STORED"}>Ikke sendt</MenuItem>
+                    <MenuItem value={"ERROR"}>Error</MenuItem>
                 </Select>
             </FormControl>
         </Box>

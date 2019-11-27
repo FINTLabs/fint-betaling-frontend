@@ -123,9 +123,9 @@ const ProductSearch = () => {
     function matchedProduct(suggestion, input) {
         if (input.length > 0) {
             return (
-                suggestion.navn.slice(0, input.length)
+                suggestion.description.slice(0, input.length)
                     .toLowerCase() === input
-                || suggestion.kode.slice(0, input.length)
+                || suggestion.itemCode.slice(0, input.length)
                     .toLowerCase() === input
             );
         }
@@ -133,7 +133,13 @@ const ProductSearch = () => {
     }
 
     function getProductsLength(input) {
-        return suggestions.filter(suggestion => matchedProduct(suggestion, input)).length;
+        const array = [];
+        suggestions.filter(suggestion => {
+            if(matchedProduct(suggestion, input)){
+                array.push(suggestion);
+            }return null;
+        });
+        return array.length;
     }
 
 
@@ -141,7 +147,7 @@ const ProductSearch = () => {
     }
 
     function getSuggestionValue(suggestion) {
-        return suggestion.name;
+        return suggestion.description;
     }
 
     const handleSuggestionsFetchRequested = ({value}) => {
