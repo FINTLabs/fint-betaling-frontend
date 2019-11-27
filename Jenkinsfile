@@ -20,7 +20,7 @@ pipeline {
         stage('Build backend') {
             when { branch 'master' }
             steps {
-                build 'FINTLabs/fint-betaling/master'
+                build 'FINTLabs/fint-betaling-backend/master'
             }
         }
     }
