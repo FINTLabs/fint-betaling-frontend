@@ -5,7 +5,7 @@ import GroupRepository from '../../repository/GroupRepository';
 export default function fetchGroup(orgId, schoolOrgId) {
     return (dispatch) => {
         dispatch({type: FETCH_GROUPS});
-        GroupRepository.fetchAllCustomerGroupsFromBasisGroupAndSchool(orgId, schoolOrgId)
+        GroupRepository.fetchAllBasisGroupsFromSchool(orgId, schoolOrgId)
             .then(([result, json]) => {
                 if (result.status === 200) {
                     dispatch({

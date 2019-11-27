@@ -22,7 +22,9 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: 200,
         overflow: 'auto',
     },
-    table: {},
+    table: {
+        overflow: "auto",
+    },
     tableBody: {},
     recipientHeader: {
         justifyContent: 'center',
@@ -34,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 const ConfirmedRecipients = () => {
     const classes = useStyles();
     const recipients = useSelector((state) => state.payment.payment.recipients);
-    let counter = 1;
     return (
         <Box className={classes.root}>
             <Typography variant="h5" className={classes.recipientHeader}>
@@ -44,8 +45,7 @@ const ConfirmedRecipients = () => {
                 <Table className={classes.table} stickyHeader size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nr.</TableCell>
-                            <TableCell align="right">Kundenummer</TableCell>
+                            <TableCell>Kundenummer</TableCell>
                             <TableCell align="right">Navn</TableCell>
                             <TableCell align="right">E-postadresse</TableCell>
                             <TableCell align="right">Telefonnummer</TableCell>
@@ -58,11 +58,7 @@ const ConfirmedRecipients = () => {
                                 .filter(key => recipients[key].checked).map(key => {
                                         return (
                                             <TableRow key={key}>
-                                                <TableCell>
-                                                    {counter++}
-                                                    .
-                                                </TableCell>
-                                                <TableCell align="right" component="th" scope="row">
+                                                <TableCell component="th" scope="row">
                                                     {key}
                                                 </TableCell>
                                                 <TableCell align="right">{recipients[key].name}</TableCell>

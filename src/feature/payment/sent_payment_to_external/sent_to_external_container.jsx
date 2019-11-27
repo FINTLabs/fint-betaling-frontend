@@ -105,7 +105,7 @@ const SentToExternalContainer = () => {
                                         const orderStatus =
                                             (
                                                 <TableCell align="right" className={classes.tableCell}>
-                                                    {suggestion.status === "ERROR" ?
+                                                    {suggestion.claimStatus === "ERROR" ?
                                                         <Warning
                                                             value={suggestion.error}
                                                             className={classes.warningIcon}
@@ -146,7 +146,7 @@ const SentToExternalContainer = () => {
                 ? (
                     <Paper className={classes.buttonContainer}>
                         <Button className={classes.buttonToNewOrder}>Opprett nye ordre</Button>
-                        <Button className={classes.buttonSendMore}>Send flere lagrede ordre til økonomisystem</Button>
+                        <Button className={classes.buttonSendMore}>Send flere ordre til fakturering</Button>
                     </Paper>
                 )
                 : <div/>}

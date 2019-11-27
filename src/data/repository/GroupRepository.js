@@ -1,10 +1,10 @@
 class GroupRepository {
-    static fetchAllCustomerGroupsFromSchool(orgId, schoolOrgId) {
+    static fetchAllCustomersFromSchool(orgId, schoolOrgId) {
         const url = '/api/group/school';
         return fetch(url, {
             method: 'GET',
             headers: new Headers({
-                'ORG_ID': orgId,
+                //'ORG_ID': orgId,
                 'SCHOOL_ORG_ID': schoolOrgId
             })
         })
@@ -12,12 +12,12 @@ class GroupRepository {
             .catch((error) => error);
     }
 
-    static fetchAllCustomerGroupsFromBasisGroupAndSchool(orgId, schoolOrgId) {
+    static fetchAllBasisGroupsFromSchool(orgId, schoolOrgId) {
         const url = '/api/group/basis-group';
         return fetch(url, {
             method: 'GET',
             headers: new Headers({
-                'ORG_ID': orgId,
+                //'ORG_ID': orgId,
                 'SCHOOL_ORG_ID': schoolOrgId
             })
         })

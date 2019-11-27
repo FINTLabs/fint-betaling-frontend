@@ -11,7 +11,7 @@ import PaymentSearch from './payment_search';
 import {updateNeedFetch, updatePaymentsSearchBy} from '../../data/redux/actions/payment';
 import EditDialog from './edit_dialog';
 import {fetchPayment} from "../../data/redux/actions/payments";
-import FilterCheckboxes from "./filter_checkboxes";
+import FilterCheckboxes from "./filter_selection";
 
 const useStyles = makeStyles((theme) => ({
     root: {

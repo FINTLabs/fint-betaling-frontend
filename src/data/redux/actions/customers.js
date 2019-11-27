@@ -12,7 +12,7 @@ export default function fetchCustomer(orgId, schoolOrgId) {
         dispatch({type: FETCH_CUSTOMERS});
 
 
-        GroupRepository.fetchAllCustomerGroupsFromSchool(orgId, schoolOrgId)
+        GroupRepository.fetchAllCustomersFromSchool(orgId, schoolOrgId)
             .then(([result, json]) => {
                 if (result.status === 200) {
                     dispatch({

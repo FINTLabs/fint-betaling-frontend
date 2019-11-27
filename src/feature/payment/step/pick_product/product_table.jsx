@@ -19,6 +19,7 @@ import {SEARCH_PAGE_ROWS} from '../../constants';
 const useStyles = makeStyles((theme) => ({
     table: {
         overflow: 'auto',
+        width: "100%",
     },
     tableCell: {
         overflow: 'auto',
@@ -64,26 +65,28 @@ const ProductTable = () => {
                 onChangeRowsPerPage={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
             />
-        ) : <div/>;
+        ) : null;
 
-    function handleIndividualCheck(event, code, name, price, uri) {
+
+    function handleIndividualCheck(event, itemCode, description, itemPrice, taxRate, uri) {
         const newArray = {...pickedProducts};
-        newArray[code] = {
+        newArray[itemCode] = {
             checked: event.target.checked,
-            name,
-            price,
+            description,
+            itemPrice,
+            taxRate,
             uri,
         };
-        if (!productAmount[code]) {
+        if (!productAmount[itemCode]) {
             event.target.value = 1;
-            handleAmountChange(event, code);
+            handleAmountChange(event, itemCode);
         }
         dispatch(updateProducts(newArray));
     }
 
-    function handleAmountChange(event, code) {
+    function handleAmountChange(event, itemCode) {
         const newArray = {...productAmount};
-        newArray[code] = {amount: event.target.value};
+        newArray[itemCode] = {amount: event.target.value};
         dispatch(updateProductAmount(newArray));
     }
 
@@ -110,12 +113,12 @@ const ProductTable = () => {
                 {
                     suggestions.map(
                         (suggestion) => {
-                            const product = suggestion.navn;
+                            const product = suggestion.description;
                             const matches = match(product, query);
                             const parts = parse(product, matches);
 
                             return (
-                                <TableRow hover key={suggestion.kode}>
+                                <TableRow hover key={suggestion.itemCode}>
                                     <TableCell align="left" className={classes.tableCell}>
                                         {parts.map((part) => (
                                             <span key={part.text} style={{fontWeight: part.highlight ? 500 : 400}}>
@@ -124,21 +127,21 @@ const ProductTable = () => {
                                         ))}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
-                                        {suggestion.kode
-                                            ? suggestion.kode
+                                        {suggestion.itemCode
+                                            ? suggestion.itemCode
                                             : ''}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
-                                        {suggestion.pris
-                                            ? (suggestion.pris / 100).toFixed(2)
+                                        {suggestion.itemPrice
+                                            ? (suggestion.itemPrice / 100).toFixed(2)
                                             : ''}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
                                         <TextField
                                             id="filled-number"
                                             label="Antall"
-                                            value={productAmount[suggestion.kode] ? productAmount[suggestion.kode].amount ? productAmount[suggestion.kode].amount : 1 : 1}
-                                            onChange={(e) => handleAmountChange(e, suggestion.kode)}
+                                            value={productAmount[suggestion.itemCode] ? productAmount[suggestion.itemCode].amount ? productAmount[suggestion.itemCode].amount : 1 : 1}
+                                            onChange={(e) => handleAmountChange(e, suggestion.itemCode)}
                                             type="number"
                                             className={classes.textField}
                                             InputLabelProps={{
@@ -155,17 +158,17 @@ const ProductTable = () => {
                                         />
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
-                                        {suggestion.pris
+                                        {suggestion.itemPrice
                                             ? (
-                                                (suggestion.pris / 100)
-                                                * (productAmount[suggestion.kode] ? productAmount[suggestion.kode].amount ? productAmount[suggestion.kode].amount : 1 : 1)
+                                                (suggestion.itemPrice / 100)
+                                                * (productAmount[suggestion.itemCode] ? productAmount[suggestion.itemCode].amount ? productAmount[suggestion.itemCode].amount : 1 : 1)
                                             ).toFixed(2)
                                             : ''}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
                                         <Checkbox
-                                            checked={pickedProducts[suggestion.kode] ? pickedProducts[suggestion.kode].checked : false}
-                                            onChange={(e) => handleIndividualCheck(e, suggestion.kode, suggestion.navn, suggestion.pris, suggestion._links.self[0].href)}
+                                            checked={pickedProducts[suggestion.itemCode] ? pickedProducts[suggestion.itemCode].checked : false}
+                                            onChange={(e) => handleIndividualCheck(e, suggestion.itemCode, suggestion.description, suggestion.itemPrice, suggestion.taxrate, suggestion.uri)}
                                         />
                                     </TableCell>
                                 </TableRow>

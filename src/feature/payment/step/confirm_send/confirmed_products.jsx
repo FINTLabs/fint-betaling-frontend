@@ -34,7 +34,6 @@ const ConfirmedProducts = () => {
     const classes = useStyles();
     const products = useSelector((state) => state.payment.payment.products);
     const productAmounts = useSelector((state) => state.payment.product.amount);
-    let counter = 1;
     return (
         <Box className={classes.root}>
             <Typography variant="h6" className={classes.recipientHeader}>
@@ -44,8 +43,7 @@ const ConfirmedProducts = () => {
                 <Table className={classes.table} stickyHeader size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Nr.</TableCell>
-                            <TableCell align="right">Produkt</TableCell>
+                            <TableCell>Produkt</TableCell>
                             <TableCell align="right">Kode</TableCell>
                             <TableCell align="right">Antall</TableCell>
                             <TableCell align="right">Nettopris</TableCell>
@@ -58,11 +56,7 @@ const ConfirmedProducts = () => {
                                 .filter(key => products[key].checked).map(key => {
                                     return (
                                         <TableRow key={key}>
-                                            <TableCell>
-                                                {counter++}
-                                                .
-                                            </TableCell>
-                                            <TableCell align="left">{products[key].name}</TableCell>
+                                            <TableCell align="left">{products[key].description}</TableCell>
                                             <TableCell align="right" component="th" scope="row">
                                                 {key}
                                             </TableCell>
@@ -70,12 +64,12 @@ const ConfirmedProducts = () => {
                                             <TableCell
                                                 align="right"
                                             >
-                                                {(parseInt(products[key].price) / 100).toFixed(2)}
+                                                {(parseInt(products[key].itemPrice) / 100).toFixed(2)}
                                             </TableCell>
                                             <TableCell
                                                 align="right"
                                             >
-                                                {(parseInt(productAmounts[key].amount) * (parseInt(products[key].price) / 100)).toFixed(2)}
+                                                {(parseInt(productAmounts[key].amount) * (parseInt(products[key].itemPrice) / 100)).toFixed(2)}
                                             </TableCell>
                                         </TableRow>
                                     );

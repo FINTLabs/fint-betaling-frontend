@@ -128,8 +128,20 @@ export default function Scaffold() {
     const groupsLoaded = useSelector(state => state.payment.payment.groupsLoaded);
     const customersLoaded = useSelector(state => state.payment.payment.customersLoaded);
     const dispatch = useDispatch();
-    const localStorageSchool = localStorage.getItem("school");
-    const localStorageSchoolOrgId = localStorage.getItem("schoolOrgId");
+    let localStorageSchool = localStorage.getItem("school");
+    let localStorageSchoolOrgId = localStorage.getItem("schoolOrgId");
+    if (me.me.organisationUnits){
+        const schoolIsPresentInMe = me.me.organisationUnits.some(ou => ou.name === localStorageSchool);
+        if (!schoolIsPresentInMe) {
+            localStorageSchool = '';
+            localStorageSchoolOrgId = '';
+            localStorage.setItem("school", "");
+            localStorage.setItem("schoolOrgId", "");
+            dispatch(setSchool(""));
+            dispatch(setSchoolOrgId(""));
+        }
+
+    }
 
     useEffect(() => {
         dispatch(fetchCustomer());
@@ -141,15 +153,9 @@ export default function Scaffold() {
         dispatch(fetchPayment());
     }, [dispatch]);
 
-    console.log("LocalStorageSchool = ", localStorageSchool);
-    console.log("localStorageSchoolOrgId = ", localStorageSchoolOrgId);
-    console.log("NOW School = ", school);
-    console.log("NOW SchoolOrgId = ", schoolOrgId);
 
 
     if (me.loaded && school.toString() === '') {
-        console.log("do I enter here?");
-        console.log("MY TEST: ",  me.me.organisationUnits.some(ou => ou.name === localStorageSchool));
         dispatch(setOrgId(me.me.organisation.organisationNumber));
         dispatch(setSchoolOrgId(
             localStorageSchoolOrgId &&
@@ -269,7 +275,7 @@ export default function Scaffold() {
                         <Link to="/send-ordrer" className={classes.menuLink}>
                             <ListItem button>
                                 <ListItemIcon><LogOut/></ListItemIcon>
-                                <ListItemText primary="Send lagrede ordre"/>
+                                <ListItemText primary="Send ordre"/>
                             </ListItem>
                         </Link>
                         <Link to="/ordrehistorikk" className={classes.menuLink}>

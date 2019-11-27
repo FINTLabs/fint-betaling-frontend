@@ -48,17 +48,20 @@ const useStyles = makeStyles((theme) => ({
 
 const ConfirmSend = () => {
     const classes = useStyles();
-    const expirationDate = useSelector((state) => state.payment.payment.expirationDate);
+    const requestedNumberOfDaysToPaymentDeadLine = useSelector((state) => state.payment.payment.requestedNumberOfDaysToPaymentDeadLine);
     let confirmButtonDisabled = true;
-    if (expirationDate) {
+    if (requestedNumberOfDaysToPaymentDeadLine) {
         confirmButtonDisabled = false;
     }
     const dispatch = useDispatch();
+    const me = useSelector(state => state.me.me);
+    const schoolName = useSelector(state => state.payment.payment.school);
+    const schoolOrgId = useSelector(state => state.payment.payment.schoolOrgId);
     const recipients = useSelector((state) => state.payment.payment.recipients);
     const products = useSelector((state) => state.payment.payment.products);
     const productsAmount = useSelector((state) => state.payment.product.amount);
     const customers = useSelector((state) => state.customers.customers);
-    const employer = useSelector((state) => state.employers.employers);
+    const employers = useSelector((state) => state.employers.employers);
     const orgId = 'fake.fintlabs.no';
 
 
@@ -67,13 +70,14 @@ const ConfirmSend = () => {
             const list = [];
             Object.keys(recipients)
                 .map((key) => {
-                    for (let i = 0; i < customers.length; i++) {
-                        const customer = customers[i];
-                        if (key === customer.id) {
-                            list.push(customer);
+                        for (let i = 0; i < customers.length; i++) {
+                            const customer = customers[i];
+                            if (key === customer.id) {
+                                list.push(customer);
+                            }
                         }
+                        return null;
                     }
-                return null;}
                 );
             return list;
         }
@@ -82,30 +86,41 @@ const ConfirmSend = () => {
             const list = [];
             Object.keys(products)
                 .map((key) => {
-                    if (products[key].checked) {
-                        const orderLine = {
-                            itemUri: products[key].uri,
-                            description: products[key].name,
-                            numberOfItems: productsAmount[key].amount,
-                            itemPrice: products[key].price,
-                        };
-                        list.push(orderLine);
+                        if (products[key].checked) {
+                            const orderLine = {
+                                description: products[key].description,
+                                itemQuantity: productsAmount[key].amount,
+                                lineitem: {
+                                    itemCode: key,
+                                    itemPrice: products[key].itemPrice,
+                                    taxrate: products[key].taxRate,
+                                    description: products[key].description,
+                                    uri: products[key].uri,
+                                },
+                            };
+                            list.push(orderLine);
+                        }
+                        return null;
                     }
-                return null;}
                 );
             return list;
         }
 
-
         const recipientsList = getRecipientsAsObjects(recipients);
-
         const productList = getProductsAsObjects(products, productsAmount);
+        const organisationUnit = {
+            name: schoolName,
+            organisationNumber: schoolOrgId
+        };
+
         ClaimRepository.setPayment(
             orgId,
             JSON.parse(JSON.stringify(recipientsList)),
             JSON.parse(JSON.stringify(productList)),
-            employer[1]._links.self[0].href,
-            expirationDate,
+            requestedNumberOfDaysToPaymentDeadLine,
+            organisationUnit,
+            employers[1],
+            me,
         )
             .then((data) => {
                 dispatch(updateSentPayment(data));
