@@ -27,7 +27,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
     },
     formControl: {
-        flex: '1/3',
+        minWidth:"70%",
+        maxWidth:"70%",
         margin: theme.spacing(3),
     },
     extendedIcon: {

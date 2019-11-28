@@ -24,6 +24,18 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'auto',
         wordWrap: 'break-word',
     },
+    tableCellName: {
+        minWidth: "30%",
+        maxWidth: "30%",
+        overflow: 'auto',
+        wordWrap: 'break-word',
+    },
+    tableCellEmail: {
+        minWidth: "30%",
+        maxWidth: "30%",
+        overflow: 'auto',
+        wordWrap: 'break-word',
+    },
     tableCellNoPadding: {
         paddingTop: 0,
         paddingBottom: 0,
@@ -87,10 +99,10 @@ const IndividualTable = () => {
         <Table className={classes.table} size="small">
             <TableHead>
                 <TableRow>
-                    <TableCell>Navn</TableCell>
-                    <TableCell align="right" className={classes.tableCell}>E-postadresse</TableCell>
+                    <TableCell className={classes.tableCellName}>Navn</TableCell>
+                    <TableCell align="left" className={classes.tableCellEmail}>E-postadresse</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Telefonnummer</TableCell>
-                    <TableCell align="right" className={classes.tableCell}>Velg som mottaker</TableCell>
+                    <TableCell align="center" className={classes.tableCell}>Velg</TableCell>
 
                 </TableRow>
             </TableHead>
@@ -104,35 +116,29 @@ const IndividualTable = () => {
 
                             return (
                                 <TableRow hover key={suggestion.id}>
-                                    <TableCell align="left" className={classes.tableCell}>
+                                    <TableCell align="left" className={classes.tableCellName}>
                                         {parts.map((part) => (
                                             <span key={part.text} style={{fontWeight: part.highlight ? 500 : 400}}>
                         {part.text}
                       </span>
                                         ))}
                                     </TableCell>
-                                    <TableCell align="right" className={classes.tableCell}>
-                                        {suggestion.kontaktinformasjon
-                                            ? suggestion.kontaktinformasjon.epostadresse
-                                                ? suggestion.kontaktinformasjon.epostadresse
-                                                : '' : ''}
+                                    <TableCell align="left" className={classes.tableCellEmail}>
+                                        {suggestion.email || ''}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
-                                        {suggestion.kontaktinformasjon
-                                            ? suggestion.kontaktinformasjon.mobiltelefonnummer
-                                                ? suggestion.kontaktinformasjon.mobiltelefonnummer
-                                                : '' : ''}
+                                        {suggestion.mobile || ''}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
                                         <Checkbox
                                             checked={recipients[suggestion.id] ? recipients[suggestion.id].checked : false}
                                             onChange={(event) => handleIndividualCheck(
                                                 event,
-                                                suggestion.kontaktinformasjon ? suggestion.kontaktinformasjon.epostadresse : '',
-                                                suggestion.kontaktinformasjon ? suggestion.kontaktinformasjon.mobiltelefonnummer : '',
-                                                suggestion.postadresse ? suggestion.postadresse.adresselinje : '',
-                                                suggestion.postadresse ? suggestion.postadresse.postnummer : '',
-                                                suggestion.postadresse ? suggestion.postadresse.poststed : '',
+                                                suggestion.email || '',
+                                                suggestion.mobile || '',
+                                                suggestion.postalAddress || '',
+                                                suggestion.postalCode || '',
+                                                suggestion.city || '',
                                             )}
                                             name={suggestion.name}
                                             value={suggestion.id}
