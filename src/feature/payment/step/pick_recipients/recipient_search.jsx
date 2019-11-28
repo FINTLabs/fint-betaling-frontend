@@ -18,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
 
     textField: {},
     root: {
-        minWidth: 700,
-        maxWidth: 700,
+        flex:1,
     },
     containerSuggestions: {
         position: 'relative',

@@ -219,7 +219,7 @@ const SendToInvoiceContainer = () => {
                                 <TableCell>Ordrenummer</TableCell>
                                 <TableCell align="right" className={classes.tableCell}>Mottakernavn</TableCell>
                                 <TableCell align="right" className={classes.tableCell}>Restbeløp</TableCell>
-                                <TableCell align="right" className={classes.tableCell}>Velg</TableCell>
+                                <TableCell align="center" className={classes.tableCell}>Velg</TableCell>
                             </TableRow>
                         )
                         : <TableRow/>}
@@ -259,7 +259,7 @@ const SendToInvoiceContainer = () => {
                             <TableRow>
                                 <TableCell align="center" className={classes.tableCell} colSpan="2"/>
                                 <TableCell align="right" className={classes.tableCell}>
-                                    <Typography className={classes.tableTextChooseAll}>Velg alle i listen:</Typography>
+                                    <Typography className={classes.tableTextChooseAll}>Velg alle:</Typography>
                                 </TableCell>
                                 <TableCell align="center" className={classes.tableCell}>
                                     <Checkbox

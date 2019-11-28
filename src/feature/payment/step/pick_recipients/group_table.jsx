@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
     table: {
         overflow: 'auto',
     },
+    individualTable: {
+        backgroundColor: "#FFF",
+        minWidth: "100%",
+    },
     tableCell: {
         overflow: 'auto',
         wordWrap: 'break-word',
@@ -29,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     tableCellNoPadding: {
         paddingTop: 0,
         paddingBottom: 0,
+    },
+    rowSelected: {
+        backgroundColor: theme.palette.secondary.main,
     },
 }));
 
@@ -127,7 +134,7 @@ const GroupTable = () => {
                 <TableRow>
                     <TableCell>Navn</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Beskrivelse</TableCell>
-                    <TableCell align="center" className={classes.tableCell}>Velg som mottaker</TableCell>
+                    <TableCell align="right" className={classes.tableCell}>Velg</TableCell>
                     <TableCell align="right" className={classes.tableCell}>Vis innhold</TableCell>
                 </TableRow>
             </TableHead>
@@ -139,7 +146,8 @@ const GroupTable = () => {
                         const parts = parse(recipient, matches);
                         return (
                             <TableBody key={suggestion.name}>
-                                <TableRow hover>
+                                <TableRow hover={!groupContentOpen[recipient]}
+                                          className={groupContentOpen[recipient] ? classes.rowSelected : null}>
                                     <TableCell align="left" className={classes.tableCell}>
                                         {parts.map((part) => (
                                             <span
@@ -153,7 +161,7 @@ const GroupTable = () => {
                                     <TableCell align="right" className={classes.tableCell}>
                                         {suggestion.description}
                                     </TableCell>
-                                    <TableCell align="center" className={classes.tableCell}>
+                                    <TableCell align="right" className={classes.tableCell}>
                                         <Checkbox
                                             onChange={(event) => handleGroupChange(event, suggestion.customers)}
                                             value={suggestion.customers}
@@ -162,7 +170,7 @@ const GroupTable = () => {
                                         />
                                     </TableCell>
                                     <TableCell
-                                        align="center"
+                                        align="right"
                                         className={classes.tableCellArrow}
                                         onClick={() => handleGroupOpenClick(recipient)}
                                     >
@@ -170,8 +178,7 @@ const GroupTable = () => {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell className={classes.tableCellNoPadding}/>
-                                    <TableCell className={classes.tableCellNoPadding} colSpan={3}>
+                                    <TableCell className={classes.tableCellNoPadding} colSpan={4}>
                                         <Collapse
                                             in={groupContentOpen[recipient]}
                                             timeout="auto"
@@ -179,9 +186,10 @@ const GroupTable = () => {
                                             style={{
                                                 display: 'block',
                                                 float: 'bottom',
+                                                minWidth: "max-content",
                                             }}
                                         >
-                                            <Table className={classes.table}>
+                                            <Table className={classes.individualTable}>
                                                 <TableHead>
                                                     <TableRow>
                                                         <TableCell>Navn</TableCell>
@@ -192,7 +200,7 @@ const GroupTable = () => {
                                                             Telefonnummer
                                                         </TableCell>
                                                         <TableCell align="right" className={classes.tableCell}>
-                                                            Velg som mottaker
+                                                            Velg
                                                         </TableCell>
                                                     </TableRow>
                                                 </TableHead>
@@ -246,7 +254,7 @@ const GroupTable = () => {
             }
             <TableBody>
                 <TableRow>
-                {tablePagination}
+                    {tablePagination}
                 </TableRow>
             </TableBody>
         </Table>
