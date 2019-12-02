@@ -284,7 +284,9 @@ export default function Scaffold() {
                                 <ListItemText primary="Opprett ordre"/>
                             </ListItem>
                         </Link>
-                        <Link to="/send-ordrer" className={classes.menuLink}>
+                        <Link to="/send-ordrer" onClick={() => {
+                            dispatch(initializePayment());
+                        }} className={classes.menuLink}>
                             <ListItem button>
                                 <ListItemIcon><LogOut/></ListItemIcon>
                                 <ListItemText primary="Send ordre"/>
