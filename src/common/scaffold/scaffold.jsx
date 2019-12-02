@@ -34,6 +34,7 @@ import fetchOrderLines from '../../data/redux/actions/orderlines';
 import {fetchPayment} from '../../data/redux/actions/payments';
 import LoadingPage from './loading_page';
 import setOrgId, {
+    initializePayment,
     setSchool,
     setSchoolOrgId,
     updateCustomersLoaded,
@@ -275,13 +276,17 @@ export default function Scaffold() {
                             </ListItem>
                         </Link>
                         <Divider/>
-                        <Link to="/opprett-ordre" className={classes.menuLink}>
+                        <Link to={"/opprett-ordre"} onClick={() => {
+                            dispatch(initializePayment());
+                        }} className={classes.menuLink}>
                             <ListItem button>
                                 <ListItemIcon><NewInvoice/></ListItemIcon>
                                 <ListItemText primary="Opprett ordre"/>
                             </ListItem>
                         </Link>
-                        <Link to="/send-ordrer" className={classes.menuLink}>
+                        <Link to="/send-ordrer" onClick={() => {
+                            dispatch(initializePayment());
+                        }} className={classes.menuLink}>
                             <ListItem button>
                                 <ListItemIcon><LogOut/></ListItemIcon>
                                 <ListItemText primary="Send ordre"/>

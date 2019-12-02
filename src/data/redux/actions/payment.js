@@ -41,7 +41,7 @@ import {
 
 //TODO move functions to different files or sort them
 
-export function initialiazePayment() {
+export function initializePayment() {
     return (dispatch) => {
         dispatch({type: INITIALIZE_PAYMENT});
     };
