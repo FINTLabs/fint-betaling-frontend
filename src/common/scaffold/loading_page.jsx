@@ -1,7 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import {Box, LinearProgress, ListItemIcon, ListItemText, makeStyles,} from '@material-ui/core';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import {useSelector} from 'react-redux';
@@ -59,7 +58,6 @@ const LoadingPage = (props) => {
     const classes = useStyles();
     const {progress} = props;
     const linearProgressValue = (progress * 100) / 8;
-    const circularProgress = linearProgressValue !== 100 ? <CircularProgress className={classes.progress}/> : <div/>;
     const loadingMessage = linearProgressValue !== 100 ? `Loading... ${linearProgressValue}%` : 'Skoledata ferdig lastet. Venter på ditt skolevalg';
 
     return (
@@ -68,7 +66,6 @@ const LoadingPage = (props) => {
             <Typography variant="h5" className={classes.loadingText}>
                 Betaling
             </Typography>
-            {circularProgress}
             <Typography className={classes.loadingText}>
                 {loadingMessage}
             </Typography>
