@@ -72,7 +72,7 @@ const IndividualTable = () => {
                     ActionsComponent={TablePaginationActions}
                 />
             </TableRow>
-        ) : <div/>;
+        ) : null;
 
     function handleIndividualCheck(event, email, cellPhoneNumber, addressLine, addressZip, addressPlace) {
         const newArray = {...recipients};

@@ -21,6 +21,8 @@ import {
 const useStyles = makeStyles((theme) => ({
     table: {
         overflow: 'auto',
+        maxWidth: '80%',
+        marginTop: theme.spacing(1),
     },
     tableCell: {
         overflow: 'auto',
@@ -145,6 +147,9 @@ const PaymentsTable = () => {
         dispatch(updatePaymentsDialogOpen(true));
     }
 
+    if (query.length <1){
+        return <div/>;
+    }else{
     return (
         <Table className={classes.table} size="small">
             <TableHead>
@@ -245,6 +250,7 @@ const PaymentsTable = () => {
             </TableBody>
         </Table>
     );
+    }
 };
 
 export default PaymentsTable;

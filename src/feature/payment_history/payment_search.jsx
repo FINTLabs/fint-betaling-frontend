@@ -2,7 +2,6 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Autosuggest from 'react-autosuggest';
 import {useDispatch, useSelector} from 'react-redux';
-import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import {Box, makeStyles} from '@material-ui/core';
 import {ORDER_NUMBER} from '../payment/constants';
@@ -26,6 +25,13 @@ const useStyles = makeStyles((theme) => ({
     textField: {},
     root: {
         margin: theme.spacing(3),
+        textAlign: "-webkit-center",
+        '& .MuiInput-underline:after': {
+            content: "none"
+        },
+        '& .MuiInput-underline:before': {
+            content: "none"
+        },
     },
     containerSuggestions: {
         position: 'relative',
@@ -49,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
         height: theme.spacing(2),
     },
     container: {
-        width: '20%',
+        width: '30%',
         justifyContent: 'center',
         overflow: 'auto',
     },
@@ -64,7 +70,6 @@ const PaymentSearch = () => {
     const statusContent = useSelector(state => state.payment.payment.statusContent);
     const dispatch = useDispatch();
     const suggestions = payments;
-    const searchLabel = 'Søk';
     const classes = useStyles();
     const searchPlaceHolder = searchBy === ORDER_NUMBER ? 'Ordrenummer' : 'Fakturamottaker';
 
@@ -92,7 +97,7 @@ const PaymentSearch = () => {
     }
 
     function getSuggestions(value) {
-        const inputValue = deburr(value.trim())
+        const inputValue = value.trim()
             .toLowerCase();
         const inputLength = inputValue.length;
 
@@ -171,10 +176,12 @@ const PaymentSearch = () => {
                     inputProps={{
                         classes,
                         id: 'react-autosuggest-simple',
-                        label: searchLabel,
-                        placeholder: searchPlaceHolder,
+                        placeholder: `Søk på ${searchPlaceHolder.toLowerCase()}`,
                         value: searchValue,
                         onChange: handleSearchValue,
+                        input: {
+                            paddingLeft: '100px',
+                        },
                     }}
                     theme={{
                         container: classes.containerSuggestions,
