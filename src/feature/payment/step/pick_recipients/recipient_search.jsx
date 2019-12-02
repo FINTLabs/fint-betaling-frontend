@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Autosuggest from 'react-autosuggest';
 import {useDispatch, useSelector} from 'react-redux';
-import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import {Box, makeStyles} from '@material-ui/core';
 import {
@@ -18,7 +17,13 @@ const useStyles = makeStyles((theme) => ({
 
     textField: {},
     root: {
-        flex:1,
+        flex: 1,
+        '& .MuiInput-underline:after': {
+            content: "none"
+        },
+        '& .MuiInput-underline:before': {
+            content: "none"
+        },
     },
     containerSuggestions: {
         position: 'relative',
@@ -43,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         flex: '1',
-        overflow: 'auto',
     },
     recipientSuggestItem: {
         flexBasis: '40%',
@@ -63,8 +67,7 @@ const RecipientSearch = () => {
     const suggestionLengthTemp = useSelector((state) => state.payment.form.suggestionLength);
     const suggestionsLength = searchValue.length === 0 ? 0 : suggestionLengthTemp;
     const rowsPerPage = SEARCH_PAGE_ROWS;
-    const suggestions = recipientType === GROUP ? groups : individual;
-    const searchLabel = 'Søk';
+    let suggestions = recipientType === GROUP ? groups : individual;
     const classes = useStyles();
     const searchPlaceHolder = recipientType === GROUP ? 'Gruppenavn' : 'Etternavn, Fornavn Mellomnavn';
 
@@ -97,7 +100,7 @@ const RecipientSearch = () => {
     }
 
     function getSuggestions(value) {
-        const inputValue = deburr(value.trim())
+        const inputValue = value.trim()
             .toLowerCase();
         const inputLength = inputValue.length;
 
@@ -148,8 +151,8 @@ const RecipientSearch = () => {
     function getSuggestionsLength(input) {
         let count = 0;
         suggestions.filter(suggestion => matchedSuggestion(suggestion, input)).map(() => {
-                count += 1;
-                return null;
+            count += 1;
+            return null;
         });
         return count;
     }
@@ -192,8 +195,7 @@ const RecipientSearch = () => {
                     inputProps={{
                         classes,
                         id: 'react-autosuggest-simple',
-                        label: searchLabel,
-                        placeholder: searchPlaceHolder,
+                        placeholder: `Søk på ${searchPlaceHolder.toLowerCase()}`,
                         value: searchValue,
                         onChange: handleSearchValue,
                     }}
@@ -202,6 +204,9 @@ const RecipientSearch = () => {
                         suggestionsContainerOpen: classes.suggestionsContainerOpen,
                         suggestionsList: classes.suggestionsList,
                         suggestion: classes.suggestion,
+                        input: {
+                            marginLeft: '8px',
+                        },
                     }}
                 />
             </Paper>

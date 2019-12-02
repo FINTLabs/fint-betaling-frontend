@@ -29,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
         width: '80%',
         alignSelf: 'center',
         margin: 'auto',
+        '& .MuiInput-underline:after': {
+            content: "none"
+        },
+        '& .MuiInput-underline:before': {
+            content: "none"
+        },
     },
     container: {
         display: 'flex',

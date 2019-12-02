@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Autosuggest from 'react-autosuggest';
 import {useDispatch, useSelector} from 'react-redux';
-import deburr from 'lodash/deburr';
 import TextField from '@material-ui/core/TextField';
 import {Box, makeStyles} from '@material-ui/core';
 import ProductTable from './product_table';
@@ -17,7 +16,15 @@ import {SEARCH_PAGE_ROWS, SEARCH_PAGE_START} from '../../constants';
 const useStyles = makeStyles((theme) => ({
 
     textField: {},
-    root: {},
+    root: {
+        flex: 1,
+        '& .MuiInput-underline:after': {
+            content: "none"
+        },
+        '& .MuiInput-underline:before': {
+            content: "none"
+        },
+    },
     containerSuggestions: {
         position: 'relative',
     },
@@ -41,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         flex: '1',
-        overflow: 'auto',
     },
     recipientSuggestItem: {
         flex: '0 0 25em',
@@ -56,7 +62,6 @@ const ProductSearch = () => {
     const activePage = useSelector((state) => state.payment.form.page);
     const productsLengthTemp = useSelector((state) => state.payment.product.productsLength);
     const productsLength = searchValue.length === 0 ? 0 : productsLengthTemp;
-    const searchLabel = 'Søk';
     const classes = useStyles();
     const searchPlaceHolder = 'Produktnavn eller produktkode';
     const rowsPerPage = SEARCH_PAGE_ROWS;
@@ -90,7 +95,7 @@ const ProductSearch = () => {
     }
 
     function getSuggestions(value) {
-        const inputValue = deburr(value.trim())
+        const inputValue = value.trim()
             .toLowerCase();
         const inputLength = inputValue.length;
 
@@ -168,7 +173,7 @@ const ProductSearch = () => {
     }
 
     return (
-        <Box>
+        <Box className={classes.root}>
             <Paper className={classes.container}>
                 <Autosuggest
                     renderInputComponent={renderInputComponent}
@@ -181,8 +186,7 @@ const ProductSearch = () => {
                     inputProps={{
                         classes,
                         id: 'react-autosuggest-simple',
-                        label: searchLabel,
-                        placeholder: searchPlaceHolder,
+                        placeholder: `Søk på ${searchPlaceHolder.toLowerCase()}`,
                         value: searchValue,
                         onChange: handleSearchValue,
                     }}
@@ -191,6 +195,9 @@ const ProductSearch = () => {
                         suggestionsContainerOpen: classes.suggestionsContainerOpen,
                         suggestionsList: classes.suggestionsList,
                         suggestion: classes.suggestion,
+                        input: {
+                            marginLeft: '8px',
+                        },
                     }}
                 />
             </Paper>
