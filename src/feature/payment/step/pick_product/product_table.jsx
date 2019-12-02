@@ -32,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
     fab: {
         backgroundColor: theme.palette.secondary.main,
         color: theme.palette.secondary.contrastText,
-
+    },
+    amount: {
+        minWidth: "60px",
     },
 }));
 
@@ -143,7 +145,7 @@ const ProductTable = () => {
                                             value={productAmount[suggestion.itemCode] ? productAmount[suggestion.itemCode].amount ? productAmount[suggestion.itemCode].amount : 1 : 1}
                                             onChange={(e) => handleAmountChange(e, suggestion.itemCode)}
                                             type="number"
-                                            className={classes.textField}
+                                            className={classes.amount}
                                             InputLabelProps={{
                                                 shrink: true,
                                             }}
@@ -177,7 +179,7 @@ const ProductTable = () => {
                     )
                 }
                 <TableRow>
-                {tablePagination}
+                    {tablePagination}
                 </TableRow>
             </TableBody>
         </Table>
