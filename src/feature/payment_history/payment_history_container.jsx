@@ -11,7 +11,7 @@ import PaymentSearch from './payment_search';
 import {updateNeedFetch, updatePaymentsSearchBy} from '../../data/redux/actions/payment';
 import EditDialog from './edit_dialog';
 import {fetchPayment} from "../../data/redux/actions/payments";
-import FilterCheckboxes from "./filter_selection";
+import FilterSelect from "./filter_selection";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
 const PaymentHistoryContainer = () => {
     const classes = useStyles();
     const searchBy = useSelector((state) => state.payment.payments.searchBy);
-    const dispatch = useDispatch();
     const needsFetch = useSelector(state => state.payment.sendToExternalSystem.needFetch);
+    const dispatch = useDispatch();
 
     if (needsFetch) {
         dispatch(fetchPayment());
@@ -60,7 +60,7 @@ const PaymentHistoryContainer = () => {
                         <FormControlLabel value={ORDER_NUMBER.toString()} control={<Radio/>} label="Ordrenummer"/>
                         <FormControlLabel value={CUSTOMER_NAME.toString()} control={<Radio/>} label="Navn"/>
                     </RadioGroup>
-                    <FilterCheckboxes/>
+                    <FilterSelect/>
                 </FormControl>
             </form>
             <PaymentSearch/>

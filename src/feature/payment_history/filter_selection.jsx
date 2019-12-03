@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const FilterCheckboxes = () => {
+const FilterSelect = () => {
     const classes = useStyles();
     const filterValue = useSelector(state => state.payment.payments.filter);
     const dispatch = useDispatch();
@@ -46,11 +46,12 @@ const FilterCheckboxes = () => {
                     <MenuItem value={"ALL"}>Alle</MenuItem>
                     <MenuItem value={"SENT"}>Ubetalt</MenuItem>
                     <MenuItem value={"STORED"}>Ikke sendt</MenuItem>
-                    <MenuItem value={"ERROR"}>Error</MenuItem>
+                    <MenuItem value={"UPDATE_ERROR"}>Oppdateringsfeil</MenuItem>
+                    <MenuItem value={"SEND_ERROR"}>Feil ved sending</MenuItem>
                 </Select>
             </FormControl>
         </Box>
     );
 };
 
-export default FilterCheckboxes;
+export default FilterSelect;

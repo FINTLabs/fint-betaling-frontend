@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Autosuggest from 'react-autosuggest';
 import {useDispatch, useSelector} from 'react-redux';
@@ -67,11 +67,16 @@ const PaymentSearch = () => {
     const filteredSuggestions = useSelector((state) => state.payment.payments.filteredSuggestions);
     const searchBy = useSelector((state) => state.payment.payments.searchBy).toString();
     const statusOpen = useSelector(state => state.payment.payment.statusOpen);
-    const statusContent = useSelector(state => state.payment.payment.statusContent);
+    const statusMessage = useSelector(state => state.payment.payment.statusContent);
+    const filterValue = useSelector(state => state.payment.payments.filter);
     const dispatch = useDispatch();
     const suggestions = payments;
     const classes = useStyles();
     const searchPlaceHolder = searchBy === ORDER_NUMBER ? 'Ordrenummer' : 'Fakturamottaker';
+
+    useEffect(() => {
+        console.log("KJØRER");
+    });
 
     function renderInputComponent(inputProps) {
         const {
@@ -113,19 +118,24 @@ const PaymentSearch = () => {
             let keep;
             if (searchBy === ORDER_NUMBER) {
                 keep = count < 10 && suggestion.orderNumber.toString()
-                    .slice(0, input.length)
-                    .toLowerCase() === input;
+                        .slice(0, input.length)
+                        .toLowerCase() === input &&
+                    ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL");
             } else {
                 keep = (
                     count < 10 && (
                         (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
-                            .toLowerCase() === input)
+                                .toLowerCase() === input &&
+                            ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL"))
                         || (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
-                            .toLowerCase() === input)
+                                .toLowerCase() === input &&
+                            ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL"))
                         || (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
-                            .toLowerCase() === input)
+                                .toLowerCase() === input &&
+                            ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL"))
                         || (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
-                            .toLowerCase() === input)
+                                .toLowerCase() === input &&
+                            ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL"))
                     )
                 );
             }
@@ -140,6 +150,7 @@ const PaymentSearch = () => {
     }
 
     function getSuggestionValue(suggestion) {
+        console.log(filterValue.toString());
         return searchBy === ORDER_NUMBER ? suggestion.orderNumber : suggestion.customer.name;
     }
 
@@ -175,6 +186,7 @@ const PaymentSearch = () => {
 
                     inputProps={{
                         classes,
+                        autoFocus: true,
                         id: 'react-autosuggest-simple',
                         placeholder: `Søk på ${searchPlaceHolder.toLowerCase()}`,
                         value: searchValue,
@@ -201,7 +213,7 @@ const PaymentSearch = () => {
                 <DialogTitle id="alert-dialog-title">Status: </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {statusContent ? statusContent : "Godkjent"}
+                        {statusMessage ? statusMessage : ""}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

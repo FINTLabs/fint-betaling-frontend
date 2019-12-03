@@ -130,7 +130,7 @@ const SentToExternalContainer = () => {
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>
                                                     {suggestion.originalAmountDue
-                                                        ? (parseInt(suggestion.originalAmountDue) / 100).toFixed(2)+",-": ''}
+                                                        ? (parseInt(suggestion.originalAmountDue) / 100).toFixed(2) + ",-" : ''}
                                                 </TableCell>
                                                 {orderStatus}
                                             </TableRow>
