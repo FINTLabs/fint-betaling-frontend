@@ -17,6 +17,7 @@ import {
     updatePaymentsDialogOpen,
     updatePaymentsDialogOrderNumber
 } from "../../data/redux/actions/payment";
+import Amount from "../payment/utils/amount";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -202,12 +203,12 @@ const PaymentsTable = () => {
                                             </TableCell>
                                             <TableCell align="right" className={classes.tableCell}>
                                                 {suggestion.originalAmountDue
-                                                    ? (suggestion.originalAmountDue / 100).toFixed(2)
+                                                    ? Amount.currency(suggestion.originalAmountDue)
                                                     : ''}
                                             </TableCell>
                                             <TableCell align="right" className={classes.tableCell}>
                                                 {suggestion.amountDue
-                                                    ? (suggestion.amountDue / 100).toFixed(2)
+                                                    ? Amount.currency(suggestion.amountDue)
                                                     : ''}
                                             </TableCell>
                                             <TableCell align="right" className={classes.tableCell}>
@@ -235,12 +236,12 @@ const PaymentsTable = () => {
                                             </TableCell>
                                             <TableCell align="right" className={classes.tableCell}>
                                                 {suggestion.originalAmountDue
-                                                    ? (suggestion.originalAmountDue / 100).toFixed(2)
+                                                    ? Amount.currency(suggestion.originalAmountDue)
                                                     : ''}
                                             </TableCell>
                                             <TableCell align="right" className={classes.tableCell}>
                                                 {suggestion.amountDue
-                                                    ? (suggestion.amountDue / 100).toFixed(2)
+                                                    ? Amount.currency(suggestion.amountDue)
                                                     : ''}
                                             </TableCell>
                                             <TableCell align="right" className={classes.tableCell}>

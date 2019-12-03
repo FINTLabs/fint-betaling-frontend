@@ -14,6 +14,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
+import Amount from "../utils/amount";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -130,7 +131,7 @@ const SentToExternalContainer = () => {
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>
                                                     {suggestion.originalAmountDue
-                                                        ? (parseInt(suggestion.originalAmountDue) / 100).toFixed(2) + ",-" : ''}
+                                                        ? Amount.currency(suggestion.originalAmountDue) : ''}
                                                 </TableCell>
                                                 {orderStatus}
                                             </TableRow>

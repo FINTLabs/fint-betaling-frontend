@@ -23,6 +23,7 @@ import SelectedToExternalList from './selected_to_external_list';
 import {fetchPayment} from '../../../data/redux/actions/payments';
 import {Redirect} from 'react-router-dom';
 import ClaimRepository from "../../../data/repository/ClaimRepository";
+import Amount from "../utils/amount";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -247,7 +248,7 @@ const SendToInvoiceContainer = () => {
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
                                         {suggestion.originalAmountDue
-                                            ? (parseInt(suggestion.originalAmountDue) / 100).toFixed(2) : ''}
+                                            ? Amount.currency(suggestion.originalAmountDue) : ''}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>
                                         <Checkbox

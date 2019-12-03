@@ -6,6 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import {useSelector} from 'react-redux';
 import {getTotalPrice} from '../../utils/list_utils';
+import Amount from "../../utils/amount";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -64,12 +65,12 @@ const ConfirmedProducts = () => {
                                             <TableCell
                                                 align="right"
                                             >
-                                                {(parseInt(products[key].itemPrice) / 100).toFixed(2)}
+                                                {Amount.currency(products[key].itemPrice)}
                                             </TableCell>
                                             <TableCell
                                                 align="right"
                                             >
-                                                {(parseInt(productAmounts[key].amount) * (parseInt(products[key].itemPrice) / 100)).toFixed(2)}
+                                                {Amount.currency(parseInt(productAmounts[key].amount) * parseInt(products[key].itemPrice))}
                                             </TableCell>
                                         </TableRow>
                                     );
