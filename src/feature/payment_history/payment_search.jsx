@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Autosuggest from 'react-autosuggest';
 import {useDispatch, useSelector} from 'react-redux';

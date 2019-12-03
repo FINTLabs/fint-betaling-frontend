@@ -8,13 +8,15 @@ import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 import Button from '@material-ui/core/Button';
 import {Check, Warning} from "@material-ui/icons";
-import {updateOrderStatusContent, updateOrderStatusOpen} from "../../../data/redux/actions/payment";
+import {initializePayment, updateOrderStatusContent, updateOrderStatusOpen} from "../../../data/redux/actions/payment";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Amount from "../utils/amount";
+import {Link} from "react-router-dom";
+import {INITIALIZE_PAYMENT} from "../../../data/redux/actions/actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -85,8 +87,8 @@ const SentToExternalContainer = () => {
 
     return (
         <Box className={classes.root}>
-            <Typography variant="h4">Ordre sendt til økonomisystem</Typography>
-            <Typography variant="body1">Følgende ordre er sendt til fakturasystem</Typography>
+            <Typography variant="h4">Ordre sendt til fakturering</Typography>
+            <Typography variant="body1">Følgende ordre er sendt til fakturering</Typography>
 
             {data
                 ? (
@@ -106,11 +108,12 @@ const SentToExternalContainer = () => {
                                         const orderStatus =
                                             (
                                                 <TableCell align="right" className={classes.tableCell}>
-                                                    {suggestion.claimStatus === "ERROR" ?
+                                                    {suggestion.claimStatus === "SEND_ERROR" ||
+                                                    suggestion.claimStatus === "UPDATE_ERROR" ?
                                                         <Warning
                                                             value={suggestion.error}
                                                             className={classes.warningIcon}
-                                                            onClick={(e) => handleStatusClick(e, suggestion.error)}
+                                                            onClick={(e) => handleStatusClick(e, suggestion.statusMessage)}
                                                         />
                                                         :
                                                         <Check value={suggestion.error} className={classes.checkIcon}
@@ -146,8 +149,16 @@ const SentToExternalContainer = () => {
             {data
                 ? (
                     <Paper className={classes.buttonContainer}>
-                        <Button className={classes.buttonToNewOrder}>Opprett nye ordre</Button>
-                        <Button className={classes.buttonSendMore}>Send flere ordre til fakturering</Button>
+                        <Link to="/opprett-ordre" onClick={() => {
+                            dispatch(initializePayment(INITIALIZE_PAYMENT));
+                        }} className={classes.cardLink}>
+                            <Button className={classes.buttonToNewOrder}>Opprett nye ordre</Button>
+                        </Link>
+                        <Link to="/ordrehistorikk" onClick={() => {
+                            dispatch(initializePayment(INITIALIZE_PAYMENT));
+                        }} className={classes.cardLink}>
+                            <Button className={classes.buttonSendMore}>Følg med i ordrehistorikken</Button>
+                        </Link>
                     </Paper>
                 )
                 : <div/>}
@@ -160,7 +171,7 @@ const SentToExternalContainer = () => {
                 <DialogTitle id="alert-dialog-title">Status: </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {statusContent ? statusContent : "Godkjent"}
+                        {statusContent ? statusContent : ""}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
