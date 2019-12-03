@@ -131,7 +131,7 @@ export default function Scaffold() {
     const dispatch = useDispatch();
     let localStorageSchool = localStorage.getItem("school");
     let localStorageSchoolOrgId = localStorage.getItem("schoolOrgId");
-    if (me.me.organisationUnits){
+    if (me.me.organisationUnits) {
         const schoolIsPresentInMe = me.me.organisationUnits.some(ou => ou.name === localStorageSchool);
         if (!schoolIsPresentInMe) {
             localStorageSchool = '';
@@ -155,7 +155,6 @@ export default function Scaffold() {
     }, [dispatch]);
 
 
-
     if (me.loaded && school.toString() === '') {
         localStorage.setItem("school", localStorageSchool &&
         me.me.organisationUnits.some(ou => ou.name === localStorageSchool) ?
@@ -175,8 +174,8 @@ export default function Scaffold() {
         dispatch(setSchool(
             localStorageSchool &&
             me.me.organisationUnits.some(ou => ou.name === localStorageSchool) ?
-            localStorageSchool :
-            me.me.organisationUnits[0].name));
+                localStorageSchool :
+                me.me.organisationUnits[0].name));
     }
     if (schoolOrgId.toString() !== '' && !groupsLoaded) {
         dispatch(updateGroupsLoaded(true));

@@ -112,11 +112,23 @@ const PaymentsTable = () => {
                 statusText =
                     <Typography variant="body2" className={classes.statusText}>Lagret, ikke fakturert</Typography>;
                 break;
-            case "ERROR":
+            case "UPDATE_ERROR":
+                paymentIcon = <Warning className={classes.warningIcon}
+                                       onClick={(e) => handleStatusClick(e, suggestion.statusMessage)}/>;
+                statusText =
+                    <Typography variant="body2" className={classes.statusText}>Feil ved oppdatering</Typography>;
+                break;
+            case "SEND_ERROR":
                 paymentIcon = <Warning className={classes.warningIcon}
                                        onClick={(e) => handleStatusClick(e, suggestion.statusMessage)}/>;
                 statusText =
                     <Typography variant="body2" className={classes.statusText}>Feil ved innsendelse</Typography>;
+                break;
+            case "ERROR":
+                paymentIcon = <Warning className={classes.warningIcon}
+                                       onClick={(e) => handleStatusClick(e, suggestion.statusMessage)}/>;
+                statusText =
+                    <Typography variant="body2" className={classes.statusText}>Ukjent feil</Typography>;
                 break;
             case "PAYED":
                 paymentIcon = <CheckCircle className={classes.payedIcon}/>;
@@ -147,109 +159,110 @@ const PaymentsTable = () => {
         dispatch(updatePaymentsDialogOpen(true));
     }
 
-    if (query.length <1){
+    if (query.length < 1) {
         return <div/>;
-    }else{
-    return (
-        <Table className={classes.table} size="small">
-            <TableHead>
-                <TableRow>
-                    <TableCell>Status</TableCell>
-                    <TableCell align="left" className={classes.tableCell}>Navn</TableCell>
-                    <TableCell align="right" className={classes.tableCell}>Ordrenummer</TableCell>
-                    <TableCell align="right" className={classes.tableCell}>Totalpris</TableCell>
-                    <TableCell align="right" className={classes.tableCell}>Å betale</TableCell>
-                    <TableCell align="right" className={classes.tableCell}>Rediger</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {
-                    suggestions.filter(suggestion =>
-                        ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL")
-                    ).map(
-                        (suggestion) => {
-                            const payment = searchBy === ORDER_NUMBER ? suggestion.orderNumber.toString() : suggestion.customer.name;
-                            const matches = match(payment, query);
-                            const parts = parse(payment, matches);
+    } else {
+        return (
+            <Table className={classes.table} size="small">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Status</TableCell>
+                        <TableCell align="left" className={classes.tableCell}>Navn</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Ordrenummer</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Totalpris</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Å betale</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Rediger</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {
+                        suggestions.filter(suggestion => (
+                            suggestion.claimStatus.toString() === filterValue.toString()) ||
+                            filterValue.toString() === "ALL"
+                        ).map(
+                            (suggestion) => {
+                                const payment = searchBy === ORDER_NUMBER ? suggestion.orderNumber.toString() : suggestion.customer.name;
+                                const matches = match(payment, query);
+                                const parts = parse(payment, matches);
 
-                            const orderNumberAndName = searchBy === ORDER_NUMBER
-                                ? (
-                                    <TableRow hover key={suggestion.orderNumber}>
-                                        {getStatusIcon(suggestion)}
-                                        <TableCell align="left" className={classes.tableCell}>
-                                            {suggestion.customer ? suggestion.customer.name : ''}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            {parts.map((part) => (
-                                                <span key={part.text}
-                                                      style={{fontWeight: part.highlight ? 500 : 400}}>
+                                const orderNumberAndName = searchBy === ORDER_NUMBER
+                                    ? (
+                                        <TableRow hover key={suggestion.orderNumber}>
+                                            {getStatusIcon(suggestion)}
+                                            <TableCell align="left" className={classes.tableCell}>
+                                                {suggestion.customer ? suggestion.customer.name : ''}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {parts.map((part) => (
+                                                    <span key={part.text}
+                                                          style={{fontWeight: part.highlight ? 500 : 400}}>
                           {part.text}
                         </span>
-                                            ))}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.originalAmountDue
-                                                ? (suggestion.originalAmountDue / 100).toFixed(2)
-                                                : ''}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.amountDue
-                                                ? (suggestion.amountDue / 100).toFixed(2)
-                                                : ''}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            <Button
-                                                onClick={() => handleOpenDialog(suggestion.orderNumber)}
-                                            >
-                                                <Edit/>
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                )
-                                : (
-                                    <TableRow hover key={suggestion.orderNumber}>
-                                        {getStatusIcon(suggestion)}
-                                        <TableCell align="left" className={classes.tableCell}>
-                                            {parts.map((part) => (
-                                                <span key={part.text}
-                                                      style={{fontWeight: part.highlight ? 500 : 400}}>
+                                                ))}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {suggestion.originalAmountDue
+                                                    ? (suggestion.originalAmountDue / 100).toFixed(2)
+                                                    : ''}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {suggestion.amountDue
+                                                    ? (suggestion.amountDue / 100).toFixed(2)
+                                                    : ''}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                <Button
+                                                    onClick={() => handleOpenDialog(suggestion.orderNumber)}
+                                                >
+                                                    <Edit/>
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                    : (
+                                        <TableRow hover key={suggestion.orderNumber}>
+                                            {getStatusIcon(suggestion)}
+                                            <TableCell align="left" className={classes.tableCell}>
+                                                {parts.map((part) => (
+                                                    <span key={part.text}
+                                                          style={{fontWeight: part.highlight ? 500 : 400}}>
                           {part.text}
                         </span>
-                                            ))}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.orderNumber ? suggestion.orderNumber : ''}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.originalAmountDue
-                                                ? (suggestion.originalAmountDue / 100).toFixed(2)
-                                                : ''}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.amountDue
-                                                ? (suggestion.amountDue / 100).toFixed(2)
-                                                : ''}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            <Button
-                                                onClick={() => handleOpenDialog(suggestion.orderNumber)}
-                                            >
-                                                <Edit/>
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
+                                                ))}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {suggestion.orderNumber ? suggestion.orderNumber : ''}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {suggestion.originalAmountDue
+                                                    ? (suggestion.originalAmountDue / 100).toFixed(2)
+                                                    : ''}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {suggestion.amountDue
+                                                    ? (suggestion.amountDue / 100).toFixed(2)
+                                                    : ''}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                <Button
+                                                    onClick={() => handleOpenDialog(suggestion.orderNumber)}
+                                                >
+                                                    <Edit/>
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    );
+
+                                return (
+                                    orderNumberAndName
                                 );
-
-                            return (
-                                orderNumberAndName
-                            );
-                        }
-                        ,
-                    )
-                }
-            </TableBody>
-        </Table>
-    );
+                            }
+                            ,
+                        )
+                    }
+                </TableBody>
+            </Table>
+        );
     }
 };
 
