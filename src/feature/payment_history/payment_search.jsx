@@ -74,10 +74,6 @@ const PaymentSearch = () => {
     const classes = useStyles();
     const searchPlaceHolder = searchBy === ORDER_NUMBER ? 'Ordrenummer' : 'Fakturamottaker';
 
-    useEffect(() => {
-        console.log("KJØRER");
-    });
-
     function renderInputComponent(inputProps) {
         const {
             classes, inputRef = () => {
@@ -150,7 +146,6 @@ const PaymentSearch = () => {
     }
 
     function getSuggestionValue(suggestion) {
-        console.log(filterValue.toString());
         return searchBy === ORDER_NUMBER ? suggestion.orderNumber : suggestion.customer.name;
     }
 

@@ -14,6 +14,7 @@ import TablePaginationActions from '@material-ui/core/TablePagination/TablePagin
 import TablePagination from '@material-ui/core/TablePagination';
 import {updateProductAmount, updateProducts, updateSearchPage} from '../../../../data/redux/actions/payment';
 import {SEARCH_PAGE_ROWS} from '../../constants';
+import Amount from "../../utils/amount";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -135,7 +136,7 @@ const ProductTable = () => {
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
                                         {suggestion.itemPrice
-                                            ? (suggestion.itemPrice / 100).toFixed(2)
+                                            ? Amount.currency(suggestion.itemPrice)
                                             : ''}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
@@ -162,9 +163,9 @@ const ProductTable = () => {
                                     <TableCell align="right" className={classes.tableCell}>
                                         {suggestion.itemPrice
                                             ? (
-                                                (suggestion.itemPrice / 100)
+                                                Amount.currency((suggestion.itemPrice)
                                                 * (productAmount[suggestion.itemCode] ? productAmount[suggestion.itemCode].amount ? productAmount[suggestion.itemCode].amount : 1 : 1)
-                                            ).toFixed(2)
+                                            ))
                                             : ''}
                                     </TableCell>
                                     <TableCell align="center" className={classes.tableCell}>

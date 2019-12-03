@@ -12,6 +12,7 @@ import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
 
 import DateFnsUtils from '@date-io/date-fns';
 import {updatePaymentsDialogOpen} from '../../data/redux/actions/payment';
+import Amount from "../payment/utils/amount";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -75,7 +76,7 @@ const EditDialog = () => {
                         id="price"
                         label="Oppdater beløp"
                         className={classes.textField}
-                        value={selectedPayment ? (parseInt(selectedPayment.restBelop) / 100).toFixed(2) : ''}
+                        value={selectedPayment ? Amount.currency(selectedPayment.restBelop) : ''}
                         onChange={handleChange}
                         margin="normal"
                     />
