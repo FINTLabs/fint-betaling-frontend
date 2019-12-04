@@ -90,7 +90,6 @@ const PaymentsTable = () => {
     const query = useSelector((state) => state.payment.payments.searchValue);
     let suggestions = useSelector((state) => state.payment.payments.filteredSuggestions);
     const searchBy = useSelector((state) => state.payment.payments.searchBy).toString();
-    const filterValue = useSelector(state => state.payment.payments.filter);
     suggestions = query.length === 0 ? [] : suggestions;
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -177,10 +176,7 @@ const PaymentsTable = () => {
                 </TableHead>
                 <TableBody>
                     {
-                        suggestions.filter(suggestion => (
-                            suggestion.claimStatus.toString() === filterValue.toString()) ||
-                            filterValue.toString() === "ALL"
-                        ).map(
+                        suggestions.map(
                             (suggestion) => {
                                 const payment = searchBy === ORDER_NUMBER ? suggestion.orderNumber.toString() : suggestion.customer.name;
                                 const matches = match(payment, query);

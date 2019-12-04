@@ -18,6 +18,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
+import {filterSuggestions} from "../payment/utils/filter";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -68,7 +69,7 @@ const PaymentSearch = () => {
     const searchBy = useSelector((state) => state.payment.payments.searchBy).toString();
     const statusOpen = useSelector(state => state.payment.payment.statusOpen);
     const statusMessage = useSelector(state => state.payment.payment.statusContent);
-    const filterValue = useSelector(state => state.payment.payments.filter);
+    const filterValue = useSelector(state => state.payment.payments.filter).toString();
     const dispatch = useDispatch();
     const suggestions = payments;
     const classes = useStyles();
@@ -97,51 +98,6 @@ const PaymentSearch = () => {
         );
     }
 
-    function getSuggestions(value) {
-        const inputValue = value.trim()
-            .toLowerCase();
-        const inputLength = inputValue.length;
-
-        return inputLength < 0
-            ? []
-            : filterSuggestions(inputValue);
-    }
-
-    function filterSuggestions(input) {
-        let count = 0;
-
-        return suggestions.filter((suggestion) => {
-            let keep;
-            if (searchBy === ORDER_NUMBER) {
-                keep = count < 10 && suggestion.orderNumber.toString()
-                        .slice(0, input.length)
-                        .toLowerCase() === input &&
-                    ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL");
-            } else {
-                keep = (
-                    count < 10 && (
-                        (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
-                                .toLowerCase() === input &&
-                            ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL"))
-                        || (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
-                                .toLowerCase() === input &&
-                            ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL"))
-                        || (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
-                                .toLowerCase() === input &&
-                            ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL"))
-                        || (suggestion.customer.name && suggestion.customer.name.slice(0, input.length)
-                                .toLowerCase() === input &&
-                            ((suggestion.claimStatus.toString() === filterValue.toString()) || filterValue.toString() === "ALL"))
-                    )
-                );
-            }
-            if (keep) {
-                count += 1;
-            }
-            return keep;
-        });
-    }
-
     function renderSuggestion(suggestion, {query, isHighlighted}) {
     }
 
@@ -150,7 +106,7 @@ const PaymentSearch = () => {
     }
 
     const handleSuggestionsFetchRequested = ({value}) => {
-        dispatch(updatePaymentsSuggestions(getSuggestions(value)));
+        dispatch(updatePaymentsSuggestions(filterSuggestions(value, suggestions, searchBy, filterValue)));
     };
 
     const handleSuggestionsClearRequested = () => {
@@ -198,7 +154,7 @@ const PaymentSearch = () => {
                     }}
                 />
             </Paper>
-            <PaymentsTable/>
+            <PaymentsTable filterValue={filterValue}/>
             <Dialog
                 open={statusOpen}
                 onClose={handleClose}

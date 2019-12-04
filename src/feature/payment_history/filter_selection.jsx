@@ -5,7 +5,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {useDispatch, useSelector} from "react-redux";
-import {updatePaymentFilterValue} from "../../data/redux/actions/payment";
+import {updatePaymentFilterValue, updatePaymentsSuggestions} from "../../data/redux/actions/payment";
+import {FILTER_ALL, FILTER_SEND_ERROR, FILTER_SENT, FILTER_STORED, FILTER_UPDATE_ERROR} from "../payment/constants";
+import {filterSuggestions} from "../payment/utils/filter";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,10 +27,14 @@ const useStyles = makeStyles(theme => ({
 const FilterSelect = () => {
     const classes = useStyles();
     const filterValue = useSelector(state => state.payment.payments.filter);
+    const payments = useSelector((state) => state.payments.payments);
+    const searchBy = useSelector((state) => state.payment.payments.searchBy).toString();
+    const searchValue = useSelector((state) => state.payment.payments.searchValue);
     const dispatch = useDispatch();
 
     function handleChange(event) {
         dispatch(updatePaymentFilterValue(event.target.value));
+        dispatch(updatePaymentsSuggestions(filterSuggestions(searchValue, payments, searchBy, event.target.value)));
     }
 
     return (
@@ -43,11 +49,11 @@ const FilterSelect = () => {
                         id: 'filter-simple',
                     }}
                 >
-                    <MenuItem value={"ALL"}>Alle</MenuItem>
-                    <MenuItem value={"SENT"}>Ubetalt</MenuItem>
-                    <MenuItem value={"STORED"}>Ikke sendt</MenuItem>
-                    <MenuItem value={"UPDATE_ERROR"}>Oppdateringsfeil</MenuItem>
-                    <MenuItem value={"SEND_ERROR"}>Feil ved sending</MenuItem>
+                    <MenuItem value={FILTER_ALL}>Alle</MenuItem>
+                    <MenuItem value={FILTER_SENT}>Ubetalt</MenuItem>
+                    <MenuItem value={FILTER_STORED}>Ikke sendt</MenuItem>
+                    <MenuItem value={FILTER_UPDATE_ERROR}>Oppdateringsfeil</MenuItem>
+                    <MenuItem value={FILTER_SEND_ERROR}>Feil ved sending</MenuItem>
                 </Select>
             </FormControl>
         </Box>
