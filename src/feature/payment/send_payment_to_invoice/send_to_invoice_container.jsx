@@ -147,8 +147,8 @@ const SendToInvoiceContainer = () => {
             let displayedOrderIsInSelectedOrders = false;
             Object.keys(selectedOrders)
                 .filter(key => key === orderNumber).forEach(() => {
-                        displayedOrderIsInSelectedOrders = true;
-                });
+                displayedOrderIsInSelectedOrders = true;
+            });
             if (!displayedOrderIsInSelectedOrders || !selectedOrders[orderNumber].checked) {
                 allChecked = false;
             }
@@ -169,10 +169,10 @@ const SendToInvoiceContainer = () => {
     function handleConfirmSendPayments() {
         const orderNumbers = [];
         Object.keys(selectedOrders)
-            .filter(key => selectedOrders[key].checked).map(key =>{
-                    orderNumbers.push(key);
-                    return null;
-            });
+            .filter(key => selectedOrders[key].checked).map(key => {
+            orderNumbers.push(key);
+            return null;
+        });
         ClaimRepository.sendOrders(
             orgId,
             orderNumbers,
