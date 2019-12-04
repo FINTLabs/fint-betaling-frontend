@@ -64,7 +64,6 @@ const ConfirmSend = () => {
     const employers = useSelector((state) => state.employers.employers);
     const orgId = 'fake.fintlabs.no';
 
-
     function handleSendInvoice() {
         function getRecipientsAsObjects(recipients) {
             const list = [];
@@ -72,7 +71,7 @@ const ConfirmSend = () => {
                 .map((key) => {
                         for (let i = 0; i < customers.length; i++) {
                             const customer = customers[i];
-                            if (key === customer.id) {
+                            if (key === customer.id && recipients[key].checked) {
                                 list.push(customer);
                             }
                         }
