@@ -154,7 +154,7 @@ const PaymentSearch = () => {
                     }}
                 />
             </Paper>
-            <PaymentsTable filterValue={filterValue}/>
+            <PaymentsTable/>
             <Dialog
                 open={statusOpen}
                 onClose={handleClose}

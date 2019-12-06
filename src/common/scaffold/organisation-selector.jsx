@@ -30,7 +30,7 @@ const OrganisationSelector = () => {
     }
 
     function handleSchoolClick(school, schoolOrgId) {
-        dispatch(setSchool(school)); localStorage.setItem("school", school);
+        dispatch(setSchool(school));localStorage.setItem("school", school);
         dispatch(setSchoolOrgId(schoolOrgId)); localStorage.setItem("schoolOrgId", schoolOrgId);
         dispatch(updateGroupsLoaded(false));
         dispatch(updateCustomersLoaded(false));
