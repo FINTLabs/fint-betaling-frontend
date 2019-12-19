@@ -295,6 +295,7 @@ const SendToInvoiceContainer = () => {
                                     if (countOrderFirst <= 10) {
                                         return getSuggestionsAsTableCell(suggestion);
                                     }
+                                    return null
                                 }
                             }
                         )
