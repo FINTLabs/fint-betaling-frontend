@@ -11,13 +11,13 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {
-    updateFromValue,
     updateLoadingSendingInvoice,
     updateNeedFetch,
+    updateOrderSearchValue,
+    updateOrdersOpen,
     updateRedirectFromExternal,
     updateSelectedOrders,
-    updateSendOrderResponse,
-    updateToValue,
+    updateSendOrderResponse, updateSentPayment,
 } from '../../../data/redux/actions/payment';
 import SelectedToExternalList from './selected_to_external_list';
 import {fetchPayment} from '../../../data/redux/actions/payments';
@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
     h2: {
         margin: theme.spacing(1),
     },
+    searchContainer: {
+        display: "flex",
+    },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
@@ -66,12 +69,19 @@ const useStyles = makeStyles((theme) => ({
     tableTextChooseAll: {
         fontWeight: 550,
     },
+    collapseButton: {
+        color: theme.palette.secondary.contrastText,
+        backgroundColor: theme.palette.secondary.main,
+        display: 'flex',
+        margin: 'auto',
+        marginTop: theme.spacing(1),
+        width: "100%"
+    },
     confirmButton: {
         background: theme.palette.secondary.main,
         color: theme.palette.secondary.contrastText,
         display: 'flex',
-        margin: 'auto',
-        marginTop: theme.spacing(1),
+        margin: "auto",
     },
     progress: {
         margin: theme.spacing(2),
@@ -83,15 +93,18 @@ const useStyles = makeStyles((theme) => ({
 const SendToInvoiceContainer = () => {
     const classes = useStyles();
     const payments = useSelector((state) => state.payments.payments);
-    const fromValue = useSelector((state) => state.payment.sendToExternalSystem.fromValue);
-    const toValue = useSelector((state) => state.payment.sendToExternalSystem.toValue);
+    const searchValue = useSelector((state) => state.payment.sendToExternalSystem.searchValue);
     const selectedOrders = useSelector((state) => state.payment.sendToExternalSystem.selectedOrders);
     const displayLoading = useSelector((state) => state.payment.sendToExternalSystem.loading);
     const redirected = useSelector((state) => state.payment.sendToExternalSystem.redirect);
     const needsFetch = useSelector(state => state.payment.sendToExternalSystem.needFetch);
+    const openCollapse = useSelector(state => state.payment.sendToExternalSystem.ordersOpen);
+    const latestPayments = useSelector((state) => state.payment.payments.latestSent);
+    const me = useSelector(state => state.me.me);
     const dispatch = useDispatch();
     const suggestions = getNotSentPayments();
     const filteredSuggestions = getFilteredSuggestions();
+    let countOrderFirst = 0;
     const orgId = 'fake.fintlabs.no';
 
     if (needsFetch) {
@@ -103,7 +116,7 @@ const SendToInvoiceContainer = () => {
         const array = [];
         if (payments) {
             for (let index = 0; index < payments.length; index++) {
-                if (payments[index].claimStatus === "STORED") {
+                if (payments[index].claimStatus === "STORED" && me.name === payments[index].createdBy.name) {
                     array.push(payments[index]);
                 }
             }
@@ -112,9 +125,12 @@ const SendToInvoiceContainer = () => {
     }
 
     function getFilteredSuggestions() {
+        if (latestPayments && latestPayments.length >0){
+            return latestPayments;
+        }
         const array = [];
         for (let index = 0; index < suggestions.length; index++) {
-            if (suggestions[index].orderNumber >= parseInt(fromValue.toString()) && suggestions[index].orderNumber <= parseInt(toValue.toString())) {
+            if (suggestions[index].orderNumber.includes(searchValue)) {
                 array.push(suggestions[index]);
             }
         }
@@ -129,12 +145,9 @@ const SendToInvoiceContainer = () => {
         dispatch(updateSelectedOrders(newArray));
     }
 
-    function handleFromChange(event) {
-        dispatch(updateFromValue(event.target.value));
-    }
-
-    function handleToChange(event) {
-        dispatch(updateToValue(event.target.value));
+    function handleChange(event) {
+        dispatch(updateOrderSearchValue(event.target.value));
+        dispatch(updateSentPayment({}));
     }
 
     function isAllChecked() {
@@ -143,6 +156,9 @@ const SendToInvoiceContainer = () => {
             return allChecked = false;
         }
         for (let index = 0; index < filteredSuggestions.length; index++) {
+            if (!openCollapse && index >= 10) {
+                continue;
+            }
             const orderNumber = filteredSuggestions[index].orderNumber.toString();
             let displayedOrderIsInSelectedOrders = false;
             Object.keys(selectedOrders)
@@ -159,6 +175,9 @@ const SendToInvoiceContainer = () => {
     function handleAllChecked(event) {
         const newArray = {...selectedOrders};
         for (let index = 0; index < filteredSuggestions.length; index++) {
+            if (!openCollapse && index >= 10) {
+                continue;
+            }
             newArray[filteredSuggestions[index].orderNumber] = {
                 checked: event.target.checked,
             };
@@ -179,13 +198,43 @@ const SendToInvoiceContainer = () => {
         )
             .then((data) => {
                 dispatch(updateSendOrderResponse(data));
-                dispatch(updateFromValue(fromValue));
-                dispatch(updateToValue(toValue));
+                dispatch(updateOrderSearchValue(1));
                 dispatch(updateRedirectFromExternal(true));
                 dispatch(updateLoadingSendingInvoice(false));
                 dispatch(updateNeedFetch(true));
+                dispatch(updateSentPayment({}));
             });
         dispatch(updateLoadingSendingInvoice(true));
+    }
+
+    function handleCollapse() {
+        dispatch(updateOrdersOpen(!openCollapse));
+    }
+
+    function getSuggestionsAsTableCell(suggestion) {
+        return (
+            <TableRow hover key={suggestion.orderNumber}>
+                <TableCell align="left" className={classes.tableCell}>
+                    {suggestion.orderNumber}
+                </TableCell>
+                <TableCell align="right" className={classes.tableCell}>
+                    {suggestion.customer
+                        ? suggestion.customer.name
+                            ? suggestion.customer.name
+                            : '' : ''}
+                </TableCell>
+                <TableCell align="right" className={classes.tableCell}>
+                    {suggestion.originalAmountDue
+                        ? Amount.currency(suggestion.originalAmountDue) : ''}
+                </TableCell>
+                <TableCell align="center" className={classes.tableCell}>
+                    <Checkbox
+                        checked={selectedOrders[suggestion.orderNumber] ? selectedOrders[suggestion.orderNumber].checked : false}
+                        onChange={handleIndividualCheck}
+                        value={suggestion.orderNumber}
+                    />
+                </TableCell>
+            </TableRow>)
     }
 
     return (
@@ -193,31 +242,35 @@ const SendToInvoiceContainer = () => {
             <Paper>
                 <Typography variant="h5" className={classes.h1}>
                     Ordre som ikke er sendt til
-                    økonomisystem
+                    fakturering
                 </Typography>
                 <Typography variant="body1" className={classes.h1}>Filtrer på ordrenummer i feltene under</Typography>
-                <form className={classes.container} noValidate>
-                    <TextField
-                        id="standard-name"
-                        label="Fra ordrenummer"
-                        className={classes.textField}
-                        value={fromValue}
-                        onChange={handleFromChange}
-                        margin="normal"
-                        type="number"
-                    />
-                    <TextField
-                        id="standard-name"
-                        label="Til ordrenummer"
-                        className={classes.textField}
-                        value={toValue}
-                        onChange={handleToChange}
-                        margin="normal"
-                        type="number"
-                    />
-                </form>
+                <Typography variant="body1" className={classes.h1}>Oversikten viser kun ordrer du har
+                    opprettet</Typography>
+                <Box className={classes.searchContainer}>
+                    <form className={classes.container} noValidate>
+                        <TextField
+                            id="standard-name"
+                            label="Søk etter ordrenummer"
+                            className={classes.textField}
+                            value={searchValue}
+                            onChange={handleChange}
+                            margin="normal"
+                            type="number"
+                        />
+                    </form>
+                </Box>
             </Paper>
             <SelectedToExternalList/>
+            {Object.keys(selectedOrders).length > 0
+                ? !displayLoading
+                    ? (
+                        <Button className={classes.confirmButton} onClick={handleConfirmSendPayments}>
+                            Send ordre til fakturering
+                        </Button>
+                    )
+                    : <CircularProgress className={classes.progress}/> : <div/>}
+            {redirected ? <Redirect to="/ordre-sendt"/> : <div/>}
             <Table className={classes.table} size="small">
                 <TableHead>
                     {filteredSuggestions.length > 0
@@ -234,35 +287,30 @@ const SendToInvoiceContainer = () => {
                 </TableHead>
                 <TableBody>
                     {
-                        filteredSuggestions.map(
-                            (suggestion) => (
-                                <TableRow hover key={suggestion.orderNumber}>
-                                    <TableCell align="left" className={classes.tableCell}>
-                                        {suggestion.orderNumber}
-                                    </TableCell>
-                                    <TableCell align="right" className={classes.tableCell}>
-                                        {suggestion.customer
-                                            ? suggestion.customer.name
-                                                ? suggestion.customer.name
-                                                : '' : ''}
-                                    </TableCell>
-                                    <TableCell align="right" className={classes.tableCell}>
-                                        {suggestion.originalAmountDue
-                                            ? Amount.currency(suggestion.originalAmountDue) : ''}
-                                    </TableCell>
-                                    <TableCell align="center" className={classes.tableCell}>
-                                        <Checkbox
-                                            checked={selectedOrders[suggestion.orderNumber] ? selectedOrders[suggestion.orderNumber].checked : false}
-                                            onChange={handleIndividualCheck}
-                                            value={suggestion.orderNumber}
-                                        />
-                                    </TableCell>
-                                </TableRow>
-                            ),
+                        filteredSuggestions.map((suggestion) => {
+                                if (filteredSuggestions.length <= 10 || openCollapse) {
+                                    return getSuggestionsAsTableCell(suggestion);
+                                } else {
+                                    countOrderFirst += 1;
+                                    if (countOrderFirst <= 10) {
+                                        return getSuggestionsAsTableCell(suggestion);
+                                    }
+                                }
+                            }
                         )
                     }
-                    {filteredSuggestions.length > 0
-                        ? (
+                    {filteredSuggestions.length > 10 ?
+                        <TableRow>
+                            <TableCell colSpan={4}>
+                                <Button className={classes.collapseButton} onClick={handleCollapse}>
+                                    {!openCollapse ? "Vis alle" : "Vis kun 10 første"}
+                                </Button>
+                            </TableCell>
+                        </TableRow>
+                        : null
+                    }
+                    {filteredSuggestions.length > 0 ?
+                        (
                             <TableRow>
                                 <TableCell align="center" className={classes.tableCell} colSpan="2"/>
                                 <TableCell align="right" className={classes.tableCell}>
@@ -280,15 +328,6 @@ const SendToInvoiceContainer = () => {
 
                 </TableBody>
             </Table>
-            {Object.keys(selectedOrders).length > 0
-                ? !displayLoading
-                    ? (
-                        <Button className={classes.confirmButton} onClick={handleConfirmSendPayments}>
-                            Send ordre til fakturering
-                        </Button>
-                    )
-                    : <CircularProgress className={classes.progress}/> : <div/>}
-            {redirected ? <Redirect to="/ordre-sendt"/> : <div/>}
         </Box>
     );
 };

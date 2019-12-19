@@ -12,7 +12,7 @@ import {
     UPDATE_LOADING_TO_EXTERNAL,
     UPDATE_NEED_FETCH,
     UPDATE_ORDER_STATUS_CONTENT,
-    UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_ORDER_STATUS_OPEN, UPDATE_ORDERS_OPEN,
     UPDATE_ORG_ID,
     UPDATE_PAYMENT_FILTER_VALUE,
     UPDATE_PAYMENT_SEARCH_BY,
@@ -308,7 +308,7 @@ export function updateFromValue(value) {
     };
 }
 
-export function updateToValue(value) {
+export function updateOrderSearchValue(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_TO_VALUE_EXTERNAL,
@@ -377,5 +377,10 @@ export function updateOrderStatusOpen(value) {
 export function updatePaymentFilterValue(value) {
     return function (dispatch) {
         dispatch({type: UPDATE_PAYMENT_FILTER_VALUE, payload: value});
+    }
+}
+export function updateOrdersOpen(value) {
+    return function (dispatch) {
+        dispatch({type: UPDATE_ORDERS_OPEN, payload: value});
     }
 }

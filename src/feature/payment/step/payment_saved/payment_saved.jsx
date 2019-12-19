@@ -1,6 +1,6 @@
 import React from 'react';
 import {ListItemText, makeStyles, Paper} from '@material-ui/core';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 import ConfirmedProducts from '../confirm_send/confirmed_products';
 import {countChecked} from '../../utils/list_utils';
-import {updateFromValue, updateToValue} from "../../../../data/redux/actions/payment";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -105,13 +104,6 @@ const PaymentSaved = () => {
     const classes = useStyles();
     const requestedNumberOfDaysToPaymentDeadLineDays = useSelector((state) => state.payment.payment.requestedNumberOfDaysToPaymentDeadLine);
     const recipients = useSelector((state) => state.payment.payment.recipients);
-    const latestPayments = useSelector((state) => state.payment.payments.latestSent);
-    const dispatch = useDispatch();
-
-    if (latestPayments) {
-        dispatch(updateFromValue(getFirstOrderNumber()));
-        dispatch(updateToValue(getLastOrderNumber()));
-    }
 
     function getTodayDate() {
         let today = new Date();
@@ -123,18 +115,6 @@ const PaymentSaved = () => {
 
         today = `${mm}/${dd}/${yyyy}`;
         return today;
-    }
-
-    function getFirstOrderNumber() {
-        if (latestPayments) {
-            return latestPayments[0].orderNumber;
-        }
-    }
-
-    function getLastOrderNumber() {
-        if (latestPayments) {
-            return latestPayments[latestPayments.length - 1].orderNumber;
-        }
     }
 
     return (
@@ -182,7 +162,8 @@ const PaymentSaved = () => {
                                 .map((key) => {
                                     if (recipients[key].checked) {
                                         return (
-                                            <ListItem border={1} className={classes.recipientListItem} divider key={key}>
+                                            <ListItem border={1} className={classes.recipientListItem} divider
+                                                      key={key}>
                                                 <ListItemText
                                                     className={classes.listItemPrimary}
                                                     disableTypography
@@ -205,7 +186,7 @@ const PaymentSaved = () => {
                                                 />
                                             </ListItem>
                                         );
-                                    }else return <div/>
+                                    } else return <div/>
                                 })}
                         </Box>
                     </List>
