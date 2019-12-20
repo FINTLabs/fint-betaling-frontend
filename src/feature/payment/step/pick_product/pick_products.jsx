@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {makeStyles} from '@material-ui/core';
+import {makeStyles, Typography} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
+    },
+    h2:{
+        textAlign: "center",
     },
     formControl: {
         minWidth:"70%",
@@ -55,6 +58,7 @@ const PickProducts = () => {
 
     return (
         <Box className={classes.root}>
+            <Typography variant={"h2"} className={classes.h2}>Velg produkter</Typography>
             <RecipientList/>
             <ProductList/>
             <form className={classes.container}>
