@@ -18,7 +18,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import {filterSuggestions} from "../payment/utils/filter";
+import filterSuggestions from "../payment/utils/filter";
 
 
 const useStyles = makeStyles((theme) => ({

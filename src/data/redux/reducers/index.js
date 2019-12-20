@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import customers from './customers';
 import dates from './dates';
 import employers from './employers';
@@ -10,13 +10,13 @@ import payments from './payments';
 import payment from './payment';
 
 export default combineReducers({
-    customers,
-    dates,
-    employers,
-    groups,
-    me,
-    mva,
-    orderLines: orderlines,
-    payments,
-    payment,
+  customers,
+  dates,
+  employers,
+  groups,
+  me,
+  mva,
+  orderLines: orderlines,
+  payments,
+  payment,
 });

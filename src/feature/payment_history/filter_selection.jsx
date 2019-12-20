@@ -7,7 +7,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {useDispatch, useSelector} from "react-redux";
 import {updatePaymentFilterValue, updatePaymentsSuggestions} from "../../data/redux/actions/payment";
 import {FILTER_ALL, FILTER_SEND_ERROR, FILTER_SENT, FILTER_STORED, FILTER_UPDATE_ERROR} from "../payment/constants";
-import {filterSuggestions} from "../payment/utils/filter";
+import filterSuggestions from "../payment/utils/filter";
 
 const useStyles = makeStyles(theme => ({
     root: {

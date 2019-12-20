@@ -31,10 +31,10 @@ import fetchGroup from '../../data/redux/actions/groups';
 import fetchMe from '../../data/redux/actions/me';
 import fetchMva from '../../data/redux/actions/mva';
 import fetchOrderLines from '../../data/redux/actions/orderlines';
-import {fetchPayment} from '../../data/redux/actions/payments';
+import fetchPayment from '../../data/redux/actions/payments';
 import LoadingPage from './loading_page';
-import setOrgId, {
-    initializePayment,
+import {
+    initializePayment, setOrgId,
     setSchool,
     setSchoolOrgId,
     updateCustomersLoaded,
