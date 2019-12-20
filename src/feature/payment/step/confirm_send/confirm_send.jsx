@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     confirmPaper: {
         display: 'flex',
         flexDirection: 'column',
+        textAlign: "-webkit-center",
         margin: theme.spacing(1),
     },
     expirationContainer: {
