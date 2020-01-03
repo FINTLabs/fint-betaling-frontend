@@ -15,7 +15,8 @@ import {
     updateOrderStatusContent,
     updateOrderStatusOpen,
     updatePaymentsDialogOpen,
-    updatePaymentsDialogOrderNumber, updateSearchPage
+    updatePaymentsDialogOrderNumber,
+    updateSearchPage
 } from "../../data/redux/actions/payment";
 import Amount from "../payment/utils/amount";
 import TablePagination from "@material-ui/core/TablePagination";

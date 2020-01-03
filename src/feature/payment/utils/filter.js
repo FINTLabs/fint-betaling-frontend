@@ -6,7 +6,6 @@ export default function filterSuggestions(input, suggestions, searchBy, filterVa
   const inputLength = inputValue.length;
   let count = 0;
   let countToStartOfActivePage = -1;
-  console.log("keepSuggestionsFromCount: ", keepSuggestionsFromCount);
 
   return inputLength < 0
     ? []
@@ -17,7 +16,7 @@ export default function filterSuggestions(input, suggestions, searchBy, filterVa
       let matched = false;
 
       if (searchBy === ORDER_NUMBER) {
-          matched = suggestion.orderNumber.toString().slice(0, input.length).toLowerCase() === input;
+          matched = suggestion.orderNumber.toString().slice(0, input.length).toLowerCase() === input && (claimStatus === filter || filter === FILTER_ALL);
           if (matched){
               countToStartOfActivePage += 1;
               if (countToStartOfActivePage >= keepSuggestionsFromCount){
@@ -31,14 +30,19 @@ export default function filterSuggestions(input, suggestions, searchBy, filterVa
               keep = false;
           }
       } else {
-        const customerNameSliced = suggestion.customer.name.slice(0, input.length).toLowerCase();
-        keep = (
-          count < 10 && (
-            (suggestion.customer.name && customerNameSliced === input
-                        && ((claimStatus === filter) || filter === FILTER_ALL)
-            )
-          )
-        );
+          matched = suggestion.customer.name.includes(input) && (claimStatus === filter || filter === FILTER_ALL);
+          if (matched){
+              countToStartOfActivePage += 1;
+              if (countToStartOfActivePage >= keepSuggestionsFromCount){
+                  keep = count < 10
+                      && ((claimStatus === filter) || filter === FILTER_ALL);
+              }else{
+                  keep = false;
+              }
+          }
+          else{
+              keep = false;
+          }
       }
       if (keep) {
         count += 1;

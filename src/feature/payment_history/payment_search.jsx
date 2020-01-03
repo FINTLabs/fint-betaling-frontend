@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper';
 import {useDispatch, useSelector} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import {Box, makeStyles} from '@material-ui/core';
-import {ORDER_NUMBER, SEARCH_PAGE_ROWS} from '../payment/constants';
+import {FILTER_ALL, ORDER_NUMBER, SEARCH_PAGE_ROWS} from '../payment/constants';
 import {
     updateOrderStatusContent,
     updateOrderStatusOpen,
@@ -95,20 +95,20 @@ const PaymentSearch = () => {
     function getPaymentsLength(input) {
         const array = [];
         suggestions.filter(suggestion => {
-            if (matchedPayment(suggestion, input)) {
+            if (matchedPayment(suggestion, input) && (filterValue === suggestion.claimStatus || filterValue === FILTER_ALL)) {
                 array.push(suggestion);
             }
             return null;
         });
-        console.log("array.length: ", array.length);
         return array.length;
     }
 
     function matchedPayment(suggestion, input) {
         if (input.length > 0) {
-            return (
+            return searchBy === ORDER_NUMBER ?
                 suggestion.orderNumber.includes(input)
-            );
+                :
+                suggestion.customer.name.includes(input);
         }
         return false;
     }
