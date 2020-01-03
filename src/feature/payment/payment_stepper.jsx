@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Velg mottakere', 'Velg varer', 'Bekreft og send'];
+    return ['Velg mottaker', 'Velg produkt', 'Velg forfall'];
 }
 
 export default function PaymentStepper() {

@@ -17,7 +17,8 @@ import {
     updateOrdersOpen,
     updateRedirectFromExternal,
     updateSelectedOrders,
-    updateSendOrderResponse, updateSentPayment,
+    updateSendOrderResponse,
+    updateSentPayment,
 } from '../../../data/redux/actions/payment';
 import SelectedToExternalList from './selected_to_external_list';
 import fetchPayment from '../../../data/redux/actions/payments';
@@ -125,7 +126,7 @@ const SendToInvoiceContainer = () => {
     }
 
     function getFilteredSuggestions() {
-        if (latestPayments && latestPayments.length >0){
+        if (latestPayments && latestPayments.length > 0) {
             return latestPayments;
         }
         const array = [];
@@ -241,12 +242,14 @@ const SendToInvoiceContainer = () => {
         <Box className={classes.root}>
             <Paper>
                 <Typography variant="h5" className={classes.h1}>
-                    Ordre som ikke er sendt til
-                    fakturering
+                    Ordre som ikke er sendt til fakturering
                 </Typography>
-                <Typography variant="body1" className={classes.h1}>Filtrer på ordrenummer i feltene under</Typography>
-                <Typography variant="body1" className={classes.h1}>Oversikten viser kun ordrer du har
-                    opprettet</Typography>
+                <Typography variant="body1" className={classes.h1}>
+                    Søk på ordrenummer i feltet under
+                </Typography>
+                <Typography variant="body2" className={classes.h1}>
+                    Oversikten viser kun ordrer du har opprettet
+                </Typography>
                 <Box className={classes.searchContainer}>
                     <form className={classes.container} noValidate>
                         <TextField

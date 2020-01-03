@@ -58,7 +58,7 @@ const PickProducts = () => {
 
     return (
         <Box className={classes.root}>
-            <Typography variant={"h2"} className={classes.h2}>Velg produkter</Typography>
+            <Typography variant={"h3"} className={classes.h2}>Velg produkt</Typography>
             <RecipientList/>
             <ProductList/>
             <form className={classes.container}>

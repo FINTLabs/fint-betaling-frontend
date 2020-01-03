@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.dark,
         color: theme.palette.secondary.contrastText,
         display: 'flex',
-        margin: 'auto',
         marginTop: theme.spacing(1),
     },
 }));
@@ -61,7 +60,7 @@ const RecipientList = () => {
         dispatch(updateRecipientListOpen(!openCollapse));
     }
 
-    const chips = count <= 10
+    const chips = count <= 5
         ? recipientListKeys.filter(key => recipientList[key].checked).map(key => {
             return (
                 <Chip
@@ -78,7 +77,7 @@ const RecipientList = () => {
                 {recipientListKeys
                     .filter(key => recipientList[key].checked).map(key => {
                         countChipsFirst += 1;
-                        if (countChipsFirst <= 10){
+                        if (countChipsFirst <= 5){
                         return (
                             <Chip
                                 size="small"
@@ -93,7 +92,7 @@ const RecipientList = () => {
                     })
                 }
                 {!openCollapse ? (
-                    <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
+                    <Button size={"small"} className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
                         Vis alle
                         mottakere
                     </Button>
@@ -101,7 +100,7 @@ const RecipientList = () => {
                 {openCollapse ? recipientListKeys
                     .filter(key => recipientList[key].checked).map(key => {
                         countChipsSecond +=1;
-                    if (countChipsSecond >10){
+                    if (countChipsSecond >5){
                             return (
                                 <Chip
                                     size="small"
@@ -115,7 +114,7 @@ const RecipientList = () => {
                     }else return null;
                     }) : <div/>}
                 {openCollapse ? (
-                    <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
+                    <Button size={"small"} className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
                         Vis færre
                         mottakere
                     </Button>

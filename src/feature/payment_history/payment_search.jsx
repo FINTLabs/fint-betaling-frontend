@@ -1,6 +1,5 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
-import Autosuggest from 'react-autosuggest';
 import {useDispatch, useSelector} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import {Box, makeStyles} from '@material-ui/core';
@@ -65,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
 const PaymentSearch = () => {
     const payments = useSelector((state) => state.payments.payments);
     const searchValue = useSelector((state) => state.payment.payments.searchValue);
-    const filteredSuggestions = useSelector((state) => state.payment.payments.filteredSuggestions);
     const searchBy = useSelector((state) => state.payment.payments.searchBy).toString();
     const statusOpen = useSelector(state => state.payment.payment.statusOpen);
     const statusMessage = useSelector(state => state.payment.payment.statusContent);
@@ -75,48 +73,9 @@ const PaymentSearch = () => {
     const classes = useStyles();
     const searchPlaceHolder = searchBy === ORDER_NUMBER ? 'Ordrenummer' : 'Fakturamottaker';
 
-    function renderInputComponent(inputProps) {
-        const {
-            classes, inputRef = () => {
-            }, ref, ...other
-        } = inputProps;
-
-        return (
-            <TextField
-                fullWidth
-                InputProps={{
-                    inputRef: (node) => {
-                        ref(node);
-                        inputRef(node);
-                    },
-                    classes: {
-                        input: classes.input,
-                    },
-                }}
-                {...other}
-            />
-        );
-    }
-
-    function renderSuggestion(suggestion, {query, isHighlighted}) {
-    }
-
-    function getSuggestionValue(suggestion) {
-        return searchBy === ORDER_NUMBER ? suggestion.orderNumber : suggestion.customer.name;
-    }
-
-    const handleSuggestionsFetchRequested = ({value}) => {
-        dispatch(updatePaymentsSuggestions(filterSuggestions(value, suggestions, searchBy, filterValue)));
-    };
-
-    const handleSuggestionsClearRequested = () => {
-        if (searchValue < 1) {
-            dispatch(updatePaymentsSuggestions(suggestions));
-        }
-    };
-
     function handleSearchValue(event) {
         dispatch(updatePaymentsSearchValue(event.target.value));
+        dispatch(updatePaymentsSuggestions(filterSuggestions(event.target.value, suggestions, searchBy, filterValue)));
     }
 
     function handleClose() {
@@ -127,14 +86,7 @@ const PaymentSearch = () => {
     return (
         <Box className={classes.root}>
             <Paper className={classes.container}>
-                <Autosuggest
-                    renderInputComponent={renderInputComponent}
-                    getSuggestionValue={getSuggestionValue}
-                    suggestions={filteredSuggestions}
-                    onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={handleSuggestionsClearRequested}
-                    renderSuggestion={renderSuggestion}
-
+                <TextField
                     inputProps={{
                         classes,
                         autoFocus: true,
