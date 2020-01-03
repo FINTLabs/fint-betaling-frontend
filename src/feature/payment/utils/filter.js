@@ -30,7 +30,7 @@ export default function filterSuggestions(input, suggestions, searchBy, filterVa
               keep = false;
           }
       } else {
-          matched = suggestion.customer.name.includes(input) && (claimStatus === filter || filter === FILTER_ALL);
+          matched = suggestion.customer.name.toLowerCase().includes(input.toLowerCase()) && (claimStatus === filter || filter === FILTER_ALL);
           if (matched){
               countToStartOfActivePage += 1;
               if (countToStartOfActivePage >= keepSuggestionsFromCount){
