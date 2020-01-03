@@ -9,15 +9,17 @@ import Table from '@material-ui/core/Table';
 import {makeStyles, Typography} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
 import Button from '@material-ui/core/Button';
-import {ORDER_NUMBER} from "../payment/constants";
+import {ORDER_NUMBER, SEARCH_PAGE_ROWS} from "../payment/constants";
 import {CheckCircle, Edit, PaymentRounded, PriorityHigh, Warning} from '@material-ui/icons';
 import {
     updateOrderStatusContent,
     updateOrderStatusOpen,
     updatePaymentsDialogOpen,
-    updatePaymentsDialogOrderNumber
+    updatePaymentsDialogOrderNumber, updateSearchPage
 } from "../../data/redux/actions/payment";
 import Amount from "../payment/utils/amount";
+import TablePagination from "@material-ui/core/TablePagination";
+import TablePaginationActions from "@material-ui/core/TablePagination/TablePaginationActions";
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -90,14 +92,44 @@ const PaymentsTable = () => {
     const query = useSelector((state) => state.payment.payments.searchValue);
     let suggestions = useSelector((state) => state.payment.payments.filteredSuggestions);
     const searchBy = useSelector((state) => state.payment.payments.searchBy).toString();
+    const activePage = useSelector((state) => state.payment.form.page);
+    const rowsPerPage = SEARCH_PAGE_ROWS;
     suggestions = query.length === 0 ? [] : suggestions;
     const classes = useStyles();
     const dispatch = useDispatch();
     const paymentNotSentFeedback = "Ordre er lagret, men ikke sendt til økonomisystem. Klikk på 'Send ordre' i hovedmenyen til venstre for å sende ordre til økonomisystem";
+    const suggestionLengthTemp = useSelector((state) => state.payment.form.suggestionLength);
+    const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
+    const tablePagination = suggestionsLength > 10
+        ? (
+            <TableRow>
+                <TablePagination
+                    rowsPerPageOptions={[rowsPerPage]}
+                    colSpan={6}
+                    count={suggestionsLength}
+                    rowsPerPage={rowsPerPage}
+                    page={activePage}
+                    SelectProps={{
+                        inputProps: {'aria-label': 'rows per page'},
+                        native: true,
+                    }}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                    ActionsComponent={TablePaginationActions}
+                />
+            </TableRow>
+        ) : null;
 
     function handleStatusClick(event, errormessage) {
         dispatch(updateOrderStatusContent(errormessage));
         dispatch(updateOrderStatusOpen(true));
+    }
+
+    function handleChangePage(event, newPage) {
+        dispatch(updateSearchPage(newPage));
+    }
+
+    function handleChangeRowsPerPage() {
     }
 
     function getStatusIcon(suggestion) {
@@ -257,6 +289,7 @@ const PaymentsTable = () => {
                             ,
                         )
                     }
+                    {tablePagination}
                 </TableBody>
             </Table>
         );
