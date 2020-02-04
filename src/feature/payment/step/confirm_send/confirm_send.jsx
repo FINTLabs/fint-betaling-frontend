@@ -10,6 +10,7 @@ import ExpirationDatePicker from './expiration_date_picker';
 import {updateNeedFetch, updateSentPayment, updateStep} from '../../../../data/redux/actions/payment';
 import ClaimRepository from '../../../../data/repository/ClaimRepository';
 import {STEP_PAYMENT_CONFIRMED} from '../../constants';
+import Divider from "@material-ui/core/Divider";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -130,12 +131,11 @@ const ConfirmSend = () => {
 
     return (
         <Box className={classes.root}>
-            <Paper>
+            <Paper className={classes.confirmPaper}>
                 <Typography variant="h4" className={classes.titleText}>
                     Velg forfall og lagre
                 </Typography>
-            </Paper>
-            <Paper className={classes.confirmPaper}>
+                <Divider/>
                 <ConfirmedRecipients/>
                 <ConfirmedProducts/>
                 <Box className={classes.expirationContainer}>

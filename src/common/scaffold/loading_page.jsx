@@ -58,7 +58,7 @@ const LoadingPage = (props) => {
     const classes = useStyles();
     const {progress} = props;
     const linearProgressValue = (progress * 100) / 8;
-    const loadingMessage = linearProgressValue !== 100 ? `Loading... ${linearProgressValue}%` : 'Skoledata ferdig lastet. Venter på ditt skolevalg';
+    const loadingMessage = linearProgressValue !== 100 ? `Laster inn data... ${linearProgressValue}%` : 'Skoledata ferdig lastet. Venter på ditt skolevalg';
 
     return (
         <Box className={classes.loadingContainer}>

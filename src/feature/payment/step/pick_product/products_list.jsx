@@ -38,8 +38,7 @@ const ProductList = () => {
     const productPriceText = countChecked(productList) > 0
         ? (
             <Typography>
-                Total beløp per
-                mottaker: {getTotalPrice(productList, productAmount)},- eks. mva.
+                Total beløp per mottaker: {getTotalPrice(productList, productAmount)} eks. mva.
             </Typography>
         ) : '';
 

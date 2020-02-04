@@ -141,7 +141,7 @@ const PaymentSaved = () => {
         <Box className={classes.root}>
             <Paper className={classes.titlePaper}>
                 <Typography variant="h5" className={classes.titleText}>
-                    Opprettet ordre
+                    Ordre opprettet, send til fakturering
                 </Typography>
             </Paper>
             <Paper className={classes.tablePaper}>

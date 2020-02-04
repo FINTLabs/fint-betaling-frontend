@@ -16,8 +16,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import NewInvoice from '@material-ui/icons/NoteAdd';
 import InvoiceHistory from '@material-ui/icons/History';
+import NewInvoice from '@material-ui/icons/NoteAdd';
 import LogOut from '@material-ui/icons/ExitToApp';
 import {Link} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
@@ -203,7 +203,6 @@ export default function Scaffold() {
     function handleDrawerClose() {
         setOpen(false);
     }
-
 
     if (
         customers.isLoading

@@ -91,7 +91,7 @@ const ConfirmedProducts = () => {
                                 </Typography>
                             </TableCell>
                             <TableCell align="right">
-                                {getTotalPrice(products, productAmounts)},-
+                                {getTotalPrice(products, productAmounts)}
                             </TableCell>
                         </TableRow>
                     </TableBody>
