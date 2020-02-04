@@ -11,9 +11,8 @@ import Amount from "../../utils/amount";
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        width: '100%',
+        width: '80%',
         flexDirection: 'column',
-        alignItems: 'center',
         margin: theme.spacing(1),
     },
     paper: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     table: {},
     tableBody: {},
     recipientHeader: {
-        justifyContent: 'center',
+        textAlign:"left",
         color: theme.palette.secondary.main,
         width: '200px',
     },
@@ -78,14 +77,14 @@ const ConfirmedProducts = () => {
                             )
                         }
                         <TableRow>
-                            <TableCell align="right" colSpan={6}>
+                            <TableCell align="right" colSpan={5}>
                                 <Typography variant="body1">
                                     Alle beløper er uten mva.
                                 </Typography>
                             </TableCell>
                         </TableRow>
                         <TableRow>
-                            <TableCell align="right" colSpan={6}>
+                            <TableCell align="right" colSpan={5}>
                                 <Typography variant="h6">
                                     Total beløp per elev:
                                 </Typography>

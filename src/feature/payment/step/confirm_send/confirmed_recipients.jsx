@@ -9,9 +9,9 @@ import TableBody from '@material-ui/core/TableBody';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
-        width: '100%',
+        width: '80%',
         flexDirection: 'column',
-        alignItems: 'center',
+        textAlign: "center",
         margin: theme.spacing(1),
     },
     paper: {
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
     tableBody: {},
     recipientHeader: {
-        justifyContent: 'center',
+        textAlign:"left",
         color: theme.palette.secondary.main,
         width: '200px',
     },

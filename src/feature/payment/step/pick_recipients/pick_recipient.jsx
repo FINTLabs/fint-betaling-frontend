@@ -1,5 +1,5 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core';
+import {makeStyles, Typography} from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
@@ -9,15 +9,14 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import RecipientSearch from './recipient_search';
 import {
-    updateConfirmRecipientsOpen,
     updateSearchBy,
     updateSearchPage,
     updateSearchValue,
+    updateStep,
     updateSuggestions,
 } from '../../../../data/redux/actions/payment';
-import {GROUP, INDIVIDUAL, SEARCH_PAGE_START} from '../../constants';
+import {GROUP, INDIVIDUAL, SEARCH_PAGE_START, STEP_PICK_PRODUCTS} from '../../constants';
 import RecipientList from '../recipient_list';
-import ConfirmRecipients from './confirm_recipients';
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -26,9 +25,12 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         justifyContent: 'center',
     },
+    h2:{
+      textAlign: "center",
+    },
     formControl: {
-        minWidth:"70%",
-        maxWidth:"70%",
+        minWidth: "70%",
+        maxWidth: "70%",
         margin: theme.spacing(3),
     },
     extendedIcon: {
@@ -68,13 +70,14 @@ const PickPaymentRecipient = () => {
         dispatch(updateSearchPage(SEARCH_PAGE_START));
     }
 
-    function handleConfirmButtonOpen() {
-        dispatch(updateConfirmRecipientsOpen(true));
+    function handleConfirmButtonClick() {
+        dispatch(updateStep(STEP_PICK_PRODUCTS));
         dispatch(updateSearchPage(SEARCH_PAGE_START));
     }
 
     return (
         <Box className={classes.root}>
+            <Typography variant={"h2"} className={classes.h2}>Velg mottakere</Typography>
             <RecipientList/>
             <form className={classes.container}>
                 <FormControl component="fieldset" className={classes.formControl}>
@@ -96,12 +99,11 @@ const PickPaymentRecipient = () => {
                         />
                     </RadioGroup>
                     <RecipientSearch/>
-                    <ConfirmRecipients/>
                     <Button
                         disabled={confirmButtonDisabled}
                         variant="outlined"
                         className={classes.confirmButton}
-                        onClick={handleConfirmButtonOpen}
+                        onClick={handleConfirmButtonClick}
                     >
                         Gå videre
                     </Button>
