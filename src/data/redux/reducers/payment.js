@@ -12,7 +12,8 @@ import {
     UPDATE_LOADING_TO_EXTERNAL,
     UPDATE_NEED_FETCH,
     UPDATE_ORDER_STATUS_CONTENT,
-    UPDATE_ORDER_STATUS_OPEN, UPDATE_ORDERS_OPEN,
+    UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_ORDERS_OPEN,
     UPDATE_ORG_ID,
     UPDATE_PAYMENT_FILTER_VALUE,
     UPDATE_PAYMENT_SEARCH_BY,
@@ -103,395 +104,232 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 form: {
+                    ...state.form,
                     searchBy: action.payload,
-                    searchValue: state.form.searchValue,
-                    step: state.form.step,
-                    filteredSuggestions: state.form.filteredSuggestions,
-                    groupContentOpen: state.form.groupContentOpen,
-                    confirmRecipientsOpen: state.form.confirmRecipientsOpen,
-                    page: state.form.page,
-                    suggestionLength: state.form.suggestionLength,
                 },
             };
         case UPDATE_PAYMENT_SEARCH_VALUE:
             return {
                 ...state,
                 form: {
+                    ...state.form,
                     searchValue: action.payload,
-                    searchBy: state.form.searchBy,
-                    step: state.form.step,
-                    filteredSuggestions: state.form.filteredSuggestions,
-                    groupContentOpen: state.form.groupContentOpen,
-                    confirmRecipientsOpen: state.form.confirmRecipientsOpen,
-                    page: state.form.page,
-                    suggestionLength: state.form.suggestionLength,
                 },
             };
         case UPDATE_SUGGESTIONS:
             return {
                 ...state,
                 form: {
+                    ...state.form,
                     filteredSuggestions: action.payload,
-                    searchValue: state.form.searchValue,
-                    searchBy: state.form.searchBy,
-                    step: state.form.step,
-                    groupContentOpen: state.form.groupContentOpen,
-                    confirmRecipientsOpen: state.form.confirmRecipientsOpen,
-                    page: state.form.page,
-                    suggestionLength: state.form.suggestionLength,
                 },
             };
         case UPDATE_GROUP_CONTENT_OPEN:
             return {
                 ...state,
                 form: {
+                    ...state.form,
                     groupContentOpen: action.payload,
-                    filteredSuggestions: state.form.filteredSuggestions,
-                    searchValue: state.form.searchValue,
-                    searchBy: state.form.searchBy,
-                    step: state.form.step,
-                    confirmRecipientsOpen: state.form.confirmRecipientsOpen,
-                    page: state.form.page,
-                    suggestionLength: state.form.suggestionLength,
                 },
             };
         case UPDATE_CONFIRM_RECIPIENTS_OPEN:
             return {
                 ...state,
                 form: {
+                    ...state.form,
                     confirmRecipientsOpen: action.payload,
-                    filteredSuggestions: state.form.filteredSuggestions,
-                    searchValue: state.form.searchValue,
-                    searchBy: state.form.searchBy,
-                    step: state.form.step,
-                    groupContentOpen: state.form.groupContentOpen,
-                    page: state.form.page,
-                    suggestionLength: state.form.suggestionLength,
                 },
             };
         case UPDATE_SEARCH_PAGE:
             return {
                 ...state,
                 form: {
+                    ...state.form,
                     page: action.payload,
-                    confirmRecipientsOpen: state.form.confirmRecipientsOpen,
-                    filteredSuggestions: state.form.filteredSuggestions,
-                    searchValue: state.form.searchValue,
-                    searchBy: state.form.searchBy,
-                    step: state.form.step,
-                    groupContentOpen: state.form.groupContentOpen,
-                    suggestionLength: state.form.suggestionLength,
                 },
             };
         case UPDATE_SUGGESTION_LENGTH:
             return {
                 ...state,
                 form: {
+                    ...state.form,
                     suggestionLength: action.payload,
-                    confirmRecipientsOpen: state.form.confirmRecipientsOpen,
-                    filteredSuggestions: state.form.filteredSuggestions,
-                    searchValue: state.form.searchValue,
-                    searchBy: state.form.searchBy,
-                    step: state.form.step,
-                    groupContentOpen: state.form.groupContentOpen,
-                    page: state.form.page,
                 },
             };
         case UPDATE_STEP:
             return {
                 ...state,
                 form: {
+                    ...state.form,
                     step: action.payload,
-                    groupContentOpen: state.form.groupContentOpen,
-                    filteredSuggestions: state.form.filteredSuggestions,
-                    searchValue: state.form.searchValue,
-                    searchBy: state.form.searchBy,
-                    page: state.form.page,
                 },
             };
         case UPDATE_PRODUCT_SEARCH_VALUE:
             return {
                 ...state,
                 product: {
+                    ...state.product,
                     searchValue: action.payload,
-                    filteredSuggestions: state.product.filteredSuggestions,
-                    amount: state.product.amount,
-                    productsLength: state.product.productsLength,
                 },
             };
         case UPDATE_PRODUCT_SUGGESTIONS:
             return {
                 ...state,
                 product: {
+                    ...state.product,
                     filteredSuggestions: action.payload,
-                    searchValue: state.product.searchValue,
-                    amount: state.product.amount,
-                    productsLength: state.product.productsLength,
                 },
             };
         case UPDATE_PRODUCT_LENGTH:
             return {
                 ...state,
                 product: {
+                    ...state.product,
                     productsLength: action.payload,
-                    filteredSuggestions: state.product.filteredSuggestions,
-                    searchValue: state.product.searchValue,
-                    amount: state.product.amount,
                 },
             };
         case UPDATE_RECIPIENTS:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     recipients: action.payload,
-                    products: state.payment.products,
-                    requestedNumberOfDaysToPaymentDeadLine: state.payment.requestedNumberOfDaysToPaymentDeadLine,
-                    school: state.payment.school,
-                    statusOpen: state.payment.statusOpen,
-                    statusContent: state.payment.statusContent,
-                    schoolOrgId: state.payment.schoolOrgId,
-                    orgId: state.payment.orgId,
-                    groupsLoaded: state.payment.groupsLoaded,
-                    customersLoaded: state.payment.customersLoaded,
                 }
             };
         case UPDATE_PRODUCTS:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     products: action.payload,
-                    recipients: state.payment.recipients,
-                    requestedNumberOfDaysToPaymentDeadLine: state.payment.requestedNumberOfDaysToPaymentDeadLine,
-                    school: state.payment.school,
-                    statusOpen: state.payment.statusOpen,
-                    statusContent: state.payment.statusContent,
-                    schoolOrgId: state.payment.schoolOrgId,
-                    orgId: state.payment.orgId,
-                    groupsLoaded: state.payment.groupsLoaded,
-                    customersLoaded: state.payment.customersLoaded,
                 },
             };
         case UPDATE_EXPIRATION_DATE:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     requestedNumberOfDaysToPaymentDeadLine: action.payload,
-                    recipients: state.payment.recipients,
-                    products: state.payment.products,
-                    school: state.payment.school,
-                    statusOpen: state.payment.statusOpen,
-                    statusContent: state.payment.statusContent,
-                    schoolOrgId: state.payment.schoolOrgId,
-                    orgId: state.payment.orgId,
-                    groupsLoaded: state.payment.groupsLoaded,
-                    customersLoaded: state.payment.customersLoaded,
                 },
             };
         case UPDATE_SCHOOL:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     school: action.payload,
-                    recipients: state.payment.recipients,
-                    products: state.payment.products,
-                    requestedNumberOfDaysToPaymentDeadLine: state.payment.requestedNumberOfDaysToPaymentDeadLine,
-                    statusOpen: state.payment.statusOpen,
-                    statusContent: state.payment.statusContent,
-                    schoolOrgId: state.payment.schoolOrgId,
-                    orgId: state.payment.orgId,
-                    groupsLoaded: state.payment.groupsLoaded,
-                    customersLoaded: state.payment.customersLoaded,
                 }
             };
         case UPDATE_ORDER_STATUS_OPEN:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     statusOpen: action.payload,
-                    school: state.payment.school,
-                    recipients: state.payment.recipients,
-                    products: state.payment.products,
-                    requestedNumberOfDaysToPaymentDeadLine: state.payment.requestedNumberOfDaysToPaymentDeadLine,
-                    statusContent: state.payment.statusContent,
-                    schoolOrgId: state.payment.schoolOrgId,
-                    orgId: state.payment.orgId,
-                    groupsLoaded: state.payment.groupsLoaded,
-                    customersLoaded: state.payment.customersLoaded,
                 }
             };
         case UPDATE_ORDER_STATUS_CONTENT:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     statusContent: action.payload,
-                    school: state.payment.school,
-                    recipients: state.payment.recipients,
-                    products: state.payment.products,
-                    requestedNumberOfDaysToPaymentDeadLine: state.payment.requestedNumberOfDaysToPaymentDeadLine,
-                    statusOpen: state.payment.statusOpen,
-                    schoolOrgId: state.payment.schoolOrgId,
-                    orgId: state.payment.orgId,
-                    groupsLoaded: state.payment.groupsLoaded,
-                    customersLoaded: state.payment.customersLoaded,
                 },
             };
         case UPDATE_SCHOOL_ORG_ID:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     schoolOrgId: action.payload,
-                    statusContent: state.payment.statusContent,
-                    school: state.payment.school,
-                    recipients: state.payment.recipients,
-                    products: state.payment.products,
-                    requestedNumberOfDaysToPaymentDeadLine: state.payment.requestedNumberOfDaysToPaymentDeadLine,
-                    statusOpen: state.payment.statusOpen,
-                    orgId: state.payment.orgId,
-                    groupsLoaded: state.payment.groupsLoaded,
-                    customersLoaded: state.payment.customersLoaded,
                 },
             };
         case UPDATE_ORG_ID:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     orgId: action.payload,
-                    schoolOrgId: state.payment.schoolOrgId,
-                    statusContent: state.payment.statusContent,
-                    school: state.payment.school,
-                    recipients: state.payment.recipients,
-                    products: state.payment.products,
-                    requestedNumberOfDaysToPaymentDeadLine: state.payment.requestedNumberOfDaysToPaymentDeadLine,
-                    statusOpen: state.payment.statusOpen,
-                    groupsLoaded: state.payment.groupsLoaded,
-                    customersLoaded: state.payment.customersLoaded,
                 },
             };
         case UPDATE_GROUPS_LOADED:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     groupsLoaded: action.payload,
-                    school: state.payment.school,
-                    recipients: state.payment.recipients,
-                    products: state.payment.products,
-                    requestedNumberOfDaysToPaymentDeadLine: state.payment.requestedNumberOfDaysToPaymentDeadLine,
-                    statusOpen: state.payment.statusOpen,
-                    statusContent: state.payment.statusContent,
-                    schoolOrgId: state.payment.schoolOrgId,
-                    orgId: state.payment.orgId,
-                    customersLoaded: state.payment.customersLoaded,
                 }
             };
         case UPDATE_CUSTOMERS_LOADED:
             return {
                 ...state,
                 payment: {
+                    ...state.payment,
                     customersLoaded: action.payload,
-                    groupsLoaded: state.payment.groupsLoaded,
-                    school: state.payment.school,
-                    recipients: state.payment.recipients,
-                    products: state.payment.products,
-                    requestedNumberOfDaysToPaymentDeadLine: state.payment.requestedNumberOfDaysToPaymentDeadLine,
-                    statusOpen: state.payment.statusOpen,
-                    statusContent: state.payment.statusContent,
-                    schoolOrgId: state.payment.schoolOrgId,
-                    orgId: state.payment.orgId,
                 }
             };
         case UPDATE_PRODUCT_AMOUNT:
             return {
                 ...state,
                 product: {
+                    ...state.product,
                     amount: action.payload,
-                    searchValue: state.product.searchValue,
-                    filteredSuggestions: state.product.filteredSuggestions,
-                    productsLength: state.product.productsLength,
                 },
             };
         case UPDATE_PAYMENTS_SEARCH_BY:
             return {
                 ...state,
                 payments: {
+                    ...state.payments,
                     searchBy: action.payload,
-                    searchValue: state.payments.searchValue,
-                    filteredSuggestions: state.payments.filteredSuggestions,
-                    dialogOpen: state.payments.dialogOpen,
-                    dialogOrderNumber: state.payments.dialogOrderNumber,
-                    latestSent: state.payments.latestSent, filter: state.payments.filter,
                 }
             };
         case UPDATE_PAYMENT_FILTER_VALUE:
             return {
                 ...state,
                 payments: {
+                    ...state.payments,
                     filter: action.payload,
-                    searchBy: state.payments.searchBy,
-                    searchValue: state.payments.searchValue,
-                    filteredSuggestions: state.payments.filteredSuggestions,
-                    dialogOpen: state.payments.dialogOpen,
-                    dialogOrderNumber: state.payments.dialogOrderNumber,
-                    latestSent: state.payments.latestSent,
                 },
             };
         case UPDATE_PAYMENTS_SUGGESTIONS:
             return {
                 ...state,
                 payments: {
+                    ...state.payments,
                     filteredSuggestions: action.payload,
-                    searchBy: state.payments.searchBy,
-                    searchValue: state.payments.searchValue,
-                    dialogOpen: state.payments.dialogOpen,
-                    dialogOrderNumber: state.payments.dialogOrderNumber,
-                    latestSent: state.payments.latestSent, filter: state.payments.filter,
                 },
             };
         case UPDATE_PAYMENTS_SEARCH_VALUE:
             return {
                 ...state,
                 payments: {
+                    ...state.payments,
                     searchValue: action.payload,
-                    searchBy: state.payments.searchBy,
-                    filteredSuggestions: state.payments.filteredSuggestions,
-                    dialogOpen: state.payments.dialogOpen,
-                    dialogOrderNumber: state.payments.dialogOrderNumber,
-                    latestSent: state.payments.latestSent, filter: state.payments.filter,
                 },
             };
         case UPDATE_PAYMENTS_DIALOG_OPEN:
             return {
                 ...state,
                 payments: {
+                    ...state.payments,
                     dialogOpen: action.payload,
-                    searchValue: state.payments.searchValue,
-                    searchBy: state.payments.searchBy,
-                    filteredSuggestions: state.payments.filteredSuggestions,
-                    dialogOrderNumber: state.payments.dialogOrderNumber,
-                    latestSent: state.payments.latestSent, filter: state.payments.filter,
                 },
             };
         case UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER:
             return {
                 ...state,
                 payments: {
+                    ...state.payments,
                     dialogOrderNumber: action.payload,
-                    dialogOpen: state.payments.dialogOpen,
-                    searchValue: state.payments.searchValue,
-                    searchBy: state.payments.searchBy,
-                    filteredSuggestions: state.payments.filteredSuggestions,
-                    latestSent: state.payments.latestSent, filter: state.payments.filter,
                 },
             };
         case UPDATE_LATEST_SENT_PAYMENTS:
             return {
                 ...state,
                 payments: {
+                    ...state.payments,
                     latestSent: action.payload,
-                    dialogOrderNumber: state.payments.dialogOrderNumber,
-                    dialogOpen: state.payments.dialogOpen,
-                    searchValue: state.payments.searchValue,
-                    searchBy: state.payments.searchBy,
-                    filteredSuggestions: state.payments.filteredSuggestions, filter: state.payments.filter,
                 },
             };
         case UPDATE_RECIPIENT_LIST_OPEN:
@@ -505,74 +343,48 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 sendToExternalSystem: {
+                    ...state.sendToExternalSystem,
                     fromValue: action.payload,
-                    searchValue: state.sendToExternalSystem.searchValue,
-                    selectedOrders: state.sendToExternalSystem.selectedOrders,
-                    needFetch: state.sendToExternalSystem.needFetch,
-                    loading: state.sendToExternalSystem.loading,
-                    redirect: state.sendToExternalSystem.redirect,
                 },
             };
         case UPDATE_TO_VALUE_EXTERNAL:
             return {
                 ...state,
                 sendToExternalSystem: {
+                    ...state.sendToExternalSystem,
                     searchValue: action.payload,
-                    fromValue: state.sendToExternalSystem.fromValue,
-                    selectedOrders: state.sendToExternalSystem.selectedOrders,
-                    needFetch: state.sendToExternalSystem.needFetch,
-                    loading: state.sendToExternalSystem.loading,
-                    redirect: state.sendToExternalSystem.redirect,
                 },
             };
         case UPDATE_SELECTED_ORDERS_TO_EXTERNAL:
             return {
                 ...state,
                 sendToExternalSystem: {
+                    ...state.sendToExternalSystem,
                     selectedOrders: action.payload,
-                    searchValue: state.sendToExternalSystem.searchValue,
-                    fromValue: state.sendToExternalSystem.fromValue,
-                    needFetch: state.sendToExternalSystem.needFetch,
-                    loading: state.sendToExternalSystem.loading,
-                    redirect: state.sendToExternalSystem.redirect,
-                    ordersOpen: state.sendToExternalSystem.ordersOpen,
                 },
             };
         case UPDATE_NEED_FETCH:
             return {
                 ...state,
                 sendToExternalSystem: {
+                    ...state.sendToExternalSystem,
                     needFetch: action.payload,
-                    selectedOrders: state.sendToExternalSystem.selectedOrders,
-                    searchValue: state.sendToExternalSystem.searchValue,
-                    fromValue: state.sendToExternalSystem.fromValue,
-                    loading: state.sendToExternalSystem.loading,
-                    redirect: state.sendToExternalSystem.redirect,
                 },
             };
         case UPDATE_LOADING_TO_EXTERNAL:
             return {
                 ...state,
                 sendToExternalSystem: {
+                    ...state.sendToExternalSystem,
                     loading: action.payload,
-                    needFetch: state.sendToExternalSystem.needFetch,
-                    selectedOrders: state.sendToExternalSystem.selectedOrders,
-                    searchValue: state.sendToExternalSystem.searchValue,
-                    fromValue: state.sendToExternalSystem.fromValue,
-                    redirect: state.sendToExternalSystem.redirect,
-
                 },
             };
         case UPDATE_EXTERNAL_REDIRECT:
             return {
                 ...state,
                 sendToExternalSystem: {
+                    ...state.sendToExternalSystem,
                     redirect: action.payload,
-                    loading: state.sendToExternalSystem.loading,
-                    needFetch: state.sendToExternalSystem.needFetch,
-                    selectedOrders: state.sendToExternalSystem.selectedOrders,
-                    searchValue: state.sendToExternalSystem.searchValue,
-                    fromValue: state.sendToExternalSystem.fromValue,
                 },
             };
         case UPDATE_BACK_END_RESPONSE:
