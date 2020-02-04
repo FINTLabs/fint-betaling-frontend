@@ -12,7 +12,7 @@ import {
     UPDATE_LOADING_TO_EXTERNAL,
     UPDATE_NEED_FETCH,
     UPDATE_ORDER_STATUS_CONTENT,
-    UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_ORDER_STATUS_OPEN, UPDATE_ORDERS_OPEN,
     UPDATE_ORG_ID,
     UPDATE_PAYMENT_FILTER_VALUE,
     UPDATE_PAYMENT_SEARCH_BY,
@@ -83,8 +83,8 @@ export const defaultState = {
         latestSent: [],
     },
     sendToExternalSystem: {
-        fromValue: '',
-        toValue: '',
+        ordersOpen: false,
+        searchValue: '',
         selectedOrders: [],
         needFetch: true,
         loading: false,
@@ -506,7 +506,7 @@ export default function reducer(state = defaultState, action) {
                 ...state,
                 sendToExternalSystem: {
                     fromValue: action.payload,
-                    toValue: state.sendToExternalSystem.toValue,
+                    searchValue: state.sendToExternalSystem.searchValue,
                     selectedOrders: state.sendToExternalSystem.selectedOrders,
                     needFetch: state.sendToExternalSystem.needFetch,
                     loading: state.sendToExternalSystem.loading,
@@ -517,7 +517,7 @@ export default function reducer(state = defaultState, action) {
             return {
                 ...state,
                 sendToExternalSystem: {
-                    toValue: action.payload,
+                    searchValue: action.payload,
                     fromValue: state.sendToExternalSystem.fromValue,
                     selectedOrders: state.sendToExternalSystem.selectedOrders,
                     needFetch: state.sendToExternalSystem.needFetch,
@@ -530,11 +530,12 @@ export default function reducer(state = defaultState, action) {
                 ...state,
                 sendToExternalSystem: {
                     selectedOrders: action.payload,
-                    toValue: state.sendToExternalSystem.toValue,
+                    searchValue: state.sendToExternalSystem.searchValue,
                     fromValue: state.sendToExternalSystem.fromValue,
                     needFetch: state.sendToExternalSystem.needFetch,
                     loading: state.sendToExternalSystem.loading,
                     redirect: state.sendToExternalSystem.redirect,
+                    ordersOpen: state.sendToExternalSystem.ordersOpen,
                 },
             };
         case UPDATE_NEED_FETCH:
@@ -543,7 +544,7 @@ export default function reducer(state = defaultState, action) {
                 sendToExternalSystem: {
                     needFetch: action.payload,
                     selectedOrders: state.sendToExternalSystem.selectedOrders,
-                    toValue: state.sendToExternalSystem.toValue,
+                    searchValue: state.sendToExternalSystem.searchValue,
                     fromValue: state.sendToExternalSystem.fromValue,
                     loading: state.sendToExternalSystem.loading,
                     redirect: state.sendToExternalSystem.redirect,
@@ -556,7 +557,7 @@ export default function reducer(state = defaultState, action) {
                     loading: action.payload,
                     needFetch: state.sendToExternalSystem.needFetch,
                     selectedOrders: state.sendToExternalSystem.selectedOrders,
-                    toValue: state.sendToExternalSystem.toValue,
+                    searchValue: state.sendToExternalSystem.searchValue,
                     fromValue: state.sendToExternalSystem.fromValue,
                     redirect: state.sendToExternalSystem.redirect,
 
@@ -570,7 +571,7 @@ export default function reducer(state = defaultState, action) {
                     loading: state.sendToExternalSystem.loading,
                     needFetch: state.sendToExternalSystem.needFetch,
                     selectedOrders: state.sendToExternalSystem.selectedOrders,
-                    toValue: state.sendToExternalSystem.toValue,
+                    searchValue: state.sendToExternalSystem.searchValue,
                     fromValue: state.sendToExternalSystem.fromValue,
                 },
             };
@@ -579,6 +580,14 @@ export default function reducer(state = defaultState, action) {
                 ...state,
                 backEndResponse: {
                     responseOrder: action.payload,
+                },
+            };
+        case UPDATE_ORDERS_OPEN:
+            return {
+                ...state,
+                sendToExternalSystem: {
+                    ...state.sendToExternalSystem,
+                    ordersOpen: action.payload,
                 },
             };
         default:
