@@ -77,7 +77,7 @@ const PickPaymentRecipient = () => {
 
     return (
         <Box className={classes.root}>
-            <Typography variant={"h2"} className={classes.h2}>Velg mottakere</Typography>
+            <Typography variant={"h3"} className={classes.h2}>Velg mottaker</Typography>
             <RecipientList/>
             <form className={classes.container}>
                 <FormControl component="fieldset" className={classes.formControl}>

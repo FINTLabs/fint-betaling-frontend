@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import Paper from '@material-ui/core/Paper';
-import Autosuggest from 'react-autosuggest';
 import {useDispatch, useSelector} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import {Box, makeStyles} from '@material-ui/core';
@@ -15,7 +14,7 @@ import {SEARCH_PAGE_ROWS, SEARCH_PAGE_START} from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
 
-    textField: {},
+    searchField: {width: "100%"},
     root: {
         flex: 1,
         '& .MuiInput-underline:after': {
@@ -48,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         flex: '1',
+        width: "50%",
     },
     recipientSuggestItem: {
         flex: '0 0 25em',
@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
 const ProductSearch = () => {
     const searchValue = useSelector((state) => state.payment.product.searchValue);
     const dispatch = useDispatch();
-    const filteredSuggestions = useSelector((state) => state.payment.product.filteredSuggestions);
     const suggestions = useSelector((state) => state.orderLines.orderLines);
     const activePage = useSelector((state) => state.payment.form.page);
     const productsLengthTemp = useSelector((state) => state.payment.product.productsLength);
@@ -70,29 +69,6 @@ const ProductSearch = () => {
         dispatch(updateProductLength(getProductsLength(searchValue)));
         dispatch(updateProductSuggestions(getSuggestions(searchValue)));
     }, [activePage, searchValue]);
-
-    function renderInputComponent(inputProps) {
-        const {
-            classes, inputRef = () => {
-            }, ref, ...other
-        } = inputProps;
-
-        return (
-            <TextField
-                fullWidth
-                InputProps={{
-                    inputRef: (node) => {
-                        ref(node);
-                        inputRef(node);
-                    },
-                    classes: {
-                        input: classes.input,
-                    },
-                }}
-                {...other}
-            />
-        );
-    }
 
     function getSuggestions(value) {
         const inputValue = value.trim()
@@ -140,32 +116,13 @@ const ProductSearch = () => {
     function getProductsLength(input) {
         const array = [];
         suggestions.filter(suggestion => {
-            if(matchedProduct(suggestion, input)){
+            if (matchedProduct(suggestion, input)) {
                 array.push(suggestion);
-            }return null;
+            }
+            return null;
         });
         return array.length;
     }
-
-
-    function renderSuggestion(suggestion, {query, isHighlighted}) {
-    }
-
-    function getSuggestionValue(suggestion) {
-        return suggestion.description;
-    }
-
-    const handleSuggestionsFetchRequested = ({value}) => {
-        dispatch(updateProductLength(getProductsLength(value)));
-        dispatch(updateProductSuggestions(getSuggestions(value)));
-    };
-
-    const handleSuggestionsClearRequested = () => {
-        if (searchValue < 1) {
-            dispatch(updateSearchPage(SEARCH_PAGE_START));
-            dispatch(updateProductSuggestions(suggestions));
-        }
-    };
 
     function handleSearchValue(event) {
         dispatch(updateSearchPage(SEARCH_PAGE_START));
@@ -175,17 +132,11 @@ const ProductSearch = () => {
     return (
         <Box className={classes.root}>
             <Paper className={classes.container}>
-                <Autosuggest
-                    renderInputComponent={renderInputComponent}
-                    getSuggestionValue={getSuggestionValue}
-                    suggestions={filteredSuggestions}
-                    onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={handleSuggestionsClearRequested}
-                    renderSuggestion={renderSuggestion}
-
+                <TextField
+                    className={classes.searchField}
                     inputProps={{
                         classes,
-                        id: 'react-autosuggest-simple',
+                        id: 'product-search-field',
                         placeholder: `Søk på ${searchPlaceHolder.toLowerCase()}`,
                         value: searchValue,
                         onChange: handleSearchValue,

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import Paper from '@material-ui/core/Paper';
-import Autosuggest from 'react-autosuggest';
 import {useDispatch, useSelector} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import {Box, makeStyles} from '@material-ui/core';
@@ -15,9 +14,9 @@ import RecipientSuggestItem from './recipient_suggest_item';
 
 const useStyles = makeStyles((theme) => ({
 
-    textField: {},
+    searchField: {width: "100%"},
     root: {
-        flex: 1,
+        flex: "1",
         '& .MuiInput-underline:after': {
             content: "none"
         },
@@ -48,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         flex: '1',
+        width: "50%",
     },
     recipientSuggestItem: {
         flexBasis: '40%',
@@ -59,7 +59,6 @@ const RecipientSearch = () => {
     const recipientType = useSelector((state) => state.payment.form.searchBy)
         .toString();
     const dispatch = useDispatch();
-    const filteredSuggestions = useSelector((state) => state.payment.form.filteredSuggestions);
     const groups = useSelector((state) => state.groups.groups);
     const individual = useSelector((state) => state.customers.customers);
     const splitCustomers = useSelector(state => state.customers.namesSplit);
@@ -75,29 +74,6 @@ const RecipientSearch = () => {
         dispatch(updateSuggestionLength(getSuggestionsLength(searchValue)));
         dispatch(updateSuggestions(getSuggestions(searchValue)));
     }, [activePage, searchValue,]);
-
-    function renderInputComponent(inputProps) {
-        const {
-            classes, inputRef = () => {
-            }, ref, ...other
-        } = inputProps;
-
-        return (
-            <TextField
-                fullWidth
-                InputProps={{
-                    inputRef: (node) => {
-                        ref(node);
-                        inputRef(node);
-                    },
-                    classes: {
-                        input: classes.input,
-                    },
-                }}
-                {...other}
-            />
-        );
-    }
 
     function getSuggestions(value) {
         const inputValue = value.trim()
@@ -157,44 +133,19 @@ const RecipientSearch = () => {
         return count;
     }
 
-    function renderSuggestion(suggestion, {query, isHighlighted}) {
-    }
-
-    function getSuggestionValue(suggestion) {
-        return recipientType === GROUP ? suggestion.name : suggestion.name;
-    }
-
-    const handleSuggestionsFetchRequested = ({value}) => {
-        dispatch(updateSuggestionLength(getSuggestionsLength(value)));
-        dispatch(updateSuggestions(getSuggestions(value, activePage)));
-    };
-
-    const handleSuggestionsClearRequested = () => {
-        if (searchValue < 1) {
-            dispatch(updateSearchPage(SEARCH_PAGE_START));
-            dispatch(updateSuggestions(suggestions));
-        }
-    };
-
     function handleSearchValue(event) {
         dispatch(updateSearchPage(SEARCH_PAGE_START));
         dispatch(updateSearchValue(event.target.value));
     }
 
-
     return (
         <Box className={classes.root}>
             <Paper className={classes.container}>
-                <Autosuggest
-                    renderInputComponent={renderInputComponent}
-                    getSuggestionValue={getSuggestionValue}
-                    suggestions={filteredSuggestions}
-                    onSuggestionsFetchRequested={handleSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={handleSuggestionsClearRequested}
-                    renderSuggestion={renderSuggestion}
+                <TextField
+                    className={classes.searchField}
                     inputProps={{
                         classes,
-                        id: 'react-autosuggest-simple',
+                        id: 'recipient-search-field',
                         placeholder: `Søk på ${searchPlaceHolder.toLowerCase()}`,
                         value: searchValue,
                         onChange: handleSearchValue,
