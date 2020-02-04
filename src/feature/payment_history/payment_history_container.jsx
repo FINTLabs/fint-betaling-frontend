@@ -10,7 +10,7 @@ import {CUSTOMER_NAME, ORDER_NUMBER} from '../payment/constants';
 import PaymentSearch from './payment_search';
 import {updateNeedFetch, updatePaymentsSearchBy} from '../../data/redux/actions/payment';
 import EditDialog from './edit_dialog';
-import {fetchPayment} from "../../data/redux/actions/payments";
+import fetchPayment from "../../data/redux/actions/payments";
 import FilterSelect from "./filter_selection";
 
 const useStyles = makeStyles((theme) => ({

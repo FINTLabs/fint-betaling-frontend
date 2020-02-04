@@ -20,7 +20,7 @@ import {
     updateSendOrderResponse, updateSentPayment,
 } from '../../../data/redux/actions/payment';
 import SelectedToExternalList from './selected_to_external_list';
-import {fetchPayment} from '../../../data/redux/actions/payments';
+import fetchPayment from '../../../data/redux/actions/payments';
 import {Redirect} from 'react-router-dom';
 import ClaimRepository from "../../../data/repository/ClaimRepository";
 import Amount from "../utils/amount";
