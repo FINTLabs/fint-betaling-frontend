@@ -5,6 +5,5 @@ exports[`Dashboard container should match the snapshot 1`] = `
   className="MuiBox-root MuiBox-root-3 makeStyles-root-1"
 >
   cardmenu
-  paymentlist
 </div>
 `;

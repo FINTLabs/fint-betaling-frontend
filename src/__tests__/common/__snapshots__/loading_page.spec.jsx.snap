@@ -5,6 +5,7 @@ exports[`Loading page should match snapshot 1`] = `
   className="MuiBox-root MuiBox-root-12 makeStyles-loadingContainer-1"
 >
   <img
+    alt="Vigo IKS logo"
     className="makeStyles-vigoLogo-10"
     src="vigo-logo-no-iks.svg"
     title="Vigo IKS logo"
@@ -14,38 +15,13 @@ exports[`Loading page should match snapshot 1`] = `
   >
     Betaling
   </h5>
-  <div
-    className="MuiCircularProgress-root makeStyles-progress-3 MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
-    role="progressbar"
-    style={
-      Object {
-        "height": 40,
-        "width": 40,
-      }
-    }
-  >
-    <svg
-      className="MuiCircularProgress-svg"
-      viewBox="22 22 44 44"
-    >
-      <circle
-        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
-        cx={44}
-        cy={44}
-        fill="none"
-        r={20.2}
-        strokeWidth={3.6}
-        style={Object {}}
-      />
-    </svg>
-  </div>
   <p
     className="MuiTypography-root makeStyles-loadingText-2 MuiTypography-body1"
   >
-    Loading... NaN%
+    Laster inn data... NaN%
   </p>
   <div
-    className="MuiBox-root MuiBox-root-55 makeStyles-linearProgressBox-4"
+    className="MuiBox-root MuiBox-root-43 makeStyles-linearProgressBox-4"
   >
     <div
       aria-valuenow={NaN}
@@ -60,59 +36,6 @@ exports[`Loading page should match snapshot 1`] = `
           }
         }
       />
-    </div>
-    <div
-      className="MuiFormControl-root makeStyles-formControl-6"
-    >
-      <label
-        className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiFormLabel-filled"
-        data-shrink={true}
-        htmlFor="age-simple"
-      >
-        Velg skole
-      </label>
-      <div
-        className="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl"
-        onClick={[Function]}
-      >
-        <div
-          aria-haspopup="listbox"
-          className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input MuiInputBase-inputSelect"
-          id="select-school"
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          role="button"
-          tabIndex={0}
-        >
-          <span
-            dangerouslySetInnerHTML={
-              Object {
-                "__html": "&#8203;",
-              }
-            }
-          />
-        </div>
-        <input
-          id="school-simple"
-          name="school"
-          onAnimationStart={[Function]}
-          type="hidden"
-          value={Object {}}
-        />
-        <svg
-          aria-hidden="true"
-          className="MuiSvgIcon-root MuiSelect-icon"
-          focusable="false"
-          role="presentation"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M7 10l5 5 5-5z"
-          />
-        </svg>
-      </div>
     </div>
     <ul
       className="MuiList-root MuiList-padding"
