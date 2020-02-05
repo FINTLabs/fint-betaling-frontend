@@ -1,7 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import {Card, makeStyles} from '@material-ui/core';
-import {Link} from 'react-router-dom';
+import { Card, makeStyles } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -51,7 +51,7 @@ const CardMenu = () => {
                     <CardActions>
                         <Link to="opprett-ordre" className={classes.cardLink}>
                             <Button size="small" color="secondary">
-                                <InvoiceAdd className={classes.icon}/>
+                                <InvoiceAdd className={classes.icon} />
                                 Opprett betaling
                             </Button>
                         </Link>
@@ -76,7 +76,7 @@ const CardMenu = () => {
                     <CardActions>
                         <Link to="ordrehistorikk" className={classes.cardLink}>
                             <Button size="small" color="secondary">
-                                <InvoiceHistory className={classes.icon}/>
+                                <InvoiceHistory className={classes.icon} />
                                 Til betalingsoversikt
                             </Button>
                         </Link>

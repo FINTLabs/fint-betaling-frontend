@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import {createMuiTheme, MuiThemeProvider} from '@material-ui/core';
-import {BrowserRouter} from 'react-router-dom';
-import {Provider} from 'react-redux';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import Scaffold from './common/scaffold/scaffold';
 import store from './data/redux/store';
 
@@ -27,7 +27,7 @@ function App() {
         <MuiThemeProvider theme={theme}>
             <Provider store={store}>
                 <BrowserRouter basename="/">
-                    <Scaffold/>
+                    <Scaffold />
                 </BrowserRouter>
             </Provider>
         </MuiThemeProvider>

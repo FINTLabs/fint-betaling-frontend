@@ -28,9 +28,11 @@
       2,
       {
         "code": 120,
-        "tabWidth": 4,
         "ignoreUrls": true
       }
-    ]
+    ],
+    "indent": ["error", 4],
+    "react/jsx-indent": ["error", 4],
+    "react/jsx-indent-props": ["error", 4]
   }
 }
