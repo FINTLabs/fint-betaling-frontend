@@ -13,9 +13,9 @@ const Routes = () => (
         <Route exact path="/" component={DashboardContainer} />
         <Route exact path="/betaling/ny" component={PaymentContainer} />
         <Route exact path="/betaling/historikk" component={PaymentHistoryContainer} />
+        <Route exact path="/betaling/send" component={SendToInvoiceContainer} />
+        <Route exact path="/betaling/sendt" component={SentToExternalContainer} />
         <Route exact path="/logg-ut" component={LogOutContainer} />
-        <Route exact path="/send-ordrer" component={SendToInvoiceContainer} />
-        <Route exact path="/ordre-sendt" component={SentToExternalContainer} />
 
     </div>
 

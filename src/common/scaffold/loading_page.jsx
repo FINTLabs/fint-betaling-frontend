@@ -1,9 +1,11 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import {Box, LinearProgress, ListItemIcon, ListItemText, makeStyles,} from '@material-ui/core';
+import {
+    Box, LinearProgress, ListItemIcon, ListItemText, makeStyles,
+} from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import LoadingIcon from '@material-ui/icons/Remove';
 import LoadedIcon from '@material-ui/icons/Done';
 import VigoLogo from '../../assets/vigo-logo-no-iks.svg';
@@ -56,13 +58,13 @@ const LoadingPage = (props) => {
     const orderLines = useSelector((state) => state.orderLines);
     const payments = useSelector((state) => state.payments);
     const classes = useStyles();
-    const {progress} = props;
+    const { progress } = props;
     const linearProgressValue = (progress * 100) / 8;
     const loadingMessage = linearProgressValue !== 100 ? `Laster inn data... ${linearProgressValue}%` : 'Skoledata ferdig lastet. Venter på ditt skolevalg';
 
     return (
         <Box className={classes.loadingContainer}>
-            <img src={VigoLogo} title="Vigo IKS logo" className={classes.vigoLogo} alt={"Vigo IKS logo"}/>
+            <img src={VigoLogo} title="Vigo IKS logo" className={classes.vigoLogo} alt="Vigo IKS logo" />
             <Typography variant="h5" className={classes.loadingText}>
                 Betaling
             </Typography>
@@ -82,8 +84,8 @@ const LoadingPage = (props) => {
                             Laster elever
                         </ListItemText>
                         <ListItemIcon>
-                            {!customers.loaded ? <LoadingIcon className={classes.loadingIcon}/>
-                                : <LoadedIcon className={classes.loadedIcon}/>}
+                            {!customers.loaded ? <LoadingIcon className={classes.loadingIcon} />
+                                : <LoadedIcon className={classes.loadedIcon} />}
                         </ListItemIcon>
                     </ListItem>
 
@@ -92,8 +94,8 @@ const LoadingPage = (props) => {
                             Laster ansatte
                         </ListItemText>
                         <ListItemIcon>
-                            {!employers.loaded ? <LoadingIcon className={classes.loadingIcon}/>
-                                : <LoadedIcon className={classes.loadedIcon}/>}
+                            {!employers.loaded ? <LoadingIcon className={classes.loadingIcon} />
+                                : <LoadedIcon className={classes.loadedIcon} />}
                         </ListItemIcon>
                     </ListItem>
 
@@ -102,8 +104,8 @@ const LoadingPage = (props) => {
                             Laster basisgrupper og undervisningsgrupper
                         </ListItemText>
                         <ListItemIcon>
-                            {!groups.loaded ? <LoadingIcon className={classes.loadingIcon}/>
-                                : <LoadedIcon className={classes.loadedIcon}/>}
+                            {!groups.loaded ? <LoadingIcon className={classes.loadingIcon} />
+                                : <LoadedIcon className={classes.loadedIcon} />}
                         </ListItemIcon>
                     </ListItem>
 
@@ -112,8 +114,8 @@ const LoadingPage = (props) => {
                             Laster personlig data
                         </ListItemText>
                         <ListItemIcon>
-                            {!me.loaded ? <LoadingIcon className={classes.loadingIcon}/>
-                                : <LoadedIcon className={classes.loadedIcon}/>}
+                            {!me.loaded ? <LoadingIcon className={classes.loadingIcon} />
+                                : <LoadedIcon className={classes.loadedIcon} />}
                         </ListItemIcon>
                     </ListItem>
 
@@ -122,8 +124,8 @@ const LoadingPage = (props) => {
                             Laster MVA-satser
                         </ListItemText>
                         <ListItemIcon>
-                            {!mva.loaded ? <LoadingIcon className={classes.loadingIcon}/>
-                                : <LoadedIcon className={classes.loadedIcon}/>}
+                            {!mva.loaded ? <LoadingIcon className={classes.loadingIcon} />
+                                : <LoadedIcon className={classes.loadedIcon} />}
                         </ListItemIcon>
                     </ListItem>
 
@@ -132,8 +134,8 @@ const LoadingPage = (props) => {
                             Laster forfallsdatoer
                         </ListItemText>
                         <ListItemIcon>
-                            {!dates.loaded ? <LoadingIcon className={classes.loadingIcon}/>
-                                : <LoadedIcon className={classes.loadedIcon}/>}
+                            {!dates.loaded ? <LoadingIcon className={classes.loadingIcon} />
+                                : <LoadedIcon className={classes.loadedIcon} />}
                         </ListItemIcon>
                     </ListItem>
                     <ListItem>
@@ -141,8 +143,8 @@ const LoadingPage = (props) => {
                             Laster produkter
                         </ListItemText>
                         <ListItemIcon>
-                            {!orderLines.loaded ? <LoadingIcon className={classes.loadingIcon}/>
-                                : <LoadedIcon className={classes.loadedIcon}/>}
+                            {!orderLines.loaded ? <LoadingIcon className={classes.loadingIcon} />
+                                : <LoadedIcon className={classes.loadedIcon} />}
                         </ListItemIcon>
                     </ListItem>
 
@@ -151,8 +153,8 @@ const LoadingPage = (props) => {
                             Laster betalingshistorikk
                         </ListItemText>
                         <ListItemIcon>
-                            {!payments.loaded ? <LoadingIcon className={classes.loadingIcon}/>
-                                : <LoadedIcon className={classes.loadedIcon}/>}
+                            {!payments.loaded ? <LoadingIcon className={classes.loadingIcon} />
+                                : <LoadedIcon className={classes.loadedIcon} />}
                         </ListItemIcon>
                     </ListItem>
                 </List>

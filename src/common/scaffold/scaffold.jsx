@@ -12,14 +12,12 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import InvoiceHistory from '@material-ui/icons/History';
 import NewInvoice from '@material-ui/icons/NoteAdd';
 import LogOut from '@material-ui/icons/ExitToApp';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import VigoLogo from '../../assets/vigo-logo-no-iks.svg';
 import Routes from './routes';
@@ -41,6 +39,7 @@ import {
     updateCustomersLoaded,
     updateGroupsLoaded,
 } from '../../data/redux/actions/payment';
+import ListItemLink from './list-item-link';
 
 
 const drawerWidth = 240;
@@ -65,6 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButton: {
         marginRight: theme.spacing(2),
+        marginLeft: theme.spacing(1.5),
     },
     hide: {
         display: 'none',
@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(0, 1),
         ...theme.mixins.toolbar,
         justifyContent: 'flex-end',
+        height: 68,
     },
     content: {
         flexGrow: 1,
@@ -101,14 +102,12 @@ const useStyles = makeStyles((theme) => ({
     },
     vigoLogo: {
         height: '35px',
+        marginLeft: theme.spacing(2),
         paddingRight: theme.spacing(1),
     },
     menuLink: {
         textDecoration: 'none',
         color: 'rgba(0, 0, 0, 0.87)',
-    },
-    organisationButton: {
-        background: 'red',
     },
 }));
 
@@ -227,6 +226,7 @@ export default function Scaffold() {
     ) {
         return (<LoadingPage progress={amountFinishedLoaded} />);
     }
+
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -236,7 +236,7 @@ export default function Scaffold() {
                     [classes.appBarShift]: open,
                 })}
             >
-                <Toolbar>
+                <Toolbar disableGutters>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -248,9 +248,9 @@ export default function Scaffold() {
                     </IconButton>
                     <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo} />
                     <Typography variant="h6" noWrap>
-                            FINT Betaling
+                        FINT Betaling
                     </Typography>
-                    <OrganisationSelector className={classes.organisationButton} />
+                    <OrganisationSelector />
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -269,49 +269,40 @@ export default function Scaffold() {
                 </div>
                 <Divider />
                 <List>
-                    <Link to="/" className={classes.menuLink}>
-                        <ListItem button>
-                            <ListItemIcon><DashboardIcon /></ListItemIcon>
-                            <ListItemText primary="Dashboard" />
-                        </ListItem>
-                    </Link>
+                    <ListItemLink href="/">
+                        <ListItemIcon>
+                            <DashboardIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Dashboard" />
+                    </ListItemLink>
+                    <ListItemLink
+                        href="/betaling/ny"
+                        onClick={() => {
+                            dispatch(initializePayment());
+                        }}
+                    >
+                        <ListItemIcon><NewInvoice /></ListItemIcon>
+                        <ListItemText primary="Opprett ordre" />
+                    </ListItemLink>
+
+                    <ListItemLink
+                        href="/betaling/send"
+                        onClick={() => {
+                            dispatch(initializePayment());
+                        }}
+                    >
+                        <ListItemIcon><LogOut /></ListItemIcon>
+                        <ListItemText primary="Send ordre" />
+                    </ListItemLink>
+                    <ListItemLink href="/betaling/historikk">
+                        <ListItemIcon><InvoiceHistory /></ListItemIcon>
+                        <ListItemText primary="Ordrehistorikk" />
+                    </ListItemLink>
                     <Divider />
-                    <Link
-                        to="/opprett-ordre"
-                        onClick={() => {
-                            dispatch(initializePayment());
-                        }}
-                        className={classes.menuLink}
-                    >
-                        <ListItem button>
-                            <ListItemIcon><NewInvoice /></ListItemIcon>
-                            <ListItemText primary="Opprett ordre" />
-                        </ListItem>
-                    </Link>
-                    <Link
-                        to="/send-ordrer"
-                        onClick={() => {
-                            dispatch(initializePayment());
-                        }}
-                        className={classes.menuLink}
-                    >
-                        <ListItem button>
-                            <ListItemIcon><LogOut /></ListItemIcon>
-                            <ListItemText primary="Send ordre" />
-                        </ListItem>
-                    </Link>
-                    <Link to="/ordrehistorikk" className={classes.menuLink}>
-                        <ListItem button>
-                            <ListItemIcon><InvoiceHistory /></ListItemIcon>
-                            <ListItemText primary="Ordrehistorikk" />
-                        </ListItem>
-                    </Link>
-                    <Link to="/logg-ut" className={classes.menuLink}>
-                        <ListItem button>
-                            <ListItemIcon><LogOut /></ListItemIcon>
-                            <ListItemText primary="Logg ut" />
-                        </ListItem>
-                    </Link>
+                    <ListItemLink href="/logg-ut">
+                        <ListItemIcon><LogOut /></ListItemIcon>
+                        <ListItemText primary="Logg ut" />
+                    </ListItemLink>
                 </List>
             </Drawer>
             <main
