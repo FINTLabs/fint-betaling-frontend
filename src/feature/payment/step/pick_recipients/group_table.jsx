@@ -8,20 +8,20 @@ import parse from 'autosuggest-highlight/parse';
 import TableBody from '@material-ui/core/TableBody';
 import Checkbox from '@material-ui/core/Checkbox';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import {Collapse, makeStyles} from '@material-ui/core';
-import {useDispatch, useSelector} from 'react-redux';
+import { Collapse, makeStyles } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 import TablePaginationActions from '@material-ui/core/TablePagination/TablePaginationActions';
 import TablePagination from '@material-ui/core/TablePagination';
-import {updateGroupContentOpen, updateRecipients, updateSearchPage} from '../../../../data/redux/actions/payment';
-import {SEARCH_PAGE_ROWS} from '../../constants';
+import { updateGroupContentOpen, updateRecipients, updateSearchPage } from '../../../../data/redux/actions/payment';
+import { SEARCH_PAGE_ROWS } from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
     table: {
         overflow: 'auto',
     },
     individualTable: {
-        backgroundColor: "#FFF",
-        minWidth: "100%",
+        backgroundColor: '#FFF',
+        minWidth: '100%',
     },
     tableCell: {
         overflow: 'auto',
@@ -60,17 +60,17 @@ const GroupTable = () => {
                 rowsPerPage={rowsPerPage}
                 page={activePage}
                 SelectProps={{
-                    inputProps: {'aria-label': 'rows per page'},
+                    inputProps: { 'aria-label': 'rows per page' },
                     native: true,
                 }}
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
                 ActionsComponent={TablePaginationActions}
             />
-        ) : <TableCell/>;
+        ) : <TableCell />;
 
     function handleIndividualCheck(event) {
-        const newArray = {...recipients};
+        const newArray = { ...recipients };
         newArray[event.target.value] = {
             checked: event.target.checked,
             name: event.target.name,
@@ -79,7 +79,7 @@ const GroupTable = () => {
     }
 
     function handleGroupChange(event, individualList) {
-        const newArray = {...recipients};
+        const newArray = { ...recipients };
         for (let customer = 0; customer < individualList.length; customer++) {
             const customerNumber = individualList[customer].id;
             newArray[customerNumber] = {
@@ -106,7 +106,7 @@ const GroupTable = () => {
     }
 
     function handleGroupOpenClick(recipient) {
-        const newArray = {...groupContentOpen};
+        const newArray = { ...groupContentOpen };
         newArray[recipient] = !groupContentOpen[recipient];
         dispatch(updateGroupContentOpen(newArray));
     }
@@ -146,16 +146,18 @@ const GroupTable = () => {
                         const parts = parse(recipient, matches);
                         return (
                             <TableBody key={suggestion.name}>
-                                <TableRow hover={!groupContentOpen[recipient]}
-                                          className={groupContentOpen[recipient] ? classes.rowSelected : null}>
+                                <TableRow
+                                    hover={!groupContentOpen[recipient]}
+                                    className={groupContentOpen[recipient] ? classes.rowSelected : null}
+                                >
                                     <TableCell align="left" className={classes.tableCell}>
                                         {parts.map((part) => (
                                             <span
                                                 key={part.text}
-                                                style={{fontWeight: part.highlight ? 500 : 400}}
+                                                style={{ fontWeight: part.highlight ? 500 : 400 }}
                                             >
-                        {part.text}
-                      </span>
+                                                {part.text}
+                                            </span>
                                         ))}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
@@ -174,7 +176,7 @@ const GroupTable = () => {
                                         className={classes.tableCellArrow}
                                         onClick={() => handleGroupOpenClick(recipient)}
                                     >
-                                        <ArrowDropDown/>
+                                        <ArrowDropDown />
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
@@ -186,7 +188,7 @@ const GroupTable = () => {
                                             style={{
                                                 display: 'block',
                                                 float: 'bottom',
-                                                minWidth: "max-content",
+                                                minWidth: 'max-content',
                                             }}
                                         >
                                             <Table className={classes.individualTable}>

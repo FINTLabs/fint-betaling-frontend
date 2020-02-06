@@ -1,10 +1,10 @@
 import React from 'react';
-import {makeStyles, Typography} from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import RecipientSearch from './recipient_search';
@@ -15,36 +15,28 @@ import {
     updateStep,
     updateSuggestions,
 } from '../../../../data/redux/actions/payment';
-import {GROUP, INDIVIDUAL, SEARCH_PAGE_START, STEP_PICK_PRODUCTS} from '../../constants';
+import {
+    GROUP, INDIVIDUAL, SEARCH_PAGE_START, STEP_PICK_PRODUCTS,
+} from '../../constants';
 import RecipientList from '../recipient_list';
 
 const useStyles = makeStyles((theme) => ({
-    root: {},
     container: {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
     },
-    h2:{
-      textAlign: "center",
+    h2: {
+        textAlign: 'center',
     },
     formControl: {
-        minWidth: "70%",
-        maxWidth: "70%",
+        minWidth: '70%',
+        maxWidth: '70%',
         margin: theme.spacing(3),
     },
     extendedIcon: {
         marginRight: theme.spacing(1),
     },
-    confirmButton: {
-        color: theme.palette.secondary.contrastText,
-        '&:enabled': {
-            backgroundColor: theme.palette.secondary.main,
-        },
-        '&:disabled': {},
-        margin: theme.spacing(1),
-    },
-    recipientSearch: {},
 }));
 
 const PickPaymentRecipient = () => {
@@ -76,9 +68,9 @@ const PickPaymentRecipient = () => {
     }
 
     return (
-        <Box className={classes.root}>
-            <Typography variant={"h3"} className={classes.h2}>Velg mottaker</Typography>
-            <RecipientList/>
+        <Box mt={4}>
+            <Typography variant="h3" className={classes.h2}>Velg mottaker</Typography>
+            <RecipientList />
             <form className={classes.container}>
                 <FormControl component="fieldset" className={classes.formControl}>
                     <RadioGroup
@@ -89,24 +81,26 @@ const PickPaymentRecipient = () => {
                     >
                         <FormControlLabel
                             value={GROUP.toString()}
-                            control={<Radio/>}
+                            control={<Radio />}
                             label="Gruppe"
                         />
                         <FormControlLabel
                             value={INDIVIDUAL.toString()}
-                            control={<Radio/>}
+                            control={<Radio />}
                             label="Person"
                         />
                     </RadioGroup>
-                    <RecipientSearch/>
-                    <Button
-                        disabled={confirmButtonDisabled}
-                        variant="outlined"
-                        className={classes.confirmButton}
-                        onClick={handleConfirmButtonClick}
-                    >
-                        Gå videre
-                    </Button>
+                    <RecipientSearch />
+                    <Box mt={2}>
+                        <Button
+                            disabled={confirmButtonDisabled}
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleConfirmButtonClick}
+                        >
+                            Gå videre
+                        </Button>
+                    </Box>
                 </FormControl>
             </form>
         </Box>

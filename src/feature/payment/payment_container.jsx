@@ -1,6 +1,6 @@
 import React from 'react';
-import {Box, makeStyles} from '@material-ui/core';
-import {useSelector} from 'react-redux';
+import { Box, makeStyles } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import * as Integer from 'lodash';
 import PaymentStepper from './payment_stepper';
 import PickPaymentRecipient from './step/pick_recipients/pick_recipient';
@@ -20,18 +20,18 @@ const PaymentContainer = () => {
 
     let content;
     if (Integer.parseInt(step.toString()) === 0) {
-        content = <PickPaymentRecipient/>;
+        content = <PickPaymentRecipient />;
     } else if (Integer.parseInt(step.toString()) === 1) {
-        content = <PickProducts/>;
+        content = <PickProducts />;
     } else if (Integer.parseInt(step.toString()) === 2) {
-        content = <ConfirmSend/>;
+        content = <ConfirmSend />;
     } else if (Integer.parseInt(step.toString()) === 3) {
-        content = <PaymentSaved/>;
+        content = <PaymentSaved />;
     }
 
     return (
         <Box className={classes.root}>
-            <PaymentStepper/>
+            <PaymentStepper />
             {content}
         </Box>
     );

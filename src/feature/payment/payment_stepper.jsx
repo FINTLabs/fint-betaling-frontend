@@ -1,9 +1,9 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -43,7 +43,7 @@ export default function PaymentStepper() {
     return (
         <div>
             <Stepper className={classes.stepper} activeStep={step}>
-                {steps.map((label, index) => {
+                {steps.map((label) => {
                     const stepProps = {};
                     const labelProps = {};
                     return (

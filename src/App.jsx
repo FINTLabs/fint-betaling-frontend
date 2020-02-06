@@ -20,6 +20,30 @@ const theme = createMuiTheme({
     status: {
         danger: 'orange',
     },
+    overrides: {
+        MuiOutlinedInput: {
+            root: {
+                '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
+                    borderColor: '#8cc640',
+                    // Reset on touch devices, it doesn't add specificity
+                    '@media (hover: none)': {
+                        borderColor: 'rgba(0, 0, 0, 0.23)',
+                    },
+                },
+                '&$focused $notchedOutline': {
+                    borderColor: '#8cc640',
+                    borderWidth: 1,
+                },
+            },
+        },
+        MuiFormLabel: {
+            root: {
+                '&$focused': {
+                    color: '#8cc640',
+                },
+            },
+        },
+    },
 });
 
 function App() {
@@ -27,7 +51,7 @@ function App() {
         <MuiThemeProvider theme={theme}>
             <Provider store={store}>
                 <BrowserRouter basename="/">
-                    <Scaffold />
+                    <Scaffold/>
                 </BrowserRouter>
             </Provider>
         </MuiThemeProvider>
