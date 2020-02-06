@@ -7,12 +7,12 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import Checkbox from '@material-ui/core/Checkbox';
 import Table from '@material-ui/core/Table';
-import {makeStyles} from '@material-ui/core';
-import {useDispatch, useSelector} from 'react-redux';
+import { makeStyles } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 import TablePagination from '@material-ui/core/TablePagination';
 import TablePaginationActions from '@material-ui/core/TablePagination/TablePaginationActions';
-import {updateRecipients, updateSearchPage} from '../../../../data/redux/actions/payment';
-import {SEARCH_PAGE_ROWS} from '../../constants';
+import { updateRecipients, updateSearchPage } from '../../../../data/redux/actions/payment';
+import { SEARCH_PAGE_ROWS } from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -25,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
         wordWrap: 'break-word',
     },
     tableCellName: {
-        minWidth: "30%",
-        maxWidth: "30%",
+        minWidth: '30%',
+        maxWidth: '30%',
         overflow: 'auto',
         wordWrap: 'break-word',
     },
     tableCellEmail: {
-        minWidth: "30%",
-        maxWidth: "30%",
+        minWidth: '30%',
+        maxWidth: '30%',
         overflow: 'auto',
         wordWrap: 'break-word',
     },
@@ -64,7 +64,7 @@ const IndividualTable = () => {
                     rowsPerPage={rowsPerPage}
                     page={activePage}
                     SelectProps={{
-                        inputProps: {'aria-label': 'rows per page'},
+                        inputProps: { 'aria-label': 'rows per page' },
                         native: true,
                     }}
                     onChangePage={handleChangePage}
@@ -75,7 +75,7 @@ const IndividualTable = () => {
         ) : null;
 
     function handleIndividualCheck(event, email, cellPhoneNumber, addressLine, addressZip, addressPlace) {
-        const newArray = {...recipients};
+        const newArray = { ...recipients };
         newArray[event.target.value] = {
             checked: event.target.checked,
             name: event.target.name,
@@ -118,9 +118,9 @@ const IndividualTable = () => {
                                 <TableRow hover key={suggestion.id}>
                                     <TableCell align="left" className={classes.tableCellName}>
                                         {parts.map((part) => (
-                                            <span key={part.text} style={{fontWeight: part.highlight ? 500 : 400}}>
-                        {part.text}
-                      </span>
+                                            <span key={part.text} style={{ fontWeight: part.highlight ? 500 : 400 }}>
+                                                {part.text}
+                                            </span>
                                         ))}
                                     </TableCell>
                                     <TableCell align="left" className={classes.tableCellEmail}>
