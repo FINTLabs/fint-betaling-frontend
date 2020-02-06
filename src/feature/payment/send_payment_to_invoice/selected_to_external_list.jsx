@@ -1,10 +1,10 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Box, makeStyles, Typography} from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, makeStyles, Typography } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
-import {updateRecipientListOpen, updateSelectedOrders} from '../../../data/redux/actions/payment';
-import {countChecked} from '../utils/list_utils';
+import { updateRecipientListOpen, updateSelectedOrders } from '../../../data/redux/actions/payment';
+import { countChecked } from '../utils/list_utils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,8 +60,8 @@ const SelectedToExternalList = () => {
     }
 
     const chips = count <= 10
-        ? selectedOrderListKeys.filter(key => selectedOrders[key].checked).map(key => {
-            return (
+        ? selectedOrderListKeys.filter((key) => selectedOrders[key].checked)
+            .map((key) => (
                 <Chip
                     size="small"
                     key={key}
@@ -70,11 +70,11 @@ const SelectedToExternalList = () => {
                     label={key}
                     className={classes.chip}
                 />
-            );
-        }) : (
+            )) : (
             <div>
                 {selectedOrderListKeys
-                    .filter(key => selectedOrders[key].checked).map(key => {
+                    .filter((key) => selectedOrders[key].checked)
+                    .map((key) => {
                         countChipsFirst += 1;
                         if (countChipsFirst <= 10) {
                             return (
@@ -87,13 +87,15 @@ const SelectedToExternalList = () => {
                                     className={classes.chip}
                                 />
                             );
-                        } else return null;
+                        }
+                        return null;
                     })}
                 {!openCollapse
                     ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis flere</Button>
                     : <div/>}
                 {openCollapse ? selectedOrderListKeys
-                    .filter(key => selectedOrders[key].checked).map(key => {
+                    .filter((key) => selectedOrders[key].checked)
+                    .map((key) => {
                         countChipsSecond += 1;
                         if (countChipsSecond > 10) {
                             return (
@@ -106,7 +108,8 @@ const SelectedToExternalList = () => {
                                     className={classes.chip}
                                 />
                             );
-                        } else return null;
+                        }
+                        return null;
                     }) : <div/>}
                 {openCollapse
                     ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis færre</Button>
@@ -116,8 +119,8 @@ const SelectedToExternalList = () => {
 
 
     function handleDelete(key) {
-        const newArray = {...selectedOrders};
-        newArray[key] = {checked: false};
+        const newArray = { ...selectedOrders };
+        newArray[key] = { checked: false };
         dispatch(updateSelectedOrders(newArray));
     }
 

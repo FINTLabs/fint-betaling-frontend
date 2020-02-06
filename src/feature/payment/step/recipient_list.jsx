@@ -1,22 +1,13 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Chip from '@material-ui/core/Chip';
-import {Box, makeStyles, Typography} from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import {updateRecipientListOpen, updateRecipients, updateStep} from '../../../data/redux/actions/payment';
-import {countChecked} from '../utils/list_utils';
-import {STEP_PICK_RECIPIENTS} from '../constants';
+import { updateRecipientListOpen, updateRecipients, updateStep } from '../../../data/redux/actions/payment';
+import { countChecked } from '../utils/list_utils';
+import { STEP_PICK_RECIPIENTS } from '../constants';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexWrap: 'wrap',
-        padding: theme.spacing(0.5),
-        flexDirection: 'column',
-        alignContent: 'center',
-        textAlign: 'center',
-    },
     chipBox: {
         flexDirection: 'row',
         textAlign: 'start',
@@ -61,8 +52,8 @@ const RecipientList = () => {
     }
 
     const chips = count <= 5
-        ? recipientListKeys.filter(key => recipientList[key].checked).map(key => {
-            return (
+        ? recipientListKeys.filter((key) => recipientList[key].checked)
+            .map((key) => (
                 <Chip
                     size="small"
                     key={key}
@@ -71,36 +62,13 @@ const RecipientList = () => {
                     label={recipientList[key].name}
                     className={classes.chip}
                 />
-            );
-        }) : (
+            )) : (
             <div>
                 {recipientListKeys
-                    .filter(key => recipientList[key].checked).map(key => {
+                    .filter((key) => recipientList[key].checked)
+                    .map((key) => {
                         countChipsFirst += 1;
-                        if (countChipsFirst <= 5){
-                        return (
-                            <Chip
-                                size="small"
-                                key={key}
-                                value={key}
-                                onDelete={() => handleDelete(key, recipientList[key].name)}
-                                label={recipientList[key].name}
-                                className={classes.chip}
-                            />
-                        );
-                        }else return null;
-                    })
-                }
-                {!openCollapse ? (
-                    <Button size={"small"} className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
-                        Vis alle
-                        mottakere
-                    </Button>
-                ) : <div/>}
-                {openCollapse ? recipientListKeys
-                    .filter(key => recipientList[key].checked).map(key => {
-                        countChipsSecond +=1;
-                    if (countChipsSecond >5){
+                        if (countChipsFirst <= 5) {
                             return (
                                 <Chip
                                     size="small"
@@ -111,10 +79,35 @@ const RecipientList = () => {
                                     className={classes.chip}
                                 />
                             );
-                    }else return null;
+                        }
+                        return null;
+                    })}
+                {!openCollapse ? (
+                    <Button size="small" className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
+                        Vis alle
+                        mottakere
+                    </Button>
+                ) : <div/>}
+                {openCollapse ? recipientListKeys
+                    .filter((key) => recipientList[key].checked)
+                    .map((key) => {
+                        countChipsSecond += 1;
+                        if (countChipsSecond > 5) {
+                            return (
+                                <Chip
+                                    size="small"
+                                    key={key}
+                                    value={key}
+                                    onDelete={() => handleDelete(key, recipientList[key].name)}
+                                    label={recipientList[key].name}
+                                    className={classes.chip}
+                                />
+                            );
+                        }
+                        return null;
                     }) : <div/>}
                 {openCollapse ? (
-                    <Button size={"small"} className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
+                    <Button size="small" className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
                         Vis færre
                         mottakere
                     </Button>
@@ -127,7 +120,7 @@ const RecipientList = () => {
         if (countChecked(recipientList) < 2) {
             dispatch(updateStep(STEP_PICK_RECIPIENTS));
         }
-        const newArray = {...recipientList};
+        const newArray = { ...recipientList };
         newArray[key] = {
             checked: false,
             name: label,
@@ -137,15 +130,24 @@ const RecipientList = () => {
 
     if (recipientList && Object.keys(recipientList).length > 0) {
         return (
-            <div className={classes.root}>
-                {recipientHeaderText}
-                <Box className={classes.chipBox}>
-                    {
-                        chips
-                    }
+            <Box
+                display="flex"
+                justifyContent="center"
+                p={0.5}
+                flexDirection="column"
+                alignItems="center"
+                flexWrap="flex"
+                mt={2}
+            >
+                <Typography variant="h6">Mine mottakere:</Typography>
+                <Box display="flex" justifyContent="center" m={1}>
+                    {chips}
                 </Box>
-                {recipientCountText}
-            </div>
+                <Typography>
+                    Antall:
+                    {recipientCounted}
+                </Typography>
+            </Box>
         );
     }
     return <div/>;
