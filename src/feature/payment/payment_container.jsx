@@ -3,7 +3,7 @@ import { Box, makeStyles } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import * as Integer from 'lodash';
 import PaymentStepper from './payment_stepper';
-import PickPaymentRecipient from './step/pick_recipients/pick_recipient';
+import PickPaymentRecipient from './step/pick_recipients/pick-recipient';
 import PickProducts from './step/pick_product/pick_products';
 import ConfirmSend from './step/confirm_send/confirm_send';
 import PaymentSaved from './step/payment_saved/payment_saved';

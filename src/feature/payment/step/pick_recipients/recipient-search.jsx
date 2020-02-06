@@ -9,7 +9,7 @@ import {
     updateSuggestions,
 } from '../../../../data/redux/actions/payment';
 import { GROUP, SEARCH_PAGE_ROWS, SEARCH_PAGE_START } from '../../constants';
-import RecipientSuggestItem from './recipient_suggest_item';
+import RecipientSuggestItem from './recipient-suggest-item';
 
 const RecipientSearch = () => {
     const searchValue = useSelector((state) => state.payment.form.searchValue);

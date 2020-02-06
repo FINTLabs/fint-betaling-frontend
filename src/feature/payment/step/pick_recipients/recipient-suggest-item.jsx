@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { GROUP } from '../../constants';
-import GroupTable from './group_table';
-import IndividualTable from './individual_table';
+import GroupTable from './group-table';
+import IndividualTable from './individual-table';
 
 const RecipientSuggestItem = () => {
     const recipientType = useSelector((state) => state.payment.form.searchBy)

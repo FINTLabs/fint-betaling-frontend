@@ -26,7 +26,7 @@ const Pagination = ({
             ActionsComponent={TablePaginationActions}
             component={Box}
         />
-    ) : <Box/>);
+    ) : <Box />);
 
 Pagination.propTypes = {
     suggestionsLength: PropTypes.number.isRequired,

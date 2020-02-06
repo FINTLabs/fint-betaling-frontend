@@ -7,7 +7,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import RecipientSearch from './recipient_search';
+import RecipientSearch from './recipient-search';
 import {
     updateSearchBy,
     updateSearchPage,
