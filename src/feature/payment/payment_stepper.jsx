@@ -4,6 +4,7 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import { useSelector } from 'react-redux';
+import { Box } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: theme.spacing(1),
     },
     stepper: {
-        width: '80%',
+        //width: '80%',
         margin: 'auto',
     },
 
@@ -41,7 +42,7 @@ export default function PaymentStepper() {
     const steps = getSteps();
 
     return (
-        <div>
+        <Box width={1}>
             <Stepper className={classes.stepper} activeStep={step}>
                 {steps.map((label) => {
                     const stepProps = {};
@@ -66,6 +67,6 @@ export default function PaymentStepper() {
 
             </Stepper>
 
-        </div>
+        </Box>
     );
 }

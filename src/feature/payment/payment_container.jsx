@@ -18,21 +18,26 @@ const PaymentContainer = () => {
     const classes = useStyles();
     const step = useSelector((state) => state.payment.form.step);
 
-    let content;
-    if (Integer.parseInt(step.toString()) === 0) {
-        content = <PickPaymentRecipient />;
-    } else if (Integer.parseInt(step.toString()) === 1) {
-        content = <PickProducts />;
-    } else if (Integer.parseInt(step.toString()) === 2) {
-        content = <ConfirmSend />;
-    } else if (Integer.parseInt(step.toString()) === 3) {
-        content = <PaymentSaved />;
+    function getStep() {
+        if (Integer.parseInt(step.toString()) === 0) {
+            return <PickPaymentRecipient />;
+        }
+        if (Integer.parseInt(step.toString()) === 1) {
+            return <PickProducts />;
+        }
+        if (Integer.parseInt(step.toString()) === 2) {
+            return <ConfirmSend />;
+        }
+        if (Integer.parseInt(step.toString()) === 3) {
+            return <PaymentSaved />;
+        }
+        return <Box />;
     }
 
     return (
-        <Box className={classes.root}>
+        <Box className={classes.root} width="75%" display="flex" flexDirection="column" alignItems="center">
             <PaymentStepper />
-            {content}
+            {getStep()}
         </Box>
     );
 };

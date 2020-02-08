@@ -20,22 +20,9 @@ import {
 } from '../../constants';
 import RecipientChipList from '../recipient-chip-list';
 
-const useStyles = makeStyles((theme) => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-    },
+const useStyles = makeStyles(() => ({
     h2: {
         textAlign: 'center',
-    },
-    formControl: {
-        minWidth: '70%',
-        maxWidth: '70%',
-        margin: theme.spacing(3),
-    },
-    extendedIcon: {
-        marginRight: theme.spacing(1),
     },
 }));
 
@@ -47,12 +34,8 @@ const PickPaymentRecipient = () => {
     const individual = useSelector((state) => state.customers.customers);
     const recipients = useSelector((state) => state.payment.payment.recipients);
 
-    const keys = Object.keys(recipients);
-    let confirmButtonDisabled = true;
-    for (let recipientKeyCounter = 0; recipientKeyCounter < keys.length; recipientKeyCounter++) {
-        if (recipients[keys[recipientKeyCounter]].checked === true) {
-            confirmButtonDisabled = false;
-        }
+    function isConfirmButtonDisabled() {
+        return Object.keys(recipients).filter((key) => recipients[key].checked).length === 0;
     }
 
     function handleSearchBy(event) {
@@ -68,11 +51,11 @@ const PickPaymentRecipient = () => {
     }
 
     return (
-        <Box mt={4}>
+        <Box width="90%" mt={4}>
             <Typography variant="h3" className={classes.h2}>Velg mottaker</Typography>
             <RecipientChipList />
-            <form className={classes.container}>
-                <FormControl component="fieldset" className={classes.formControl}>
+            <Box mt={4}>
+                <FormControl component="fieldset" fullWidth>
                     <RadioGroup
                         aria-label="recipientType"
                         name="recipientType"
@@ -93,7 +76,7 @@ const PickPaymentRecipient = () => {
                     <RecipientSearch />
                     <Box mt={2}>
                         <Button
-                            disabled={confirmButtonDisabled}
+                            disabled={isConfirmButtonDisabled()}
                             variant="contained"
                             color="secondary"
                             onClick={handleConfirmButtonClick}
@@ -102,7 +85,7 @@ const PickPaymentRecipient = () => {
                         </Button>
                     </Box>
                 </FormControl>
-            </form>
+            </Box>
         </Box>
     );
 };

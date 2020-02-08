@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import { updateGroupContentOpen, updateRecipients, updateSearchPage } from '../../../../data/redux/actions/payment';
 import GroupMemberTable from './group-member-table';
-import Pagination from './pagination';
+import Pagination from '../pagination';
 
 const useStyles = makeStyles((theme) => ({
     table: {

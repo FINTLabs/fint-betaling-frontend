@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
-import Paper from '@material-ui/core/Paper';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import {Box, makeStyles} from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 import ProductTable from './product_table';
 import {
     updateProductLength,
@@ -10,18 +9,18 @@ import {
     updateProductSuggestions,
     updateSearchPage,
 } from '../../../../data/redux/actions/payment';
-import {SEARCH_PAGE_ROWS, SEARCH_PAGE_START} from '../../constants';
+import { SEARCH_PAGE_ROWS, SEARCH_PAGE_START } from '../../constants';
 
 const useStyles = makeStyles((theme) => ({
 
-    searchField: {width: "100%"},
+    searchField: { width: '100%' },
     root: {
         flex: 1,
         '& .MuiInput-underline:after': {
-            content: "none"
+            content: 'none'
         },
         '& .MuiInput-underline:before': {
-            content: "none"
+            content: 'none'
         },
     },
     containerSuggestions: {
@@ -47,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
         flex: '1',
-        width: "50%",
+        width: '50%',
     },
     recipientSuggestItem: {
         flex: '0 0 25em',
@@ -130,29 +129,17 @@ const ProductSearch = () => {
     }
 
     return (
-        <Box className={classes.root}>
-            <Paper className={classes.container}>
-                <TextField
-                    className={classes.searchField}
-                    inputProps={{
-                        classes,
-                        id: 'product-search-field',
-                        placeholder: `Søk på ${searchPlaceHolder.toLowerCase()}`,
-                        value: searchValue,
-                        onChange: handleSearchValue,
-                    }}
-                    theme={{
-                        container: classes.containerSuggestions,
-                        suggestionsContainerOpen: classes.suggestionsContainerOpen,
-                        suggestionsList: classes.suggestionsList,
-                        suggestion: classes.suggestion,
-                        input: {
-                            marginLeft: '8px',
-                        },
-                    }}
-                />
-            </Paper>
-            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem}/> : <div/>}
+        <Box>
+            <TextField
+                onChange={handleSearchValue}
+                variant="outlined"
+                fullWidth
+                autoFocus
+                id="recipient-search-field"
+                label={`Søk på ${searchPlaceHolder.toLowerCase()}`}
+                value={searchValue}
+            />
+            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem} /> : <div />}
         </Box>
     );
 };

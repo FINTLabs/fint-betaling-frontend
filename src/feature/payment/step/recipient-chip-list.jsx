@@ -52,13 +52,15 @@ const RecipientChipList = () => {
             <Box
                 display="flex"
                 justifyContent="center"
-                p={0.5}
+                p={2}
                 flexDirection="column"
                 alignItems="center"
                 flexWrap="flex"
                 mt={2}
+                bgcolor="grey.100"
+                borderRadius="borderRadius"
             >
-                <Typography variant="h6">Mine mottakere:</Typography>
+                <Typography variant="h6">Valgte mottakere</Typography>
                 <Box display="flex" justifyContent="center" flexWrap="wrap" m={1}>
                     {
                         recipientsKeys.filter((key) => recipients[key].checked)
@@ -78,17 +80,17 @@ const RecipientChipList = () => {
 
                 </Box>
                 <Box m={1}>
-                    <Button variant="contained" size="small" onClick={toggleShowAllRecipients}>
+                    <Button size="small" onClick={toggleShowAllRecipients}>
                         {showAllRecipients
                             ? 'Vis færre mottakere'
                             : 'Vis alle mottakere'}
                     </Button>
-                </Box>
-                <Box m={1}>
-                    <Button variant="contained" size="small" onClick={clearSelection}>
+                    |
+                    <Button size="small" onClick={clearSelection}>
                         Nullstill
                     </Button>
                 </Box>
+
                 <Typography>
                     Antall:
                     {getCheckedCount(recipients)}

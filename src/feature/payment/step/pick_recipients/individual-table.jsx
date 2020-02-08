@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import { updateRecipients, updateSearchPage } from '../../../../data/redux/actions/payment';
-import Pagination from './pagination';
+import Pagination from '../pagination';
 
 const useStyles = makeStyles(() => ({
     table: {
