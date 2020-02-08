@@ -36,16 +36,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const GroupTable = () => {
+    const classes = useStyles();
+    const dispatch = useDispatch();
+
     const query = useSelector((state) => state.payment.form.searchValue);
-    let suggestions = useSelector((state) => state.payment.form.filteredSuggestions);
     const activePage = useSelector((state) => state.payment.form.page);
     const suggestionLengthTemp = useSelector((state) => state.payment.form.suggestionLength);
     const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
-    const dispatch = useDispatch();
-    suggestions = query.length === 0 ? [] : suggestions;
     const groupContentOpen = useSelector((state) => state.payment.form.groupContentOpen);
     const recipients = useSelector((state) => state.payment.payment.recipients);
-    const classes = useStyles();
+
+    let suggestions = useSelector((state) => state.payment.form.filteredSuggestions);
+    suggestions = query.length === 0 ? [] : suggestions;
 
 
     function handleIndividualCheck(event) {
@@ -75,13 +77,16 @@ const GroupTable = () => {
     }
 
     function groupShouldBeChecked(customerList) {
-        let status = true;
-        for (let iterator = 0; iterator < customerList.length; iterator += 1) {
-            if (!recipients[customerList[iterator].id] || !recipients[customerList[iterator].id].checked) {
-                status = false;
-            }
-        }
-        return status;
+        return customerList
+            .filter((c) => recipients[c.id])
+            .filter((c) => recipients[c.id].checked).length === customerList.length;
+    }
+
+    function groupCheckboxIndeterminateCheck(customerList) {
+        const { length } = customerList
+            .filter((c) => recipients[c.id])
+            .filter((c) => recipients[c.id].checked);
+        return length < customerList.length && length > 0;
     }
 
     function handleGroupOpenClick(recipient) {
@@ -90,15 +95,6 @@ const GroupTable = () => {
         dispatch(updateGroupContentOpen(newArray));
     }
 
-    function groupCheckboxIndeterminateCheck(customerList) {
-        let partlyChecked = false;
-        for (let iterator = 0; iterator < customerList.length; iterator += 1) {
-            if (recipients[customerList[iterator].id] && recipients[customerList[iterator].id].checked) {
-                partlyChecked = true;
-            }
-        }
-        return partlyChecked;
-    }
 
     function handleChangePage(event, newPage) {
         dispatch(updateSearchPage(newPage));
