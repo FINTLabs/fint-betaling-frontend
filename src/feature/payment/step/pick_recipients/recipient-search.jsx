@@ -108,6 +108,7 @@ const RecipientSearch = () => {
                 autoFocus
                 id="recipient-search-field"
                 label={`Søk på ${searchPlaceHolder.toLowerCase()}`}
+                value={searchValue}
             />
             {suggestionsLength > 0 ? <Box mt={2}><RecipientSuggestItem /></Box> : <div />}
         </Box>

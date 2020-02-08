@@ -77,9 +77,10 @@ const GroupTable = () => {
     }
 
     function groupShouldBeChecked(customerList) {
-        return customerList
+        const { length } = customerList
             .filter((c) => recipients[c.id])
-            .filter((c) => recipients[c.id].checked).length === customerList.length;
+            .filter((c) => recipients[c.id].checked);
+        return length === customerList.length && length > 0;
     }
 
     function groupCheckboxIndeterminateCheck(customerList) {
