@@ -91,7 +91,7 @@ const RecipientSearch = () => {
     useEffect(() => {
         dispatch(updateSuggestionLength(getSuggestionsLength(searchValue)));
         dispatch(updateSuggestions(getSuggestions(searchValue)));
-    }, [activePage, searchValue]);
+    }/*, [searchValue, dispatch]*/);
 
 
     function handleSearchValue(event) {

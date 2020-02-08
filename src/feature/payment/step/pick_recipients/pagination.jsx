@@ -30,7 +30,7 @@ const Pagination = ({
 
 Pagination.propTypes = {
     suggestionsLength: PropTypes.number.isRequired,
-    activePage: PropTypes.string.isRequired,
+    activePage: PropTypes.number.isRequired,
     handleChangePage: PropTypes.func.isRequired,
 };
 

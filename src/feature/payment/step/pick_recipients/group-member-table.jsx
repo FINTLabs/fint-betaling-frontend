@@ -85,7 +85,7 @@ const GroupMemberTable = ({ members, recipients, handleIndividualCheck }) => {
 
 GroupMemberTable.propTypes = {
     members: PropTypes.array.isRequired,
-    recipients: PropTypes.array.isRequired,
+    recipients: PropTypes.object.isRequired,
     handleIndividualCheck: PropTypes.func.isRequired,
 };
 
