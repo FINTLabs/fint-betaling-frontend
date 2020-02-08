@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
-import { updateRecipientListOpen, updateSelectedOrders } from '../../../data/redux/actions/payment';
-import { countChecked } from '../utils/list_utils';
+import { showAllRecipients, updateSelectedOrders } from '../../../data/redux/actions/payment';
+import { getCheckedCount } from '../utils/list_utils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,9 +38,9 @@ const useStyles = makeStyles((theme) => ({
 const SelectedToExternalList = () => {
     const selectedOrders = useSelector((state) => state.payment.sendToExternalSystem.selectedOrders);
     const classes = useStyles();
-    const openCollapse = useSelector((state) => state.payment.recipientList.open);
+    const openCollapse = useSelector((state) => state.payment.recipientList.showAll);
     const dispatch = useDispatch();
-    const selectedOrdersCounted = countChecked(selectedOrders);
+    const selectedOrdersCounted = getCheckedCount(selectedOrders);
     const recipientHeaderText = selectedOrdersCounted > 0
         ? <Typography variant="h6">Mine ordre:</Typography> : '';
     const recipientCountText = selectedOrdersCounted > 0
@@ -51,12 +51,12 @@ const SelectedToExternalList = () => {
             </Typography>
         ) : '';
     const selectedOrderListKeys = Object.keys(selectedOrders);
-    const count = countChecked(selectedOrders);
+    const count = getCheckedCount(selectedOrders);
     let countChipsFirst = 0;
     let countChipsSecond = 0;
 
     function updateRecipientExtrasOpen() {
-        dispatch(updateRecipientListOpen(!openCollapse));
+        dispatch(showAllRecipients(!openCollapse));
     }
 
     const chips = count <= 10

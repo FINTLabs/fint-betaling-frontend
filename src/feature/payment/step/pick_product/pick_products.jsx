@@ -4,7 +4,7 @@ import {makeStyles, Typography} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
-import RecipientList from '../recipient_list';
+import RecipientChipList from '../recipient-chip-list';
 import {updateStep} from '../../../../data/redux/actions/payment';
 import ProductSearch from './product_search';
 import ProductList from './products_list';
@@ -59,7 +59,7 @@ const PickProducts = () => {
     return (
         <Box className={classes.root}>
             <Typography variant={"h3"} className={classes.h2}>Velg produkt</Typography>
-            <RecipientList/>
+            <RecipientChipList/>
             <ProductList/>
             <form className={classes.container}>
                 <FormControl component="fieldset" className={classes.formControl}>

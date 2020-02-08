@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Chip from '@material-ui/core/Chip';
 import {Box, makeStyles, Typography} from '@material-ui/core';
 import {updateProducts} from '../../../../data/redux/actions/payment';
-import {countChecked, getTotalPrice} from '../../utils/list_utils';
+import {getCheckedCount, getTotalPrice} from '../../utils/list_utils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,9 +33,9 @@ const ProductList = () => {
     const productAmount = useSelector((state) => state.payment.product.amount);
     const dispatch = useDispatch();
     const productListKeys = Object.keys(productList);
-    const productHeaderText = countChecked(productList) > 0
+    const productHeaderText = getCheckedCount(productList) > 0
         ? <Typography variant="h6">Valgte produkt:</Typography> : '';
-    const productPriceText = countChecked(productList) > 0
+    const productPriceText = getCheckedCount(productList) > 0
         ? (
             <Typography>
                 Total beløp per mottaker: {getTotalPrice(productList, productAmount)} eks. mva.

@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 import ConfirmedProducts from '../confirm_send/confirmed_products';
-import {countChecked} from '../../utils/list_utils';
+import {getCheckedCount} from '../../utils/list_utils';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -130,7 +130,7 @@ const PaymentSaved = () => {
                         <Typography>
                             Antall:
                             {' '}
-                            {countChecked(recipients)}
+                            {getCheckedCount(recipients)}
                         </Typography>
                     </Box>
                     <Box className={classes.mainTextTodaysDate}>
