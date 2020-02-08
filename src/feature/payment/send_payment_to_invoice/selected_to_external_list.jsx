@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
-import { showAllRecipients, updateSelectedOrders } from '../../../data/redux/actions/payment';
+import { updateShowAllRecipients, updateSelectedOrders } from '../../../data/redux/actions/payment';
 import { getCheckedCount } from '../utils/list_utils';
 
 const useStyles = makeStyles((theme) => ({
@@ -56,7 +56,7 @@ const SelectedToExternalList = () => {
     let countChipsSecond = 0;
 
     function updateRecipientExtrasOpen() {
-        dispatch(showAllRecipients(!openCollapse));
+        dispatch(updateShowAllRecipients(!openCollapse));
     }
 
     const chips = count <= 10

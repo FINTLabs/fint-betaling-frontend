@@ -1,7 +1,7 @@
 import {
     CLEAR_RECIPIENTS,
     INITIALIZE_PAYMENT,
-    SHOW_ALL_RECIPIENTS,
+    UPDATE_SHOW_ALL_RECIPIENTS,
     UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_CUSTOMERS_LOADED,
@@ -283,10 +283,10 @@ export function updateProductLength(value) {
     };
 }
 
-export function showAllRecipients(value) {
+export function updateShowAllRecipients(value) {
     return (dispatch) => {
         dispatch({
-            type: SHOW_ALL_RECIPIENTS,
+            type: UPDATE_SHOW_ALL_RECIPIENTS,
             payload: value,
         });
     };

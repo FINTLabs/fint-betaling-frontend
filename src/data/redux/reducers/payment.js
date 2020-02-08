@@ -1,7 +1,7 @@
 import {
     CLEAR_RECIPIENTS,
     INITIALIZE_PAYMENT,
-    SHOW_ALL_RECIPIENTS,
+    UPDATE_SHOW_ALL_RECIPIENTS,
     UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_CUSTOMERS_LOADED,
@@ -190,7 +190,6 @@ export default function reducer(state = defaultState, action) {
             },
         };
     case UPDATE_RECIPIENTS:
-        console.log("update_recipients", action.payload)
         return {
             ...state,
             payment: {
@@ -334,7 +333,7 @@ export default function reducer(state = defaultState, action) {
                 latestSent: action.payload,
             },
         };
-    case SHOW_ALL_RECIPIENTS:
+    case UPDATE_SHOW_ALL_RECIPIENTS:
         return {
             ...state,
             recipientList: {
@@ -342,24 +341,12 @@ export default function reducer(state = defaultState, action) {
             },
         };
     case CLEAR_RECIPIENTS:
-        // const l = state.payment.recipients
-        //     .map((recipient) => {
-        //         if (recipient.checked === true) {
-        //             return {
-        //                 ...recipient,
-        //                 checked: false,
-        //             };
-        //         }
-        //         return recipient;
-        //     });
-        console.log("asd", state.payment.recipients.length);
         return {
             ...state,
             payment: {
                 ...state.payment,
-                //recipients:
+                recipients: {},
             },
-
         };
     case UPDATE_FROM_VALUE_EXTERNAL:
         return {

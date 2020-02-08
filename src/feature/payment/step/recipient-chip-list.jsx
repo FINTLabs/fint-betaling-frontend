@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Chip from '@material-ui/core/Chip';
 import { Box, makeStyles, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import { clearRecipients, showAllRecipients, updateRecipients, updateStep } from '../../../data/redux/actions/payment';
+import {
+    clearRecipients,
+    updateRecipients,
+    updateShowAllRecipients,
+    updateStep,
+} from '../../../data/redux/actions/payment';
 import { getCheckedCount } from '../utils/list_utils';
 import { STEP_PICK_RECIPIENTS } from '../constants';
 
@@ -18,13 +23,12 @@ const RecipientChipList = () => {
     const dispatch = useDispatch();
 
     const recipients = useSelector((state) => state.payment.payment.recipients);
-    const shouldShowAllRecipients = useSelector((state) => state.payment.recipientList.showAll);
+    const showAllRecipients = useSelector((state) => state.payment.recipientList.showAll);
 
     const recipientsKeys = Object.keys(recipients);
 
-
-    function updateRecipientExtrasOpen() {
-        dispatch(showAllRecipients(!shouldShowAllRecipients));
+    function toggleShowAllRecipients() {
+        dispatch(updateShowAllRecipients(!showAllRecipients));
     }
 
     function clearSelection() {
@@ -58,7 +62,7 @@ const RecipientChipList = () => {
                 <Box display="flex" justifyContent="center" flexWrap="wrap" m={1}>
                     {
                         recipientsKeys.filter((key) => recipients[key].checked)
-                            .splice(0, shouldShowAllRecipients ? recipientsKeys.length : 5)
+                            .splice(0, showAllRecipients ? recipientsKeys.length : 5)
                             .map((key) => (
                                 <Chip
                                     size="small"
@@ -74,8 +78,8 @@ const RecipientChipList = () => {
 
                 </Box>
                 <Box m={1}>
-                    <Button variant="contained" size="small" onClick={updateRecipientExtrasOpen}>
-                        {shouldShowAllRecipients
+                    <Button variant="contained" size="small" onClick={toggleShowAllRecipients}>
+                        {showAllRecipients
                             ? 'Vis færre mottakere'
                             : 'Vis alle mottakere'}
                     </Button>
