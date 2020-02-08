@@ -28,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.contrastText,
     },
     collapseButton: {
-        color: theme.palette.secondary.main,
-        display: 'flex',
-        margin: 'auto',
-        marginTop: theme.spacing(1),
+        //color: theme.palette.secondary.main,
+        //display: 'flex',
+        //margin: 'auto',
+        //marginTop: theme.spacing(1),
     },
 }));
 
@@ -112,7 +112,7 @@ const SelectedToExternalList = () => {
                         return null;
                     }) : <div/>}
                 {openCollapse
-                    ? <Button className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>Vis færre</Button>
+                    ? <Button onClick={updateRecipientExtrasOpen}>Vis færre</Button>
                     : <div/>}
             </div>
         );

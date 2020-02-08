@@ -33,15 +33,7 @@ const RecipientList = () => {
     const openCollapse = useSelector((state) => state.payment.recipientList.open);
     const dispatch = useDispatch();
     const recipientCounted = countChecked(recipientList);
-    const recipientHeaderText = recipientCounted > 0
-        ? <Typography variant="h6">Mine mottakere:</Typography> : '';
-    const recipientCountText = recipientCounted > 0
-        ? (
-            <Typography>
-                Antall:
-                {recipientCounted}
-            </Typography>
-        ) : '';
+
     const recipientListKeys = Object.keys(recipientList);
     const count = countChecked(recipientList);
     let countChipsFirst = 0;
@@ -83,9 +75,8 @@ const RecipientList = () => {
                         return null;
                     })}
                 {!openCollapse ? (
-                    <Button size="small" className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
-                        Vis alle
-                        mottakere
+                    <Button onClick={updateRecipientExtrasOpen}>
+                        Vis alle mottakere
                     </Button>
                 ) : <div/>}
                 {openCollapse ? recipientListKeys
@@ -107,9 +98,8 @@ const RecipientList = () => {
                         return null;
                     }) : <div/>}
                 {openCollapse ? (
-                    <Button size="small" className={classes.collapseButton} onClick={updateRecipientExtrasOpen}>
-                        Vis færre
-                        mottakere
+                    <Button onClick={updateRecipientExtrasOpen}>
+                        Vis færre mottakere
                     </Button>
                 ) : <div/>}
             </div>
