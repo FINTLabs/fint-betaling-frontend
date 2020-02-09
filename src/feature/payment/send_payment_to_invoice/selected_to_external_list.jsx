@@ -22,10 +22,7 @@ const useStyles = makeStyles((theme) => ({
         width: '70%',
     },
     chip: {
-        flexDirection: 'row',
         margin: theme.spacing(0.5),
-        backgroundColor: theme.palette.secondary.main,
-        color: theme.palette.secondary.contrastText,
     },
     collapseButton: {
         //color: theme.palette.secondary.main,
@@ -69,6 +66,7 @@ const SelectedToExternalList = () => {
                     onDelete={() => handleDelete(key)}
                     label={key}
                     className={classes.chip}
+                    color="secondary"
                 />
             )) : (
             <div>
@@ -85,6 +83,7 @@ const SelectedToExternalList = () => {
                                     onDelete={() => handleDelete(key)}
                                     label={key}
                                     className={classes.chip}
+                                    color="secondary"
                                 />
                             );
                         }

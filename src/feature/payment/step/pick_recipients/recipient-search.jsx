@@ -10,6 +10,7 @@ import {
 } from '../../../../data/redux/actions/payment';
 import { GROUP, SEARCH_PAGE_ROWS, SEARCH_PAGE_START } from '../../constants';
 import RecipientSuggestItem from './recipient-suggest-item';
+import SearchField from '../../../../common/search-field';
 
 const RecipientSearch = () => {
     const searchValue = useSelector((state) => state.payment.form.searchValue);
@@ -101,13 +102,10 @@ const RecipientSearch = () => {
 
     return (
         <Box>
-            <TextField
-                onChange={handleSearchValue}
-                variant="outlined"
-                fullWidth
-                autoFocus
-                id="recipient-search-field"
+            <SearchField
                 label={`Søk på ${searchPlaceHolder.toLowerCase()}`}
+                onChange={handleSearchValue}
+                onClear={() => dispatch(updateSearchValue(''))}
                 value={searchValue}
             />
             {suggestionsLength > 0 ? <Box mt={2}><RecipientSuggestItem /></Box> : <div />}

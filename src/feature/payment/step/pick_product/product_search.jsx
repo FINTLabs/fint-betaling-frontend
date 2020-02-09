@@ -10,6 +10,7 @@ import {
     updateSearchPage,
 } from '../../../../data/redux/actions/payment';
 import { SEARCH_PAGE_ROWS, SEARCH_PAGE_START } from '../../constants';
+import SearchField from '../../../../common/search-field';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -17,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flex: 1,
         '& .MuiInput-underline:after': {
-            content: 'none'
+            content: 'none',
         },
         '& .MuiInput-underline:before': {
-            content: 'none'
+            content: 'none',
         },
     },
     containerSuggestions: {
@@ -114,7 +115,7 @@ const ProductSearch = () => {
 
     function getProductsLength(input) {
         const array = [];
-        suggestions.filter(suggestion => {
+        suggestions.filter((suggestion) => {
             if (matchedProduct(suggestion, input)) {
                 array.push(suggestion);
             }
@@ -130,13 +131,10 @@ const ProductSearch = () => {
 
     return (
         <Box>
-            <TextField
-                onChange={handleSearchValue}
-                variant="outlined"
-                fullWidth
-                autoFocus
-                id="recipient-search-field"
+            <SearchField
                 label={`Søk på ${searchPlaceHolder.toLowerCase()}`}
+                onChange={handleSearchValue}
+                onClear={() => dispatch(updateProductSearchValue(''))}
                 value={searchValue}
             />
             {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem} /> : <div />}
