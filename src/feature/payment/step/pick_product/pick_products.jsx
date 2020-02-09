@@ -10,23 +10,10 @@ import ProductSearch from './product_search';
 import ProductChipList from './products-chip-list';
 import { STEP_CONFIRM_PAYMENT } from '../../constants';
 
-const useStyles = makeStyles((theme) => ({
-    root: {},
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-    },
+const useStyles = makeStyles(() => ({
     h2: {
         textAlign: 'center',
     },
-    formControl: {
-        minWidth: '70%',
-        maxWidth: '70%',
-        margin: theme.spacing(3),
-    },
-
-    recipientSearch: {},
 }));
 
 const PickProducts = () => {
@@ -35,7 +22,8 @@ const PickProducts = () => {
     const pickedProducts = useSelector((state) => state.payment.payment.products);
 
     function isConfirmButtonDisabled() {
-        return Object.keys(pickedProducts).filter((key) => pickedProducts[key].checked).length === 0;
+        return Object.keys(pickedProducts)
+            .filter((key) => pickedProducts[key].checked).length === 0;
     }
 
     function handleOnClickConfirmProducts() {
