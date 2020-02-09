@@ -11,13 +11,7 @@ const useStyles = makeStyles((theme) => ({
 
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
-    menuItem: {
-        color: 'black',
+        minWidth: 150,
     },
 }));
 
@@ -34,18 +28,18 @@ const ExpirationDatePicker = () => {
     return (
 
         <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="age-simple">Forfallslengde</InputLabel>
+            <InputLabel htmlFor="deadline-select">Forfallslengde</InputLabel>
             <Select
                 value={requestedNumberOfDaysToPaymentDeadLine}
                 onChange={handleRequestedNumberOfDaysToPaymentDeadLineChange}
                 inputProps={{
                     name: 'Forfallslengde',
-                    id: 'age-simple',
+                    id: 'deadline-select',
                 }}
             >
                 {
                     dates.map((date) => (
-                        <MenuItem className={classes.menuItem} key={date} value={date}>{date}</MenuItem>
+                        <MenuItem key={date} value={date}>{date}</MenuItem>
                     ))
                 }
 
