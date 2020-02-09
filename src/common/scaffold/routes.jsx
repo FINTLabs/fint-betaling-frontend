@@ -5,7 +5,7 @@ import DashboardContainer from '../../feature/dashboard/dashboard-container';
 import PaymentContainer from '../../feature/payment/payment-container';
 import PaymentHistoryContainer from '../../feature/payment_history/payment_history_container';
 import LogOutContainer from '../../feature/log_out/log_out_container';
-import SendToInvoiceContainer from '../../feature/payment/send_payment_to_invoice/send_to_invoice_container';
+import SendToInvoiceContainer from '../../feature/payment/send_payment_to_invoice/send-to-invoice-container';
 import SentToExternalContainer from '../../feature/payment/sent_payment_to_external/sent_to_external_container';
 
 

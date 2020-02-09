@@ -23,7 +23,7 @@ const ConfirmedProducts = () => {
     const products = useSelector((state) => state.payment.payment.products);
     const productAmounts = useSelector((state) => state.payment.product.amount);
     return (
-        <Box p={2}>
+        <Box p={2} width={1}>
             <Typography variant="h6" className={classes.recipientHeader}>
                 Produkter
             </Typography>
