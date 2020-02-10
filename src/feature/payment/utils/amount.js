@@ -3,9 +3,8 @@ import React from 'react';
 class Amount extends React.Component {
   static currency(input) {
     const inputToInt = parseInt(input, 10);
-    /* eslint no-bitwise: ["error", { "allow": [">>"] }] */
-    const i = (inputToInt / 100) >> 0;
-    const f = (inputToInt % 100) >> 0;
+    const i = Math.trunc(inputToInt / 100);
+    const f = Math.trunc(inputToInt % 100);
 
     if (f === 0) {
       return `${i},-`;
