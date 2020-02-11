@@ -40,6 +40,9 @@ import {
     updateGroupsLoaded,
 } from '../../data/redux/actions/payment';
 import ListItemLink from './list-item-link';
+import Box from '@material-ui/core/Box';
+import UnsendtAlertButton from './unsendt-alert-button';
+import ErrorAlertButton from './error-alert-button';
 
 
 const drawerWidth = 240;
@@ -224,12 +227,12 @@ export default function Scaffold() {
         || !payments.loaded
         || school.toString() === ''
     ) {
-        return (<LoadingPage progress={amountFinishedLoaded}/>);
+        return (<LoadingPage progress={amountFinishedLoaded} />);
     }
 
     return (
         <div className={classes.root}>
-            <CssBaseline/>
+            <CssBaseline />
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -244,13 +247,17 @@ export default function Scaffold() {
                         edge="start"
                         className={clsx(classes.menuButton, open && classes.hide)}
                     >
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
-                    <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo}/>
+                    <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo} />
                     <Typography variant="h6" noWrap>
                         FINT Betaling
                     </Typography>
-                    <OrganisationSelector/>
+                    <Box display="flex" ml="auto" alignItems="center">
+                        <UnsendtAlertButton />
+                        <ErrorAlertButton />
+                        <OrganisationSelector />
+                    </Box>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -264,16 +271,16 @@ export default function Scaffold() {
             >
                 <div className={classes.drawerHeader}>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon/> : <ChevronRightIcon/>}
+                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </div>
-                <Divider/>
+                <Divider />
                 <List>
                     <ListItemLink href="/">
                         <ListItemIcon>
-                            <DashboardIcon/>
+                            <DashboardIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Dashboard"/>
+                        <ListItemText primary="Dashboard" />
                     </ListItemLink>
                     <ListItemLink
                         href="/betaling/ny"
@@ -281,8 +288,8 @@ export default function Scaffold() {
                             dispatch(initializePayment());
                         }}
                     >
-                        <ListItemIcon><NewInvoice/></ListItemIcon>
-                        <ListItemText primary="Opprett ordre"/>
+                        <ListItemIcon><NewInvoice /></ListItemIcon>
+                        <ListItemText primary="Opprett ordre" />
                     </ListItemLink>
 
                     <ListItemLink
@@ -291,17 +298,17 @@ export default function Scaffold() {
                             dispatch(initializePayment());
                         }}
                     >
-                        <ListItemIcon><LogOut/></ListItemIcon>
-                        <ListItemText primary="Send ordre"/>
+                        <ListItemIcon><LogOut /></ListItemIcon>
+                        <ListItemText primary="Send ordre" />
                     </ListItemLink>
                     <ListItemLink href="/betaling/historikk">
-                        <ListItemIcon><InvoiceHistory/></ListItemIcon>
-                        <ListItemText primary="Ordrehistorikk"/>
+                        <ListItemIcon><InvoiceHistory /></ListItemIcon>
+                        <ListItemText primary="Ordrehistorikk" />
                     </ListItemLink>
-                    <Divider/>
+                    <Divider />
                     <ListItemLink href="/logg-ut">
-                        <ListItemIcon><LogOut/></ListItemIcon>
-                        <ListItemText primary="Logg ut"/>
+                        <ListItemIcon><LogOut /></ListItemIcon>
+                        <ListItemText primary="Logg ut" />
                     </ListItemLink>
                 </List>
             </Drawer>
@@ -310,9 +317,9 @@ export default function Scaffold() {
                     [classes.contentShift]: open,
                 })}
             >
-                <div className={classes.drawerHeader}/>
+                <div className={classes.drawerHeader} />
 
-                <Routes/>
+                <Routes />
             </main>
         </div>
     );
