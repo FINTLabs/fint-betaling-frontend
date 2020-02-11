@@ -8,12 +8,12 @@ import {
 import GroupRepository from '../../repository/GroupRepository';
 
 
-export default function fetchCustomer(orgId, schoolOrgId) {
+export default function fetchCustomer(schoolOrgId) {
     return (dispatch) => {
         dispatch({ type: FETCH_CUSTOMERS });
 
 
-        GroupRepository.fetchAllCustomersFromSchool(orgId, schoolOrgId)
+        GroupRepository.fetchAllCustomersFromSchool(schoolOrgId)
             .then(([result, json]) => {
                 if (result.status === 200) {
                     const customers = _.uniqBy(json.customers, (c) => c.id);

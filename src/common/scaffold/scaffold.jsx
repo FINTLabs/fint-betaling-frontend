@@ -19,18 +19,15 @@ import InvoiceHistory from '@material-ui/icons/History';
 import NewInvoice from '@material-ui/icons/NoteAdd';
 import LogOut from '@material-ui/icons/ExitToApp';
 import { useDispatch, useSelector } from 'react-redux';
+import Box from '@material-ui/core/Box';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import VigoLogo from '../../assets/vigo-logo-no-iks.svg';
 import Routes from './routes';
 import OrganisationSelector from './organisation-selector';
 import fetchCustomer from '../../data/redux/actions/customers';
-import fetchDate from '../../data/redux/actions/dates';
-import fetchEmployer from '../../data/redux/actions/employers';
 import fetchGroup from '../../data/redux/actions/groups';
 import fetchMe from '../../data/redux/actions/me';
-import fetchMva from '../../data/redux/actions/mva';
-import fetchOrderLines from '../../data/redux/actions/orderlines';
 import fetchPayment from '../../data/redux/actions/payments';
-import LoadingPage from './loading_page';
 import {
     initializePayment,
     setOrgId,
@@ -40,9 +37,12 @@ import {
     updateGroupsLoaded,
 } from '../../data/redux/actions/payment';
 import ListItemLink from './list-item-link';
-import Box from '@material-ui/core/Box';
 import UnsendtAlertButton from './unsendt-alert-button';
 import ErrorAlertButton from './error-alert-button';
+import fetchDate from '../../data/redux/actions/dates';
+import fetchEmployer from '../../data/redux/actions/employers';
+import fetchMva from '../../data/redux/actions/mva';
+import fetchOrderLines from '../../data/redux/actions/orderlines';
 
 
 const drawerWidth = 240;
@@ -127,13 +127,14 @@ export default function Scaffold() {
     const orderLines = useSelector((state) => state.orderLines);
     const payments = useSelector((state) => state.payments);
     const school = useSelector((state) => state.payment.payment.school);
-    const orgId = useSelector((state) => state.payment.payment.orgId);
+    // const orgId = useSelector((state) => state.payment.payment.orgId);
     const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
     const groupsLoaded = useSelector((state) => state.payment.payment.groupsLoaded);
     const customersLoaded = useSelector((state) => state.payment.payment.customersLoaded);
     const dispatch = useDispatch();
     let localStorageSchool = localStorage.getItem('school');
     let localStorageSchoolOrgId = localStorage.getItem('schoolOrgId');
+
     if (me.me.organisationUnits) {
         const schoolIsPresentInMe = me.me.organisationUnits.some((ou) => ou.name === localStorageSchool);
         if (!schoolIsPresentInMe) {
@@ -147,7 +148,6 @@ export default function Scaffold() {
     }
 
     useEffect(() => {
-        dispatch(fetchCustomer());
         dispatch(fetchDate());
         dispatch(fetchEmployer());
         dispatch(fetchMe());
@@ -181,23 +181,26 @@ export default function Scaffold() {
                 : me.me.organisationUnits[0].name,
         ));
     }
+
     if (schoolOrgId.toString() !== '' && !groupsLoaded) {
+        console.log('load groups');
         dispatch(updateGroupsLoaded(true));
-        dispatch(fetchGroup(orgId, schoolOrgId));
+        dispatch(fetchGroup(schoolOrgId));
     }
     if (schoolOrgId.toString() !== '' && !customersLoaded) {
+        console.log('load customers');
         dispatch(updateCustomersLoaded(true));
-        dispatch(fetchCustomer(orgId, schoolOrgId));
+        dispatch(fetchCustomer(schoolOrgId));
     }
 
-    const amountFinishedLoaded = (customers.loaded ? 1 : 0)
-        + (dates.loaded ? 1 : 0)
-        + (employers.loaded ? 1 : 0)
-        + (groups.loaded ? 1 : 0)
-        + (me.loaded ? 1 : 0)
-        + (mva.loaded ? 1 : 0)
-        + (orderLines.loaded ? 1 : 0)
-        + (payments.loaded ? 1 : 0);
+    // const amountFinishedLoaded = (customers.loaded ? 1 : 0)
+    //     + (dates.loaded ? 1 : 0)
+    //     + (employers.loaded ? 1 : 0)
+    //     + (groups.loaded ? 1 : 0)
+    //     + (me.loaded ? 1 : 0)
+    //     + (mva.loaded ? 1 : 0)
+    //     + (orderLines.loaded ? 1 : 0)
+    //     + (payments.loaded ? 1 : 0);
 
 
     function handleDrawerOpen() {
@@ -208,8 +211,8 @@ export default function Scaffold() {
         setOpen(false);
     }
 
-    if (
-        customers.isLoading
+    // if (
+    const loading = customers.isLoading
         || dates.isLoading
         || employers.isLoading
         || groups.isLoading
@@ -225,10 +228,10 @@ export default function Scaffold() {
         || !mva.loaded
         || !orderLines.loaded
         || !payments.loaded
-        || school.toString() === ''
-    ) {
-        return (<LoadingPage progress={amountFinishedLoaded} />);
-    }
+        || school.toString() === '';
+    // ) {
+    //     return (<LoadingPage progress={amountFinishedLoaded} />);
+    // }
 
     return (
         <div className={classes.root}>
@@ -259,6 +262,8 @@ export default function Scaffold() {
                         <OrganisationSelector />
                     </Box>
                 </Toolbar>
+                {loading && <LinearProgress color="secondary" />}
+
             </AppBar>
             <Drawer
                 className={classes.drawer}

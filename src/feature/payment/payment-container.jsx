@@ -16,6 +16,7 @@ const useStyles = makeStyles({
 
 const PaymentContainer = () => {
     const classes = useStyles();
+
     const step = useSelector((state) => state.payment.form.step);
 
     function getStep() {

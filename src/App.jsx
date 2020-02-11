@@ -51,7 +51,7 @@ function App() {
         <MuiThemeProvider theme={theme}>
             <Provider store={store}>
                 <BrowserRouter basename="/">
-                    <Scaffold/>
+                    <Scaffold />
                 </BrowserRouter>
             </Provider>
         </MuiThemeProvider>
