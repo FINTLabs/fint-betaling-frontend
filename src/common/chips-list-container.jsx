@@ -71,7 +71,7 @@ ChipsListContainer.propTypes = {
     show: PropTypes.bool.isRequired,
     showAllItems: PropTypes.bool.isRequired,
     showAllItemsLabel: PropTypes.string,
-    showLessItemsLabel: PropTypes.bool,
+    showLessItemsLabel: PropTypes.string,
     title: PropTypes.string.isRequired,
     toggleShowAllItems: PropTypes.func,
 };

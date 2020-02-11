@@ -32,6 +32,7 @@ const SearchField = ({
             margin="normal"
             variant="outlined"
             fullWidth
+            autoFocus
             InputProps={{
                 startAdornment: (
                     <InputAdornment position="start">

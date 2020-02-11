@@ -35,7 +35,8 @@ const PickPaymentRecipient = () => {
     const recipients = useSelector((state) => state.payment.payment.recipients);
 
     function isConfirmButtonDisabled() {
-        return Object.keys(recipients).filter((key) => recipients[key].checked).length === 0;
+        return Object.keys(recipients)
+            .filter((key) => recipients[key].checked).length === 0;
     }
 
     function handleSearchBy(event) {

@@ -5,7 +5,7 @@ import * as Integer from 'lodash';
 import PaymentStepper from './payment-stepper';
 import PickPaymentRecipient from './step/pick_recipients/pick-recipient';
 import PickProducts from './step/pick_product/pick_products';
-import ConfirmSend from './step/confirm_send/confirm_send';
+import ConfirmSend from './step/confirm_send/confirm-send';
 import PaymentSaved from './step/payment_saved/payment_saved';
 
 const useStyles = makeStyles({

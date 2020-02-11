@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import { updateProductAmount, updateProducts, updateSearchPage } from '../../../../data/redux/actions/payment';
 import Amount from '../../utils/amount';
-import Pagination from '../pagination';
+import Pagination from '../../../../common/pagination';
 
 
 const useStyles = makeStyles(() => ({

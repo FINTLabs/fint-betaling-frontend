@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-    Box, makeStyles, Table, Typography,
-} from '@material-ui/core';
+import { Box, makeStyles, Table, Typography, } from '@material-ui/core';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -51,7 +49,7 @@ const ConfirmedProducts = () => {
                                     <TableCell
                                         align="right"
                                     >
-                                        {Amount.currency(products[key].itemPrice)}
+                                        <Amount>{products[key].itemPrice}</Amount>
                                     </TableCell>
                                     <TableCell
                                         align="right"

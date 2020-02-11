@@ -3,7 +3,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TablePaginationActions from '@material-ui/core/TablePagination/TablePaginationActions';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import { SEARCH_PAGE_ROWS } from '../constants';
+import { SEARCH_PAGE_ROWS } from '../feature/payment/constants';
 
 const Pagination = ({
     suggestionsLength,

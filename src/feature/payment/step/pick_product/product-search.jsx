@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
 import { Box, makeStyles } from '@material-ui/core';
 import ProductTable from './product_table';
 import {
@@ -65,42 +64,6 @@ const ProductSearch = () => {
     const searchPlaceHolder = 'Produktnavn eller produktkode';
     const rowsPerPage = SEARCH_PAGE_ROWS;
 
-    useEffect(() => {
-        dispatch(updateProductLength(getProductsLength(searchValue)));
-        dispatch(updateProductSuggestions(getSuggestions(searchValue)));
-    }, [activePage, searchValue]);
-
-    function getSuggestions(value) {
-        const inputValue = value.trim()
-            .toLowerCase();
-        const inputLength = inputValue.length;
-
-        return inputLength < 0
-            ? []
-            : filterSuggestions(inputValue);
-    }
-
-    function filterSuggestions(input) {
-        let countSuggestion = 0;
-        let countToStartOfActivePage = -1;
-        const keepSuggestionsFromCount = activePage * rowsPerPage;
-
-        return suggestions.filter((suggestion) => {
-            let keep;
-            const matched = matchedProduct(suggestion, input);
-            if (matched) {
-                countToStartOfActivePage += 1;
-            }
-            keep = countSuggestion < rowsPerPage
-                && keepSuggestionsFromCount <= countToStartOfActivePage
-                && matched;
-            if (keep && keepSuggestionsFromCount <= countToStartOfActivePage) {
-                countSuggestion += 1;
-            }
-            return keep;
-        });
-    }
-
     function matchedProduct(suggestion, input) {
         if (input.length > 0) {
             return (
@@ -111,6 +74,34 @@ const ProductSearch = () => {
             );
         }
         return false;
+    }
+
+    function filterSuggestions(input) {
+        let countSuggestion = 0;
+        let countToStartOfActivePage = -1;
+        const keepSuggestionsFromCount = activePage * rowsPerPage;
+        return suggestions.filter((suggestion) => {
+            const matched = matchedProduct(suggestion, input);
+            if (matched) {
+                countToStartOfActivePage += 1;
+            }
+            const keep = countSuggestion < rowsPerPage
+                && keepSuggestionsFromCount <= countToStartOfActivePage
+                && matched;
+            if (keep && keepSuggestionsFromCount <= countToStartOfActivePage) {
+                countSuggestion += 1;
+            }
+            return keep;
+        });
+    }
+
+    function getSuggestions(value) {
+        const inputValue = value.trim()
+            .toLowerCase();
+        const inputLength = inputValue.length;
+        return inputLength < 0
+            ? []
+            : filterSuggestions(inputValue);
     }
 
     function getProductsLength(input) {
@@ -128,6 +119,15 @@ const ProductSearch = () => {
         dispatch(updateSearchPage(SEARCH_PAGE_START));
         dispatch(updateProductSearchValue(event.target.value));
     }
+
+    const getProductsLengthCallback = useCallback(getProductsLength, [getProductsLength]);
+    const getSuggestionsCallback = useCallback(getSuggestions, [getSuggestions]);
+
+    useEffect(() => {
+        dispatch(updateProductLength(getProductsLengthCallback(searchValue)));
+        dispatch(updateProductSuggestions(getSuggestionsCallback(searchValue)));
+    }, [activePage, searchValue, getProductsLengthCallback, getSuggestionsCallback, dispatch]);
+
 
     return (
         <Box>

@@ -1,11 +1,11 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core';
-import {useDispatch, useSelector} from 'react-redux';
+import { makeStyles } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import {updateRequestedNumberOfDaysToPaymentDeadLine} from '../../../../data/redux/actions/payment';
+import { updateRequestedNumberOfDaysToPaymentDeadLine } from '../../../../data/redux/actions/payment';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 const ExpirationDatePicker = () => {
     const classes = useStyles();
     const dates = useSelector((state) => state.dates.dates);
-    const requestedNumberOfDaysToPaymentDeadLine = useSelector((state) => state.payment.payment.expirationDate);
+    const requestedNumberOfDaysToPaymentDeadLine = useSelector((state) => state.payment.payment.requestedNumberOfDaysToPaymentDeadLine);
     const dispatch = useDispatch();
 
     function handleRequestedNumberOfDaysToPaymentDeadLineChange(event) {
@@ -37,6 +37,7 @@ const ExpirationDatePicker = () => {
                     id: 'deadline-select',
                 }}
             >
+                <MenuItem value="" />
                 {
                     dates.map((date) => (
                         <MenuItem key={date} value={date}>{date}</MenuItem>

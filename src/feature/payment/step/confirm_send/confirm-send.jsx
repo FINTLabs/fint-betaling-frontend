@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, makeStyles, Paper } from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
@@ -13,15 +13,7 @@ import ClaimRepository from '../../../../data/repository/ClaimRepository';
 import { STEP_PAYMENT_CONFIRMED } from '../../constants';
 
 
-const useStyles = makeStyles(() => ({
-    expirationContainer: {
-        alignSelf: 'flex-end',
-    },
-
-}));
-
 const ConfirmSend = () => {
-    const classes = useStyles();
     const requestedNumberOfDaysToPaymentDeadLine = useSelector((state) => state.payment.payment.requestedNumberOfDaysToPaymentDeadLine);
     let confirmButtonDisabled = true;
     if (requestedNumberOfDaysToPaymentDeadLine) {

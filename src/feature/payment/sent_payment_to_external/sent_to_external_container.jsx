@@ -1,22 +1,28 @@
 import React from 'react';
-import {Box, makeStyles, Paper, Typography,} from '@material-ui/core';
-import {useDispatch, useSelector} from 'react-redux';
+import {
+    Box, makeStyles, Paper, Typography,
+} from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import Table from '@material-ui/core/Table';
 import Button from '@material-ui/core/Button';
-import {Check, Warning} from "@material-ui/icons";
-import {initializePayment, updateOrderStatusContent, updateOrderStatusOpen} from "../../../data/redux/actions/payment";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
-import Amount from "../utils/amount";
-import {Link} from "react-router-dom";
-import {INITIALIZE_PAYMENT} from "../../../data/redux/actions/actions";
+import { Check, Warning } from '@material-ui/icons';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import { Link } from 'react-router-dom';
+import Amount from '../utils/amount';
+import {
+    initializePayment,
+    updateOrderStatusContent,
+    updateOrderStatusOpen,
+} from '../../../data/redux/actions/payment';
+import { INITIALIZE_PAYMENT } from '../../../data/redux/actions/actions';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,8 +75,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SentToExternalContainer = () => {
     const data = useSelector((state) => state.payment.backEndResponse.responseOrder);
-    const statusOpen = useSelector(state => state.payment.payment.statusOpen);
-    const statusContent = useSelector(state => state.payment.payment.statusContent);
+    const statusOpen = useSelector((state) => state.payment.payment.statusOpen);
+    const statusContent = useSelector((state) => state.payment.payment.statusContent);
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -104,64 +110,75 @@ const SentToExternalContainer = () => {
                         <TableBody>
                             {
                                 data.map(
-                                    suggestion => {
-                                        const orderStatus =
-                                            (
-                                                <TableCell align="right" className={classes.tableCell}>
-                                                    {suggestion.claimStatus === "SEND_ERROR" ||
-                                                    suggestion.claimStatus === "UPDATE_ERROR" ?
+                                    (suggestion) => {
+                                        const orderStatus = (
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {suggestion.claimStatus === 'SEND_ERROR'
+                                                || suggestion.claimStatus === 'UPDATE_ERROR'
+                                                    ? (
                                                         <Warning
                                                             value={suggestion.error}
                                                             className={classes.warningIcon}
-                                                            onClick={(e) => handleStatusClick(e, suggestion.statusMessage)}
+                                                            onClick={(e) => handleStatusClick(
+                                                                e,
+                                                                suggestion.statusMessage,
+                                                            )}
                                                         />
-                                                        :
-                                                        <Check value={suggestion.error} className={classes.checkIcon}
-                                                               onClick={handleStatusClick}/>
-                                                    }
-                                                </TableCell>
-                                            );
+                                                    )
+                                                    : (
+                                                        <Check
+                                                            value={suggestion.error}
+                                                            className={classes.checkIcon}
+                                                            onClick={handleStatusClick}
+                                                        />
+                                                    )}
+                                            </TableCell>
+                                        );
                                         return (
                                             <TableRow hover key={suggestion.orderNumber}>
                                                 <TableCell align="left" className={classes.tableCell}>
                                                     {suggestion.orderNumber}
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>
-                                                    {suggestion.customer
-                                                        ? suggestion.customer.name
-                                                            ? suggestion.customer.name
-                                                            : '' : ''}
+                                                    {suggestion.customer.name}
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>
-                                                    {suggestion.originalAmountDue
-                                                        ? Amount.currency(suggestion.originalAmountDue) : ''}
+                                                    <Amount>{suggestion.originalAmountDue}</Amount>
                                                 </TableCell>
                                                 {orderStatus}
                                             </TableRow>
-                                        )
-                                    }
+                                        );
+                                    },
                                 )
                             }
                         </TableBody>
                     </Table>
                 )
-                : <div/>}
+                : <div />}
             {data
                 ? (
                     <Paper className={classes.buttonContainer}>
-                        <Link to="/opprett-ordre" onClick={() => {
-                            dispatch(initializePayment(INITIALIZE_PAYMENT));
-                        }} className={classes.cardLink}>
+                        <Link
+                            to="/opprett-ordre"
+                            onClick={() => {
+                                dispatch(initializePayment(INITIALIZE_PAYMENT));
+                            }}
+                            className={classes.cardLink}
+                        >
                             <Button className={classes.buttonToNewOrder}>Opprett nye ordre</Button>
                         </Link>
-                        <Link to="/ordrehistorikk" onClick={() => {
-                            dispatch(initializePayment(INITIALIZE_PAYMENT));
-                        }} className={classes.cardLink}>
+                        <Link
+                            to="/ordrehistorikk"
+                            onClick={() => {
+                                dispatch(initializePayment(INITIALIZE_PAYMENT));
+                            }}
+                            className={classes.cardLink}
+                        >
                             <Button className={classes.buttonSendMore}>Følg med i ordrehistorikken</Button>
                         </Link>
                     </Paper>
                 )
-                : <div/>}
+                : <div />}
             <Dialog
                 open={statusOpen}
                 onClose={handleClose}
@@ -171,7 +188,7 @@ const SentToExternalContainer = () => {
                 <DialogTitle id="alert-dialog-title">Status: </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {statusContent ? statusContent : ""}
+                        {statusContent || ''}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

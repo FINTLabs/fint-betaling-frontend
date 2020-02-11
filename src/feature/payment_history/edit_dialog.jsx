@@ -6,13 +6,13 @@ import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import {useDispatch, useSelector} from 'react-redux';
-import {makeStyles} from '@material-ui/core';
-import {KeyboardDatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import { useDispatch, useSelector } from 'react-redux';
+import { makeStyles } from '@material-ui/core';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 import DateFnsUtils from '@date-io/date-fns';
-import {updatePaymentsDialogOpen} from '../../data/redux/actions/payment';
-import Amount from "../payment/utils/amount";
+import { updatePaymentsDialogOpen } from '../../data/redux/actions/payment';
+import Amount from '../payment/utils/amount';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,10 +36,11 @@ const EditDialog = () => {
     let selectedPayment;
 
     Object.keys(payments)
-        .filter(key => payments[key] && payments[key].orderNumber && payments[key].orderNumber === dialogOrderNumber).map(key => {
-        selectedPayment = payments[key];
-        return null;
-    });
+        .filter((key) => payments[key] && payments[key].orderNumber && payments[key].orderNumber === dialogOrderNumber)
+        .map((key) => {
+            selectedPayment = payments[key];
+            return null;
+        });
 
     function handleClose() {
         dispatch(updatePaymentsDialogOpen(false));
@@ -64,7 +65,6 @@ const EditDialog = () => {
                 id="form-dialog-title"
             >
                 Ordrenummer:
-                {' '}
                 {selectedPayment ? selectedPayment.orderNumber : ''}
             </DialogTitle>
             <DialogContent>
@@ -76,7 +76,7 @@ const EditDialog = () => {
                         id="price"
                         label="Oppdater beløp"
                         className={classes.textField}
-                        value={selectedPayment ? Amount.currency(selectedPayment.restBelop) : ''}
+                        value={<Amount>{selectedPayment.restBelop}</Amount>}
                         onChange={handleChange}
                         margin="normal"
                     />
@@ -88,7 +88,9 @@ const EditDialog = () => {
                             margin="normal"
                             id="date-picker-inline"
                             label="Ny forfallsdato"
-                            value={selectedPayment ? getDate(selectedPayment.fakturagrunnlag.forfallsdato) : new Date('2000-01-01T21:11:54')}
+                            value={selectedPayment
+                                ? getDate(selectedPayment.fakturagrunnlag.forfallsdato)
+                                : new Date('2000-01-01T21:11:54')}
                             onChange={handleDateChange}
                             KeyboardButtonProps={{
                                 'aria-label': 'change date',

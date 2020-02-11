@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import TextField from '@material-ui/core/TextField';
 import { Box } from '@material-ui/core';
 import {
     updateSearchPage,

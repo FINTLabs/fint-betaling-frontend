@@ -6,7 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import RecipientChipList from '../recipient-chip-list';
 import { updateStep } from '../../../../data/redux/actions/payment';
-import ProductSearch from './product_search';
+import ProductSearch from './product-search';
 import ProductChipList from './products-chip-list';
 import { STEP_CONFIRM_PAYMENT } from '../../constants';
 

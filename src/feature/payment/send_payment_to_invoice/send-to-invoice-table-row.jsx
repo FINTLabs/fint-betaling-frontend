@@ -16,12 +16,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 const SendToInvoiceTableRow = ({
-    suggestion, selectedOrders, handleIndividualCheck, key,
+    suggestion, selectedOrders, handleIndividualCheck,
 }) => {
     const classes = useStyles();
 
     return (
-        <TableRow hover key={key}>
+        <TableRow hover>
             <TableCell align="left" className={classes.tableCell}>
                 {suggestion.orderNumber}
             </TableCell>
@@ -29,8 +29,7 @@ const SendToInvoiceTableRow = ({
                 {suggestion.customer.name}
             </TableCell>
             <TableCell align="right" className={classes.tableCell}>
-                {suggestion.originalAmountDue
-                    ? Amount.currency(suggestion.originalAmountDue) : ''}
+                <Amount>{suggestion.originalAmountDue}</Amount>
             </TableCell>
             <TableCell align="center" className={classes.tableCell}>
                 <Checkbox
@@ -48,7 +47,6 @@ const SendToInvoiceTableRow = ({
 
 SendToInvoiceTableRow.propTypes = {
     handleIndividualCheck: PropTypes.func.isRequired,
-    key: PropTypes.string.isRequired,
     selectedOrders: PropTypes.array.isRequired,
     suggestion: PropTypes.object.isRequired,
 };
