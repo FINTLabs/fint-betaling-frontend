@@ -6,7 +6,7 @@ import reducers from './reducers';
 
 
 const middleware = compose(
-  applyMiddleware(promise, thunk, logger),
+    applyMiddleware(promise, thunk, logger),
 );
 
 export default createStore(reducers, {}, middleware);

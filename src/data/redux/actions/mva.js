@@ -3,24 +3,24 @@ import MvaCodeRepository from '../../repository/MvaCodeRepository';
 
 
 export default function fetchMva() {
-  return (dispatch) => {
-    dispatch({ type: FETCH_MVA });
+    return (dispatch) => {
+        dispatch({ type: FETCH_MVA });
 
 
-    MvaCodeRepository.fetchMvaCodes()
-      .then(([result, json]) => {
-        if (result.status === 200) {
-          dispatch({
-            type: FETCH_MVA_FULFILLED,
-            payload: json,
-          });
-        }
-      })
-      .catch((error) => {
-        dispatch({
-          type: FETCH_MVA_REJECTED,
-          payload: error,
-        });
-      });
-  };
+        MvaCodeRepository.fetchMvaCodes()
+            .then(([result, json]) => {
+                if (result.status === 200) {
+                    dispatch({
+                        type: FETCH_MVA_FULFILLED,
+                        payload: json,
+                    });
+                }
+            })
+            .catch((error) => {
+                dispatch({
+                    type: FETCH_MVA_REJECTED,
+                    payload: error,
+                });
+            });
+    };
 }

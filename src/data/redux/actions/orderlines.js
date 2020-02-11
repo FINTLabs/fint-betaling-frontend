@@ -3,24 +3,24 @@ import LineItemRepository from '../../repository/LineItemRepository';
 
 
 export default function fetchOrderLines() {
-  return (dispatch) => {
-    dispatch({ type: FETCH_ORDER_LINES });
+    return (dispatch) => {
+        dispatch({ type: FETCH_ORDER_LINES });
 
 
-    LineItemRepository.fetchOrderLines()
-      .then(([result, json]) => {
-        if (result.status === 200) {
-          dispatch({
-            type: FETCH_ORDER_LINES_FULFILLED,
-            payload: json,
-          });
-        }
-      })
-      .catch((error) => {
-        dispatch({
-          type: FETCH_ORDER_LINES_REJECTED,
-          payload: error,
-        });
-      });
-  };
+        LineItemRepository.fetchOrderLines()
+            .then(([result, json]) => {
+                if (result.status === 200) {
+                    dispatch({
+                        type: FETCH_ORDER_LINES_FULFILLED,
+                        payload: json,
+                    });
+                }
+            })
+            .catch((error) => {
+                dispatch({
+                    type: FETCH_ORDER_LINES_REJECTED,
+                    payload: error,
+                });
+            });
+    };
 }
