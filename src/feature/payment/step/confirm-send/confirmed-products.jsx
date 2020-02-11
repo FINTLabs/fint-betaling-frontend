@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import { useSelector } from 'react-redux';
 import Divider from '@material-ui/core/Divider';
-import { getTotalPrice } from '../../utils/list_utils';
+import { getTotalPrice } from '../../utils/list-utils';
 import Amount from '../../utils/amount';
 
 const useStyles = makeStyles((theme) => ({

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, makeStyles } from '@material-ui/core';
-import ProductTable from './product_table';
+import ProductTable from './product-table';
 import {
     updateProductLength,
     updateProductSearchValue,

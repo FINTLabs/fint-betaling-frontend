@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
 import { updateSelectedOrders, updateShowAllRecipients } from '../../../data/redux/actions/payment';
-import { getCheckedCount } from '../utils/list_utils';
+import { getCheckedCount } from '../utils/list-utils';
 import ChipsListContainer from '../../../common/chips-list-container';
 
 const useStyles = makeStyles((theme) => ({

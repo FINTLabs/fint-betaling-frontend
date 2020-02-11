@@ -8,7 +8,7 @@ import {
     updateShowAllRecipients,
     updateStep,
 } from '../../../data/redux/actions/payment';
-import { getCheckedCount } from '../utils/list_utils';
+import { getCheckedCount } from '../utils/list-utils';
 import { STEP_PICK_RECIPIENTS } from '../constants';
 import ChipsListContainer from '../../../common/chips-list-container';
 
