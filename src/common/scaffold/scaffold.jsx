@@ -327,7 +327,7 @@ export default function Scaffold() {
                         <ListItemText primary="Ordrehistorikk" />
                     </ListItemLink>
                     <Divider />
-                    <ListItemLink href="/logg-ut">
+                    <ListItemLink href="/AGLogout">
                         <ListItemIcon><LogOut /></ListItemIcon>
                         <ListItemText primary="Logg ut" />
                     </ListItemLink>

@@ -11,6 +11,7 @@ import {
     updateCustomersLoaded,
     updateGroupsLoaded,
 } from '../../data/redux/actions/payment';
+import Divider from '@material-ui/core/Divider';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -64,9 +65,10 @@ const OrganisationSelector = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem>
+                <MenuItem disabled>
                     Velg organisasjon
                 </MenuItem>
+                <Divider />
                 {organisationUnits && organisationUnits.map((o) => (
                     <MenuItem
                         key={o.organisationNumber}
