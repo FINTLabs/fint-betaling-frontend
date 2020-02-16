@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, makeStyles } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import * as Integer from 'lodash';
 import PaymentStepper from './payment-stepper';
@@ -8,15 +8,7 @@ import PickProducts from './step/pick-product/pick-products';
 import ConfirmSend from './step/confirm-send/confirm-send';
 import PaymentSaved from './step/payment-saved/payment-saved';
 
-const useStyles = makeStyles({
-    root: {
-        flexGrow: 1,
-    },
-});
-
 const PaymentContainer = () => {
-    const classes = useStyles();
-
     const step = useSelector((state) => state.payment.form.step);
 
     function getStep() {
@@ -36,7 +28,7 @@ const PaymentContainer = () => {
     }
 
     return (
-        <Box className={classes.root} width="75%" display="flex" flexDirection="column" alignItems="center">
+        <Box flexGrow="1" m={1} width="75%" display="flex" flexDirection="column" alignItems="center">
             <PaymentStepper />
             {getStep()}
         </Box>

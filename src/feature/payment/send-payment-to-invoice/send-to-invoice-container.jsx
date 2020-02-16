@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, makeStyles, Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import OrderChipList from './order-chip-list';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
@@ -16,28 +16,8 @@ import {
 import SearchField from '../../../common/search-field';
 import SendToInvoiceTable from './send-to-invoice-table';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '80%',
-        alignSelf: 'center',
-        margin: 'auto',
-        '& .MuiInput-underline:after': {
-            content: 'none',
-        },
-        '& .MuiInput-underline:before': {
-            content: 'none',
-        },
-    },
-    h1: {
-        margin: theme.spacing(1),
-    },
-    h2: {
-        margin: theme.spacing(1),
-    },
-}));
 
 const SendToInvoiceContainer = () => {
-    const classes = useStyles();
     const dispatch = useDispatch();
 
     const payments = useSelector((state) => state.payments.payments);
@@ -87,21 +67,27 @@ const SendToInvoiceContainer = () => {
 
 
     return (
-        <Box className={classes.root}>
+        <Box width="80%" alignSelf="center" mt={4}>
             <Box
                 bgcolor="grey.200"
                 borderRadius="borderRadius"
                 p={2}
             >
-                <Typography variant="h5" className={classes.h1}>
-                    Ordre som ikke er sendt til fakturering
-                </Typography>
-                <Typography variant="body1" className={classes.h1}>
-                    Søk på ordrenummer i feltet under
-                </Typography>
-                <Typography variant="body2" className={classes.h1}>
-                    Oversikten viser kun ordrer du har opprettet
-                </Typography>
+                <Box m={1}>
+                    <Typography variant="h5">
+                        Ordre som ikke er sendt til fakturering
+                    </Typography>
+                </Box>
+                <Box m={1}>
+                    <Typography variant="body1">
+                        Søk på ordrenummer i feltet under
+                    </Typography>
+                </Box>
+                <Box m={1}>
+                    <Typography variant="body2">
+                        Oversikten viser kun ordrer du har opprettet
+                    </Typography>
+                </Box>
             </Box>
             <Box width={1}>
                 <SearchField

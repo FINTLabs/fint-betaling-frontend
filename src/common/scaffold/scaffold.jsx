@@ -52,22 +52,22 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     appBar: {
-        transition: theme.transitions.create(['margin', 'width'], {
+        zIndex: theme.zIndex.drawer + 1,
+        transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
     },
     appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
     menuButton: {
-        marginRight: theme.spacing(2),
-        marginLeft: theme.spacing(1.5),
+        marginRight: 36,
     },
     hide: {
         display: 'none',
@@ -75,26 +75,37 @@ const useStyles = makeStyles((theme) => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
+        whiteSpace: 'nowrap',
     },
-    drawerPaper: {
+    drawerOpen: {
         width: drawerWidth,
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
     },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-        height: 68,
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
+    drawerClose: {
+        transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        marginLeft: -drawerWidth,
+        overflowX: 'hidden',
+        width: theme.spacing(7) + 1,
+        [theme.breakpoints.up('sm')]: {
+            width: theme.spacing(9) + 1,
+        },
+    },
+    toolbar: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        padding: theme.spacing(0, 1),
+        ...theme.mixins.toolbar,
+    },
+    content: {
+        flexGrow: 1,
+        overflow: 'hidden',
+        marginTop: 68,
     },
     contentShift: {
         transition: theme.transitions.create('margin', {
@@ -238,13 +249,15 @@ export default function Scaffold() {
                     [classes.appBarShift]: open,
                 })}
             >
-                <Toolbar disableGutters>
+                <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
-                        className={clsx(classes.menuButton, open && classes.hide)}
+                        className={clsx(classes.menuButton, {
+                            [classes.hide]: open,
+                        })}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -270,17 +283,21 @@ export default function Scaffold() {
 
             </AppBar>
             <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="left"
-                open={open}
+                variant="permanent"
+                className={clsx(classes.drawer, {
+                    [classes.drawerOpen]: open,
+                    [classes.drawerClose]: !open,
+                })}
                 classes={{
-                    paper: classes.drawerPaper,
+                    paper: clsx({
+                        [classes.drawerOpen]: open,
+                        [classes.drawerClose]: !open,
+                    }),
                 }}
             >
-                <div className={classes.drawerHeader}>
+                <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
                 </div>
                 <Divider />
@@ -326,8 +343,6 @@ export default function Scaffold() {
                     [classes.contentShift]: open,
                 })}
             >
-                <div className={classes.drawerHeader} />
-
                 <Routes />
             </main>
         </div>

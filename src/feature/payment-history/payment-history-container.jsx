@@ -27,7 +27,7 @@ const PaymentHistoryContainer = () => {
     }
 
     return (
-        <Box minWidth="50%">
+        <Box minWidth="50%" m={1}>
             <Box display="flex" justifyContent="center" mt={3}>
                 <FormControl component="fieldset">
                     <RadioGroup
