@@ -302,6 +302,7 @@ export default function Scaffold() {
                         </ListItemIcon>
                         <ListItemText primary="Hjem" />
                     </ListItemLink>
+                    <Divider />
                     <ListItemLink
                         href="/betaling/ny"
                         onClick={() => {

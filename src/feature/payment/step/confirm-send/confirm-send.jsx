@@ -8,7 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import ConfirmedRecipients from './confirmed-recipients';
 import ConfirmedProducts from './confirmed-products';
 import ExpirationDatePicker from './expiration-date-picker';
-import { updateNeedFetch, updateSentPayment, updateStep } from '../../../../data/redux/actions/payment';
+import { updateNeedFetch, updateLatestSentPayment, updateStep } from '../../../../data/redux/actions/payment';
 import ClaimRepository from '../../../../data/repository/ClaimRepository';
 import { STEP_PAYMENT_CONFIRMED } from '../../constants';
 
@@ -86,7 +86,7 @@ const ConfirmSend = () => {
             me,
         )
             .then((data) => {
-                dispatch(updateSentPayment(data));
+                dispatch(updateLatestSentPayment(data));
                 dispatch(updateStep(STEP_PAYMENT_CONFIRMED));
                 dispatch(updateNeedFetch(true));
             });

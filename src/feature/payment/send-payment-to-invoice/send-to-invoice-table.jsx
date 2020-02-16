@@ -133,7 +133,7 @@ const SendToInvoiceTable = ({ filteredSuggestions, selectedOrders }) => {
 
 SendToInvoiceTable.propTypes = {
     filteredSuggestions: PropTypes.array.isRequired,
-    selectedOrders: PropTypes.array.isRequired,
+    selectedOrders: PropTypes.any.isRequired,
 };
 
 export default SendToInvoiceTable;

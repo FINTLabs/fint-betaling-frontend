@@ -300,7 +300,7 @@ export function clearRecipients() {
     };
 }
 
-export function updateSentPayment(value) {
+export function updateLatestSentPayment(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_LATEST_SENT_PAYMENTS,

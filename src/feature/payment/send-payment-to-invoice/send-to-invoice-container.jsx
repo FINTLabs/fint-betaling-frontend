@@ -2,16 +2,20 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import OrderChipList from './order-chip-list';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
 import fetchPayment from '../../../data/redux/actions/payments';
 import {
+    updateLatestSentPayment,
     updateLoadingSendingInvoice,
     updateNeedFetch,
     updateOrderSearchValue,
     updateRedirectFromExternal,
+    updateSelectedOrders,
     updateSendOrderResponse,
-    updateSentPayment,
 } from '../../../data/redux/actions/payment';
 import SearchField from '../../../common/search-field';
 import SendToInvoiceTable from './send-to-invoice-table';
@@ -29,6 +33,16 @@ const SendToInvoiceContainer = () => {
         && payment.createdBy.name === me.name);
     const filteredSuggestions = suggestions.filter((s) => s.orderNumber.includes(searchValue));
 
+    const [showSnackbar, setShowSnackbar] = React.useState(false);
+    const [snackbarMessage, setSnackbarMessage] = React.useState('');
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setShowSnackbar(false);
+    };
     // TODO We need to get this from the me object
     const orgId = 'fintlabs.no';
 
@@ -40,12 +54,12 @@ const SendToInvoiceContainer = () => {
 
     function handleSearchValue(event) {
         dispatch(updateOrderSearchValue(event.target.value));
-        dispatch(updateSentPayment({}));
     }
 
     function clearSearchValue() {
         dispatch(updateOrderSearchValue(''));
-        dispatch(updateSentPayment({}));
+        dispatch(updateLatestSentPayment({}));
+        dispatch(updateSelectedOrders([]));
     }
 
     function handleConfirmSendPayments() {
@@ -54,20 +68,52 @@ const SendToInvoiceContainer = () => {
             Object.keys(selectedOrders)
                 .filter((key) => selectedOrders[key].checked),
         )
-            .then((data) => {
-                dispatch(updateSendOrderResponse(data));
-                dispatch(updateOrderSearchValue(1));
-                dispatch(updateRedirectFromExternal(true));
-                dispatch(updateLoadingSendingInvoice(false));
-                dispatch(updateNeedFetch(true));
-                dispatch(updateSentPayment({}));
+            .then(([response, data]) => {
+                console.log('response', response);
+                if (response.status === 201) {
+                    dispatch(updateSendOrderResponse(data));
+                    dispatch(updateOrderSearchValue(1));
+                    dispatch(updateRedirectFromExternal(true));
+                    dispatch(updateLoadingSendingInvoice(false));
+                    dispatch(updateNeedFetch(true));
+                    dispatch(updateLatestSentPayment({}));
+
+                    setShowSnackbar(true);
+                    setSnackbarMessage(`${data.length} ordre er sendt til økonomisystemet!`);
+                } else {
+                    setShowSnackbar(true);
+                    setSnackbarMessage(`En feil oppstod ved sending til økonomisystemet!
+                     (Response status: ${response.status})`);
+                }
+            })
+            .catch((error) => {
+                setShowSnackbar(true);
+                setSnackbarMessage(`En feil oppstod ved sending til økonomisystemet! (Error: ${error})`);
             });
         dispatch(updateLoadingSendingInvoice(true));
+        clearSearchValue();
     }
 
 
     return (
         <Box width="80%" alignSelf="center" mt={4}>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+                open={showSnackbar}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message={snackbarMessage}
+                action={(
+                    <>
+                        <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                            <CloseIcon fontSize="small" />
+                        </IconButton>
+                    </>
+                )}
+            />
             <Box
                 bgcolor="grey.200"
                 borderRadius="borderRadius"

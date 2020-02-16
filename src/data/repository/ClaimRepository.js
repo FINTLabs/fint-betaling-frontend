@@ -30,8 +30,7 @@ class ClaimRepository {
             });
 
         return fetch(request)
-            .then((response) => response.json())
-            .catch((error) => error);
+            .then((response) => Promise.all([response, response.json()]));
     }
 
     static setPayment(

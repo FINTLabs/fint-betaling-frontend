@@ -47,7 +47,7 @@ const SendToInvoiceTableRow = ({
 
 SendToInvoiceTableRow.propTypes = {
     handleIndividualCheck: PropTypes.func.isRequired,
-    selectedOrders: PropTypes.array.isRequired,
+    selectedOrders: PropTypes.any.isRequired,
     suggestion: PropTypes.object.isRequired,
 };
 
