@@ -16,6 +16,7 @@ import {
 const useStyles = makeStyles((theme) => ({
     root: {
         marginLeft: 'auto',
+        width: 150,
     },
     organisationButton: {
         margin: theme.spacing(2),
@@ -50,33 +51,33 @@ const OrganisationSelector = () => {
         setAnchorEl(null);
     }
 
-    if (organisationUnits) {
-        return (
-            <Box className={classes.root}>
-                <Button className={classes.organisationButton} onClick={handleClick}>
-                    {school || 'Velg organisasjon'}
-                    <OrganisationIcon className={classes.organsationIcon} />
-                </Button>
-                <Menu
-                    id="simple-menu"
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                >
-                    {organisationUnits.map((o) => (
-                        <MenuItem
-                            key={o.organisationNumber}
-                            onClick={() => handleSchoolClick(o.name, o.organisationNumber)}
-                        >
-                            {o.name}
-                        </MenuItem>
-                    ))}
-                </Menu>
-            </Box>
-        );
-    }
-    return <Box />;
+    return (
+        <Box width="250px" display="flex" justifyContent="flex-end">
+            <Button className={classes.organisationButton} onClick={handleClick}>
+                {school}
+                <OrganisationIcon className={classes.organsationIcon} />
+            </Button>
+            <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+            >
+                <MenuItem>
+                    Velg organisasjon
+                </MenuItem>
+                {organisationUnits && organisationUnits.map((o) => (
+                    <MenuItem
+                        key={o.organisationNumber}
+                        onClick={() => handleSchoolClick(o.name, o.organisationNumber)}
+                    >
+                        {o.name}
+                    </MenuItem>
+                ))}
+            </Menu>
+        </Box>
+    );
 };
 
 export default OrganisationSelector;

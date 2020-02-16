@@ -268,12 +268,6 @@ export default function Scaffold() {
                         FINT Betaling
                     </Typography>
                     <Box display="flex" ml="auto" alignItems="center">
-                        <IconButton
-                            color="inherit"
-                            href="/"
-                        >
-                            <HomeIcon />
-                        </IconButton>
                         <UnsendtAlertButton />
                         <ErrorAlertButton />
                         <OrganisationSelector />

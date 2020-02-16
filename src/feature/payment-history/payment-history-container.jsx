@@ -5,6 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import Box from '@material-ui/core/Box';
 import { useDispatch, useSelector } from 'react-redux';
+import { Typography } from '@material-ui/core';
 import { CUSTOMER_NAME, ORDER_NUMBER } from '../payment/constants';
 import PaymentSearch from './payment-search';
 import { updateNeedFetch, updatePaymentsSearchBy, updatePaymentsSearchValue } from '../../data/redux/actions/payment';
@@ -27,7 +28,28 @@ const PaymentHistoryContainer = () => {
     }
 
     return (
-        <Box minWidth="50%" m={1}>
+        <Box minWidth="80%" mt={4}>
+            <Box
+                bgcolor="grey.200"
+                borderRadius="borderRadius"
+                p={2}
+            >
+                <Box m={1}>
+                    <Typography variant="h5">
+                        Ordre historikk
+                    </Typography>
+                </Box>
+                <Box m={1}>
+                    <Typography variant="body1">
+                        Søk på ordrenummer eller navn i feltet under. Du kan også filtrere på status.
+                    </Typography>
+                </Box>
+                <Box m={1}>
+                    <Typography variant="body2">
+                        Oversikten viser kun ordrer du har opprettet
+                    </Typography>
+                </Box>
+            </Box>
             <Box display="flex" justifyContent="center" mt={3}>
                 <FormControl component="fieldset">
                     <RadioGroup
