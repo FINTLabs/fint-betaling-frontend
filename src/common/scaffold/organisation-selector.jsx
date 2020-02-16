@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, CircularProgress, makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import OrganisationIcon from '@material-ui/icons/Domain';
+import Divider from '@material-ui/core/Divider';
 import {
     setSchool,
     setSchoolOrgId,
     updateCustomersLoaded,
     updateGroupsLoaded,
 } from '../../data/redux/actions/payment';
-import Divider from '@material-ui/core/Divider';
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        marginLeft: 'auto',
-        width: 150,
-    },
     organisationButton: {
         margin: theme.spacing(2),
     },
@@ -53,9 +49,10 @@ const OrganisationSelector = () => {
     }
 
     return (
-        <Box width="250px" display="flex" justifyContent="flex-end">
+        <Box minWidth="320px" display="flex" justifyContent="flex-end">
+
             <Button className={classes.organisationButton} onClick={handleClick}>
-                {school}
+                {organisationUnits ? school : <CircularProgress color="secondary" size={25} />}
                 <OrganisationIcon className={classes.organsationIcon} />
             </Button>
             <Menu
@@ -65,8 +62,9 @@ const OrganisationSelector = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
+
                 <MenuItem disabled>
-                    Velg organisasjon
+                    Velg skole
                 </MenuItem>
                 <Divider />
                 {organisationUnits && organisationUnits.map((o) => (

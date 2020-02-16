@@ -134,7 +134,6 @@ export default function Scaffold() {
     const orderLines = useSelector((state) => state.orderLines);
     const payments = useSelector((state) => state.payments);
     const school = useSelector((state) => state.payment.payment.school);
-    // const orgId = useSelector((state) => state.payment.payment.orgId);
     const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
     const groupsLoaded = useSelector((state) => state.payment.payment.groupsLoaded);
     const customersLoaded = useSelector((state) => state.payment.payment.customersLoaded);
@@ -143,8 +142,9 @@ export default function Scaffold() {
     let localStorageSchoolOrgId = localStorage.getItem('schoolOrgId');
 
     if (me.me.organisationUnits) {
-        const schoolIsPresentInMe = me.me.organisationUnits.some((ou) => ou.name === localStorageSchool);
-        if (!schoolIsPresentInMe) {
+        const isSchoolPresentInMe = me.me.organisationUnits.some((ou) => ou.name === localStorageSchool);
+        if (!isSchoolPresentInMe) {
+            console.log('not present');
             localStorageSchool = '';
             localStorageSchoolOrgId = '';
             localStorage.setItem('school', '');
@@ -169,18 +169,22 @@ export default function Scaffold() {
         && me.me.organisationUnits.some((ou) => ou.name === localStorageSchool)
             ? localStorageSchool
             : me.me.organisationUnits[0].name);
+
         localStorage.setItem('schoolOrgId',
             localStorageSchoolOrgId
             && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
                 ? localStorageSchoolOrgId
                 : me.me.organisationUnits[0].organisationNumber);
+
         dispatch(setOrgId(me.me.organisation.organisationNumber));
+
         dispatch(setSchoolOrgId(
             localStorageSchoolOrgId
             && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
                 ? localStorageSchoolOrgId
                 : me.me.organisationUnits[0].organisationNumber,
         ));
+
         dispatch(setSchool(
             localStorageSchool
             && me.me.organisationUnits.some((ou) => ou.name === localStorageSchool)

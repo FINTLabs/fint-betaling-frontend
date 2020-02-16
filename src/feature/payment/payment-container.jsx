@@ -28,7 +28,7 @@ const PaymentContainer = () => {
     }
 
     return (
-        <Box flexGrow="1" m={1} width="75%" display="flex" flexDirection="column" alignItems="center">
+        <Box flexGrow="1" mt={4} width="75%" display="flex" flexDirection="column" alignItems="center">
             <PaymentStepper />
             {getStep()}
         </Box>
