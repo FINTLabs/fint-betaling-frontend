@@ -14,7 +14,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import HomeIcon from '@material-ui/icons/Home';
 import InvoiceHistory from '@material-ui/icons/History';
 import NewInvoice from '@material-ui/icons/NoteAdd';
 import LogOut from '@material-ui/icons/ExitToApp';
@@ -107,10 +107,6 @@ const useStyles = makeStyles((theme) => ({
         height: '35px',
         marginLeft: theme.spacing(2),
         paddingRight: theme.spacing(1),
-    },
-    menuLink: {
-        textDecoration: 'none',
-        color: 'rgba(0, 0, 0, 0.87)',
     },
 }));
 
@@ -252,11 +248,19 @@ export default function Scaffold() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo} />
+                    <a href="/">
+                        <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo} />
+                    </a>
                     <Typography variant="h6" noWrap>
                         FINT Betaling
                     </Typography>
                     <Box display="flex" ml="auto" alignItems="center">
+                        <IconButton
+                            color="inherit"
+                            href="/"
+                        >
+                            <HomeIcon />
+                        </IconButton>
                         <UnsendtAlertButton />
                         <ErrorAlertButton />
                         <OrganisationSelector />
@@ -283,9 +287,9 @@ export default function Scaffold() {
                 <List>
                     <ListItemLink href="/">
                         <ListItemIcon>
-                            <DashboardIcon />
+                            <HomeIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Dashboard" />
+                        <ListItemText primary="Hjem" />
                     </ListItemLink>
                     <ListItemLink
                         href="/betaling/ny"

@@ -20,6 +20,8 @@ const ChipsListContainer = ({
                 flexWrap="flex"
                 mt={2}
                 mb={2}
+                border={1}
+                borderColor="grey.100"
                 bgcolor="grey.100"
                 borderRadius="borderRadius"
             >

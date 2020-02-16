@@ -50,30 +50,33 @@ const OrganisationSelector = () => {
         setAnchorEl(null);
     }
 
-    return (
-        <Box className={classes.root}>
-            <Button className={classes.organisationButton} onClick={handleClick}>
-                {school || 'Velg organisasjon'}
-                <OrganisationIcon className={classes.organsationIcon} />
-            </Button>
-            <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-            >
-                {organisationUnits.map((o) => (
-                    <MenuItem
-                        key={o.organisationNumber}
-                        onClick={() => handleSchoolClick(o.name, o.organisationNumber)}
-                    >
-                        {o.name}
-                    </MenuItem>
-                ))}
-            </Menu>
-        </Box>
-    );
+    if (organisationUnits) {
+        return (
+            <Box className={classes.root}>
+                <Button className={classes.organisationButton} onClick={handleClick}>
+                    {school || 'Velg organisasjon'}
+                    <OrganisationIcon className={classes.organsationIcon} />
+                </Button>
+                <Menu
+                    id="simple-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    {organisationUnits.map((o) => (
+                        <MenuItem
+                            key={o.organisationNumber}
+                            onClick={() => handleSchoolClick(o.name, o.organisationNumber)}
+                        >
+                            {o.name}
+                        </MenuItem>
+                    ))}
+                </Menu>
+            </Box>
+        );
+    }
+    return <Box />;
 };
 
 export default OrganisationSelector;
