@@ -4,8 +4,8 @@ import { Card, makeStyles } from '@material-ui/core';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import RouteButton from '../../common/route-button';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,9 +43,9 @@ const CardMenu = () => {
                         </Box>
                     </CardContent>
                     <CardActions>
-                        <Button href="/betaling/ny" size="small" color="secondary">
+                        <RouteButton to="/betaling/ny" size="small" color="secondary">
                             Til opprett ordre
-                        </Button>
+                        </RouteButton>
                     </CardActions>
                 </Card>
             </Grid>
@@ -67,9 +67,9 @@ const CardMenu = () => {
                         </Box>
                     </CardContent>
                     <CardActions>
-                        <Button href="/betaling/ny" size="small" color="secondary">
+                        <RouteButton to="/betaling/ny" size="small" color="secondary">
                             Til send ordre
-                        </Button>
+                        </RouteButton>
                     </CardActions>
                 </Card>
             </Grid>
@@ -92,9 +92,9 @@ const CardMenu = () => {
 
                     </CardContent>
                     <CardActions>
-                        <Button href="/betaling/historikk" size="small" color="secondary">
+                        <RouteButton to="/betaling/historikk" size="small" color="secondary">
                             Til ordrehistorikk
-                        </Button>
+                        </RouteButton>
                     </CardActions>
                 </Card>
             </Grid>

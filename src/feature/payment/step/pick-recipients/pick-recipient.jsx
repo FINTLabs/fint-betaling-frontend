@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -15,10 +15,10 @@ import {
     updateStep,
     updateSuggestions,
 } from '../../../../data/redux/actions/payment';
-import {
-    GROUP, INDIVIDUAL, SEARCH_PAGE_START, STEP_PICK_PRODUCTS,
-} from '../../constants';
+import { GROUP, INDIVIDUAL, SEARCH_PAGE_START, STEP_PICK_PRODUCTS, } from '../../constants';
 import RecipientChipList from '../recipient-chip-list';
+import fetchGroup from '../../../../data/redux/actions/groups';
+import fetchCustomer from '../../../../data/redux/actions/customers';
 
 const useStyles = makeStyles(() => ({
     h2: {
@@ -33,6 +33,15 @@ const PickPaymentRecipient = () => {
     const groups = useSelector((state) => state.groups.groups);
     const individual = useSelector((state) => state.customers.customers);
     const recipients = useSelector((state) => state.payment.payment.recipients);
+    const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
+
+
+    useEffect(() => {
+        if (schoolOrgId) {
+            dispatch(fetchGroup(schoolOrgId));
+            dispatch(fetchCustomer(schoolOrgId));
+        }
+    }, [dispatch, schoolOrgId]);
 
     function isConfirmButtonDisabled() {
         return Object.keys(recipients)

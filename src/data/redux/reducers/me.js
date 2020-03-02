@@ -2,7 +2,7 @@ import { FETCH_ME, FETCH_ME_FULFILLED, FETCH_ME_REJECTED } from '../actions/acti
 
 
 export const defaultState = {
-    me: [],
+    me: {},
     isLoading: false,
     loaded: false,
     error: false,

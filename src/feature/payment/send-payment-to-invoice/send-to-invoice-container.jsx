@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import OrderChipList from './order-chip-list';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
-import fetchPayment from '../../../data/redux/actions/payments';
+import fetchPayments from '../../../data/redux/actions/payments';
 import {
     updateLatestSentPayment,
     updateLoadingSendingInvoice,
@@ -47,7 +47,7 @@ const SendToInvoiceContainer = () => {
     const orgId = 'fintlabs.no';
 
     if (needsFetch) {
-        dispatch(fetchPayment());
+        dispatch(fetchPayments());
         dispatch(updateNeedFetch(false));
     }
 

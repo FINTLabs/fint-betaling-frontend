@@ -12,10 +12,11 @@ import RecipientSuggestItem from './recipient-suggest-item';
 import SearchField from '../../../../common/search-field';
 
 const RecipientSearch = () => {
+    const dispatch = useDispatch();
+
     const searchValue = useSelector((state) => state.payment.form.searchValue);
     const recipientType = useSelector((state) => state.payment.form.searchBy)
         .toString();
-    const dispatch = useDispatch();
     const groups = useSelector((state) => state.groups.groups);
     const individual = useSelector((state) => state.customers.customers);
     const splitCustomers = useSelector((state) => state.customers.namesSplit);

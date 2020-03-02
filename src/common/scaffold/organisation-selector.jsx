@@ -6,12 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import OrganisationIcon from '@material-ui/icons/Domain';
 import Divider from '@material-ui/core/Divider';
-import {
-    setSchool,
-    setSchoolOrgId,
-    updateCustomersLoaded,
-    updateGroupsLoaded,
-} from '../../data/redux/actions/payment';
+import { setSchool, setSchoolOrgId } from '../../data/redux/actions/payment';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,11 +31,11 @@ const OrganisationSelector = () => {
 
     function handleSchoolClick(selectedSchool, schoolOrgId) {
         dispatch(setSchool(selectedSchool));
-        localStorage.setItem('school', selectedSchool);
         dispatch(setSchoolOrgId(schoolOrgId));
+        localStorage.setItem('school', selectedSchool);
         localStorage.setItem('schoolOrgId', schoolOrgId);
-        dispatch(updateGroupsLoaded(false));
-        dispatch(updateCustomersLoaded(false));
+        // dispatch(updateGroupsLoaded(false));
+        // dispatch(updateCustomersLoaded(false));
         setAnchorEl(null);
     }
 
@@ -50,7 +45,6 @@ const OrganisationSelector = () => {
 
     return (
         <Box minWidth="320px" display="flex" justifyContent="flex-end">
-
             <Button className={classes.organisationButton} onClick={handleClick}>
                 {organisationUnits ? school : <CircularProgress color="secondary" size={25} />}
                 <OrganisationIcon className={classes.organsationIcon} />

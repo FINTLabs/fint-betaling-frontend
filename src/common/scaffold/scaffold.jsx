@@ -21,28 +21,20 @@ import LogOut from '@material-ui/icons/ExitToApp';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import _ from 'lodash';
+import { Link } from 'react-router-dom';
+import ListItem from '@material-ui/core/ListItem';
 import VigoLogo from '../../assets/vigo-logo-no-iks.svg';
 import Routes from './routes';
 import OrganisationSelector from './organisation-selector';
-import fetchCustomer from '../../data/redux/actions/customers';
-import fetchGroup from '../../data/redux/actions/groups';
 import fetchMe from '../../data/redux/actions/me';
-import fetchPayment from '../../data/redux/actions/payments';
 import {
-    initializePayment,
-    setOrgId,
-    setSchool,
-    setSchoolOrgId,
-    updateCustomersLoaded,
-    updateGroupsLoaded,
+    initializePayment, setOrgId, setSchool, setSchoolOrgId,
 } from '../../data/redux/actions/payment';
 import ListItemLink from './list-item-link';
 import UnsendtAlertButton from './unsendt-alert-button';
 import ErrorAlertButton from './error-alert-button';
-import fetchDate from '../../data/redux/actions/dates';
-import fetchEmployer from '../../data/redux/actions/employers';
-import fetchMva from '../../data/redux/actions/mva';
-import fetchOrderLines from '../../data/redux/actions/orderlines';
+import fetchPayments from '../../data/redux/actions/payments';
 
 
 const drawerWidth = 240;
@@ -50,6 +42,10 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
+    },
+    menuLink: {
+        textDecoration: 'none',
+        color: 'inherit',
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -124,27 +120,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Scaffold() {
     const classes = useStyles();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
-    const customers = useSelector((state) => state.customers);
-    const dates = useSelector((state) => state.dates);
-    const employers = useSelector((state) => state.employers);
-    const groups = useSelector((state) => state.groups);
-    const me = useSelector((state) => state.me);
-    const mva = useSelector((state) => state.mva);
-    const orderLines = useSelector((state) => state.orderLines);
-    const payments = useSelector((state) => state.payments);
-    const school = useSelector((state) => state.payment.payment.school);
-    const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
-    const groupsLoaded = useSelector((state) => state.payment.payment.groupsLoaded);
-    const customersLoaded = useSelector((state) => state.payment.payment.customersLoaded);
     const dispatch = useDispatch();
+
+    const [open, setOpen] = React.useState(false);
+
+    const me = useSelector((state) => state.me);
+    const isPaymentsLoading = useSelector((state) => state.payments.isLoading);
+    const isCustomersLoading = useSelector((state) => state.customers.isLoading);
+    const isOrderLinesLoading = useSelector((state) => state.orderLines.isLoading);
+    const isGroupsLoading = useSelector((state) => state.groups.isLoading);
+    const isDatesLoading = useSelector((state) => state.dates.isLoading);
+
+    const school = useSelector((state) => state.payment.payment.school);
+
     let localStorageSchool = localStorage.getItem('school');
     let localStorageSchoolOrgId = localStorage.getItem('schoolOrgId');
 
     if (me.me.organisationUnits) {
         const isSchoolPresentInMe = me.me.organisationUnits.some((ou) => ou.name === localStorageSchool);
         if (!isSchoolPresentInMe) {
-            console.log('not present');
             localStorageSchool = '';
             localStorageSchoolOrgId = '';
             localStorage.setItem('school', '');
@@ -155,13 +149,11 @@ export default function Scaffold() {
     }
 
     useEffect(() => {
-        dispatch(fetchDate());
-        dispatch(fetchEmployer());
-        dispatch(fetchMe());
-        dispatch(fetchMva());
-        dispatch(fetchOrderLines());
-        dispatch(fetchPayment());
-    }, [dispatch]);
+        if (_.isEmpty(me.me)) {
+            dispatch(fetchMe());
+        }
+        dispatch(fetchPayments());
+    }, [dispatch, me.me]);
 
 
     if (me.loaded && school.toString() === '') {
@@ -193,26 +185,6 @@ export default function Scaffold() {
         ));
     }
 
-    if (schoolOrgId.toString() !== '' && !groupsLoaded) {
-        console.log('load groups');
-        dispatch(updateGroupsLoaded(true));
-        dispatch(fetchGroup(schoolOrgId));
-    }
-    if (schoolOrgId.toString() !== '' && !customersLoaded) {
-        console.log('load customers');
-        dispatch(updateCustomersLoaded(true));
-        dispatch(fetchCustomer(schoolOrgId));
-    }
-
-    // const amountFinishedLoaded = (customers.loaded ? 1 : 0)
-    //     + (dates.loaded ? 1 : 0)
-    //     + (employers.loaded ? 1 : 0)
-    //     + (groups.loaded ? 1 : 0)
-    //     + (me.loaded ? 1 : 0)
-    //     + (mva.loaded ? 1 : 0)
-    //     + (orderLines.loaded ? 1 : 0)
-    //     + (payments.loaded ? 1 : 0);
-
 
     function handleDrawerOpen() {
         setOpen(true);
@@ -222,27 +194,12 @@ export default function Scaffold() {
         setOpen(false);
     }
 
-    // if (
-    const loading = customers.isLoading
-        || dates.isLoading
-        || employers.isLoading
-        || groups.isLoading
-        || me.isLoading
-        || mva.isLoading
-        || orderLines.isLoading
-        || payments.isLoading
-        || !customers.loaded
-        || !dates.loaded
-        || !employers.loaded
-        || !groups.loaded
-        || !me.loaded
-        || !mva.loaded
-        || !orderLines.loaded
-        || !payments.loaded
-        || school.toString() === '';
-    // ) {
-    //     return (<LoadingPage progress={amountFinishedLoaded} />);
-    // }
+    const loading = isCustomersLoading
+        || isDatesLoading
+        || isGroupsLoading
+        || isOrderLinesLoading
+        || isPaymentsLoading
+        || me.isLoading;
 
     return (
         <div className={classes.root}>
@@ -265,9 +222,9 @@ export default function Scaffold() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <a href="/">
+                    <Link className={classes.menuLink} to="/">
                         <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo} />
-                    </a>
+                    </Link>
                     <Typography variant="h6" noWrap>
                         FINT Betaling
                     </Typography>
@@ -300,36 +257,46 @@ export default function Scaffold() {
                 </div>
                 <Divider />
                 <List>
-                    <ListItemLink href="/">
+                    <ListItem button component={Link} to="/">
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>
                         <ListItemText primary="Hjem" />
-                    </ListItemLink>
+                    </ListItem>
                     <Divider />
-                    <ListItemLink
-                        href="/betaling/ny"
+
+                    <ListItem
+                        button
+                        component={Link}
+                        to="/betaling/ny"
                         onClick={() => {
                             dispatch(initializePayment());
                         }}
                     >
                         <ListItemIcon><NewInvoice /></ListItemIcon>
                         <ListItemText primary="Opprett ordre" />
-                    </ListItemLink>
+                    </ListItem>
 
-                    <ListItemLink
-                        href="/betaling/send"
+
+                    <ListItem
+                        button
+                        to="/betaling/send"
+                        component={Link}
                         onClick={() => {
                             dispatch(initializePayment());
                         }}
                     >
                         <ListItemIcon><LogOut /></ListItemIcon>
                         <ListItemText primary="Send ordre" />
-                    </ListItemLink>
-                    <ListItemLink href="/betaling/historikk">
+                    </ListItem>
+                    <ListItem
+                        button
+                        to="/betaling/historikk"
+                        component={Link}
+                    >
                         <ListItemIcon><InvoiceHistory /></ListItemIcon>
                         <ListItemText primary="Ordrehistorikk" />
-                    </ListItemLink>
+                    </ListItem>
                     <Divider />
                     <ListItemLink href="/AGLogout">
                         <ListItemIcon><LogOut /></ListItemIcon>

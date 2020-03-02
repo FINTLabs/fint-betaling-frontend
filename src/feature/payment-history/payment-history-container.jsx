@@ -9,7 +9,7 @@ import { Typography } from '@material-ui/core';
 import { CUSTOMER_NAME, ORDER_NUMBER } from '../payment/constants';
 import PaymentSearch from './payment-search';
 import { updateNeedFetch, updatePaymentsSearchBy, updatePaymentsSearchValue } from '../../data/redux/actions/payment';
-import fetchPayment from '../../data/redux/actions/payments';
+import fetchPayments from '../../data/redux/actions/payments';
 import FilterSelect from './filter-selection';
 
 const PaymentHistoryContainer = () => {
@@ -18,7 +18,7 @@ const PaymentHistoryContainer = () => {
     const dispatch = useDispatch();
 
     if (needsFetch) {
-        dispatch(fetchPayment());
+        dispatch(fetchPayments());
         dispatch(updateNeedFetch(false));
     }
 

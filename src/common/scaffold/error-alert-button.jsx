@@ -11,6 +11,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import RouteButton from '../route-button';
 
 const useStyles = makeStyles((theme) => ({
     popover: {
@@ -83,7 +84,6 @@ const useStyles = makeStyles((theme) => ({
 
 const ErrorAlertButton = () => {
     const classes = useStyles();
-    // const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [arrowRef, setArrowRef] = React.useState(null);
 
@@ -154,9 +154,9 @@ const ErrorAlertButton = () => {
                         </Button>
                         {errorPayments > 0
                         && (
-                            <Button href="/betaling/historikk" onClick={handleClose} color="secondary" autoFocus>
+                            <RouteButton to="/betaling/historikk" onClick={handleClose} color="secondary" autoFocus>
                                 Gå til ordrehistorikk
-                            </Button>
+                            </RouteButton>
                         )}
                     </DialogActions>
                 </Paper>

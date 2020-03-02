@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles, Typography } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
@@ -9,6 +9,7 @@ import { updateStep } from '../../../../data/redux/actions/payment';
 import ProductSearch from './product-search';
 import ProductChipList from './products-chip-list';
 import { STEP_CONFIRM_PAYMENT } from '../../constants';
+import fetchOrderLines from '../../../../data/redux/actions/orderlines';
 
 const useStyles = makeStyles(() => ({
     h2: {
@@ -19,7 +20,12 @@ const useStyles = makeStyles(() => ({
 const PickProducts = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
+
     const pickedProducts = useSelector((state) => state.payment.payment.products);
+
+    useEffect(() => {
+        dispatch(fetchOrderLines());
+    }, [dispatch]);
 
     function isConfirmButtonDisabled() {
         return Object.keys(pickedProducts)

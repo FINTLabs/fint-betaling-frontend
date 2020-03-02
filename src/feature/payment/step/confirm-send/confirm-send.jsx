@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Box, Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -11,6 +11,8 @@ import ExpirationDatePicker from './expiration-date-picker';
 import { updateNeedFetch, updateLatestSentPayment, updateStep } from '../../../../data/redux/actions/payment';
 import ClaimRepository from '../../../../data/repository/ClaimRepository';
 import { STEP_PAYMENT_CONFIRMED } from '../../constants';
+import fetchOrderLines from '../../../../data/redux/actions/orderlines';
+import fetchDate from '../../../../data/redux/actions/dates';
 
 
 const ConfirmSend = () => {
@@ -29,6 +31,10 @@ const ConfirmSend = () => {
     const customers = useSelector((state) => state.customers.customers);
     const employers = useSelector((state) => state.employers.employers);
     const orgId = 'fake.fintlabs.no';
+
+    useEffect(() => {
+        dispatch(fetchDate());
+    }, [dispatch]);
 
     function handleSendInvoice() {
         function getRecipientsAsObjects(recipients) {

@@ -10,6 +10,9 @@ import {
 } from '../../../../data/redux/actions/payment';
 import { SEARCH_PAGE_ROWS, SEARCH_PAGE_START } from '../../constants';
 import SearchField from '../../../../common/search-field';
+import fetchGroup from '../../../../data/redux/actions/groups';
+import fetchCustomer from '../../../../data/redux/actions/customers';
+import fetchOrderLines from '../../../../data/redux/actions/orderlines';
 
 const useStyles = makeStyles((theme) => ({
 
@@ -54,15 +57,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProductSearch = () => {
-    const searchValue = useSelector((state) => state.payment.product.searchValue);
+    const classes = useStyles();
     const dispatch = useDispatch();
+
+    const searchValue = useSelector((state) => state.payment.product.searchValue);
     const suggestions = useSelector((state) => state.orderLines.orderLines);
     const activePage = useSelector((state) => state.payment.form.page);
     const productsLengthTemp = useSelector((state) => state.payment.product.productsLength);
     const productsLength = searchValue.length === 0 ? 0 : productsLengthTemp;
-    const classes = useStyles();
     const searchPlaceHolder = 'Produktnavn eller produktkode';
-    const rowsPerPage = SEARCH_PAGE_ROWS;
+
 
     function matchedProduct(suggestion, input) {
         if (input.length > 0) {
@@ -79,13 +83,13 @@ const ProductSearch = () => {
     function filterSuggestions(input) {
         let countSuggestion = 0;
         let countToStartOfActivePage = -1;
-        const keepSuggestionsFromCount = activePage * rowsPerPage;
+        const keepSuggestionsFromCount = activePage * SEARCH_PAGE_ROWS;
         return suggestions.filter((suggestion) => {
             const matched = matchedProduct(suggestion, input);
             if (matched) {
                 countToStartOfActivePage += 1;
             }
-            const keep = countSuggestion < rowsPerPage
+            const keep = countSuggestion < SEARCH_PAGE_ROWS
                 && keepSuggestionsFromCount <= countToStartOfActivePage
                 && matched;
             if (keep && keepSuggestionsFromCount <= countToStartOfActivePage) {
