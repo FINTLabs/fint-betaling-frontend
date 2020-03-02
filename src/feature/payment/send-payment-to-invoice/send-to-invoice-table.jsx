@@ -92,7 +92,7 @@ const SendToInvoiceTable = ({ filteredSuggestions, selectedOrders }) => {
                             </TableRow>
                             <TableRow>
                                 <TableCell>Ordrenummer</TableCell>
-                                <TableCell align="right" className={classes.tableCell}>Mottakernavn</TableCell>
+                                <TableCell align="left" className={classes.tableCell}>Mottakernavn</TableCell>
                                 <TableCell align="right" className={classes.tableCell}>Restbeløp</TableCell>
                                 <TableCell align="center" className={classes.tableCell}>Velg</TableCell>
                             </TableRow>

@@ -29,13 +29,7 @@ const GroupMemberTable = ({ members, recipients, handleIndividualCheck }) => {
             <TableHead>
                 <TableRow>
                     <TableCell>Navn</TableCell>
-                    <TableCell align="right" className={classes.tableCell}>
-                        E-postadresse
-                    </TableCell>
-                    <TableCell align="right" className={classes.tableCell}>
-                        Telefonnummer
-                    </TableCell>
-                    <TableCell align="right" className={classes.tableCell}>
+                    <TableCell align="center" className={classes.tableCell}>
                         Velg
                     </TableCell>
                 </TableRow>
@@ -50,18 +44,6 @@ const GroupMemberTable = ({ members, recipients, handleIndividualCheck }) => {
                                     className={classes.tableCell}
                                 >
                                     {customer.name}
-                                </TableCell>
-                                <TableCell
-                                    align="right"
-                                    className={classes.tableCell}
-                                >
-                                    {customer.email || ''}
-                                </TableCell>
-                                <TableCell
-                                    align="right"
-                                    className={classes.tableCell}
-                                >
-                                    {customer.mobile || ''}
                                 </TableCell>
                                 <TableCell
                                     align="center"

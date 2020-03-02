@@ -25,7 +25,7 @@ const SendToInvoiceTableRow = ({
             <TableCell align="left" className={classes.tableCell}>
                 {suggestion.orderNumber}
             </TableCell>
-            <TableCell align="right" className={classes.tableCell}>
+            <TableCell align="left" className={classes.tableCell}>
                 {suggestion.customer.name}
             </TableCell>
             <TableCell align="right" className={classes.tableCell}>

@@ -77,8 +77,6 @@ const IndividualTable = () => {
                 <TableHead>
                     <TableRow>
                         <TableCell className={classes.tableCellName}>Navn</TableCell>
-                        <TableCell align="left" className={classes.tableCellEmail}>E-postadresse</TableCell>
-                        <TableCell align="right" className={classes.tableCell}>Telefonnummer</TableCell>
                         <TableCell align="center" className={classes.tableCell}>Velg</TableCell>
 
                     </TableRow>
@@ -102,12 +100,6 @@ const IndividualTable = () => {
                                                     {part.text}
                                                 </span>
                                             ))}
-                                        </TableCell>
-                                        <TableCell align="left" className={classes.tableCellEmail}>
-                                            {suggestion.email || ''}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.mobile || ''}
                                         </TableCell>
                                         <TableCell align="center" className={classes.tableCell}>
                                             <Checkbox
