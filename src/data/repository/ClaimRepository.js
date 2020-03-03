@@ -47,7 +47,6 @@ class ClaimRepository {
                 method: 'POST',
                 headers: new Headers({
                     'Content-Type': 'application/json',
-                    'x-org-id': orgId,
                 }),
                 body: JSON.stringify({ // Todo create Order from model
                     orderItems,

@@ -10,9 +10,6 @@ import {
 } from '../../../../data/redux/actions/payment';
 import { SEARCH_PAGE_ROWS, SEARCH_PAGE_START } from '../../constants';
 import SearchField from '../../../../common/search-field';
-import fetchGroup from '../../../../data/redux/actions/groups';
-import fetchCustomer from '../../../../data/redux/actions/customers';
-import fetchOrderLines from '../../../../data/redux/actions/orderlines';
 
 const useStyles = makeStyles((theme) => ({
 

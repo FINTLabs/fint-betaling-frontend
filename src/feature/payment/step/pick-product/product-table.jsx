@@ -11,7 +11,15 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
-import { updateProductAmount, updateProducts, updateSearchPage } from '../../../../data/redux/actions/payment';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import {
+    updateProductAmount,
+    updateProductPrice,
+    updateProducts,
+    updateSearchPage,
+} from '../../../../data/redux/actions/payment';
 import Amount from '../../utils/amount';
 import Pagination from '../../../../common/pagination';
 
@@ -39,6 +47,7 @@ const ProductTable = () => {
     const productsLengthTemp = useSelector((state) => state.payment.product.productsLength);
     const productsLength = query.length === 0 ? 0 : productsLengthTemp;
     const productAmount = useSelector((state) => state.payment.product.amount);
+    const productPrice = useSelector((state) => state.payment.product.itemPrice);
 
     let suggestions = useSelector((state) => state.payment.product.filteredSuggestions);
     suggestions = query.length === 0 ? [] : suggestions;
@@ -47,6 +56,12 @@ const ProductTable = () => {
         const newArray = { ...productAmount };
         newArray[itemCode] = { amount: newAmount };
         dispatch(updateProductAmount(newArray));
+    }
+
+    function handleItemPriceChange(newItemPrice, itemCode) {
+        const item = { ...productAmount };
+        item[itemCode] = { itemPrice: newItemPrice };
+        dispatch(updateProductPrice(item));
     }
 
     function handleIndividualCheck(event, itemCode, description, itemPrice, taxRate, uri) {
@@ -73,6 +88,13 @@ const ProductTable = () => {
             return productAmount[suggestion.itemCode].amount;
         }
         return 1;
+    }
+
+    function getPrice(suggestion) {
+        if (productPrice[suggestion.itemCode] && productPrice[suggestion.itemCode].itemPrice) {
+            return productPrice[suggestion.itemCode].itemPrice;
+        }
+        return suggestion.itemPrice;
     }
 
     return (
@@ -114,27 +136,35 @@ const ProductTable = () => {
                                                 : ''}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
-                                            <Amount>{suggestion.itemPrice}</Amount>
+                                            <FormControl>
+                                                <Input
+                                                    id="amount"
+                                                    label="Pris"
+                                                    value={getPrice(suggestion)}
+                                                    onChange={(e) => handleItemPriceChange(
+                                                        e.target.value, suggestion.itemCode,
+                                                    )}
+                                                    endAdornment={<InputAdornment position="end">NOK</InputAdornment>}
+                                                    margin="normal"
+                                                />
+                                            </FormControl>
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCellAmount}>
-                                            <TextField
-                                                id="amount"
-                                                label="Antall"
-                                                value={getAmount(suggestion)}
-                                                onChange={(e) => handleAmountChange(
-                                                    e.target.value, suggestion.itemCode,
-                                                )}
-                                                type="number"
-                                                InputProps={{
-                                                    inputProps: {
-                                                        min: 1,
-                                                    },
-                                                }}
-                                                margin="normal"
-                                            />
+                                            <FormControl>
+                                                <Input
+                                                    id="amount"
+                                                    label="Antall"
+                                                    value={getAmount(suggestion)}
+                                                    onChange={(e) => handleAmountChange(
+                                                        e.target.value, suggestion.itemCode,
+                                                    )}
+                                                    type="number"
+                                                    margin="normal"
+                                                />
+                                            </FormControl>
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
-                                            <Amount>{(suggestion.itemPrice) * getAmount(suggestion)}</Amount>
+                                            <Amount>{getPrice(suggestion) * getAmount(suggestion)}</Amount>
                                         </TableCell>
                                         <TableCell align="center" className={classes.tableCell}>
                                             <Checkbox

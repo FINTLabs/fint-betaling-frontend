@@ -19,6 +19,7 @@ import { GROUP, INDIVIDUAL, SEARCH_PAGE_START, STEP_PICK_PRODUCTS, } from '../..
 import RecipientChipList from '../recipient-chip-list';
 import fetchGroup from '../../../../data/redux/actions/groups';
 import fetchCustomer from '../../../../data/redux/actions/customers';
+import fetchEmployer from '../../../../data/redux/actions/employers';
 
 const useStyles = makeStyles(() => ({
     h2: {
@@ -40,6 +41,7 @@ const PickPaymentRecipient = () => {
         if (schoolOrgId) {
             dispatch(fetchGroup(schoolOrgId));
             dispatch(fetchCustomer(schoolOrgId));
+            dispatch(fetchEmployer(schoolOrgId));
         }
     }, [dispatch, schoolOrgId]);
 

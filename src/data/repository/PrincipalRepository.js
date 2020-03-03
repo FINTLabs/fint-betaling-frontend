@@ -1,5 +1,5 @@
 class PrincipalRepository {
-    static fetchEmployers() {
+    static fetchEmployers(orgId) {
         const url = '/api/principal';
         const stopFetch = 15;
 
@@ -8,7 +8,7 @@ class PrincipalRepository {
                 return (error !== null || response.status >= 400) && attempt <= stopFetch;
             },
             method: 'GET',
-            // headers: new Headers({'x-org-id': orgId})
+            headers: new Headers({ 'x-school-org-id': orgId }),
         })
             .then((result) => Promise.all([result, result.json()]))
             .catch((error) => error);

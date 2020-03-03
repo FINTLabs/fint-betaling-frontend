@@ -2,12 +2,12 @@ import { FETCH_EMPLOYERS, FETCH_EMPLOYERS_FULFILLED, FETCH_EMPLOYERS_REJECTED } 
 import PrincipalRepository from '../../repository/PrincipalRepository';
 
 
-export default function fetchEmployer() {
+export default function fetchEmployer(orgId) {
     return (dispatch) => {
         dispatch({ type: FETCH_EMPLOYERS });
 
 
-        PrincipalRepository.fetchEmployers()
+        PrincipalRepository.fetchEmployers(orgId)
             .then(([result, json]) => {
                 if (result.status === 200) {
                     dispatch({

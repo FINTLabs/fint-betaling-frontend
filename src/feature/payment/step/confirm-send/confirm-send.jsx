@@ -8,10 +8,9 @@ import Divider from '@material-ui/core/Divider';
 import ConfirmedRecipients from './confirmed-recipients';
 import ConfirmedProducts from './confirmed-products';
 import ExpirationDatePicker from './expiration-date-picker';
-import { updateNeedFetch, updateLatestSentPayment, updateStep } from '../../../../data/redux/actions/payment';
+import { updateLatestSentPayment, updateNeedFetch, updateStep } from '../../../../data/redux/actions/payment';
 import ClaimRepository from '../../../../data/repository/ClaimRepository';
 import { STEP_PAYMENT_CONFIRMED } from '../../constants';
-import fetchOrderLines from '../../../../data/redux/actions/orderlines';
 import fetchDate from '../../../../data/redux/actions/dates';
 
 
@@ -28,6 +27,7 @@ const ConfirmSend = () => {
     const recipients = useSelector((state) => state.payment.payment.recipients);
     const products = useSelector((state) => state.payment.payment.products);
     const productsAmount = useSelector((state) => state.payment.product.amount);
+    const productsPrice = useSelector((state) => state.payment.product.itemPrice);
     const customers = useSelector((state) => state.customers.customers);
     const employers = useSelector((state) => state.employers.employers);
     const orgId = 'fake.fintlabs.no';
@@ -52,14 +52,15 @@ const ConfirmSend = () => {
             return list;
         }
 
-        function getProductsAsObjects(products, productsAmount) {
+        function getProductsAsObjects(products, amount, price) {
             const list = [];
             Object.keys(products)
                 .map((key) => {
                     if (products[key].checked) {
                         const orderLine = {
                             description: products[key].description,
-                            itemQuantity: productsAmount[key].amount,
+                            itemQuantity: amount[key].amount,
+                            itemPrice: price[key].itemPrice,
                             lineitem: {
                                 itemCode: key,
                                 itemPrice: products[key].itemPrice,
@@ -76,7 +77,7 @@ const ConfirmSend = () => {
         }
 
         const recipientsList = getRecipientsAsObjects(recipients);
-        const productList = getProductsAsObjects(products, productsAmount);
+        const productList = getProductsAsObjects(products, productsAmount, productsPrice);
         const organisationUnit = {
             name: schoolName,
             organisationNumber: schoolOrgId,
@@ -88,7 +89,7 @@ const ConfirmSend = () => {
             JSON.parse(JSON.stringify(productList)),
             requestedNumberOfDaysToPaymentDeadLine,
             organisationUnit,
-            employers[1],
+            employers,
             me,
         )
             .then((data) => {

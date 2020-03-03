@@ -25,7 +25,7 @@ import {
     UPDATE_PAYMENTS_SEARCH_VALUE,
     UPDATE_PAYMENTS_SUGGESTIONS,
     UPDATE_PRODUCT_AMOUNT,
-    UPDATE_PRODUCT_LENGTH,
+    UPDATE_PRODUCT_LENGTH, UPDATE_PRODUCT_PRICE,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS,
@@ -73,7 +73,8 @@ export const defaultState = {
         searchValue: '',
         productsLength: 0,
         filteredSuggestions: [],
-        amount: [],
+        amount: {},
+        itemPrice: {},
     },
     payments: {
         filter: 'ALL',
@@ -275,6 +276,14 @@ export default function reducer(state = defaultState, action) {
             product: {
                 ...state.product,
                 amount: action.payload,
+            },
+        };
+    case UPDATE_PRODUCT_PRICE:
+        return {
+            ...state,
+            product: {
+                ...state.product,
+                itemPrice: action.payload,
             },
         };
     case UPDATE_PAYMENTS_SEARCH_BY:

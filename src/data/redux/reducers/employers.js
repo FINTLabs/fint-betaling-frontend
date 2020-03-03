@@ -2,7 +2,7 @@ import { FETCH_EMPLOYERS, FETCH_EMPLOYERS_FULFILLED, FETCH_EMPLOYERS_REJECTED } 
 
 
 export const defaultState = {
-    employers: [],
+    employers: {},
     isLoading: false,
     loaded: false,
     error: false,
