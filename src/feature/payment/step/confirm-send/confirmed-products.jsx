@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, makeStyles, Table, Typography, } from '@material-ui/core';
+import {
+    Box, makeStyles, Table, Typography,
+} from '@material-ui/core';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
@@ -20,6 +22,7 @@ const ConfirmedProducts = () => {
     const classes = useStyles();
     const products = useSelector((state) => state.payment.payment.products);
     const productAmounts = useSelector((state) => state.payment.product.amount);
+    const productPrice = useSelector((state) => state.payment.product.itemPrice);
     return (
         <Box p={2} width={1}>
             <Typography variant="h6" className={classes.recipientHeader}>
@@ -46,17 +49,13 @@ const ConfirmedProducts = () => {
                                         {key}
                                     </TableCell>
                                     <TableCell align="right">{productAmounts[key].amount}</TableCell>
-                                    <TableCell
-                                        align="right"
-                                    >
-                                        <Amount>{products[key].itemPrice}</Amount>
+                                    <TableCell align="right">
+                                        <Amount>{productPrice[key].itemPrice}</Amount>
                                     </TableCell>
-                                    <TableCell
-                                        align="right"
-                                    >
+                                    <TableCell align="right">
                                         <Amount>
                                             {parseInt(productAmounts[key].amount, 10)
-                                            * parseInt(products[key].itemPrice, 10)}
+                                            * parseInt(productPrice[key].itemPrice, 10)}
                                         </Amount>
                                     </TableCell>
                                 </TableRow>
