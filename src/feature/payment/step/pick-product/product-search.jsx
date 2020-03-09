@@ -58,7 +58,7 @@ const ProductSearch = () => {
     const dispatch = useDispatch();
 
     const searchValue = useSelector((state) => state.payment.product.searchValue);
-    const suggestions = useSelector((state) => state.orderLines.orderLines);
+    const suggestions = useSelector((state) => state.principal.principal.lineitems);
     const activePage = useSelector((state) => state.payment.form.page);
     const productsLengthTemp = useSelector((state) => state.payment.product.productsLength);
     const productsLength = searchValue.length === 0 ? 0 : productsLengthTemp;

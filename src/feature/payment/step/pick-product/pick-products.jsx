@@ -9,7 +9,6 @@ import { updateStep } from '../../../../data/redux/actions/payment';
 import ProductSearch from './product-search';
 import ProductChipList from './products-chip-list';
 import { STEP_CONFIRM_PAYMENT } from '../../constants';
-import fetchOrderLines from '../../../../data/redux/actions/orderlines';
 
 const useStyles = makeStyles(() => ({
     h2: {
@@ -24,7 +23,7 @@ const PickProducts = () => {
     const pickedProducts = useSelector((state) => state.payment.payment.products);
 
     useEffect(() => {
-        dispatch(fetchOrderLines());
+        //dispatch(fetchOrderLines());
     }, [dispatch]);
 
     function isConfirmButtonDisabled() {

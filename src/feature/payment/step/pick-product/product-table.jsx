@@ -9,9 +9,7 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import Checkbox from '@material-ui/core/Checkbox';
 import { makeStyles } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import {
@@ -22,6 +20,7 @@ import {
 } from '../../../../data/redux/actions/payment';
 import Amount from '../../utils/amount';
 import Pagination from '../../../../common/pagination';
+import PriceField from '../../../../common/price-field';
 
 
 const useStyles = makeStyles(() => ({
@@ -52,19 +51,19 @@ const ProductTable = () => {
     let suggestions = useSelector((state) => state.payment.product.filteredSuggestions);
     suggestions = query.length === 0 ? [] : suggestions;
 
-    function handleAmountChange(newAmount, itemCode) {
+    const handleAmountChange = (newAmount, itemCode) => {
         const newArray = { ...productAmount };
         newArray[itemCode] = { amount: newAmount };
         dispatch(updateProductAmount(newArray));
-    }
+    };
 
-    function handleItemPriceChange(newItemPrice, itemCode) {
-        const item = { ...productAmount };
+    const handleItemPriceChange = (newItemPrice, itemCode) => {
+        const item = { ...productPrice };
         item[itemCode] = { itemPrice: newItemPrice };
         dispatch(updateProductPrice(item));
-    }
+    };
 
-    function handleIndividualCheck(event, itemCode, description, itemPrice, taxRate, uri) {
+    const handleIndividualCheck = (event, itemCode, description, itemPrice, taxRate, uri) => {
         const newArray = { ...pickedProducts };
         newArray[itemCode] = {
             checked: event.target.checked,
@@ -77,25 +76,25 @@ const ProductTable = () => {
             handleAmountChange(1, itemCode);
         }
         dispatch(updateProducts(newArray));
-    }
+    };
 
-    function handleChangePage(event, newPage) {
+    const handleChangePage = (event, newPage) => {
         dispatch(updateSearchPage(newPage));
-    }
+    };
 
-    function getAmount(suggestion) {
+    const getAmount = (suggestion) => {
         if (productAmount[suggestion.itemCode] && productAmount[suggestion.itemCode].amount) {
             return productAmount[suggestion.itemCode].amount;
         }
         return 1;
-    }
+    };
 
-    function getPrice(suggestion) {
+    const getPrice = (suggestion) => {
         if (productPrice[suggestion.itemCode] && productPrice[suggestion.itemCode].itemPrice) {
             return productPrice[suggestion.itemCode].itemPrice;
         }
         return suggestion.itemPrice;
-    }
+    };
 
     return (
         <Box>
@@ -136,30 +135,24 @@ const ProductTable = () => {
                                                 : ''}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
-                                            <FormControl>
-                                                <Input
-                                                    id="amount"
-                                                    label="Pris"
-                                                    value={getPrice(suggestion)}
-                                                    onChange={(e) => handleItemPriceChange(
-                                                        e.target.value, suggestion.itemCode,
-                                                    )}
-                                                    endAdornment={<InputAdornment position="end">NOK</InputAdornment>}
-                                                    margin="normal"
-                                                />
-                                            </FormControl>
+                                            <PriceField
+                                                disabled={!pickedProducts[suggestion.itemCode]}
+                                                value={getPrice(suggestion).toString()}
+                                                itemCode={suggestion.itemCode}
+                                                onChange={handleItemPriceChange}
+                                            />
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCellAmount}>
                                             <FormControl>
                                                 <Input
-                                                    id="amount"
+                                                    disabled={!pickedProducts[suggestion.itemCode]}
                                                     label="Antall"
                                                     value={getAmount(suggestion)}
                                                     onChange={(e) => handleAmountChange(
                                                         e.target.value, suggestion.itemCode,
                                                     )}
                                                     type="number"
-                                                    margin="normal"
+                                                    margin="dense"
                                                 />
                                             </FormControl>
                                         </TableCell>

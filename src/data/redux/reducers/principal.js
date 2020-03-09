@@ -1,8 +1,8 @@
-import { FETCH_ORDER_LINES, FETCH_ORDER_LINES_FULFILLED, FETCH_ORDER_LINES_REJECTED } from '../actions/actions';
+import { FETCH_PRINCIPALS, FETCH_PRINCIPALS_FULFILLED, FETCH_PRINCIPALS_REJECTED } from '../actions/actions';
 
 
 export const defaultState = {
-    orderLines: [],
+    principal: {},
     isLoading: false,
     loaded: false,
     error: false,
@@ -11,7 +11,7 @@ export const defaultState = {
 
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
-    case FETCH_ORDER_LINES:
+    case FETCH_PRINCIPALS:
         return {
             ...state,
             isLoading: true,
@@ -20,15 +20,15 @@ export default function reducer(state = defaultState, action) {
             errorMessage: '',
         };
 
-    case FETCH_ORDER_LINES_FULFILLED:
+    case FETCH_PRINCIPALS_FULFILLED:
         return {
             ...state,
             isLoading: false,
             loaded: true,
-            orderLines: action.payload,
+            principal: action.payload,
         };
 
-    case FETCH_ORDER_LINES_REJECTED:
+    case FETCH_PRINCIPALS_REJECTED:
         return {
             ...state,
             isLoading: false,

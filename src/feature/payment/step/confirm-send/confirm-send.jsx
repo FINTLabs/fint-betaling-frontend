@@ -29,7 +29,7 @@ const ConfirmSend = () => {
     const productsAmount = useSelector((state) => state.payment.product.amount);
     const productsPrice = useSelector((state) => state.payment.product.itemPrice);
     const customers = useSelector((state) => state.customers.customers);
-    const employers = useSelector((state) => state.employers.employers);
+    const principal = useSelector((state) => state.principal.principal);
     const orgId = 'fake.fintlabs.no';
 
     useEffect(() => {
@@ -89,7 +89,7 @@ const ConfirmSend = () => {
             JSON.parse(JSON.stringify(productList)),
             requestedNumberOfDaysToPaymentDeadLine,
             organisationUnit,
-            employers,
+            principal,
             me,
         )
             .then((data) => {

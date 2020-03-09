@@ -127,7 +127,6 @@ export default function Scaffold() {
     const me = useSelector((state) => state.me);
     const isPaymentsLoading = useSelector((state) => state.payments.isLoading);
     const isCustomersLoading = useSelector((state) => state.customers.isLoading);
-    const isOrderLinesLoading = useSelector((state) => state.orderLines.isLoading);
     const isGroupsLoading = useSelector((state) => state.groups.isLoading);
     const isDatesLoading = useSelector((state) => state.dates.isLoading);
 
@@ -197,7 +196,6 @@ export default function Scaffold() {
     const loading = isCustomersLoading
         || isDatesLoading
         || isGroupsLoading
-        || isOrderLinesLoading
         || isPaymentsLoading
         || me.isLoading;
 

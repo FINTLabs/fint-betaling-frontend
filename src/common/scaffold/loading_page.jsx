@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
 const LoadingPage = (props) => {
     const customers = useSelector((state) => state.customers);
     const dates = useSelector((state) => state.dates);
-    const employers = useSelector((state) => state.employers);
+    const principal = useSelector((state) => state.principal);
     const groups = useSelector((state) => state.groups);
     const me = useSelector((state) => state.me);
     const mva = useSelector((state) => state.mva);
@@ -94,7 +94,7 @@ const LoadingPage = (props) => {
                             Laster ansatte
                         </ListItemText>
                         <ListItemIcon>
-                            {!employers.loaded ? <LoadingIcon className={classes.loadingIcon} />
+                            {!principal.loaded ? <LoadingIcon className={classes.loadingIcon} />
                                 : <LoadedIcon className={classes.loadedIcon} />}
                         </ListItemIcon>
                     </ListItem>

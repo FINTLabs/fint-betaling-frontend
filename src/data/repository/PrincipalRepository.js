@@ -1,5 +1,5 @@
 class PrincipalRepository {
-    static fetchEmployers(orgId) {
+    static fetchPrincipals(orgId) {
         const url = '/api/principal';
         const stopFetch = 15;
 
