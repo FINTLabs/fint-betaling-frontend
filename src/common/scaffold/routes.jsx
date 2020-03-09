@@ -6,7 +6,6 @@ import PaymentContainer from '../../feature/payment/payment-container';
 import PaymentHistoryContainer from '../../feature/payment-history/payment-history-container';
 import SendToInvoiceContainer from '../../feature/payment/send-payment-to-invoice/send-to-invoice-container';
 import SentToExternalContainer from '../../feature/payment/sent-payment-to-external/sent-to-external-container';
-import PriceField from '../price-field';
 
 
 const Routes = () => (
@@ -16,10 +15,7 @@ const Routes = () => (
         <Route exact path="/betaling/historikk" component={PaymentHistoryContainer} />
         <Route exact path="/betaling/send" component={SendToInvoiceContainer} />
         <Route exact path="/betaling/sendt" component={SentToExternalContainer} />
-        <Route exact path="/test" component={PriceField} />
-
     </Box>
-
 );
 
 export default Routes;

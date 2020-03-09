@@ -24,7 +24,7 @@ const PriceField = ({
 
 
     return (
-        <Box width="100%" display="flex">
+        <Box width="100%" display="flex" justifyContent="flex-end">
             <TextField
                 disabled={disabled}
                 value={crowns}
