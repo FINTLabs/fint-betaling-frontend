@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
-import {Box, makeStyles, Typography,} from '@material-ui/core';
+import React, { useState } from 'react';
+import { Box, CircularProgress, makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import {useDispatch, useSelector} from "react-redux";
-import {setSchool, setSchoolOrgId, updateCustomersLoaded, updateGroupsLoaded} from "../../data/redux/actions/payment";
+import { useDispatch, useSelector } from 'react-redux';
+import OrganisationIcon from '@material-ui/icons/Domain';
+import Divider from '@material-ui/core/Divider';
+import { setSchool, setSchoolOrgId } from '../../data/redux/actions/payment';
+
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        marginLeft: "auto",
-    },
     organisationButton: {
         margin: theme.spacing(2),
     },
@@ -20,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
 
 const OrganisationSelector = () => {
     const classes = useStyles();
-    const school = useSelector(state => state.payment.payment.school);
-    const organisationUnits = useSelector(state => state.me.me.organisationUnits);
+    const school = useSelector((state) => state.payment.payment.school);
+    const organisationUnits = useSelector((state) => state.me.me.organisationUnits);
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -29,24 +29,25 @@ const OrganisationSelector = () => {
         setAnchorEl(event.currentTarget);
     }
 
-    function handleSchoolClick(school, schoolOrgId) {
-        dispatch(setSchool(school));localStorage.setItem("school", school);
-        dispatch(setSchoolOrgId(schoolOrgId)); localStorage.setItem("schoolOrgId", schoolOrgId);
-        dispatch(updateGroupsLoaded(false));
-        dispatch(updateCustomersLoaded(false));
+    function handleSchoolClick(selectedSchool, schoolOrgId) {
+        dispatch(setSchool(selectedSchool));
+        dispatch(setSchoolOrgId(schoolOrgId));
+        localStorage.setItem('school', selectedSchool);
+        localStorage.setItem('schoolOrgId', schoolOrgId);
+        // dispatch(updateGroupsLoaded(false));
+        // dispatch(updateCustomersLoaded(false));
         setAnchorEl(null);
     }
 
-    function handleClose(event) {
+    function handleClose() {
         setAnchorEl(null);
     }
 
     return (
-        <Box className={classes.root}>
+        <Box minWidth="320px" display="flex" justifyContent="flex-end">
             <Button className={classes.organisationButton} onClick={handleClick}>
-                <Typography variant="h6" noWrap>
-                    {school || 'Velg organisasjon'}
-                </Typography>
+                {organisationUnits ? school : <CircularProgress color="secondary" size={25} />}
+                <OrganisationIcon className={classes.organsationIcon} />
             </Button>
             <Menu
                 id="simple-menu"
@@ -55,7 +56,12 @@ const OrganisationSelector = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                {organisationUnits.map((o) => (
+
+                <MenuItem disabled>
+                    Velg skole
+                </MenuItem>
+                <Divider />
+                {organisationUnits && organisationUnits.map((o) => (
                     <MenuItem
                         key={o.organisationNumber}
                         onClick={() => handleSchoolClick(o.name, o.organisationNumber)}

@@ -11,7 +11,7 @@ describe('Loading page', () => {
         },
         customers: {},
         dates: {},
-        employers: {},
+        principal: {},
         groups: {},
         me: {},
         mva: {},

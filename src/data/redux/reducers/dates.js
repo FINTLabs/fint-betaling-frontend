@@ -2,42 +2,42 @@ import { FETCH_DATES, FETCH_DATES_FULFILLED, FETCH_DATES_REJECTED } from '../act
 
 
 export const defaultState = {
-  dates: [],
-  isLoading: false,
-  loaded: false,
-  error: false,
-  errorMessage: '',
+    dates: [],
+    isLoading: false,
+    loaded: false,
+    error: false,
+    errorMessage: '',
 };
 
 export default function reducer(state = defaultState, action) {
-  switch (action.type) {
+    switch (action.type) {
     case FETCH_DATES:
-      return {
-        ...state,
-        isLoading: true,
-        loaded: false,
-        error: false,
-        errorMessage: '',
-      };
+        return {
+            ...state,
+            isLoading: true,
+            loaded: false,
+            error: false,
+            errorMessage: '',
+        };
 
     case FETCH_DATES_FULFILLED:
-      return {
-        ...state,
-        isLoading: false,
-        loaded: true,
-        dates: action.payload,
-      };
+        return {
+            ...state,
+            isLoading: false,
+            loaded: true,
+            dates: action.payload,
+        };
 
     case FETCH_DATES_REJECTED:
-      return {
-        ...state,
-        isLoading: false,
-        loaded: false,
-        error: true,
-        errorMessage: action.payload,
-      };
+        return {
+            ...state,
+            isLoading: false,
+            loaded: false,
+            error: true,
+            errorMessage: action.payload,
+        };
 
     default:
-      return state;
-  }
+        return state;
+    }
 }

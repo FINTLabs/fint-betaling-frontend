@@ -5,10 +5,10 @@ import Routes from '../../common/scaffold/routes';
 
 jest.mock('../../feature/dashboard/dashboard_container', () => () => 'dashboard');
 jest.mock('../../feature/payment/payment_container', () => () => 'payment');
-jest.mock('../../feature/payment_history/payment_history_container', () => () => 'history');
+jest.mock('../../feature/payment-history/payment_history_container', () => () => 'history');
 jest.mock('../../feature/log_out/log_out_container', () => () => 'logout');
-jest.mock('../../feature/payment/send_payment_to_invoice/send_to_invoice_container', () => () => 'send');
-jest.mock('../../feature/payment/sent_payment_to_external/sent_to_external_container', () => () => 'sents');
+jest.mock('../../feature/payment/send-payment-to-invoice/send_to_invoice_container', () => () => 'send');
+jest.mock('../../feature/payment/sent-payment-to-external/sent_to_external_container', () => () => 'sents');
 
 describe('Routes', () => {
     it('should match snapshot', () => {

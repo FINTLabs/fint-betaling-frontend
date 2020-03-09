@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard container should match the snapshot 1`] = `
+<div
+  className="MuiBox-root MuiBox-root-3 makeStyles-root-1"
+>
+  cardmenu
+</div>
+`;
