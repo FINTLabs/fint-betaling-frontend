@@ -27,7 +27,7 @@ const ConfirmedRecipients = () => {
     const recipients = useSelector((state) => state.payment.payment.recipients);
 
     return (
-        <Box p={2}>
+        <Box p={2} width="inherit">
             <Typography variant="h6" className={classes.recipientHeader}>
                 Mottakere
             </Typography>
@@ -36,10 +36,7 @@ const ConfirmedRecipients = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Kundenummer</TableCell>
-                            <TableCell align="right">Navn</TableCell>
-                            <TableCell align="right">E-postadresse</TableCell>
-                            <TableCell align="right">Telefonnummer</TableCell>
-                            <TableCell align="right">Postadresse</TableCell>
+                            <TableCell>Navn</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -51,16 +48,7 @@ const ConfirmedRecipients = () => {
                                         <TableCell component="th" scope="row">
                                             {key}
                                         </TableCell>
-                                        <TableCell align="right">{recipients[key].name}</TableCell>
-                                        <TableCell align="right">{recipients[key].email}</TableCell>
-                                        <TableCell align="right">{recipients[key].cellPhoneNumber}</TableCell>
-                                        <TableCell
-                                            align="right"
-                                        >
-                                            {`${recipients[key].addressLine} 
-                                            ${recipients[key].addressZip} 
-                                            ${recipients[key].addressPlace}`}
-                                        </TableCell>
+                                        <TableCell>{recipients[key].name}</TableCell>
                                     </TableRow>
                                 ))
                         }
