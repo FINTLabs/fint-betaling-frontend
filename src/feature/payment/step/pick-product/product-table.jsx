@@ -137,7 +137,8 @@ const ProductTable = () => {
                                         <TableCell align="right" className={classes.tableCell}>
                                             <PriceField
                                                 disabled={!pickedProducts[suggestion.itemCode]}
-                                                value={getPrice(suggestion).toString()}
+                                                value={getPrice(suggestion)
+                                                    .toString()}
                                                 itemCode={suggestion.itemCode}
                                                 onChange={handleItemPriceChange}
                                             />
