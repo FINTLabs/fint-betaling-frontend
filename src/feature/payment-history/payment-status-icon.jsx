@@ -50,7 +50,7 @@ const PaymentStatusIcon = ({ payment }) => {
 
     function getMessage(message) {
         if (message) {
-            return message;
+            return JSON.parse(message).message;
         }
         return 'Sorry, men vi har ikke fått noen detaljer fra økonomisystemet!';
     }
@@ -96,6 +96,20 @@ const PaymentStatusIcon = ({ payment }) => {
             />
         );
         statusText = <Typography variant="body2" className={classes.statusText}>Ukjent feil</Typography>;
+        break;
+    case 'ACCEPT_ERROR':
+        paymentIcon = (
+            <Warning
+                className={classes.warningIcon}
+                onClick={(e) => handleStatusClick(e, payment.statusMessage)}
+            />
+        );
+        statusText = (
+            <Typography variant="body2" className={classes.statusText}>
+                Feil ved oversending til
+                økonomisystemet
+            </Typography>
+        );
         break;
     case 'PAYED':
         paymentIcon = <CheckCircle className={classes.payedIcon} />;
