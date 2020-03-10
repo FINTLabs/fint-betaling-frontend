@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import RouteButton from '../../../../common/route-button';
 
 const PaymentSaved = () => (
     <Box display="flex" flexDirection="column" p={2}>
@@ -11,14 +11,14 @@ const PaymentSaved = () => (
             </Typography>
         </Box>
         <Box p={2}>
-            <Button
+            <RouteButton
                 variant="contained"
                 color="secondary"
-                href="/betaling/send"
+                to="/betaling/send"
                 fullWidth
             >
                 Send til fakturering
-            </Button>
+            </RouteButton>
         </Box>
     </Box>
 );

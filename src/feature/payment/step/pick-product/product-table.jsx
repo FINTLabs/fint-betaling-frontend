@@ -103,9 +103,9 @@ const ProductTable = () => {
                     <TableRow>
                         <TableCell align="left">Navn</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Kode</TableCell>
-                        <TableCell align="right" className={classes.tableCell}>Pris pr. enhet</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Netto pris pr. enhet</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Antall</TableCell>
-                        <TableCell align="right" className={classes.tableCell}>Sum</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Netto sum</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Velg</TableCell>
                     </TableRow>
                 </TableHead>
@@ -137,7 +137,8 @@ const ProductTable = () => {
                                         <TableCell align="right" className={classes.tableCell}>
                                             <PriceField
                                                 disabled={!pickedProducts[suggestion.itemCode]}
-                                                value={getPrice(suggestion).toString()}
+                                                value={getPrice(suggestion)
+                                                    .toString()}
                                                 itemCode={suggestion.itemCode}
                                                 onChange={handleItemPriceChange}
                                             />

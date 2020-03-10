@@ -57,7 +57,7 @@ const PaymentsTable = () => {
                         <TableCell>Status</TableCell>
                         <TableCell align="left" className={classes.tableCell}>Navn</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Ordrenummer</TableCell>
-                        <TableCell align="right" className={classes.tableCell}>Totalpris</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Netto totalpris</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Å betale</TableCell>
                     </TableRow>
                 </TableHead>
