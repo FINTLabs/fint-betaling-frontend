@@ -1,13 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import LoadingPage from '../../common/scaffold/loading_page';
 
 describe('Loading page', () => {
     const initialState = {
         payment: {
-            payment: {school: {}},
+            payment: { school: {} },
         },
         customers: {},
         dates: {},
@@ -23,7 +23,7 @@ describe('Loading page', () => {
         const store = mockStore(initialState);
 
         const tree = renderer
-            .create(<Provider store={store}><LoadingPage/></Provider>)
+            .create(<Provider store={store}><LoadingPage /></Provider>)
             .toJSON();
 
         expect(tree)

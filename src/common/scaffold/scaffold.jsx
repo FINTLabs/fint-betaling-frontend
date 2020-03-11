@@ -15,9 +15,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
-import InvoiceHistory from '@material-ui/icons/History';
-import NewInvoice from '@material-ui/icons/NoteAdd';
-import LogOut from '@material-ui/icons/ExitToApp';
+import InvoiceHistoryIcon from '@material-ui/icons/History';
+import NewInvoiceIcon from '@material-ui/icons/NoteAdd';
+import LogOutIcon from '@material-ui/icons/ExitToApp';
+import SendIcon from '@material-ui/icons/Send';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -271,7 +272,7 @@ export default function Scaffold() {
                             dispatch(initializePayment());
                         }}
                     >
-                        <ListItemIcon><NewInvoice /></ListItemIcon>
+                        <ListItemIcon><NewInvoiceIcon /></ListItemIcon>
                         <ListItemText primary="Opprett ordre" />
                     </ListItem>
 
@@ -284,7 +285,7 @@ export default function Scaffold() {
                             dispatch(initializePayment());
                         }}
                     >
-                        <ListItemIcon><LogOut /></ListItemIcon>
+                        <ListItemIcon><SendIcon /></ListItemIcon>
                         <ListItemText primary="Send ordre" />
                     </ListItem>
                     <ListItem
@@ -292,12 +293,12 @@ export default function Scaffold() {
                         to="/betaling/historikk"
                         component={Link}
                     >
-                        <ListItemIcon><InvoiceHistory /></ListItemIcon>
+                        <ListItemIcon><InvoiceHistoryIcon /></ListItemIcon>
                         <ListItemText primary="Ordrehistorikk" />
                     </ListItem>
                     <Divider />
                     <ListItemLink href="/AGLogout">
-                        <ListItemIcon><LogOut /></ListItemIcon>
+                        <ListItemIcon><LogOutIcon /></ListItemIcon>
                         <ListItemText primary="Logg ut" />
                     </ListItemLink>
                 </List>
