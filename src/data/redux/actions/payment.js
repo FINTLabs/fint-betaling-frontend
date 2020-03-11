@@ -24,7 +24,7 @@ import {
     UPDATE_PAYMENTS_SEARCH_BY,
     UPDATE_PAYMENTS_SEARCH_VALUE,
     UPDATE_PAYMENTS_SUGGESTIONS,
-    UPDATE_PRODUCT_AMOUNT,
+    UPDATE_PRODUCT_AMOUNT, UPDATE_PRODUCT_DESCRIPTION,
     UPDATE_PRODUCT_LENGTH, UPDATE_PRODUCT_PRICE,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
@@ -197,6 +197,15 @@ export function updateProductPrice(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_PRODUCT_PRICE,
+            payload: value,
+        });
+    };
+}
+
+export function updateProductDescription(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_PRODUCT_DESCRIPTION,
             payload: value,
         });
     };

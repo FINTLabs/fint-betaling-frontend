@@ -24,7 +24,7 @@ import {
     UPDATE_PAYMENTS_SEARCH_BY,
     UPDATE_PAYMENTS_SEARCH_VALUE,
     UPDATE_PAYMENTS_SUGGESTIONS,
-    UPDATE_PRODUCT_AMOUNT,
+    UPDATE_PRODUCT_AMOUNT, UPDATE_PRODUCT_DESCRIPTION,
     UPDATE_PRODUCT_LENGTH, UPDATE_PRODUCT_PRICE,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
@@ -284,6 +284,14 @@ export default function reducer(state = defaultState, action) {
             product: {
                 ...state.product,
                 itemPrice: action.payload,
+            },
+        };
+    case UPDATE_PRODUCT_DESCRIPTION:
+        return {
+            ...state,
+            product: {
+                ...state.product,
+                description: action.payload,
             },
         };
     case UPDATE_PAYMENTS_SEARCH_BY:

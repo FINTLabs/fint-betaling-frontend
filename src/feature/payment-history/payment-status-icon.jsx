@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {
-    CheckCircle, PaymentRounded, PriorityHigh, Warning,
+    CheckCircle, PaymentRounded, Info, Warning,
 } from '@material-ui/icons';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         verticalAlign: 'text-top',
     },
     warningIcon: {
-        color: theme.status.danger,
+        color: theme.status.error,
         width: '35px',
         height: '35px',
         verticalAlign: 'text-top',
@@ -63,7 +63,7 @@ const PaymentStatusIcon = ({ payment }) => {
     switch (payment.claimStatus) {
     case 'STORED':
         paymentIcon = (
-            <PriorityHigh
+            <Info
                 className={classes.priorityIcon}
                 onClick={(e) => handleStatusClick(e, paymentNotSentFeedback)}
             />
@@ -106,8 +106,7 @@ const PaymentStatusIcon = ({ payment }) => {
         );
         statusText = (
             <Typography variant="body2" className={classes.statusText}>
-                Feil ved oversending til
-                økonomisystemet
+                Feil ved oversending til økonomisystemet
             </Typography>
         );
         break;

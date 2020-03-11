@@ -12,14 +12,7 @@ import {
     updateSuggestionLength,
 } from '../../data/redux/actions/payment';
 import {
-    FILTER_ALL,
-    FILTER_SEND_ERROR,
-    FILTER_SENT,
-    FILTER_STORED,
-    FILTER_UPDATE_ERROR,
-    ORDER_NUMBER,
-    SEARCH_PAGE_ROWS,
-    SEARCH_PAGE_START,
+    FILTER_ALL, FILTER_LIST, ORDER_NUMBER, SEARCH_PAGE_ROWS, SEARCH_PAGE_START,
 } from '../payment/constants';
 import filterSuggestions from '../payment/utils/filter';
 
@@ -88,11 +81,13 @@ const FilterSelect = () => {
                         id: 'filter-simple',
                     }}
                 >
-                    <MenuItem value={FILTER_ALL}>Alle</MenuItem>
-                    <MenuItem value={FILTER_SENT}>Ubetalt</MenuItem>
-                    <MenuItem value={FILTER_STORED}>Ikke sendt</MenuItem>
-                    <MenuItem value={FILTER_UPDATE_ERROR}>Oppdateringsfeil</MenuItem>
-                    <MenuItem value={FILTER_SEND_ERROR}>Feil ved sending</MenuItem>
+                    {FILTER_LIST.map(
+                        (filter) => (
+                            <MenuItem key={filter.key} value={filter.key}>
+                                {filter.label}
+                            </MenuItem>
+                        ),
+                    )}
                 </Select>
             </FormControl>
         </Box>

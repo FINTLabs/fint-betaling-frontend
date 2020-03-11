@@ -23,6 +23,8 @@ const ConfirmedProducts = () => {
     const products = useSelector((state) => state.payment.payment.products);
     const productAmounts = useSelector((state) => state.payment.product.amount);
     const productPrice = useSelector((state) => state.payment.product.itemPrice);
+    const productDescription = useSelector((state) => state.payment.product.description);
+
     return (
         <Box p={2} width={1}>
             <Typography variant="h6" className={classes.recipientHeader}>
@@ -32,6 +34,7 @@ const ConfirmedProducts = () => {
                 <TableHead>
                     <TableRow>
                         <TableCell>Produkt</TableCell>
+                        <TableCell>Fritekst</TableCell>
                         <TableCell align="right">Kode</TableCell>
                         <TableCell align="right">Antall</TableCell>
                         <TableCell align="right">Nettopris</TableCell>
@@ -45,6 +48,7 @@ const ConfirmedProducts = () => {
                             .map((key) => (
                                 <TableRow key={key}>
                                     <TableCell align="left">{products[key].description}</TableCell>
+                                    <TableCell align="left">{productDescription[key].description}</TableCell>
                                     <TableCell align="right" component="th" scope="row">
                                         {key}
                                     </TableCell>

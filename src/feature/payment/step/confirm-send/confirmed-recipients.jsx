@@ -35,7 +35,6 @@ const ConfirmedRecipients = () => {
                 <Table className={classes.table} stickyHeader size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Kundenummer</TableCell>
                             <TableCell>Navn</TableCell>
                         </TableRow>
                     </TableHead>
@@ -45,9 +44,6 @@ const ConfirmedRecipients = () => {
                                 .filter((key) => recipients[key].checked)
                                 .map((key) => (
                                     <TableRow key={key}>
-                                        <TableCell component="th" scope="row">
-                                            {key}
-                                        </TableCell>
                                         <TableCell>{recipients[key].name}</TableCell>
                                     </TableRow>
                                 ))

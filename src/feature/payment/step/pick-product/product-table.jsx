@@ -8,12 +8,13 @@ import TableBody from '@material-ui/core/TableBody';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, TextField } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import {
     updateProductAmount,
+    updateProductDescription,
     updateProductPrice,
     updateProducts,
     updateSearchPage,
@@ -35,6 +36,13 @@ const useStyles = makeStyles(() => ({
     tableCellAmount: {
         width: 30,
     },
+    tableCellDescription: {
+        minWidth: 300,
+    },
+    tableCellPrice: {
+        minWidth: 75,
+        maxWidth: 100,
+    },
 }));
 
 const ProductTable = () => {
@@ -47,6 +55,7 @@ const ProductTable = () => {
     const productsLength = query.length === 0 ? 0 : productsLengthTemp;
     const productAmount = useSelector((state) => state.payment.product.amount);
     const productPrice = useSelector((state) => state.payment.product.itemPrice);
+    const productDescription = useSelector((state) => state.payment.product.description);
 
     let suggestions = useSelector((state) => state.payment.product.filteredSuggestions);
     suggestions = query.length === 0 ? [] : suggestions;
@@ -61,6 +70,12 @@ const ProductTable = () => {
         const item = { ...productPrice };
         item[itemCode] = { itemPrice: newItemPrice };
         dispatch(updateProductPrice(item));
+    };
+
+    const handleItemDescriptionChange = (newDescription, itemCode) => {
+        const item = { ...productDescription };
+        item[itemCode] = { description: newDescription };
+        dispatch(updateProductDescription(item));
     };
 
     const handleIndividualCheck = (event, itemCode, description, itemPrice, taxRate, uri) => {
@@ -102,6 +117,7 @@ const ProductTable = () => {
                 <TableHead>
                     <TableRow>
                         <TableCell align="left">Navn</TableCell>
+                        <TableCell align="left">Fritekst</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Kode</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Netto pris pr. enhet</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Antall</TableCell>
@@ -129,12 +145,21 @@ const ProductTable = () => {
                                                 </span>
                                             ))}
                                         </TableCell>
+                                        <TableCell align="left" className={classes.tableCellDescription}>
+                                            <TextField
+                                                fullWidth
+                                                disabled={!pickedProducts[suggestion.itemCode]}
+                                                onChange={(e) => handleItemDescriptionChange(
+                                                    e.target.value, suggestion.itemCode,
+                                                )}
+                                            />
+                                        </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
                                             {suggestion.itemCode
                                                 ? suggestion.itemCode
                                                 : ''}
                                         </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
+                                        <TableCell align="right" className={classes.tableCellPrice}>
                                             <PriceField
                                                 disabled={!pickedProducts[suggestion.itemCode]}
                                                 value={getPrice(suggestion)

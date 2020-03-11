@@ -15,7 +15,9 @@ import fetchDate from '../../../../data/redux/actions/dates';
 
 
 const ConfirmSend = () => {
-    const requestedNumberOfDaysToPaymentDeadLine = useSelector((state) => state.payment.payment.requestedNumberOfDaysToPaymentDeadLine);
+    const requestedNumberOfDaysToPaymentDeadLine = useSelector(
+        (state) => state.payment.payment.requestedNumberOfDaysToPaymentDeadLine,
+    );
     let confirmButtonDisabled = true;
     if (requestedNumberOfDaysToPaymentDeadLine) {
         confirmButtonDisabled = false;
@@ -28,6 +30,7 @@ const ConfirmSend = () => {
     const products = useSelector((state) => state.payment.payment.products);
     const productsAmount = useSelector((state) => state.payment.product.amount);
     const productsPrice = useSelector((state) => state.payment.product.itemPrice);
+    const productsDescription = useSelector((state) => state.payment.product.description);
     const customers = useSelector((state) => state.customers.customers);
     const principal = useSelector((state) => state.principal.principal);
     const orgId = 'fake.fintlabs.no';
@@ -52,13 +55,13 @@ const ConfirmSend = () => {
             return list;
         }
 
-        function getProductsAsObjects(products, amount, price) {
+        function getProductsAsObjects(products, amount, price, description) {
             const list = [];
             Object.keys(products)
                 .map((key) => {
                     if (products[key].checked) {
                         const orderLine = {
-                            description: products[key].description,
+                            description: description[key].description,
                             itemQuantity: amount[key].amount,
                             itemPrice: price[key].itemPrice,
                             lineitem: {
@@ -77,7 +80,7 @@ const ConfirmSend = () => {
         }
 
         const recipientsList = getRecipientsAsObjects(recipients);
-        const productList = getProductsAsObjects(products, productsAmount, productsPrice);
+        const productList = getProductsAsObjects(products, productsAmount, productsPrice, productsDescription);
         const organisationUnit = {
             name: schoolName,
             organisationNumber: schoolOrgId,
@@ -100,7 +103,7 @@ const ConfirmSend = () => {
     }
 
     return (
-        <Box m={2}>
+        <Box width={1} m={2}>
             <Paper>
                 <Box width={1} display="flex" flexDirection="column" alignItems="center">
                     <Box p={2}>
