@@ -67,7 +67,7 @@ const CardMenu = () => {
                         </Box>
                     </CardContent>
                     <CardActions>
-                        <RouteButton to="/betaling/ny" size="small" color="secondary">
+                        <RouteButton to="/betaling/send" size="small" color="secondary">
                             Til send ordre
                         </RouteButton>
                     </CardActions>

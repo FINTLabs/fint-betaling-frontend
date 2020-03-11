@@ -19,6 +19,7 @@ const theme = createMuiTheme({
     },
     status: {
         danger: 'orange',
+        error: 'red',
     },
     overrides: {
         MuiOutlinedInput: {
@@ -43,7 +44,7 @@ const theme = createMuiTheme({
                 },
             },
         },
-        MuiInput: {}
+        MuiInput: {},
     },
 });
 
