@@ -114,6 +114,10 @@ const PaymentStatusIcon = ({ payment }) => {
         paymentIcon = <CheckCircle className={classes.payedIcon} />;
         statusText = <Typography variant="body2" className={classes.statusText}>Betalt</Typography>;
         break;
+    case 'ACCEPTED':
+        paymentIcon = <PaymentRounded className={classes.waitingPaymentIcon} />;
+        statusText = <Typography variant="body2" className={classes.statusText}>Klar til fakturering</Typography>;
+        break;
     case 'SENT':
         paymentIcon = <PaymentRounded className={classes.waitingPaymentIcon} />;
         statusText = <Typography variant="body2" className={classes.statusText}>Venter på betaling</Typography>;

@@ -27,6 +27,10 @@ export const FILTER_LIST = [
         label: 'Ikke sendt',
     },
     {
+        key: 'ACCEPTED',
+        label: 'Klar til fakturering',
+    },
+    {
         key: 'PAYED',
         label: 'Betalt',
     },
