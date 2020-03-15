@@ -57,6 +57,7 @@ const PaymentsTable = () => {
                         <TableCell>Status</TableCell>
                         <TableCell align="left" className={classes.tableCell}>Navn</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Ordrenummer</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Fakturanummer</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Netto totalpris</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Å betale</TableCell>
                     </TableRow>
@@ -88,6 +89,9 @@ const PaymentsTable = () => {
                                                 />
                                             )
                                             : suggestion.orderNumber}
+                                    </TableCell>
+                                    <TableCell align="right" className={classes.tableCell}>
+                                        {suggestion.invoiceNumbers}
                                     </TableCell>
                                     <TableCell align="right" className={classes.tableCell}>
                                         <Amount>{suggestion.originalAmountDue}</Amount>
