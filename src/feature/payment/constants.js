@@ -19,19 +19,23 @@ export const FILTER_LIST = [
         label: 'Alle',
     },
     {
-        key: 'SENT',
-        label: 'Ubetalt',
-    },
-    {
         key: 'STORED',
         label: 'Ikke sendt',
+    },
+    {
+        key: 'SENT',
+        label: 'Sendt til økonomisystem',
     },
     {
         key: 'ACCEPTED',
         label: 'Klar til fakturering',
     },
     {
-        key: 'PAYED',
+        key: 'ISSUED',
+        label: 'Fakturert',
+    },
+    {
+        key: 'PAID',
         label: 'Betalt',
     },
     {

@@ -110,7 +110,7 @@ const PaymentStatusIcon = ({ payment }) => {
             </Typography>
         );
         break;
-    case 'PAYED':
+    case 'PAID':
         paymentIcon = <CheckCircle className={classes.payedIcon} />;
         statusText = <Typography variant="body2" className={classes.statusText}>Betalt</Typography>;
         break;
@@ -120,9 +120,13 @@ const PaymentStatusIcon = ({ payment }) => {
         break;
     case 'SENT':
         paymentIcon = <PaymentRounded className={classes.waitingPaymentIcon} />;
-        statusText = <Typography variant="body2" className={classes.statusText}>Venter på betaling</Typography>;
+        statusText = <Typography variant="body2" className={classes.statusText}>Sendt til økonomisystem</Typography>;
         break;
-    default:
+    case 'ISSUED':
+        paymentIcon = <PaymentRounded className={classes.waitingPaymentIcon} />;
+        statusText = <Typography variant="body2" className={classes.statusText}>Fakturert</Typography>;
+        break;
+        default:
         paymentIcon = (
             <Warning
                 className={classes.warningIcon}
