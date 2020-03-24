@@ -228,9 +228,12 @@ export default function Scaffold() {
                         FINT Betaling
                     </Typography>
                     <Box display="flex" ml="auto" alignItems="center">
+                        <Typography variant="button">
+                            {me.me.name}
+                        </Typography>
+                        <OrganisationSelector />
                         <UnsendtAlertButton />
                         <ErrorAlertButton />
-                        <OrganisationSelector />
                     </Box>
                 </Toolbar>
                 {loading && <LinearProgress color="secondary" />}
