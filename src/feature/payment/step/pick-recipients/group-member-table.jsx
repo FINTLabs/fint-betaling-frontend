@@ -36,7 +36,10 @@ const GroupMemberTable = ({ members, recipients, handleIndividualCheck }) => {
             </TableHead>
             <TableBody>
                 {
-                    members.map(
+                    members.sort((a, b) => (
+                        a.name > b.name
+                            ? 1 : -1
+                    )).map(
                         (customer) => (
                             <TableRow key={customer.id}>
                                 <TableCell
