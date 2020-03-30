@@ -26,7 +26,6 @@ const RecipientChipList = () => {
     const showAllRecipients = useSelector((state) => state.payment.recipientList.showAll);
 
     const recipientsKeys = Object.keys(recipients);
-    console.log(recipients);
 
     const sortedRecipients = [];
 

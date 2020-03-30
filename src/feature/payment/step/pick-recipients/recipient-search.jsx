@@ -56,7 +56,6 @@ const RecipientSearch = () => {
         return suggestions.filter((suggestion) => {
             const matched = matchedSuggestion(suggestion, input);
             if (matched) {
-                console.log(matched);
                 countToStartOfActivePage += 1;
             }
             const keep = countSuggestion < rowsPerPage
@@ -72,7 +71,6 @@ const RecipientSearch = () => {
     function getSuggestions(value) {
         const inputValue = value.trim()
             .toLowerCase();
-        console.log(inputValue);
         const inputLength = inputValue.length;
 
         return inputLength < 0
