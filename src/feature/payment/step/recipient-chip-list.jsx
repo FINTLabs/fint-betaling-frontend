@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core';
 import {
-    clearRecipients,
+    clearRecipients, updateConfirmRecipientsOpen,
     updateRecipients,
     updateShowAllRecipients,
     updateStep,
@@ -26,6 +26,18 @@ const RecipientChipList = () => {
     const showAllRecipients = useSelector((state) => state.payment.recipientList.showAll);
 
     const recipientsKeys = Object.keys(recipients);
+    console.log(recipients);
+
+    const sortedRecipients = [];
+
+    recipientsKeys.map(key => {
+        if (recipients[key].checked){
+            let newEntry = {...recipients[key], key:key};
+            sortedRecipients.push(newEntry);
+        }
+    });
+
+    sortedRecipients.sort((a, b) => ( a.name > b.name ? 1 : -1 ));
 
     function toggleShowAllRecipients() {
         dispatch(updateShowAllRecipients(!showAllRecipients));
@@ -57,15 +69,15 @@ const RecipientChipList = () => {
             title="Valgte mottakere"
         >
             {
-                recipientsKeys.filter((key) => recipients[key].checked)
+                sortedRecipients
                     .splice(0, showAllRecipients ? recipientsKeys.length : 5)
-                    .map((key) => (
+                    .map((entry) => (
                         <Chip
                             size="small"
-                            key={key}
-                            value={key}
-                            onDelete={() => handleDelete(key, recipients[key].name)}
-                            label={recipients[key].name}
+                            key={entry.key}
+                            value={entry.key}
+                            onDelete={() => handleDelete(entry.key, entry.name)}
+                            label={entry.name}
                             className={classes.chip}
                             color="secondary"
                         />
