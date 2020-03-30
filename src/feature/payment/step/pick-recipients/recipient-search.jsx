@@ -56,12 +56,13 @@ const RecipientSearch = () => {
         return suggestions.filter((suggestion) => {
             const matched = matchedSuggestion(suggestion, input);
             if (matched) {
+                console.log(matched);
                 countToStartOfActivePage += 1;
             }
             const keep = countSuggestion < rowsPerPage
                 && keepSuggestionsFromCount <= countToStartOfActivePage
                 && matched;
-            if (keep && keepSuggestionsFromCount <= countToStartOfActivePage) {
+            if (keep) {
                 countSuggestion += 1;
             }
             return keep;
@@ -71,6 +72,7 @@ const RecipientSearch = () => {
     function getSuggestions(value) {
         const inputValue = value.trim()
             .toLowerCase();
+        console.log(inputValue);
         const inputLength = inputValue.length;
 
         return inputLength < 0
@@ -81,7 +83,7 @@ const RecipientSearch = () => {
 
     function getSuggestionsLength(input) {
         let count = 0;
-        suggestions.filter((suggestion) => matchedSuggestion(suggestion, input))
+        suggestions.filter((suggestion) => matchedSuggestion(suggestion, input.toLowerCase()))
             .map(() => {
                 count += 1;
                 return null;
