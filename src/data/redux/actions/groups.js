@@ -30,18 +30,7 @@ export default function fetchGroup(schoolOrgId) {
                     payload: error,
                 });
             });
-        GroupRepository.fetchAllContactTeachingGroupBySchool(schoolOrgId)
-            .then(([result, json]) => {
-                if (result.status === 200) {
-                    groups.push(...json);
-                }
-            })
-            .catch((error) => {
-                dispatch({
-                    type: FETCH_GROUPS_REJECTED,
-                    payload: error,
-                });
-            });
+
         dispatch({
             type: FETCH_GROUPS_FULFILLED,
             payload: groups,

@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import {Box, Typography} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Cancel';
 
 
 const ChipsListContainer = ({
-    children, show, showAllItems, showAllItemsLabel, showLessItemsLabel, toggleShowAllItems, onClear, count, title,
-}) => {
+                                children, content, show, showAllItems, showAllItemsLabel, showLessItemsLabel, toggleShowAllItems, onClear, count, title,
+                            }) => {
     if (show) {
         return (
             <Box
@@ -37,22 +37,26 @@ const ChipsListContainer = ({
                     alignItems="center"
                     flexDirection="row"
                 >
-                    {toggleShowAllItems
-                    && (
-                        <>
-                            <Button size="small" onClick={toggleShowAllItems}>
-                                {showAllItems
-                                    ? showLessItemsLabel
-                                    : showAllItemsLabel}
-                            </Button>
-                            <Box mr={1} ml={1}>
-                            |
-                            </Box>
-                        </>
-                    )}
-                    <IconButton size="small" onClick={onClear}>
-                        <ClearIcon />
+                    {
+                        content !== "recipient" ?
+                            toggleShowAllItems
+                            && (
+                                <>
+                                    <Button size="small" onClick={toggleShowAllItems}>
+                                        {showAllItems
+                                            ? showLessItemsLabel
+                                            : showAllItemsLabel}
+                                    </Button>
+                                    <Box mr={1} ml={1}>
+                                        |
+                                    </Box>
+                                </>
+                            )
+                            : "Fjern alle mottakere"}
+                    < IconButton size="small" onClick={onClear}>
+                        <ClearIcon/>
                     </IconButton>
+
                 </Box>
 
                 <Typography>
@@ -62,7 +66,7 @@ const ChipsListContainer = ({
             </Box>
         );
     }
-    return <div />;
+    return <div/>;
 };
 
 
