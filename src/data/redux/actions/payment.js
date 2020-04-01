@@ -4,7 +4,6 @@ import {
     UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_CUSTOMERS_LOADED,
-    UPDATE_EXPIRATION_DATE,
     UPDATE_EXTERNAL_REDIRECT,
     UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN,
@@ -206,15 +205,6 @@ export function updateProductDescription(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_PRODUCT_DESCRIPTION,
-            payload: value,
-        });
-    };
-}
-
-export function updateRequestedNumberOfDaysToPaymentDeadLine(value) {
-    return (dispatch) => {
-        dispatch({
-            type: UPDATE_EXPIRATION_DATE,
             payload: value,
         });
     };

@@ -123,6 +123,7 @@ const RecipientChipList = () => {
                                 value={entry.key}
                                 label={entry.name}
                                 className={classes.listItem}
+                                dense
                             >
                                 <ListItemIcon>
                                     <RecipientIcon/>

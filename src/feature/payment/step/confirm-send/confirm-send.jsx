@@ -7,21 +7,12 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ConfirmedRecipients from './confirmed-recipients';
 import ConfirmedProducts from './confirmed-products';
-import ExpirationDatePicker from './expiration-date-picker';
 import { updateLatestSentPayment, updateNeedFetch, updateStep } from '../../../../data/redux/actions/payment';
 import ClaimRepository from '../../../../data/repository/ClaimRepository';
 import { STEP_PAYMENT_CONFIRMED } from '../../constants';
-import fetchDate from '../../../../data/redux/actions/dates';
 
 
 const ConfirmSend = () => {
-    const requestedNumberOfDaysToPaymentDeadLine = useSelector(
-        (state) => state.payment.payment.requestedNumberOfDaysToPaymentDeadLine,
-    );
-    let confirmButtonDisabled = true;
-    if (requestedNumberOfDaysToPaymentDeadLine) {
-        confirmButtonDisabled = false;
-    }
     const dispatch = useDispatch();
     const me = useSelector((state) => state.me.me);
     const schoolName = useSelector((state) => state.payment.payment.school);
@@ -34,10 +25,6 @@ const ConfirmSend = () => {
     const customers = useSelector((state) => state.customers.customers);
     const principal = useSelector((state) => state.principal.principal);
     const orgId = 'fake.fintlabs.no';
-
-    useEffect(() => {
-        dispatch(fetchDate());
-    }, [dispatch]);
 
     function handleSendInvoice() {
         function getRecipientsAsObjects(recipients) {
@@ -90,7 +77,6 @@ const ConfirmSend = () => {
             orgId,
             JSON.parse(JSON.stringify(recipientsList)),
             JSON.parse(JSON.stringify(productList)),
-            requestedNumberOfDaysToPaymentDeadLine,
             organisationUnit,
             principal,
             me,
@@ -108,7 +94,7 @@ const ConfirmSend = () => {
                 <Box width={1} display="flex" flexDirection="column" alignItems="center">
                     <Box p={2}>
                         <Typography variant="h4">
-                            Velg forfall og lagre
+                            Lagre betaling
                         </Typography>
                     </Box>
                     <Box width={1}>
@@ -117,14 +103,12 @@ const ConfirmSend = () => {
                     <ConfirmedRecipients />
                     <ConfirmedProducts />
                     <Box width={1} mb={2} display="flex" justifyContent="space-around" alignItems="center">
-                        <ExpirationDatePicker />
                         <Button
-                            disabled={confirmButtonDisabled}
                             variant="contained"
                             color="secondary"
                             onClick={handleSendInvoice}
                         >
-                            Lagre faktura
+                            Lagre betaling
                         </Button>
                     </Box>
                 </Box>

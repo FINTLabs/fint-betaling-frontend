@@ -25,6 +25,19 @@ const useStyles = makeStyles((theme) => ({
 const ConfirmedRecipients = () => {
     const classes = useStyles();
     const recipients = useSelector((state) => state.payment.payment.recipients);
+    const keys = Object.keys(recipients)
+        .filter((key) => recipients[key].checked);
+
+    const sortedRecipients = [];
+
+    keys.map(key => {
+        if (recipients[key].checked) {
+            let newEntry = {...recipients[key], key: key};
+            sortedRecipients.push(newEntry);
+        }
+    });
+
+    sortedRecipients.sort((a, b) => (a.name > b.name ? 1 : -1));
 
     return (
         <Box p={2} width="inherit">
@@ -40,11 +53,10 @@ const ConfirmedRecipients = () => {
                     </TableHead>
                     <TableBody>
                         {
-                            Object.keys(recipients)
-                                .filter((key) => recipients[key].checked)
-                                .map((key) => (
-                                    <TableRow key={key}>
-                                        <TableCell>{recipients[key].name}</TableCell>
+                            sortedRecipients
+                                .map((entry) => (
+                                    <TableRow key={entry.key}>
+                                        <TableCell>{entry.name}</TableCell>
                                     </TableRow>
                                 ))
                         }

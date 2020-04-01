@@ -4,7 +4,6 @@ import {
     UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_CUSTOMERS_LOADED,
-    UPDATE_EXPIRATION_DATE,
     UPDATE_EXTERNAL_REDIRECT,
     UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN,
@@ -204,14 +203,6 @@ export default function reducer(state = defaultState, action) {
             payment: {
                 ...state.payment,
                 products: action.payload,
-            },
-        };
-    case UPDATE_EXPIRATION_DATE:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                requestedNumberOfDaysToPaymentDeadLine: action.payload,
             },
         };
     case UPDATE_SCHOOL:

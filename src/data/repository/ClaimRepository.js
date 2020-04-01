@@ -16,52 +16,50 @@ class ClaimRepository {
             .catch((error) => error);
     }
 
-    static sendOrders(orgId, orderList) {
-        const request = new Request('/api/claim/send',
-            {
-                method: 'POST',
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                    'x-org-id': orgId,
-                }),
-                body: JSON.stringify(
-                    orderList,
-                ),
-            });
-
-        return fetch(request)
-            .then((response) => Promise.all([response, response.json()]));
-    }
-
-    static setPayment(
-        orgId,
-        customers,
-        orderItems,
-        requestedNumberOfDaysToPaymentDeadline,
-        organisationUnit,
-        principal,
-        createdBy,
-    ) {
-        const request = new Request('/api/claim',
-            {
-                method: 'POST',
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                }),
-                body: JSON.stringify({ // Todo create Order from model
-                    orderItems,
-                    customers,
-                    requestedNumberOfDaysToPaymentDeadline,
-                    organisationUnit,
-                    principal,
-                    createdBy,
-                }),
-            });
-
-        return fetch(request)
-            .then((response) => response.json())
-            .catch((error) => error);
-    }
+    // static sendOrders(orgId, orderList) {
+    //     const request = new Request('/api/claim/send',
+    //         {
+    //             method: 'POST',
+    //             headers: new Headers({
+    //                 'Content-Type': 'application/json',
+    //                 'x-org-id': orgId,
+    //             }),
+    //             body: JSON.stringify(
+    //                 orderList,
+    //             ),
+    //         });
+    //
+    //     return fetch(request)
+    //         .then((response) => Promise.all([response, response.json()]));
+    // }
+    //
+    // static setPayment(
+    //     orgId,
+    //     customers,
+    //     orderItems,
+    //     organisationUnit,
+    //     principal,
+    //     createdBy,
+    // ) {
+    //     const request = new Request('/api/claim',
+    //         {
+    //             method: 'POST',
+    //             headers: new Headers({
+    //                 'Content-Type': 'application/json',
+    //             }),
+    //             body: JSON.stringify({ // Todo create Order from model
+    //                 orderItems,
+    //                 customers,
+    //                 organisationUnit,
+    //                 principal,
+    //                 createdBy,
+    //             }),
+    //         });
+    //
+    //     return fetch(request)
+    //         .then((response) => response.json())
+    //         .catch((error) => error);
+    // }
 }
 
 export default ClaimRepository;

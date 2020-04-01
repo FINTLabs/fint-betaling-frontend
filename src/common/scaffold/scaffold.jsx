@@ -129,7 +129,6 @@ export default function Scaffold() {
     const isPaymentsLoading = useSelector((state) => state.payments.isLoading);
     const isCustomersLoading = useSelector((state) => state.customers.isLoading);
     const isGroupsLoading = useSelector((state) => state.groups.isLoading);
-    const isDatesLoading = useSelector((state) => state.dates.isLoading);
 
     const school = useSelector((state) => state.payment.payment.school);
 
@@ -195,7 +194,6 @@ export default function Scaffold() {
     }
 
     const loading = isCustomersLoading
-        || isDatesLoading
         || isGroupsLoading
         || isPaymentsLoading
         || me.isLoading;
