@@ -70,6 +70,7 @@ const RecipientChipList = () => {
             let newEntry = {...recipients[key], key: key};
             sortedRecipients.push(newEntry);
         }
+        return key;
     });
 
     sortedRecipients.sort((a, b) => (a.name > b.name ? 1 : -1));
