@@ -55,7 +55,6 @@ class ClaimRepository {
                     createdBy,
                 }),
             });
-
         return fetch(request)
             .then((response) => response.json())
             .catch((error) => error);
