@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         maxHeight: "160px",
         overflow: "auto",
         paddingRight: "10px",
-        minWidth: 300,
+        width: "100%",
     },
     removeIcon: {
         marginInlineStart: "auto",
