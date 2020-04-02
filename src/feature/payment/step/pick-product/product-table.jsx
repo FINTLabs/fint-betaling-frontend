@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -8,7 +8,7 @@ import TableBody from '@material-ui/core/TableBody';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles, TextField } from '@material-ui/core';
+import {makeStyles, TextField} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
@@ -62,10 +62,12 @@ const ProductTable = () => {
     suggestions = query.length === 0 ? [] : suggestions;
 
     const handleAmountChange = (newAmount, itemCode) => {
-        const newArray = { ...productAmount };
-        newArray[itemCode] = { amount: newAmount };
-        dispatch(updateProductAmount(newArray));
-        dispatch(updateFailedProductForm(false));
+        if (newAmount>0){
+            const newArray = {...productAmount};
+            newArray[itemCode] = {amount: newAmount};
+            dispatch(updateProductAmount(newArray));
+            dispatch(updateFailedProductForm(false));
+        }
     };
 
     const handleItemPriceChange = (newItemPrice, itemCode) => {
