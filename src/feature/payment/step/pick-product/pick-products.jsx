@@ -22,10 +22,6 @@ const PickProducts = () => {
 
     const pickedProducts = useSelector((state) => state.payment.payment.products);
 
-    useEffect(() => {
-        //dispatch(fetchOrderLines());
-    }, [dispatch]);
-
     function isConfirmButtonDisabled() {
         return Object.keys(pickedProducts)
             .filter((key) => pickedProducts[key].checked).length === 0;

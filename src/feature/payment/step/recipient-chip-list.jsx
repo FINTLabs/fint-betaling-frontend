@@ -62,6 +62,9 @@ const RecipientChipList = () => {
     const showAllRecipients = useSelector((state) => state.payment.recipientList.showAll);
 
     const recipientsKeys = Object.keys(recipients);
+    if (recipients.length === 0){
+        dispatch(updateStep(0));
+    }
 
     const sortedRecipients = [];
 
