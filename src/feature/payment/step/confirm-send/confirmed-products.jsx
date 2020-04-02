@@ -75,7 +75,7 @@ const ConfirmedProducts = () => {
                     Total beløp per elev:
                 </Typography>
                 <Typography variant="subtitle1">
-                    {getTotalPrice(products, productAmounts)}
+                    {getTotalPrice(products, productPrice, productAmounts)}
                 </Typography>
             </Box>
             <Divider />
