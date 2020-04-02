@@ -148,7 +148,7 @@ const ProductTable = () => {
                                         <TableCell align="left" className={classes.tableCellDescription}>
                                             <TextField
                                                 fullWidth
-                                                disabled={!pickedProducts[suggestion.itemCode]}
+                                                disabled={pickedProducts[suggestion.itemCode] ? !pickedProducts[suggestion.itemCode].checked : true}
                                                 onChange={(e) => handleItemDescriptionChange(
                                                     e.target.value, suggestion.itemCode,
                                                 )}
@@ -161,7 +161,7 @@ const ProductTable = () => {
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCellPrice}>
                                             <PriceField
-                                                disabled={!pickedProducts[suggestion.itemCode]}
+                                                disabled={pickedProducts[suggestion.itemCode] ? !pickedProducts[suggestion.itemCode].checked : true}
                                                 value={getPrice(suggestion)
                                                     .toString()}
                                                 itemCode={suggestion.itemCode}
@@ -171,7 +171,7 @@ const ProductTable = () => {
                                         <TableCell align="right" className={classes.tableCellAmount}>
                                             <FormControl>
                                                 <Input
-                                                    disabled={!pickedProducts[suggestion.itemCode]}
+                                                    disabled={pickedProducts[suggestion.itemCode] ? !pickedProducts[suggestion.itemCode].checked : true}
                                                     label="Antall"
                                                     value={getAmount(suggestion)}
                                                     onChange={(e) => handleAmountChange(
