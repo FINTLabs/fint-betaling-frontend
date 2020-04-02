@@ -11,7 +11,7 @@ import { setSchool, setSchoolOrgId } from '../../data/redux/actions/payment';
 
 const useStyles = makeStyles((theme) => ({
     organisationButton: {
-        margin: theme.spacing(2),
+        margin: theme.spacing(1),
     },
     organsationIcon: {
         marginLeft: theme.spacing(1),
@@ -44,7 +44,7 @@ const OrganisationSelector = () => {
     }
 
     return (
-        <Box minWidth="320px" display="flex" justifyContent="flex-end">
+        <Box display="flex" justifyContent="flex-end">
             <Button className={classes.organisationButton} onClick={handleClick}>
                 {organisationUnits ? school : <CircularProgress color="secondary" size={25} />}
                 <OrganisationIcon className={classes.organsationIcon} />
