@@ -13,6 +13,7 @@ import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import {
+    updateFailedProductForm,
     updateProductAmount,
     updateProductDescription,
     updateProductPrice,
@@ -64,12 +65,14 @@ const ProductTable = () => {
         const newArray = { ...productAmount };
         newArray[itemCode] = { amount: newAmount };
         dispatch(updateProductAmount(newArray));
+        dispatch(updateFailedProductForm(false));
     };
 
     const handleItemPriceChange = (newItemPrice, itemCode) => {
         const item = { ...productPrice };
         item[itemCode] = { itemPrice: newItemPrice };
         dispatch(updateProductPrice(item));
+        dispatch(updateFailedProductForm(false));
     };
 
     const handleItemDescriptionChange = (newDescription, itemCode) => {
@@ -91,6 +94,7 @@ const ProductTable = () => {
             handleAmountChange(1, itemCode);
         }
         dispatch(updateProducts(newArray));
+        dispatch(updateFailedProductForm(false));
     };
 
     const handleChangePage = (event, newPage) => {

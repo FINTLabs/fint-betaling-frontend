@@ -4,7 +4,7 @@ import {
     UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_CUSTOMERS_LOADED,
-    UPDATE_EXTERNAL_REDIRECT,
+    UPDATE_EXTERNAL_REDIRECT, UPDATE_FAILED_PRODUCT_FORM,
     UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN,
     UPDATE_GROUPS_LOADED,
@@ -411,6 +411,15 @@ export function updateOrdersOpen(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_ORDERS_OPEN,
+            payload: value,
+        });
+    };
+}
+
+export function updateFailedProductForm(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_FAILED_PRODUCT_FORM,
             payload: value,
         });
     };

@@ -4,7 +4,7 @@ import {
     UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_CUSTOMERS_LOADED,
-    UPDATE_EXTERNAL_REDIRECT,
+    UPDATE_EXTERNAL_REDIRECT, UPDATE_FAILED_PRODUCT_FORM,
     UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN,
     UPDATE_GROUPS_LOADED,
@@ -74,6 +74,7 @@ export const defaultState = {
         filteredSuggestions: [],
         amount: {},
         itemPrice: {},
+        failedProductForm: false,
     },
     payments: {
         filter: 'ALL',
@@ -419,6 +420,14 @@ export default function reducer(state = defaultState, action) {
                 ordersOpen: action.payload,
             },
         };
+        case UPDATE_FAILED_PRODUCT_FORM:
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    failedProductForm: action.payload,
+                },
+            };
     default:
         return state;
     }
