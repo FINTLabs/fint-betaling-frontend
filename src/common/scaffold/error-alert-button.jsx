@@ -94,7 +94,7 @@ const ErrorAlertButton = () => {
 
 
     const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+        setAnchorEl(!anchorEl ? event.currentTarget : null);
     };
 
     const handleClose = () => {
