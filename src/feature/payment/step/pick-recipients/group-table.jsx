@@ -8,6 +8,7 @@ import parse from 'autosuggest-highlight/parse';
 import TableBody from '@material-ui/core/TableBody';
 import Checkbox from '@material-ui/core/Checkbox';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
 import { Collapse, makeStyles } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     },
     rowSelected: {
         backgroundColor: theme.palette.secondary.main,
+    },
+    checkBoxContentOpen: {
+      backgroundColor: theme.palette.primary.main,
     },
 }));
 
@@ -146,6 +150,7 @@ const GroupTable = () => {
                                                     ? false
                                                     : groupCheckboxIndeterminateCheck(suggestion.customers)}
                                                 checked={groupShouldBeChecked(suggestion.customers)}
+                                                className={groupContentOpen[recipient] ? classes.checkBoxContentOpen : null}
                                             />
                                         </TableCell>
                                         <TableCell
@@ -153,7 +158,8 @@ const GroupTable = () => {
                                             className={classes.tableCellArrow}
                                             onClick={() => handleGroupOpenClick(recipient)}
                                         >
-                                            <ArrowDropDown />
+                                            {groupContentOpen[recipient] ? <ArrowDropUp/>: <ArrowDropDown />}
+
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
