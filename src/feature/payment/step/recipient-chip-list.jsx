@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {DialogContent, makeStyles} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core';
 import {
     clearRecipients,
     updateRecipients,
@@ -15,10 +15,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import RecipientIcon from '@material-ui/icons/Person';
 import RemoveIcon from '@material-ui/icons/Delete';
+import ConfirmRemoveIcon from '@material-ui/icons/DeleteForever';
 import Divider from "@material-ui/core/Divider";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles((theme) => ({
     listItem: {
@@ -35,18 +34,28 @@ const useStyles = makeStyles((theme) => ({
         marginInlineStart: "auto",
         cursor: "pointer",
     },
+    removeIconRed: {
+        marginInlineStart: "auto",
+        color: "red",
+        cursor: "pointer",
+    },
     dialogButtons: {
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
-        alignSelf:"center"
+        alignSelf: "center"
     },
     buttonDeleteRecipient: {
         margin: theme.spacing(1),
         color: "#FFF",
         backgroundColor: theme.palette.primary.dark,
     },
-    buttonDontDeleteRecipient:{
+    buttonDontDeleteRecipient: {
         margin: theme.spacing(1),
+    },
+    toDeleteBox: {
+        display:"flex",
+        alignItems: "center",
+        marginInlineStart: "auto",
     },
 }));
 
@@ -54,15 +63,17 @@ const RecipientChipList = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const [open, setOpen] = React.useState(false);
-    const [nameToDelete, setNameToDelete] = React.useState("");
-    const [keyToDelete, setKeyToDelete] = React.useState("");
 
     const recipients = useSelector((state) => state.payment.payment.recipients);
     const showAllRecipients = useSelector((state) => state.payment.recipientList.showAll);
+    const [toDelete, setToDelete] = React.useState({
+        key: "",
+        name: "",
+    });
+
 
     const recipientsKeys = Object.keys(recipients);
-    if (recipients.length === 0){
+    if (recipients.length === 0) {
         dispatch(updateStep(0));
     }
 
@@ -95,19 +106,9 @@ const RecipientChipList = () => {
             checked: false,
             name: label,
         };
+        setToDelete({key: "", name:""});
         dispatch(updateRecipients(checkedRecipients));
-        setOpen(false);
     }
-
-    function openDeleteQuestion(key, name) {
-        setOpen(true);
-        setKeyToDelete(key);
-        setNameToDelete(name);
-    }
-
-    function handleClose() {
-        setOpen(false);
-    };
 
     return (
         <ChipsListContainer
@@ -133,25 +134,34 @@ const RecipientChipList = () => {
                                     <RecipientIcon/>
                                 </ListItemIcon>
                                 {entry.name}
-                                <RemoveIcon className={classes.removeIcon}
-                                            onClick={() => openDeleteQuestion(entry.key, entry.name)}/>
+                                {
+                                    entry.key === toDelete.key && entry.name === toDelete.name ?
+                                        <div className={classes.toDeleteBox}>
+                                            <Typography variant={"caption"}>Bekreft</Typography>
+                                        <ConfirmRemoveIcon
+                                            className={classes.removeIconRed}
+                                            onClick={() => {
+                                                handleDelete(toDelete.key, toDelete.name)
+                                            }}
+                                        />
+                                        </div>:
+
+                                        <RemoveIcon
+                                            className={classes.removeIcon}
+                                            onClick={() => {
+                                                setToDelete({key: entry.key, name: entry.name});
+                                                setTimeout(function(){
+                                                    setToDelete({key: "", name:""});
+                                                }.bind(this),1500);
+                                            }}
+                                        />
+                                }
+
                             </ListItem>
                             <Divider/>
                         </div>
                     ))}
             </List>
-            <Dialog onClose={handleClose} aria-labelledby="Fjerne mottaker" open={open}>
-                <DialogTitle id="Fjerne mottaker">Slett mottaker</DialogTitle>
-                <DialogContent>
-                    Vil du fjerne {nameToDelete} som mottaker?
-                </DialogContent>
-                <div className={classes.dialogButtons}>
-                <Button variant="outlined" className={classes.buttonDontDeleteRecipient} onClick={handleClose}>Nei</Button>
-                <Button className={classes.buttonDeleteRecipient} variant="outlined" onClick={() => handleDelete(keyToDelete,nameToDelete)}>Ja</Button>
-                </div>
-            </Dialog>
-
-
         </ChipsListContainer>
     );
 };
