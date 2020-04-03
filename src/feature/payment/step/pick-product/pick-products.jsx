@@ -79,7 +79,7 @@ const PickProducts = () => {
                         {
                             failedProductForm &&
                             <Typography className={classes.errorMessage}>
-                                Et av produktene mangler pris eller har 0 i antall
+                                Et av produktene har ikke oppgitt pris
                             </Typography>
                         }
                     </Box>

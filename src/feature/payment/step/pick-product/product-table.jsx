@@ -122,13 +122,13 @@ const ProductTable = () => {
             <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
+                        <TableCell align="left" className={classes.tableCell}>Velg</TableCell>
                         <TableCell align="left">Navn</TableCell>
                         <TableCell align="left">Fritekst</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Kode</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Netto pris pr. enhet</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Antall</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Netto sum</TableCell>
-                        <TableCell align="right" className={classes.tableCell}>Velg</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -141,6 +141,19 @@ const ProductTable = () => {
 
                                 return (
                                     <TableRow hover key={suggestion.itemCode}>
+                                        <TableCell align="center" className={classes.tableCell}>
+                                            <Checkbox
+                                                checked={pickedProducts[suggestion.itemCode]
+                                                    ? pickedProducts[suggestion.itemCode].checked
+                                                    : false}
+                                                onChange={(e) => handleIndividualCheck(e,
+                                                    suggestion.itemCode,
+                                                    suggestion.description,
+                                                    suggestion.itemPrice,
+                                                    suggestion.taxrate,
+                                                    suggestion.uri)}
+                                            />
+                                        </TableCell>
                                         <TableCell align="left" className={classes.tableCell}>
                                             {parts.map((part) => (
                                                 <span
@@ -190,19 +203,6 @@ const ProductTable = () => {
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
                                             <Amount>{getPrice(suggestion) * getAmount(suggestion)}</Amount>
-                                        </TableCell>
-                                        <TableCell align="center" className={classes.tableCell}>
-                                            <Checkbox
-                                                checked={pickedProducts[suggestion.itemCode]
-                                                    ? pickedProducts[suggestion.itemCode].checked
-                                                    : false}
-                                                onChange={(e) => handleIndividualCheck(e,
-                                                    suggestion.itemCode,
-                                                    suggestion.description,
-                                                    suggestion.itemPrice,
-                                                    suggestion.taxrate,
-                                                    suggestion.uri)}
-                                            />
                                         </TableCell>
                                     </TableRow>
                                 );
