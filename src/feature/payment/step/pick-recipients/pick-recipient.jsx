@@ -25,6 +25,9 @@ const useStyles = makeStyles(() => ({
     h2: {
         textAlign: 'center',
     },
+    radioGroup: {
+        flexDirection: "row",
+    }
 }));
 
 const PickPaymentRecipient = () => {
@@ -67,8 +70,9 @@ const PickPaymentRecipient = () => {
             <Typography variant="h3" className={classes.h2}>Velg mottaker</Typography>
             <RecipientChipList />
             <Box mt={4}>
-                <FormControl component="fieldset" fullWidth>
+                <FormControl component="fieldset" fullWidth >
                     <RadioGroup
+                        className={classes.radioGroup}
                         aria-label="recipientType"
                         name="recipientType"
                         value={recipientType}
@@ -85,8 +89,8 @@ const PickPaymentRecipient = () => {
                             label="Person"
                         />
                     </RadioGroup>
-                    <RecipientSearch />
                     <Box mt={2}>
+                    <RecipientSearch />
                         <Button
                             disabled={isConfirmButtonDisabled()}
                             variant="contained"
