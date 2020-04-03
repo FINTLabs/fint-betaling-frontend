@@ -24,9 +24,9 @@ const ChipsListContainer = ({
     const classes = useStyles();
     const step = useSelector(state => state.payment.form.step).toString();
     const deleteText = content === "recipient" ? "Fjern alle mottakere" : "Fjern alle produkter";
-    if (show) {
         return (
             <Box
+                visibility={!show ? "hidden": "visible"}
                 display="flex"
                 justifyContent="center"
                 p={2}
@@ -36,6 +36,7 @@ const ChipsListContainer = ({
                 width="100%"
                 mt={2}
                 mb={2}
+                height={content ==="recipient" ? 220 : 160}
                 border={1}
                 borderColor="grey.100"
                 bgcolor="grey.100"
@@ -76,7 +77,6 @@ const ChipsListContainer = ({
                 </Box>
             </Box>
         );
-    }
     return <div/>;
 };
 

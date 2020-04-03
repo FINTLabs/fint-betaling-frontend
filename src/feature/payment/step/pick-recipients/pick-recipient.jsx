@@ -36,7 +36,6 @@ const PickPaymentRecipient = () => {
     const dispatch = useDispatch();
     const groups = useSelector((state) => state.groups.groups);
     const individual = useSelector((state) => state.customers.customers);
-    const recipients = useSelector((state) => state.payment.payment.recipients);
     const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
 
 
@@ -48,11 +47,6 @@ const PickPaymentRecipient = () => {
         }
     }, [dispatch, schoolOrgId]);
 
-    function isConfirmButtonDisabled() {
-        return Object.keys(recipients)
-            .filter((key) => recipients[key].checked).length === 0;
-    }
-
     function handleSearchBy(event) {
         dispatch(updateSearchBy(event.target.value));
         dispatch(updateSearchValue(''));
@@ -60,10 +54,6 @@ const PickPaymentRecipient = () => {
         dispatch(updateSearchPage(SEARCH_PAGE_START));
     }
 
-    function handleConfirmButtonClick() {
-        dispatch(updateStep(STEP_PICK_PRODUCTS));
-        dispatch(updateSearchPage(SEARCH_PAGE_START));
-    }
 
     return (
         <Box width="90%" mt={4}>
@@ -91,14 +81,7 @@ const PickPaymentRecipient = () => {
                     </RadioGroup>
                     <Box mt={2}>
                     <RecipientSearch />
-                        <Button
-                            disabled={isConfirmButtonDisabled()}
-                            variant="contained"
-                            color="secondary"
-                            onClick={handleConfirmButtonClick}
-                        >
-                            Gå videre
-                        </Button>
+
                     </Box>
                 </FormControl>
             </Box>
