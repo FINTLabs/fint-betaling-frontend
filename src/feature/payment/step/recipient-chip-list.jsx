@@ -62,14 +62,14 @@ const useStyles = makeStyles((theme) => ({
 const RecipientChipList = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
-
-
     const recipients = useSelector((state) => state.payment.payment.recipients);
     const showAllRecipients = useSelector((state) => state.payment.recipientList.showAll);
     const [toDelete, setToDelete] = React.useState({
         key: "",
         name: "",
     });
+
+    let [timer, setTimer] = React.useState(null);
 
 
     const recipientsKeys = Object.keys(recipients);
@@ -150,9 +150,12 @@ const RecipientChipList = () => {
                                             className={classes.removeIcon}
                                             onClick={() => {
                                                 setToDelete({key: entry.key, name: entry.name});
-                                                setTimeout(function(){
-                                                    setToDelete({key: "", name:""});
-                                                }.bind(this),1500);
+                                                clearTimeout(timer);
+                                                setTimer(
+                                                    setTimeout(function(){
+                                                        setToDelete({key: "", name:""});
+                                                    },1500)
+                                                );
                                             }}
                                         />
                                 }
