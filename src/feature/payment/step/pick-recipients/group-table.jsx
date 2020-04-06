@@ -111,9 +111,9 @@ const GroupTable = () => {
             <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
+                        <TableCell align="left" className={classes.tableCell}>Velg</TableCell>
                         <TableCell>Navn</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Beskrivelse</TableCell>
-                        <TableCell align="right" className={classes.tableCell}>Velg</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Se medlemmer</TableCell>
                     </TableRow>
                 </TableHead>
@@ -130,6 +130,18 @@ const GroupTable = () => {
                                         className={groupContentOpen[recipient] ? classes.rowSelected : null}
                                     >
                                         <TableCell align="left" className={classes.tableCell}>
+                                            <Checkbox
+                                                onChange={(event) => handleGroupChange(event, suggestion.customers)}
+                                                value={suggestion.customers}
+                                                indeterminate={groupShouldBeChecked(suggestion.customers)
+                                                    ? false
+                                                    : groupCheckboxIndeterminateCheck(suggestion.customers)}
+                                                checked={groupShouldBeChecked(suggestion.customers)}
+                                                color={groupContentOpen[recipient] ? "primary" : "secondary"}
+                                                className={groupContentOpen[recipient] ? classes.checkBoxContentOpen : null}
+                                            />
+                                        </TableCell>
+                                        <TableCell align="left" className={classes.tableCell}>
                                             {parts.map((part) => (
                                                 <span
                                                     key={part.text}
@@ -141,18 +153,6 @@ const GroupTable = () => {
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
                                             {suggestion.description}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            <Checkbox
-                                                onChange={(event) => handleGroupChange(event, suggestion.customers)}
-                                                value={suggestion.customers}
-                                                indeterminate={groupShouldBeChecked(suggestion.customers)
-                                                    ? false
-                                                    : groupCheckboxIndeterminateCheck(suggestion.customers)}
-                                                checked={groupShouldBeChecked(suggestion.customers)}
-                                                color={groupContentOpen[recipient] ? "primary" : "secondary"}
-                                                className={groupContentOpen[recipient] ? classes.checkBoxContentOpen : null}
-                                            />
                                         </TableCell>
                                         <TableCell
                                             align="right"
