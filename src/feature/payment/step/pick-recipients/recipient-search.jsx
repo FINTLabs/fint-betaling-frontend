@@ -44,7 +44,6 @@ const RecipientSearch = () => {
     const activePage = useSelector((state) => state.payment.form.page);
     const suggestionLengthTemp = useSelector((state) => state.payment.form.suggestionLength);
     const recipients = useSelector((state) => state.payment.payment.recipients);
-    const step = useSelector(state => state.payment.form.step);
     const suggestionsLength = searchValue.length === 0 ? 0 : suggestionLengthTemp;
     const rowsPerPage = SEARCH_PAGE_ROWS;
     const suggestions = recipientType === GROUP ? groups : individual;

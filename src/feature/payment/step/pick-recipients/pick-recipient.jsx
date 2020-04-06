@@ -1,21 +1,19 @@
-import React, { useEffect } from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
+import React, {useEffect} from 'react';
+import {makeStyles, Typography} from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import RecipientSearch from './recipient-search';
 import {
     updateSearchBy,
     updateSearchPage,
     updateSearchValue,
-    updateStep,
     updateSuggestions,
 } from '../../../../data/redux/actions/payment';
-import { GROUP, INDIVIDUAL, SEARCH_PAGE_START, STEP_PICK_PRODUCTS, } from '../../constants';
+import {GROUP, INDIVIDUAL, SEARCH_PAGE_START,} from '../../constants';
 import RecipientChipList from '../recipient-chip-list';
 import fetchGroup from '../../../../data/redux/actions/groups';
 import fetchCustomer from '../../../../data/redux/actions/customers';

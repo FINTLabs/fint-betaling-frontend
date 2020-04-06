@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Box, Typography} from '@material-ui/core';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Cancel';
 import {makeStyles} from "@material-ui/core/styles";
@@ -77,7 +76,6 @@ const ChipsListContainer = ({
                 </Box>
             </Box>
         );
-    return <div/>;
 };
 
 

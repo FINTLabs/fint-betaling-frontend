@@ -16,7 +16,7 @@ import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
 
-    searchField: { width: '100%' },
+    searchField: {width: '100%'},
     root: {
         flex: 1,
         '& .MuiInput-underline:after': {
@@ -171,7 +171,7 @@ const ProductSearch = () => {
                 } else {
                     formFilledCorrect = false;
                 }
-
+                return key;
             });
 
         if (formFilledCorrect) {
@@ -195,23 +195,23 @@ const ProductSearch = () => {
                 value={searchValue}
             />
             <div className={classes.buttonBox}>
-            <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleBackwardClick}
-                className={classes.buttonBackward}
-            >
-                Tilbake
-            </Button>
-            <Button
-                disabled={isConfirmButtonDisabled()}
-                variant="contained"
-                color="secondary"
-                onClick={handleOnClickConfirmProducts}
-                className={classes.buttonForward}
-            >
-                Videre
-            </Button>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleBackwardClick}
+                    className={classes.buttonBackward}
+                >
+                    Tilbake
+                </Button>
+                <Button
+                    disabled={isConfirmButtonDisabled()}
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleOnClickConfirmProducts}
+                    className={classes.buttonForward}
+                >
+                    Videre
+                </Button>
             </div>
             {
                 failedProductForm &&
@@ -219,7 +219,7 @@ const ProductSearch = () => {
                     Oppgi pris på produktene
                 </Typography>
             }
-            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem} /> : <div />}
+            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem}/> : <div/>}
         </Box>
     );
 };
