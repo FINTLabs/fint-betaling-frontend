@@ -115,8 +115,11 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: theme.spacing(1),
     },
     pipe:{
-        marginLeft: theme.spacing(1),
-    }
+        marginLeft: theme.spacing(2),
+    },
+    pipe2:{
+        marginRight: theme.spacing(1.5),
+    },
 }));
 
 export default function Scaffold() {
@@ -153,7 +156,6 @@ export default function Scaffold() {
     const handleErrorClose = () => {
         setErrorAnchorEl(null);
     };
-
 
 
     const school = useSelector((state) => state.payment.payment.school);
@@ -266,6 +268,9 @@ export default function Scaffold() {
                             arrowRef={errorArrowRef}
                             setArrowRef={setErrorArrowRef}
                         />
+                        <Typography variant="button" className={classes.pipe2}>
+                            |
+                        </Typography>
                         <Box display="flex" alignItems="center" justifyContent="flex-end">
                             <Typography variant="button">
                                 {me.me.name}
