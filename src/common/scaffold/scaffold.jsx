@@ -131,6 +131,31 @@ export default function Scaffold() {
     const isCustomersLoading = useSelector((state) => state.customers.isLoading);
     const isGroupsLoading = useSelector((state) => state.groups.isLoading);
 
+    const [alertAnchorEl, setAlertAnchorEl] = React.useState(null);
+    const [alertArrowRef, setAlertArrowRef] = React.useState(null);
+    const [errorAnchorEl, setErrorAnchorEl] = React.useState(null);
+    const [errorArrowRef, setErrorArrowRef] = React.useState(null);
+
+    const handleAlertClick = (event) => {
+        setAlertAnchorEl(!alertAnchorEl ? event.currentTarget : null);
+        setErrorAnchorEl(null);
+    };
+
+    const handleAlertClose = () => {
+        setAlertAnchorEl(null);
+    };
+
+    const handleErrorClick = (event) => {
+        setErrorAnchorEl(!errorAnchorEl ? event.currentTarget : null);
+        setAlertAnchorEl( null);
+    };
+
+    const handleErrorClose = () => {
+        setErrorAnchorEl(null);
+    };
+
+
+
     const school = useSelector((state) => state.payment.payment.school);
 
     let localStorageSchool = localStorage.getItem('school');
@@ -227,8 +252,20 @@ export default function Scaffold() {
                         FINT Betaling
                     </Typography>
                     <Box display="flex" ml="auto" alignItems="center">
-                        <UnsendtAlertButton/>
-                        <ErrorAlertButton/>
+                        <UnsendtAlertButton
+                        handleClick={handleAlertClick}
+                        handleClose={handleAlertClose}
+                        anchorEl={alertAnchorEl}
+                        arrowRef={alertArrowRef}
+                        setArrowRef={setAlertArrowRef}
+                        />
+                        <ErrorAlertButton
+                            handleClick={handleErrorClick}
+                            handleClose={handleErrorClose}
+                            anchorEl={errorAnchorEl}
+                            arrowRef={errorArrowRef}
+                            setArrowRef={setErrorArrowRef}
+                        />
                         <Box display="flex" alignItems="center" justifyContent="flex-end">
                             <Typography variant="button">
                                 {me.me.name}

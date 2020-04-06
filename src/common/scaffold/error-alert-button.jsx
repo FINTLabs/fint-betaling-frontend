@@ -82,24 +82,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ErrorAlertButton = () => {
+const ErrorAlertButton = (props) => {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [arrowRef, setArrowRef] = React.useState(null);
+    const {handleClick, handleClose, anchorEl, arrowRef, setArrowRef} = props;
 
     const payments = useSelector((state) => state.payments.payments);
     const me = useSelector((state) => state.me.me);
     const errorPayments = payments.filter((payment) => payment.claimStatus.includes('ERROR')
         && payment.createdBy.name === me.name).length;
-
-
-    const handleClick = (event) => {
-        setAnchorEl(!anchorEl ? event.currentTarget : null);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     const open = Boolean(anchorEl);
     const id = open ? 'spring-popper' : undefined;
