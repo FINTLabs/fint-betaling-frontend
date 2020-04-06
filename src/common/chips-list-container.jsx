@@ -48,7 +48,7 @@ const ChipsListContainer = ({
                     flexDirection="row"
                     width="100%"
                 >
-                    <Typography variant="h6">{title} (antall: {count})</Typography>
+                    <Typography variant="h6">{title} ({count})</Typography>
                     <div className={classes.removeAllBox}> {
                         // content !== "recipient" ?
                         //     toggleShowAllItems
