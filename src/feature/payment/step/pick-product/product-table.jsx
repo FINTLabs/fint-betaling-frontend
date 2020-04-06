@@ -28,7 +28,6 @@ import PriceField from '../../../../common/price-field';
 const useStyles = makeStyles(() => ({
     table: {
         overflow: 'auto',
-        width: '100%',
     },
     tableCell: {
         overflow: 'auto',
@@ -38,7 +37,7 @@ const useStyles = makeStyles(() => ({
         width: 30,
     },
     tableCellDescription: {
-        minWidth: 300,
+        minWidth: 250,
     },
     tableCellPrice: {
         minWidth: 75,
@@ -118,7 +117,7 @@ const ProductTable = () => {
     };
 
     return (
-        <Box>
+        <Box overflow={"auto"}>
             <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
