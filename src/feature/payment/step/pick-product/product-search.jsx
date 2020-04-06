@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
     errorMessage: {
         color: "red",
         marginLeft: theme.spacing(2),
+        textAlign: "center",
     },
     buttonForward: {
         margin: theme.spacing(1),
@@ -214,7 +215,7 @@ const ProductSearch = () => {
             {
                 failedProductForm &&
                 <Typography className={classes.errorMessage}>
-                    Et av produktene har ikke oppgitt pris
+                    Oppgi pris på produktene
                 </Typography>
             }
             {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem} /> : <div />}
