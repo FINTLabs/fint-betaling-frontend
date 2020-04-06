@@ -63,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
     },
     buttonBackward: {
+        marginInlineStart: "auto",
         margin: theme.spacing(1),
     },
     buttonBox: {
