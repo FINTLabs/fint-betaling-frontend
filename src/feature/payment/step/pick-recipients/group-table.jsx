@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.main,
     },
     checkBoxContentOpen: {
-      backgroundColor: theme.palette.primary.main,
+        color: "#FFF",
     },
 }));
 
@@ -150,6 +150,7 @@ const GroupTable = () => {
                                                     ? false
                                                     : groupCheckboxIndeterminateCheck(suggestion.customers)}
                                                 checked={groupShouldBeChecked(suggestion.customers)}
+                                                color={groupContentOpen[recipient] ? "primary" : "secondary"}
                                                 className={groupContentOpen[recipient] ? classes.checkBoxContentOpen : null}
                                             />
                                         </TableCell>
