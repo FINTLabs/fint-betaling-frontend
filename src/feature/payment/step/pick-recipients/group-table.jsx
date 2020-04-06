@@ -114,7 +114,7 @@ const GroupTable = () => {
                         <TableCell>Navn</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Beskrivelse</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Velg</TableCell>
-                        <TableCell align="right" className={classes.tableCell}>Vis innhold</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Se medlemmer</TableCell>
                     </TableRow>
                 </TableHead>
                 {
