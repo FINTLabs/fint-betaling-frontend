@@ -22,7 +22,7 @@ const ChipsListContainer = ({
                             }) => {
     const classes = useStyles();
     const step = useSelector(state => state.payment.form.step).toString();
-    const deleteText = content === "recipient" ? "Fjern alle mottakere" : "Fjern alle produkter";
+    const deleteText = "Fjern alle";
         return (
             <Box
                 visibility={!show ? "hidden": "visible"}
