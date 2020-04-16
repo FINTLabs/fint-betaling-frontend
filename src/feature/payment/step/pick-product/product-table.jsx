@@ -93,6 +93,7 @@ const ProductTable = () => {
         };
         if (!productAmount[itemCode]) {
             handleAmountChange(1, itemCode);
+            handleItemPriceChange(itemPrice, itemCode);
         }
         dispatch(updateProducts(newArray));
         dispatch(updateFailedProductForm(false));
