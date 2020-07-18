@@ -11,7 +11,7 @@
     "autosuggest-highlight": "^3.1.1",
     "clsx": "^1.0.4",
     "fetch-retry": "^3.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "material-table": "^1.50.0",
     "material-ui-pickers": "^2.2.4",
     "prop-types": "latest",
