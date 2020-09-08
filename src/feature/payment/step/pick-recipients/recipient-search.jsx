@@ -17,16 +17,9 @@ import {makeStyles} from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     buttonForward: {
         margin: theme.spacing(1),
-        disabled: true,
     },
     buttonBackward: {
-        marginInlineStart: "auto",
         margin: theme.spacing(1),
-        disabled: true,
-    },
-    buttonBox: {
-        display: "flex",
-        justifyContent: "center"
     },
 }));
 
@@ -140,7 +133,7 @@ const RecipientSearch = () => {
                 onClear={() => dispatch(updateSearchValue(''))}
                 value={searchValue}
             />
-            <div className={classes.buttonBox}>
+            <Box display={"flex"} justifyContent={"flex-end"}>
                 <Button
                     disabled={true}
                     variant="contained"
@@ -159,7 +152,7 @@ const RecipientSearch = () => {
                 >
                     Videre
                 </Button>
-            </div>
+            </Box>
             {suggestionsLength > 0 ? <Box mt={2}><RecipientSuggestItem/></Box> : <div/>}
         </Box>
     );

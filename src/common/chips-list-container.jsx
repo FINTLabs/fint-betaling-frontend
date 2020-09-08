@@ -6,7 +6,6 @@ import ClearIcon from '@material-ui/icons/Cancel';
 import {makeStyles} from "@material-ui/core/styles";
 import {useSelector} from "react-redux";
 
-
 const useStyles = makeStyles(() => ({
     removeAllBox: {
         display:"flex",
@@ -46,9 +45,10 @@ const ChipsListContainer = ({
                     display="flex"
                     flexDirection="row"
                     width="100%"
+                    justifyContent="space-between"
                 >
                     <Typography variant="h6">{title} ({count})</Typography>
-                    <div className={classes.removeAllBox}> {
+                    <Box> {
                         // content !== "recipient" ?
                         //     toggleShowAllItems
                         //     && (
@@ -68,7 +68,7 @@ const ChipsListContainer = ({
                         {(step !== "1" || content !== "recipient") && < IconButton size="small" onClick={onClear}>
                             <ClearIcon/>
                         </IconButton>}
-                    </div>
+                    </Box>
 
                 </Box>
                 <Box display="flex" width="100%" justifyContent="center" flexWrap="wrap" m={1}>
