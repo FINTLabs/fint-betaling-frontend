@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -8,11 +8,12 @@ import TableBody from '@material-ui/core/TableBody';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles, TextField } from '@material-ui/core';
+import {makeStyles, TextField} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import {
+    updateFailedProductForm,
     updateProductAmount,
     updateProductDescription,
     updateProductPrice,
@@ -27,7 +28,6 @@ import PriceField from '../../../../common/price-field';
 const useStyles = makeStyles(() => ({
     table: {
         overflow: 'auto',
-        width: '100%',
     },
     tableCell: {
         overflow: 'auto',
@@ -37,7 +37,7 @@ const useStyles = makeStyles(() => ({
         width: 30,
     },
     tableCellDescription: {
-        minWidth: 300,
+        minWidth: 250,
     },
     tableCellPrice: {
         minWidth: 75,
@@ -61,15 +61,19 @@ const ProductTable = () => {
     suggestions = query.length === 0 ? [] : suggestions;
 
     const handleAmountChange = (newAmount, itemCode) => {
-        const newArray = { ...productAmount };
-        newArray[itemCode] = { amount: newAmount };
-        dispatch(updateProductAmount(newArray));
+        if (newAmount>0){
+            const newArray = {...productAmount};
+            newArray[itemCode] = {amount: newAmount};
+            dispatch(updateProductAmount(newArray));
+            dispatch(updateFailedProductForm(false));
+        }
     };
 
     const handleItemPriceChange = (newItemPrice, itemCode) => {
         const item = { ...productPrice };
         item[itemCode] = { itemPrice: newItemPrice };
         dispatch(updateProductPrice(item));
+        dispatch(updateFailedProductForm(false));
     };
 
     const handleItemDescriptionChange = (newDescription, itemCode) => {
@@ -89,8 +93,10 @@ const ProductTable = () => {
         };
         if (!productAmount[itemCode]) {
             handleAmountChange(1, itemCode);
+            handleItemPriceChange(itemPrice, itemCode);
         }
         dispatch(updateProducts(newArray));
+        dispatch(updateFailedProductForm(false));
     };
 
     const handleChangePage = (event, newPage) => {
@@ -112,17 +118,17 @@ const ProductTable = () => {
     };
 
     return (
-        <Box>
+        <Box overflow={"auto"}>
             <Table className={classes.table} size="small">
                 <TableHead>
                     <TableRow>
+                        <TableCell align="left" className={classes.tableCell}>Velg</TableCell>
                         <TableCell align="left">Navn</TableCell>
                         <TableCell align="left">Fritekst</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Kode</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Netto pris pr. enhet</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Antall</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Netto sum</TableCell>
-                        <TableCell align="right" className={classes.tableCell}>Velg</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -135,6 +141,19 @@ const ProductTable = () => {
 
                                 return (
                                     <TableRow hover key={suggestion.itemCode}>
+                                        <TableCell align="center" className={classes.tableCell}>
+                                            <Checkbox
+                                                checked={pickedProducts[suggestion.itemCode]
+                                                    ? pickedProducts[suggestion.itemCode].checked
+                                                    : false}
+                                                onChange={(e) => handleIndividualCheck(e,
+                                                    suggestion.itemCode,
+                                                    suggestion.description,
+                                                    suggestion.itemPrice,
+                                                    suggestion.taxrate,
+                                                    suggestion.uri)}
+                                            />
+                                        </TableCell>
                                         <TableCell align="left" className={classes.tableCell}>
                                             {parts.map((part) => (
                                                 <span
@@ -148,7 +167,7 @@ const ProductTable = () => {
                                         <TableCell align="left" className={classes.tableCellDescription}>
                                             <TextField
                                                 fullWidth
-                                                disabled={!pickedProducts[suggestion.itemCode]}
+                                                disabled={pickedProducts[suggestion.itemCode] ? !pickedProducts[suggestion.itemCode].checked : true}
                                                 onChange={(e) => handleItemDescriptionChange(
                                                     e.target.value, suggestion.itemCode,
                                                 )}
@@ -161,7 +180,7 @@ const ProductTable = () => {
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCellPrice}>
                                             <PriceField
-                                                disabled={!pickedProducts[suggestion.itemCode]}
+                                                disabled={pickedProducts[suggestion.itemCode] ? !pickedProducts[suggestion.itemCode].checked : true}
                                                 value={getPrice(suggestion)
                                                     .toString()}
                                                 itemCode={suggestion.itemCode}
@@ -171,7 +190,7 @@ const ProductTable = () => {
                                         <TableCell align="right" className={classes.tableCellAmount}>
                                             <FormControl>
                                                 <Input
-                                                    disabled={!pickedProducts[suggestion.itemCode]}
+                                                    disabled={pickedProducts[suggestion.itemCode] ? !pickedProducts[suggestion.itemCode].checked : true}
                                                     label="Antall"
                                                     value={getAmount(suggestion)}
                                                     onChange={(e) => handleAmountChange(
@@ -184,19 +203,6 @@ const ProductTable = () => {
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
                                             <Amount>{getPrice(suggestion) * getAmount(suggestion)}</Amount>
-                                        </TableCell>
-                                        <TableCell align="center" className={classes.tableCell}>
-                                            <Checkbox
-                                                checked={pickedProducts[suggestion.itemCode]
-                                                    ? pickedProducts[suggestion.itemCode].checked
-                                                    : false}
-                                                onChange={(e) => handleIndividualCheck(e,
-                                                    suggestion.itemCode,
-                                                    suggestion.description,
-                                                    suggestion.itemPrice,
-                                                    suggestion.taxrate,
-                                                    suggestion.uri)}
-                                            />
                                         </TableCell>
                                     </TableRow>
                                 );

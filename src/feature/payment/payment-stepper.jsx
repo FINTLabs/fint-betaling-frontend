@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function getSteps() {
-    return ['Velg mottaker', 'Velg produkt', 'Velg forfall'];
+    return ['Velg mottaker', 'Velg produkt', 'Lagre'];
 }
 
 export default function PaymentStepper() {

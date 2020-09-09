@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {makeStyles, useTheme} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -19,19 +19,17 @@ import InvoiceHistoryIcon from '@material-ui/icons/History';
 import NewInvoiceIcon from '@material-ui/icons/NoteAdd';
 import LogOutIcon from '@material-ui/icons/ExitToApp';
 import SendIcon from '@material-ui/icons/Send';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Box from '@material-ui/core/Box';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
 import VigoLogo from '../../assets/vigo-logo-no-iks.svg';
 import Routes from './routes';
 import OrganisationSelector from './organisation-selector';
 import fetchMe from '../../data/redux/actions/me';
-import {
-    initializePayment, setOrgId, setSchool, setSchoolOrgId,
-} from '../../data/redux/actions/payment';
+import {initializePayment, setOrgId, setSchool, setSchoolOrgId,} from '../../data/redux/actions/payment';
 import ListItemLink from './list-item-link';
 import UnsendtAlertButton from './unsendt-alert-button';
 import ErrorAlertButton from './error-alert-button';
@@ -116,6 +114,12 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         paddingRight: theme.spacing(1),
     },
+    pipe:{
+        marginLeft: theme.spacing(2),
+    },
+    pipe2:{
+        marginRight: theme.spacing(1.5),
+    },
 }));
 
 export default function Scaffold() {
@@ -129,7 +133,30 @@ export default function Scaffold() {
     const isPaymentsLoading = useSelector((state) => state.payments.isLoading);
     const isCustomersLoading = useSelector((state) => state.customers.isLoading);
     const isGroupsLoading = useSelector((state) => state.groups.isLoading);
-    const isDatesLoading = useSelector((state) => state.dates.isLoading);
+
+    const [alertAnchorEl, setAlertAnchorEl] = React.useState(null);
+    const [alertArrowRef, setAlertArrowRef] = React.useState(null);
+    const [errorAnchorEl, setErrorAnchorEl] = React.useState(null);
+    const [errorArrowRef, setErrorArrowRef] = React.useState(null);
+
+    const handleAlertClick = (event) => {
+        setAlertAnchorEl(!alertAnchorEl ? event.currentTarget : null);
+        setErrorAnchorEl(null);
+    };
+
+    const handleAlertClose = () => {
+        setAlertAnchorEl(null);
+    };
+
+    const handleErrorClick = (event) => {
+        setErrorAnchorEl(!errorAnchorEl ? event.currentTarget : null);
+        setAlertAnchorEl( null);
+    };
+
+    const handleErrorClose = () => {
+        setErrorAnchorEl(null);
+    };
+
 
     const school = useSelector((state) => state.payment.payment.school);
 
@@ -195,14 +222,13 @@ export default function Scaffold() {
     }
 
     const loading = isCustomersLoading
-        || isDatesLoading
         || isGroupsLoading
         || isPaymentsLoading
         || me.isLoading;
 
     return (
         <div className={classes.root}>
-            <CssBaseline />
+            <CssBaseline/>
             <AppBar
                 position="fixed"
                 className={clsx(classes.appBar, {
@@ -219,24 +245,44 @@ export default function Scaffold() {
                             [classes.hide]: open,
                         })}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Link className={classes.menuLink} to="/">
-                        <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo} />
+                        <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo}/>
                     </Link>
                     <Typography variant="h6" noWrap>
                         FINT Betaling
                     </Typography>
                     <Box display="flex" ml="auto" alignItems="center">
-                        <Typography variant="button">
-                            {me.me.name}
+                        <UnsendtAlertButton
+                        handleClick={handleAlertClick}
+                        handleClose={handleAlertClose}
+                        anchorEl={alertAnchorEl}
+                        arrowRef={alertArrowRef}
+                        setArrowRef={setAlertArrowRef}
+                        />
+                        <ErrorAlertButton
+                            handleClick={handleErrorClick}
+                            handleClose={handleErrorClose}
+                            anchorEl={errorAnchorEl}
+                            arrowRef={errorArrowRef}
+                            setArrowRef={setErrorArrowRef}
+                        />
+                        <Typography variant="button" className={classes.pipe2}>
+                            |
                         </Typography>
-                        <OrganisationSelector />
-                        <UnsendtAlertButton />
-                        <ErrorAlertButton />
+                        <Box display="flex" alignItems="center" justifyContent="flex-end">
+                            <Typography variant="button">
+                                {me.me.name}
+                            </Typography>
+                            <Typography className={classes.pipe} variant="button">
+                                |
+                            </Typography>
+                            <OrganisationSelector/>
+                        </Box>
                     </Box>
                 </Toolbar>
-                {loading && <LinearProgress color="secondary" />}
+                {loading && <LinearProgress color="secondary"/>}
 
             </AppBar>
             <Drawer
@@ -254,18 +300,18 @@ export default function Scaffold() {
             >
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                        {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
                     </IconButton>
                 </div>
-                <Divider />
+                <Divider/>
                 <List>
                     <ListItem button component={Link} to="/">
                         <ListItemIcon>
-                            <HomeIcon />
+                            <HomeIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Hjem" />
+                        <ListItemText primary="Hjem"/>
                     </ListItem>
-                    <Divider />
+                    <Divider/>
 
                     <ListItem
                         button
@@ -275,8 +321,8 @@ export default function Scaffold() {
                             dispatch(initializePayment());
                         }}
                     >
-                        <ListItemIcon><NewInvoiceIcon /></ListItemIcon>
-                        <ListItemText primary="Opprett ordre" />
+                        <ListItemIcon><NewInvoiceIcon/></ListItemIcon>
+                        <ListItemText primary="Opprett ordre"/>
                     </ListItem>
 
 
@@ -288,21 +334,21 @@ export default function Scaffold() {
                             dispatch(initializePayment());
                         }}
                     >
-                        <ListItemIcon><SendIcon /></ListItemIcon>
-                        <ListItemText primary="Send ordre" />
+                        <ListItemIcon><SendIcon/></ListItemIcon>
+                        <ListItemText primary="Send ordre"/>
                     </ListItem>
                     <ListItem
                         button
                         to="/betaling/historikk"
                         component={Link}
                     >
-                        <ListItemIcon><InvoiceHistoryIcon /></ListItemIcon>
-                        <ListItemText primary="Ordrehistorikk" />
+                        <ListItemIcon><InvoiceHistoryIcon/></ListItemIcon>
+                        <ListItemText primary="Ordrehistorikk"/>
                     </ListItem>
-                    <Divider />
+                    <Divider/>
                     <ListItemLink href="/AGLogout">
-                        <ListItemIcon><LogOutIcon /></ListItemIcon>
-                        <ListItemText primary="Logg ut" />
+                        <ListItemIcon><LogOutIcon/></ListItemIcon>
+                        <ListItemText primary="Logg ut"/>
                     </ListItemLink>
                 </List>
             </Drawer>
@@ -311,7 +357,7 @@ export default function Scaffold() {
                     [classes.contentShift]: open,
                 })}
             >
-                <Routes />
+                <Routes/>
             </main>
         </div>
     );

@@ -82,11 +82,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const UnsendtAlertButton = () => {
+const UnsendtAlertButton = (props) => {
     const classes = useStyles();
-    // const dispatch = useDispatch();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [arrowRef, setArrowRef] = React.useState(null);
+    const {handleClick, handleClose, anchorEl, arrowRef, setArrowRef} = props;
 
     const payments = useSelector((state) => state.payments.payments);
     const me = useSelector((state) => state.me.me);
@@ -94,17 +92,8 @@ const UnsendtAlertButton = () => {
         && payment.createdBy.name === me.name).length;
 
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
     const open = Boolean(anchorEl);
     const id = open ? 'spring-popper' : undefined;
-
 
     return (
         <Box>

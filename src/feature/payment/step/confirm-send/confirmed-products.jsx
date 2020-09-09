@@ -48,7 +48,7 @@ const ConfirmedProducts = () => {
                             .map((key) => (
                                 <TableRow key={key}>
                                     <TableCell align="left">{products[key].description}</TableCell>
-                                    <TableCell align="left">{productDescription[key].description}</TableCell>
+                                    <TableCell align="left">{productDescription ? productDescription[key] ? productDescription[key].description : "":""}</TableCell>
                                     <TableCell align="right" component="th" scope="row">
                                         {key}
                                     </TableCell>
@@ -75,7 +75,7 @@ const ConfirmedProducts = () => {
                     Total beløp per elev:
                 </Typography>
                 <Typography variant="subtitle1">
-                    {getTotalPrice(products, productAmounts)}
+                    {getTotalPrice(products, productPrice, productAmounts)}
                 </Typography>
             </Box>
             <Divider />

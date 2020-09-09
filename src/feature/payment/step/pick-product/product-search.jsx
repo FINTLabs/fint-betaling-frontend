@@ -1,19 +1,22 @@
-import React, { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Box, makeStyles } from '@material-ui/core';
+import React, {useCallback, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {Box, makeStyles, Typography} from '@material-ui/core';
 import ProductTable from './product-table';
 import {
+    updateFailedProductForm,
     updateProductLength,
     updateProductSearchValue,
     updateProductSuggestions,
     updateSearchPage,
+    updateStep,
 } from '../../../../data/redux/actions/payment';
-import { SEARCH_PAGE_ROWS, SEARCH_PAGE_START } from '../../constants';
+import {SEARCH_PAGE_ROWS, SEARCH_PAGE_START, STEP_CONFIRM_PAYMENT, STEP_PICK_RECIPIENTS} from '../../constants';
 import SearchField from '../../../../common/search-field';
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
 
-    searchField: { width: '100%' },
+    searchField: {width: '100%'},
     root: {
         flex: 1,
         '& .MuiInput-underline:after': {
@@ -51,12 +54,32 @@ const useStyles = makeStyles((theme) => ({
     recipientSuggestItem: {
         flex: '0 0 25em',
     },
+    errorMessage: {
+        color: "red",
+        marginLeft: theme.spacing(2),
+        textAlign: "center",
+    },
+    buttonForward: {
+        margin: theme.spacing(1),
+    },
+    buttonBackward: {
+        marginInlineStart: "auto",
+        margin: theme.spacing(1),
+    },
+    buttonBox: {
+        display: "flex",
+        justifyContent: "center"
+    },
 }));
 
 const ProductSearch = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
+    const failedProductForm = useSelector((state) => state.payment.product.failedProductForm);
+    const pickedProducts = useSelector((state) => state.payment.payment.products);
+    const productAmount = useSelector((state) => state.payment.product.amount);
+    const productPrice = useSelector((state) => state.payment.product.itemPrice);
     const searchValue = useSelector((state) => state.payment.product.searchValue);
     const suggestions = useSelector((state) => state.principal.principal.lineitems);
     const activePage = useSelector((state) => state.payment.form.page);
@@ -129,6 +152,39 @@ const ProductSearch = () => {
         dispatch(updateProductSuggestions(getSuggestionsCallback(searchValue)));
     }, [activePage, searchValue, getProductsLengthCallback, getSuggestionsCallback, dispatch]);
 
+    function isConfirmButtonDisabled() {
+        return Object.keys(pickedProducts)
+            .filter((key) => pickedProducts[key].checked).length === 0;
+    }
+
+    function handleOnClickConfirmProducts() {
+        let formFilledCorrect = true;
+        const keys = Object.keys(pickedProducts);
+        keys.filter(key => {
+            return pickedProducts[key].checked;
+        })
+            .map(key => {
+                if (productAmount[key] && productPrice[key]) {
+                    if (!(productPrice[key].itemPrice && productAmount[key].amount && productPrice[key].itemPrice !== 0 && productAmount[key].amount.toString() !== "0")) {
+                        formFilledCorrect = false;
+                    }
+                } else {
+                    formFilledCorrect = false;
+                }
+                return key;
+            });
+
+        if (formFilledCorrect) {
+            dispatch(updateStep(STEP_CONFIRM_PAYMENT));
+        } else {
+            dispatch(updateFailedProductForm(true));
+        }
+
+    }
+
+    function handleBackwardClick() {
+        dispatch(updateStep(STEP_PICK_RECIPIENTS));
+    }
 
     return (
         <Box>
@@ -138,7 +194,32 @@ const ProductSearch = () => {
                 onClear={() => dispatch(updateProductSearchValue(''))}
                 value={searchValue}
             />
-            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem} /> : <div />}
+            <div className={classes.buttonBox}>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleBackwardClick}
+                    className={classes.buttonBackward}
+                >
+                    Tilbake
+                </Button>
+                <Button
+                    disabled={isConfirmButtonDisabled()}
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleOnClickConfirmProducts}
+                    className={classes.buttonForward}
+                >
+                    Videre
+                </Button>
+            </div>
+            {
+                failedProductForm &&
+                <Typography className={classes.errorMessage}>
+                    Oppgi pris på produktene
+                </Typography>
+            }
+            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem}/> : <div/>}
         </Box>
     );
 };

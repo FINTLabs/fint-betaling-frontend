@@ -37,7 +37,6 @@ class ClaimRepository {
         orgId,
         customers,
         orderItems,
-        requestedNumberOfDaysToPaymentDeadline,
         organisationUnit,
         principal,
         createdBy,
@@ -51,13 +50,11 @@ class ClaimRepository {
                 body: JSON.stringify({ // Todo create Order from model
                     orderItems,
                     customers,
-                    requestedNumberOfDaysToPaymentDeadline,
                     organisationUnit,
                     principal,
                     createdBy,
                 }),
             });
-
         return fetch(request)
             .then((response) => response.json())
             .catch((error) => error);

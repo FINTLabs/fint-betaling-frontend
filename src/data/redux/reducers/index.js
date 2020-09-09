@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import customers from './customers';
-import dates from './dates';
 import principal from './principal';
 import groups from './groups';
 import me from './me';
@@ -10,7 +9,6 @@ import payment from './payment';
 
 export default combineReducers({
     customers,
-    dates,
     principal,
     groups,
     me,
