@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Box from '@material-ui/core/Box';
 import RecipientSearch from './recipient-search';
 import {
+    updateRecipients,
     updateSearchBy,
     updateSearchPage,
     updateSearchValue,
@@ -28,6 +29,7 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import File from "@material-ui/icons/CloudUpload"
+import FileRepository from "../../../../data/repository/FileRepository";
 
 const useStyles = makeStyles(() => ({
     h2: {
@@ -72,7 +74,7 @@ const PickPaymentRecipient = () => {
             } else {
                 acceptedFiles.forEach((file) => {
                     if (file.type === "text/csv") {
-
+                        sendToBackend(file);
                     } else {
 
                     }
@@ -95,8 +97,24 @@ const PickPaymentRecipient = () => {
     }
 
     function sendToBackend(file) {
-        console.log("sending to backend!");
-        setFileAlertOpen(false);
+        FileRepository.sendFile(schoolOrgId, file).then(r => {handleRecipientList(r[1].customers);setFileAlertOpen(false);});
+    }
+
+    function handleRecipientList(individualList) {
+        const recipientList = {};
+        for (let customer = 0; customer < individualList.length; customer += 1) {
+            const customerNumber = individualList[customer].id;
+            recipientList[customerNumber] = {
+                checked: true,
+                name: individualList[customer].name,
+                email: individualList[customer].email ? individualList[customer].email : '',
+                cellPhoneNumber: individualList[customer].mobile ? individualList[customer].mobile : '',
+                addressLine: individualList[customer].postalAddress ? individualList[customer].postalAddress : '',
+                addressZip: individualList[customer].postalCode ? individualList[customer].postalCode : '',
+                addressPlace: individualList[customer].city ? individualList[customer].city : '',
+            };
+        }
+        dispatch(updateRecipients(recipientList));
     }
 
     return (
