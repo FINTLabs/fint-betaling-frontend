@@ -21,7 +21,6 @@ import fetchCustomer from '../../../../data/redux/actions/customers';
 import fetchPrincipal from '../../../../data/redux/actions/principal';
 import {useDropzone} from "react-dropzone";
 import Dialog from "@material-ui/core/Dialog";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -47,6 +46,7 @@ const PickPaymentRecipient = () => {
     const groups = useSelector((state) => state.groups.groups);
     const individual = useSelector((state) => state.customers.customers);
     const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
+    const recipients = useSelector((state) => state.payment.payment.recipients);
     const [fileAlertOpen, setFileAlertOpen] = useState(false);
     const [uploadedFiles, setUploadedFiles] = useState([]);
 
@@ -101,7 +101,7 @@ const PickPaymentRecipient = () => {
     }
 
     function handleRecipientList(individualList) {
-        const recipientList = {};
+        const recipientList = {...recipients};
         for (let customer = 0; customer < individualList.length; customer += 1) {
             const customerNumber = individualList[customer].id;
             recipientList[customerNumber] = {
