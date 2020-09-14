@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import CardActions from '@material-ui/core/CardActions';
 import Box from '@material-ui/core/Box';
 import RouteButton from '../../common/route-button';
+import {initializePayment} from "../../data/redux/actions/payment";
+import {INITIALIZE_PAYMENT} from "../../data/redux/actions/actions";
+import {useDispatch} from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -21,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CardMenu = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
     return (
         <Grid container justify="center" spacing={5} className={classes.root}>
             <Grid item>
@@ -43,7 +47,9 @@ const CardMenu = () => {
                         </Box>
                     </CardContent>
                     <CardActions>
-                        <RouteButton to="/betaling/ny" size="small" color="secondary">
+                        <RouteButton to="/betaling/ny" size="small" color="secondary"onClick={() => {
+                            dispatch(initializePayment(INITIALIZE_PAYMENT));
+                        }}>
                             Til opprett ordre
                         </RouteButton>
                     </CardActions>
@@ -67,7 +73,9 @@ const CardMenu = () => {
                         </Box>
                     </CardContent>
                     <CardActions>
-                        <RouteButton to="/betaling/send" size="small" color="secondary">
+                        <RouteButton to="/betaling/send" size="small" color="secondary" onClick={() => {
+                            dispatch(initializePayment(INITIALIZE_PAYMENT));
+                        }}>
                             Til send ordre
                         </RouteButton>
                     </CardActions>
