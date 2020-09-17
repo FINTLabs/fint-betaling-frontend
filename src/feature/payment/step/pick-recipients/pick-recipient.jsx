@@ -84,18 +84,17 @@ const PickPaymentRecipient = () => {
             setFileRejectOpen(true);
             setErrormessage(rejected[0].errors[0].message);
         }, []);
-        const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, onDropRejected, accept: "text/csv" , maxSize: 10000, minSize:0});
+        const {getRootProps, getInputProps} = useDropzone({onDrop, onDropRejected, accept: "text/csv", maxSize: 10000, minSize:0});
 
         return (
             <div {...getRootProps()}>
                 <input {...getInputProps()} />
                 <Typography>
-                    {!isDragActive && 'Dra en fil hit for å laste opp'}
-                    {isDragActive && "Drop it like it's hot!"}
+                    {'Dra en fil hit for å laste opp'}
                 </Typography>
             </div>
         );
-    };
+    }
 
     function handleClose() {
         setFileAlertOpen(false);
