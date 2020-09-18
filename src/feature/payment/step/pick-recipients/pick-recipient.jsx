@@ -51,6 +51,8 @@ const PickPaymentRecipient = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [fileRejectOpen, setFileRejectOpen] = useState(false);
     const [errormessage, setErrormessage] = useState("");
+    const [customerNotFoundOpen, setCustomerNotFoundOpen] = useState(false);
+    const [customersFromBackEnd, setCustomersFromBackend] = useState(null);
 
     useEffect(() => {
         if (schoolOrgId) {
@@ -75,7 +77,7 @@ const PickPaymentRecipient = () => {
                 setFileAlertOpen(true);
             } else {
                 acceptedFiles.forEach((file) => {
-                        sendToBackend(file);
+                    sendToBackend(file);
                 })
             }
 
@@ -84,7 +86,7 @@ const PickPaymentRecipient = () => {
             setFileRejectOpen(true);
             setErrormessage(rejected[0].errors[0].message);
         }, []);
-        const {getRootProps, getInputProps} = useDropzone({onDrop, onDropRejected, accept: "text/csv", maxSize: 10000, minSize:0});
+        const {getRootProps, getInputProps} = useDropzone({onDrop, onDropRejected, maxSize: 10000, minSize: 0});
 
         return (
             <div {...getRootProps()}>
@@ -106,7 +108,13 @@ const PickPaymentRecipient = () => {
     }
 
     function sendToBackend(file) {
-        FileRepository.sendFile(schoolOrgId, file).then(r => {handleRecipientList(r[1].customers);setFileAlertOpen(false);});
+        FileRepository.sendFile(schoolOrgId, file).then(r => {
+            console.log(r);
+            setCustomersFromBackend(r[1]);
+            setCustomerNotFoundOpen(true);
+            handleRecipientList(r[1].foundCustomers.customers);
+            setFileAlertOpen(false);
+        });
     }
 
     function handleRecipientList(individualList) {
@@ -124,6 +132,10 @@ const PickPaymentRecipient = () => {
             };
         }
         dispatch(updateRecipients(recipientList));
+    }
+
+    function handleNotFoundClose() {
+        setCustomerNotFoundOpen(false);
     }
 
     return (
@@ -170,7 +182,7 @@ const PickPaymentRecipient = () => {
                                 </ListItemAvatar>
                                 <ListItemText primary={file.name}/>
                             </ListItem>
-                        )):<></>}
+                        )) : <></>}
                     </List>
                 </Dialog>
 
@@ -178,6 +190,19 @@ const PickPaymentRecipient = () => {
                     <DialogTitle id="simple-dialog-title">Feil ved opplasting</DialogTitle>
                     <DialogContent>
                         Årsak: {errormessage}
+                    </DialogContent>
+                </Dialog>
+                <Dialog onClose={handleNotFoundClose} aria-labelledby="simple-dialog-title" open={customerNotFoundOpen}>
+                    <DialogTitle id="simple-dialog-title">Lastet opp liste</DialogTitle>
+                    <DialogContent>
+                        <List>
+                            {customersFromBackEnd && customersFromBackEnd.foundCustomers && customersFromBackEnd.foundCustomers.customers.length>0 && <b>Fant kundene:</b>}
+                            {customersFromBackEnd && customersFromBackEnd.foundCustomers.customers.map(customer => {return <ListItem> {customer.name}</ListItem>})}
+                        </List>
+                        <List>
+                            {customersFromBackEnd && customersFromBackEnd.notFoundCustomers && <b>Fant ikke kundene:</b>}
+                            {customersFromBackEnd && customersFromBackEnd.notFoundCustomers.map(customer => {return  <ListItem> {customer}</ListItem>})}
+                        </List>
                     </DialogContent>
                 </Dialog>
             </Box>
