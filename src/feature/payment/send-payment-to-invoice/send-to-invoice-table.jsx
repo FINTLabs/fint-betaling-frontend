@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -7,10 +7,12 @@ import TableCell from '@material-ui/core/TableCell';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableBody from '@material-ui/core/TableBody';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateOrdersOpen, updateSelectedOrders } from '../../../data/redux/actions/payment';
+import {makeStyles} from '@material-ui/core';
+import {useDispatch, useSelector} from 'react-redux';
+import {updateOrdersOpen, updateSelectedOrders} from '../../../data/redux/actions/payment';
 import SendToInvoiceTableRow from './send-to-invoice-table-row';
+import ClaimRepository from "../../../data/repository/ClaimRepository";
+import fetchPayments from "../../../data/redux/actions/payments";
 
 const useStyles = makeStyles(() => ({
     table: {
@@ -26,14 +28,15 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const SendToInvoiceTable = ({ filteredSuggestions, selectedOrders }) => {
+const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
-
     const showAll = useSelector((state) => state.payment.sendToExternalSystem.ordersOpen);
+    const [toDelete, setToDelete] = useState({});
+    const [deleteButtonDisabled, setDeleteButtonDisabled] = useState(true);
 
     function handleIndividualCheck(event) {
-        const list = { ...selectedOrders };
+        const list = {...selectedOrders};
         list[event.target.value] = {
             checked: event.target.checked,
         };
@@ -60,7 +63,7 @@ const SendToInvoiceTable = ({ filteredSuggestions, selectedOrders }) => {
     }
 
     function handleAllChecked(event) {
-        const list = { ...selectedOrders };
+        const list = {...selectedOrders};
         for (let i = 0; i < filteredSuggestions.length; i += 1) {
             if (!(!showAll && i >= 10)) {
                 list[filteredSuggestions[i].orderNumber] = {
@@ -75,6 +78,43 @@ const SendToInvoiceTable = ({ filteredSuggestions, selectedOrders }) => {
         dispatch(updateOrdersOpen(!showAll));
     }
 
+    function handleDeleteCheck(event) {
+        const list = {...toDelete};
+        list[event.target.value] = {
+            checked: event.target.checked,
+        };
+        setDeleteButtonDisabled(checkDeleteDisabledButtton(event));
+        setToDelete(list);
+    }
+
+    function checkDeleteDisabledButtton(event) {
+        let disabled = true;
+        let keys = Object.keys(toDelete);
+        if (event.target.checked === true) {
+            disabled = false;
+        } else {
+
+            keys.forEach(key => {
+                if (toDelete[key].checked && (key !== event.target.value)) {
+                    disabled = false;
+                }
+            });
+        }
+        return disabled;
+    }
+
+    function handleDeleteOrders() {
+        const keys = Object.keys(toDelete);
+        ClaimRepository.cancelPayments(keys.filter(key => {
+            return toDelete[key].checked
+        })).then(r => {
+            console.log(r[0]);
+            if (r[0].status === 200) {
+                dispatch(fetchPayments());
+            }
+        })
+    }
+
     return (
         <Table className={classes.table} size="small">
             <TableHead>
@@ -82,23 +122,25 @@ const SendToInvoiceTable = ({ filteredSuggestions, selectedOrders }) => {
                     ? (
                         <>
                             <TableRow>
-                                <TableCell align="right" colSpan="3" />
-                                <TableCell align="center" className={classes.tableCell}>
+                                <TableCell align="left" className={classes.tableCell}>
                                     <Checkbox
                                         checked={isAllChecked()}
                                         onChange={handleAllChecked}
                                     />
+                                    Velg alle
                                 </TableCell>
+                                <TableCell align="right" colSpan="4"/>
                             </TableRow>
                             <TableRow>
+                                <TableCell align="right" className={classes.tableCell}/>
                                 <TableCell>Ordrenummer</TableCell>
                                 <TableCell align="left" className={classes.tableCell}>Mottakernavn</TableCell>
                                 <TableCell align="right" className={classes.tableCell}>Restbeløp</TableCell>
-                                <TableCell align="center" className={classes.tableCell}>Velg</TableCell>
+                                <TableCell align="right" className={classes.tableCell}>Slette</TableCell>
                             </TableRow>
                         </>
                     )
-                    : <TableRow />}
+                    : <TableRow/>}
 
             </TableHead>
             <TableBody>
@@ -111,20 +153,30 @@ const SendToInvoiceTable = ({ filteredSuggestions, selectedOrders }) => {
                                 handleIndividualCheck={handleIndividualCheck}
                                 selectedOrders={selectedOrders}
                                 suggestion={suggestion}
+                                toDelete={toDelete}
+                                handleDeleteCheck={handleDeleteCheck}
                             />
                         ))
                 }
-                {filteredSuggestions.length > 10
-                    ? (
-                        <TableRow>
-                            <TableCell colSpan={4}>
-                                <Button fullWidth onClick={onShowAll}>
-                                    {!showAll ? 'Vis alle' : 'Vis kun 10 første'}
-                                </Button>
-                            </TableCell>
-                        </TableRow>
-                    )
-                    : null}
+                <TableRow>
+                    {filteredSuggestions.length > 10 ? (
+                        <TableCell colSpan={4}>
+                            <Button fullWidth onClick={onShowAll}>
+                                {!showAll ? 'Vis alle' : 'Vis kun 10 første'}
+                            </Button>
+                        </TableCell>
+                    ) : <TableCell colSpan={4}/>}
+                    <TableCell align={"right"}>
+                        <Button
+                            disabled={deleteButtonDisabled}
+                            onClick={handleDeleteOrders}
+                            variant="contained"
+                            color="secondary"
+                        >
+                            Slett valgte
+                        </Button>
+                    </TableCell>
+                </TableRow>
             </TableBody>
         </Table>
     );
