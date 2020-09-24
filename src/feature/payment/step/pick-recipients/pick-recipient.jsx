@@ -193,14 +193,14 @@ const PickPaymentRecipient = () => {
                     </DialogContent>
                 </Dialog>
                 <Dialog onClose={handleNotFoundClose} aria-labelledby="simple-dialog-title" open={customerNotFoundOpen}>
-                    <DialogTitle id="simple-dialog-title">Lastet opp liste</DialogTitle>
+                    <DialogTitle id="simple-dialog-title">Opplasting klar</DialogTitle>
                     <DialogContent>
                         <List>
-                            {customersFromBackEnd && customersFromBackEnd.foundCustomers && customersFromBackEnd.foundCustomers.customers.length>0 && <b>Fant kundene:</b>}
+                            {customersFromBackEnd && customersFromBackEnd.foundCustomers && customersFromBackEnd.foundCustomers.customers.length>0 && <b>Følgende lagt til som mottaker:</b>}
                             {customersFromBackEnd && customersFromBackEnd.foundCustomers.customers.map(customer => {return <ListItem> {customer.name}</ListItem>})}
                         </List>
                         <List>
-                            {customersFromBackEnd && customersFromBackEnd.notFoundCustomers && <b>Fant ikke kundene:</b>}
+                            {customersFromBackEnd && customersFromBackEnd.notFoundCustomers && customersFromBackEnd.notFoundCustomers.length>0 && <b>Fant ikke følgende på din skole:</b>}
                             {customersFromBackEnd && customersFromBackEnd.notFoundCustomers.map(customer => {return  <ListItem> {customer}</ListItem>})}
                         </List>
                     </DialogContent>
