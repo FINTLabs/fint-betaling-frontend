@@ -40,174 +40,192 @@ const useStyles = makeStyles(() => ({
 }));
 
 const PickPaymentRecipient = () => {
-    const classes = useStyles();
-    const recipientType = useSelector((state) => state.payment.form.searchBy);
-    const dispatch = useDispatch();
-    const groups = useSelector((state) => state.groups.groups);
-    const individual = useSelector((state) => state.customers.customers);
-    const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
-    const recipients = useSelector((state) => state.payment.payment.recipients);
-    const [fileAlertOpen, setFileAlertOpen] = useState(false);
-    const [uploadedFiles, setUploadedFiles] = useState([]);
-    const [fileRejectOpen, setFileRejectOpen] = useState(false);
-    const [errormessage, setErrormessage] = useState("");
-    const [customerNotFoundOpen, setCustomerNotFoundOpen] = useState(false);
-    const [customersFromBackEnd, setCustomersFromBackend] = useState(null);
+        const classes = useStyles();
+        const recipientType = useSelector((state) => state.payment.form.searchBy);
+        const dispatch = useDispatch();
+        const groups = useSelector((state) => state.groups.groups);
+        const individual = useSelector((state) => state.customers.customers);
+        const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
+        const recipients = useSelector((state) => state.payment.payment.recipients);
+        const [fileAlertOpen, setFileAlertOpen] = useState(false);
+        const [uploadedFiles, setUploadedFiles] = useState([]);
+        const [fileRejectOpen, setFileRejectOpen] = useState(false);
+        const [errormessage, setErrormessage] = useState("");
+        const [customerNotFoundOpen, setCustomerNotFoundOpen] = useState(false);
+        const [customersFromBackEnd, setCustomersFromBackend] = useState(null);
 
-    useEffect(() => {
-        if (schoolOrgId) {
-            dispatch(fetchGroup(schoolOrgId));
-            dispatch(fetchCustomer(schoolOrgId));
-            dispatch(fetchPrincipal(schoolOrgId));
-        }
-    }, [dispatch, schoolOrgId]);
-
-    function handleSearchBy(event) {
-        dispatch(updateSearchBy(event.target.value));
-        dispatch(updateSearchValue(''));
-        dispatch(updateSuggestions(event.target.value === GROUP ? groups : individual));
-        dispatch(updateSearchPage(SEARCH_PAGE_START));
-    }
-
-    function MyDropzone() {
-
-        const onDrop = useCallback((acceptedFiles) => {
-            if (acceptedFiles.length > 1) {
-                setUploadedFiles(acceptedFiles);
-                setFileAlertOpen(true);
-            } else {
-                acceptedFiles.forEach((file) => {
-                    sendToBackend(file);
-                })
+        useEffect(() => {
+            if (schoolOrgId) {
+                dispatch(fetchGroup(schoolOrgId));
+                dispatch(fetchCustomer(schoolOrgId));
+                dispatch(fetchPrincipal(schoolOrgId));
             }
+        }, [dispatch, schoolOrgId]);
 
-        }, []);
-        const onDropRejected = useCallback((rejected) => {
-            setFileRejectOpen(true);
-            setErrormessage(rejected[0].errors[0].message);
-        }, []);
-        const {getRootProps, getInputProps} = useDropzone({onDrop, onDropRejected, maxSize: 10000, minSize: 0});
+        function handleSearchBy(event) {
+            dispatch(updateSearchBy(event.target.value));
+            dispatch(updateSearchValue(''));
+            dispatch(updateSuggestions(event.target.value === GROUP ? groups : individual));
+            dispatch(updateSearchPage(SEARCH_PAGE_START));
+        }
+
+        function MyDropzone() {
+
+            const onDrop = useCallback((acceptedFiles) => {
+                if (acceptedFiles.length > 1) {
+                    setUploadedFiles(acceptedFiles);
+                    setFileAlertOpen(true);
+                } else {
+                    acceptedFiles.forEach((file) => {
+                        sendToBackend(file);
+                    })
+                }
+
+            }, []);
+            const onDropRejected = useCallback((rejected) => {
+                setFileRejectOpen(true);
+                setErrormessage(rejected[0].errors[0].message);
+            }, []);
+            const {getRootProps, getInputProps} = useDropzone({onDrop, onDropRejected, maxSize: 100000, minSize: 0});
+
+            return (
+                <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <Typography>
+                        {'Dra en fil hit for å laste opp'}
+                    </Typography>
+                </div>
+            );
+        }
+
+        function handleClose() {
+            setFileAlertOpen(false);
+        }
+
+        function handleRecjectClose() {
+            setFileRejectOpen(false);
+            setErrormessage("");
+        }
+
+        function sendToBackend(file) {
+            FileRepository.sendFile(schoolOrgId, file).then(r => {
+                console.log(r);
+                if (r[0].status === 200) {
+                    setCustomersFromBackend(r[1]);
+                    setCustomerNotFoundOpen(true);
+                    handleRecipientList(r[1].foundCustomers.customers);
+                    setFileAlertOpen(false);
+                } else if (r[0].status === 415) {
+                    setFileRejectOpen(true);
+                    setErrormessage("Feil type. Listen må være av typen xlsx eller xls");
+                } else if (r[0].status === 400) {
+                    setFileRejectOpen(true);
+                    setErrormessage("Listen er tom, eller mangler kolonnen VIS-ID");
+                } else {
+                    setFileRejectOpen(true);
+                    setErrormessage("Ukjent feil");
+                }
+            });
+        }
+
+        function handleRecipientList(individualList) {
+            const recipientList = {...recipients};
+            for (let customer = 0; customer < individualList.length; customer += 1) {
+                const customerNumber = individualList[customer].id;
+                recipientList[customerNumber] = {
+                    checked: true,
+                    name: individualList[customer].name,
+                    email: individualList[customer].email ? individualList[customer].email : '',
+                    cellPhoneNumber: individualList[customer].mobile ? individualList[customer].mobile : '',
+                    addressLine: individualList[customer].postalAddress ? individualList[customer].postalAddress : '',
+                    addressZip: individualList[customer].postalCode ? individualList[customer].postalCode : '',
+                    addressPlace: individualList[customer].city ? individualList[customer].city : '',
+                };
+            }
+            dispatch(updateRecipients(recipientList));
+        }
+
+        function handleNotFoundClose() {
+            setCustomerNotFoundOpen(false);
+        }
 
         return (
-            <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                <Typography>
-                    {'Dra en fil hit for å laste opp'}
-                </Typography>
-            </div>
+            <Box width="90%" mt={4}>
+                <Typography variant="h3" className={classes.h2}>Velg mottaker</Typography>
+                <RecipientChipList/>
+                <Box m={2} ml={"auto"} p={1.5} width={150} border={2} borderRadius={50} borderColor={"secondary.main"}>
+                    <MyDropzone/>
+                </Box>
+                <Box mt={4}>
+                    <FormControl component="fieldset" fullWidth>
+                        <RadioGroup
+                            className={classes.radioGroup}
+                            aria-label="recipientType"
+                            name="recipientType"
+                            value={recipientType}
+                            onChange={handleSearchBy}
+                        >
+                            <FormControlLabel
+                                value={GROUP.toString()}
+                                control={<Radio/>}
+                                label="Gruppe"
+                            />
+                            <FormControlLabel
+                                value={INDIVIDUAL.toString()}
+                                control={<Radio/>}
+                                label="Person"
+                            />
+                        </RadioGroup>
+                        <Box mt={2}>
+                            <RecipientSearch/>
+
+                        </Box>
+                    </FormControl>
+                    <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={fileAlertOpen}>
+                        <DialogTitle id="simple-dialog-title">Bare mulig å laste opp 1 fil. Velg en</DialogTitle>
+                        <List>
+                            {uploadedFiles ? uploadedFiles.map((file) => (
+                                <ListItem button onClick={() => sendToBackend(file)} key={file.name}>
+                                    <ListItemAvatar>
+                                        <Avatar className={classes.avatar}>
+                                            <File/>
+                                        </Avatar>
+                                    </ListItemAvatar>
+                                    <ListItemText primary={file.name}/>
+                                </ListItem>
+                            )) : <></>}
+                        </List>
+                    </Dialog>
+
+                    <Dialog onClose={handleRecjectClose} aria-labelledby="simple-dialog-title" open={fileRejectOpen}>
+                        <DialogTitle id="simple-dialog-title">Feil ved opplasting</DialogTitle>
+                        <DialogContent>
+                            Årsak: {errormessage}
+                        </DialogContent>
+                    </Dialog>
+                    <Dialog onClose={handleNotFoundClose} aria-labelledby="simple-dialog-title" open={customerNotFoundOpen}>
+                        <DialogTitle id="simple-dialog-title">Opplasting klar</DialogTitle>
+                        <DialogContent>
+                            <List>
+                                {customersFromBackEnd && customersFromBackEnd.foundCustomers && customersFromBackEnd.foundCustomers.customers.length > 0 &&
+                                <b>Følgende lagt til som mottaker:</b>}
+                                {customersFromBackEnd && customersFromBackEnd.foundCustomers.customers.map(customer => {
+                                    return <ListItem> {customer.name}</ListItem>
+                                })}
+                            </List>
+                            <List>
+                                {customersFromBackEnd && customersFromBackEnd.notFoundCustomers && customersFromBackEnd.notFoundCustomers.length > 0 &&
+                                <b>Fant ikke følgende på din skole:</b>}
+                                {customersFromBackEnd && customersFromBackEnd.notFoundCustomers.map(customer => {
+                                    return <ListItem> {customer}</ListItem>
+                                })}
+                            </List>
+                        </DialogContent>
+                    </Dialog>
+                </Box>
+            </Box>
         );
     }
-
-    function handleClose() {
-        setFileAlertOpen(false);
-    }
-
-    function handleRecjectClose() {
-        setFileRejectOpen(false);
-        setErrormessage("");
-    }
-
-    function sendToBackend(file) {
-        FileRepository.sendFile(schoolOrgId, file).then(r => {
-            console.log(r);
-            setCustomersFromBackend(r[1]);
-            setCustomerNotFoundOpen(true);
-            handleRecipientList(r[1].foundCustomers.customers);
-            setFileAlertOpen(false);
-        });
-    }
-
-    function handleRecipientList(individualList) {
-        const recipientList = {...recipients};
-        for (let customer = 0; customer < individualList.length; customer += 1) {
-            const customerNumber = individualList[customer].id;
-            recipientList[customerNumber] = {
-                checked: true,
-                name: individualList[customer].name,
-                email: individualList[customer].email ? individualList[customer].email : '',
-                cellPhoneNumber: individualList[customer].mobile ? individualList[customer].mobile : '',
-                addressLine: individualList[customer].postalAddress ? individualList[customer].postalAddress : '',
-                addressZip: individualList[customer].postalCode ? individualList[customer].postalCode : '',
-                addressPlace: individualList[customer].city ? individualList[customer].city : '',
-            };
-        }
-        dispatch(updateRecipients(recipientList));
-    }
-
-    function handleNotFoundClose() {
-        setCustomerNotFoundOpen(false);
-    }
-
-    return (
-        <Box width="90%" mt={4}>
-            <Typography variant="h3" className={classes.h2}>Velg mottaker</Typography>
-            <RecipientChipList/>
-            <Box m={2} ml={"auto"} p={1.5} width={150} border={2} borderRadius={50} borderColor={"secondary.main"}>
-                <MyDropzone/>
-            </Box>
-            <Box mt={4}>
-                <FormControl component="fieldset" fullWidth>
-                    <RadioGroup
-                        className={classes.radioGroup}
-                        aria-label="recipientType"
-                        name="recipientType"
-                        value={recipientType}
-                        onChange={handleSearchBy}
-                    >
-                        <FormControlLabel
-                            value={GROUP.toString()}
-                            control={<Radio/>}
-                            label="Gruppe"
-                        />
-                        <FormControlLabel
-                            value={INDIVIDUAL.toString()}
-                            control={<Radio/>}
-                            label="Person"
-                        />
-                    </RadioGroup>
-                    <Box mt={2}>
-                        <RecipientSearch/>
-
-                    </Box>
-                </FormControl>
-                <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={fileAlertOpen}>
-                    <DialogTitle id="simple-dialog-title">Bare mulig å laste opp 1 fil. Velg en</DialogTitle>
-                    <List>
-                        {uploadedFiles ? uploadedFiles.map((file) => (
-                            <ListItem button onClick={() => sendToBackend(file)} key={file.name}>
-                                <ListItemAvatar>
-                                    <Avatar className={classes.avatar}>
-                                        <File/>
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText primary={file.name}/>
-                            </ListItem>
-                        )) : <></>}
-                    </List>
-                </Dialog>
-
-                <Dialog onClose={handleRecjectClose} aria-labelledby="simple-dialog-title" open={fileRejectOpen}>
-                    <DialogTitle id="simple-dialog-title">Feil ved opplasting</DialogTitle>
-                    <DialogContent>
-                        Årsak: {errormessage}
-                    </DialogContent>
-                </Dialog>
-                <Dialog onClose={handleNotFoundClose} aria-labelledby="simple-dialog-title" open={customerNotFoundOpen}>
-                    <DialogTitle id="simple-dialog-title">Opplasting klar</DialogTitle>
-                    <DialogContent>
-                        <List>
-                            {customersFromBackEnd && customersFromBackEnd.foundCustomers && customersFromBackEnd.foundCustomers.customers.length>0 && <b>Følgende lagt til som mottaker:</b>}
-                            {customersFromBackEnd && customersFromBackEnd.foundCustomers.customers.map(customer => {return <ListItem> {customer.name}</ListItem>})}
-                        </List>
-                        <List>
-                            {customersFromBackEnd && customersFromBackEnd.notFoundCustomers && customersFromBackEnd.notFoundCustomers.length>0 && <b>Fant ikke følgende på din skole:</b>}
-                            {customersFromBackEnd && customersFromBackEnd.notFoundCustomers.map(customer => {return  <ListItem> {customer}</ListItem>})}
-                        </List>
-                    </DialogContent>
-                </Dialog>
-            </Box>
-        </Box>
-    );
-};
+;
 
 export default PickPaymentRecipient;
