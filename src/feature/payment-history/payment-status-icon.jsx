@@ -30,12 +30,6 @@ const useStyles = makeStyles((theme) => ({
         height: '35px',
         verticalAlign: 'text-top',
     },
-    cancelledIcon: {
-        color: theme.status.danger,
-        width: '35px',
-        height: '35px',
-        verticalAlign: 'text-top',
-    },
     statusText: {
         marginLeft: theme.spacing(1),
         alignSelf: 'center',
@@ -128,7 +122,7 @@ const PaymentStatusIcon = ({payment}) => {
                 <Typography variant="body2" className={classes.statusText}>Sendt til økonomisystem</Typography>;
             break;
         case 'CANCELLED':
-            paymentIcon = <Block className={classes.cancelledIcon}/>;
+            paymentIcon = <Block className={classes.priorityIcon}/>;
             statusText =
                 <Typography variant="body2" className={classes.statusText}>Kansellert før fakturering</Typography>;
             break;
