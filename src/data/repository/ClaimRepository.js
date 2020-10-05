@@ -61,8 +61,8 @@ class ClaimRepository {
     static cancelPayments(orderNumbers) {
         const url = '/api/claim/order-number/';
         const stopFetch = 15;
-        return Promise.all([orderNumbers.forEach(key=> {
-            fetch(url + key, {
+        return Promise.all([orderNumbers.map(key=> {
+            return fetch(url + key, {
 
                 retryOn(attempt, error, response) {
                     return (error !== null || response.status >= 400) && attempt <= stopFetch;
@@ -72,8 +72,7 @@ class ClaimRepository {
                     'Content-Type': 'application/json',
                 }),
                 credentials: 'same-origin',
-            }).then((result) => Promise.all([result]))
-                .catch((error) => error);
+            })
         })]);
     }
 }
