@@ -59,23 +59,22 @@ class ClaimRepository {
     }
 
     static cancelPayments(orderNumbers) {
-        const url = '/api/claim/cancel';
+        const url = '/api/claim/order-number/';
         const stopFetch = 15;
-        return fetch(url, {
+        return Promise.all([orderNumbers.forEach(key=> {
+            fetch(url + key, {
 
-            retryOn(attempt, error, response) {
-                return (error !== null || response.status >= 400) && attempt <= stopFetch;
-            },
-            method: 'PUT',
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            }),
-            credentials: 'same-origin',
-            body: JSON.stringify(orderNumbers)
-            // headers: new Headers({'x-org-id': orgId})
-        })
-            .then((result) => Promise.all([result]))
-            .catch((error) => error);
+                retryOn(attempt, error, response) {
+                    return (error !== null || response.status >= 400) && attempt <= stopFetch;
+                },
+                method: 'DELETE',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                }),
+                credentials: 'same-origin',
+            }).then((result) => Promise.all([result]))
+                .catch((error) => error);
+        })]);
     }
 }
 

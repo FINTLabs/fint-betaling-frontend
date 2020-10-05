@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const SendToInvoiceTableRow = ({
-    suggestion, selectedOrders, handleIndividualCheck, toDelete, handleDeleteCheck
+    suggestion, selectedOrders, handleIndividualCheck,
 }) => {
     const classes = useStyles();
 
@@ -39,16 +39,6 @@ const SendToInvoiceTableRow = ({
             </TableCell>
             <TableCell align="right" className={classes.tableCell}>
                 <Amount>{suggestion.originalAmountDue}</Amount>
-            </TableCell>
-            <TableCell align="right" className={classes.tableCell}>
-                <Checkbox
-                    checked={toDelete[suggestion.orderNumber]
-                        ? toDelete[suggestion.orderNumber].checked
-                        : false}
-                    color={"default"}
-                    onChange={handleDeleteCheck}
-                    value={suggestion.orderNumber}
-                />
             </TableCell>
         </TableRow>
     );
