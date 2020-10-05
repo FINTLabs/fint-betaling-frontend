@@ -86,7 +86,7 @@ const PickPaymentRecipient = () => {
                 setFileRejectOpen(true);
                 setErrormessage(rejected[0].errors[0].message);
             }, []);
-            const {getRootProps, getInputProps} = useDropzone({onDrop, onDropRejected, maxSize: 100000, minSize: 0});
+            const {getRootProps, getInputProps} = useDropzone({onDrop, onDropRejected});
 
             return (
                 <div {...getRootProps()}>
