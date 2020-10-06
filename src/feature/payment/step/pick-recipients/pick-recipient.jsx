@@ -117,10 +117,10 @@ const PickPaymentRecipient = () => {
                     setFileAlertOpen(false);
                 } else if (r[0].status === 415) {
                     setFileRejectOpen(true);
-                    setErrormessage("Feil type. Listen må være av typen xlsx eller xls");
+                    setErrormessage(r[1].message);
                 } else if (r[0].status === 400) {
                     setFileRejectOpen(true);
-                    setErrormessage("Listen er tom, eller mangler kolonnen VIS-ID");
+                    setErrormessage(r[1].message);
                 } else {
                     setFileRejectOpen(true);
                     setErrormessage("Ukjent feil");
