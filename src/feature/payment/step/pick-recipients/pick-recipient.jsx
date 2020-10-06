@@ -29,14 +29,18 @@ import Avatar from "@material-ui/core/Avatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import File from "@material-ui/icons/CloudUpload"
 import FileRepository from "../../../../data/repository/FileRepository";
+import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     h2: {
         textAlign: 'center',
     },
     radioGroup: {
         flexDirection: "row",
-    }
+    },
+    okButton: {
+      margin: theme.spacing(2),
+    },
 }));
 
 const PickPaymentRecipient = () => {
@@ -201,6 +205,7 @@ const PickPaymentRecipient = () => {
                         <DialogTitle id="simple-dialog-title">Feil ved opplasting</DialogTitle>
                         <DialogContent>
                             Årsak: {errormessage}
+                            <Button className={classes.okButton} variant={"contained"} color={"secondary"} onClick={handleRecjectClose}>Ok</Button>
                         </DialogContent>
                     </Dialog>
                     <Dialog onClose={handleNotFoundClose} aria-labelledby="simple-dialog-title" open={customerNotFoundOpen}>
@@ -220,6 +225,7 @@ const PickPaymentRecipient = () => {
                                     return <ListItem> {customer}</ListItem>
                                 })}
                             </List>
+                            <Button className={classes.okButton} variant={"contained"} color={"secondary"} onClick={handleNotFoundClose}>Ok</Button>
                         </DialogContent>
                     </Dialog>
                 </Box>
