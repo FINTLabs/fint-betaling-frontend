@@ -88,11 +88,11 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
     function handleDeleteOrders() {
         const keys = Object.keys(selectedOrders).filter((key) => selectedOrders[key].checked);
         ClaimRepository.cancelPayments(keys).then(r => {
+            console.log(r);
             dispatch(fetchPayments());
             dispatch(updateSelectedOrders([]));
             setDeleteDialogOpen(false);
         });
-
     }
 
     function handleCloseDialog() {
