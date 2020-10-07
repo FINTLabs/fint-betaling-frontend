@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {makeStyles, Typography} from '@material-ui/core';
+import {DialogContent, makeStyles, Typography} from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Radio from '@material-ui/core/Radio';
@@ -49,7 +49,8 @@ const PickPaymentRecipient = () => {
     const recipients = useSelector((state) => state.payment.payment.recipients);
     const [fileAlertOpen, setFileAlertOpen] = useState(false);
     const [uploadedFiles, setUploadedFiles] = useState([]);
-
+    const [fileRejectOpen, setFileRejectOpen] = useState(false);
+    const [errormessage, setErrormessage] = useState("");
 
     useEffect(() => {
         if (schoolOrgId) {
@@ -67,33 +68,42 @@ const PickPaymentRecipient = () => {
     }
 
     function MyDropzone() {
+
         const onDrop = useCallback((acceptedFiles) => {
             if (acceptedFiles.length > 1) {
                 setUploadedFiles(acceptedFiles);
                 setFileAlertOpen(true);
             } else {
                 acceptedFiles.forEach((file) => {
-                    if (file.type === "text/csv") {
                         sendToBackend(file);
-                    } else {
-
-                    }
                 })
             }
 
         }, []);
-        const {getRootProps, getInputProps} = useDropzone({onDrop});
+        const onDropRejected = useCallback((rejected) => {
+            setFileRejectOpen(true);
+            setErrormessage(rejected[0].errors[0].message);
+        }, []);
+        const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, onDropRejected, accept: "text/csv" , maxSize: 10000, minSize:0});
 
         return (
             <div {...getRootProps()}>
                 <input {...getInputProps()} />
-                <Typography>Last opp liste. Dra en fil hit</Typography>
+                <Typography>
+                    {!isDragActive && 'Dra en fil hit for å laste opp'}
+                    {isDragActive && "Drop it like it's hot!"}
+                </Typography>
             </div>
         );
     };
 
     function handleClose() {
         setFileAlertOpen(false);
+    }
+
+    function handleRecjectClose() {
+        setFileRejectOpen(false);
+        setErrormessage("");
     }
 
     function sendToBackend(file) {
@@ -163,6 +173,13 @@ const PickPaymentRecipient = () => {
                             </ListItem>
                         )):<></>}
                     </List>
+                </Dialog>
+
+                <Dialog onClose={handleRecjectClose} aria-labelledby="simple-dialog-title" open={fileRejectOpen}>
+                    <DialogTitle id="simple-dialog-title">Feil ved opplasting</DialogTitle>
+                    <DialogContent>
+                        Årsak: {errormessage}
+                    </DialogContent>
                 </Dialog>
             </Box>
         </Box>
