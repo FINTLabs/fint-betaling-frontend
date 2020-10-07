@@ -7,7 +7,7 @@ import RemoveIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types'
 
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
     removeAllBox: {
         display: "flex",
         flexDirection: "end",
@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => ({
         verticalAlign:"bottom"
     },
     removeIconRed: {
-        color: "red",
+        color: theme.palette.warning.dark,
         cursor: "pointer",
         verticalAlign:"bottom"
     },
