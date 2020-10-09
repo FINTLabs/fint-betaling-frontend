@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
     removeIconRed: {
         marginInlineStart: "auto",
-        color: "red",
+        color: theme.palette.warning.dark,
         cursor: "pointer",
     },
     dialogButtons: {

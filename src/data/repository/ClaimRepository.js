@@ -24,9 +24,7 @@ class ClaimRepository {
                     'Content-Type': 'application/json',
                     'x-org-id': orgId,
                 }),
-                body: JSON.stringify(
-                    orderList,
-                ),
+                body: JSON.stringify(orderList),
             });
 
         return fetch(request)
@@ -58,6 +56,24 @@ class ClaimRepository {
         return fetch(request)
             .then((response) => response.json())
             .catch((error) => error);
+    }
+
+    static cancelPayments(orderNumbers) {
+        const apiAddress = '/api/claim/order-number/';
+        const urls = [];
+        orderNumbers.forEach(orderNumber => urls.push(apiAddress + orderNumber));
+        const stopFetch = 15;
+        return Promise.allSettled(urls.map(url => fetch(url, {
+                method: 'DELETE',
+                headers: new Headers({
+                    'Content-Type': 'application/json',
+                }),
+                credentials: 'same-origin',
+                retryOn(attempt, error, response) {
+                    return (error !== null || response.status >= 400) && attempt <= stopFetch;
+                }
+            }))
+        );
     }
 }
 

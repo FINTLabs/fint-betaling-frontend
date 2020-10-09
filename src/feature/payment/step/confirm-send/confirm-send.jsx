@@ -9,7 +9,7 @@ import ConfirmedRecipients from './confirmed-recipients';
 import ConfirmedProducts from './confirmed-products';
 import {updateLatestSentPayment, updateNeedFetch, updateStep} from '../../../../data/redux/actions/payment';
 import ClaimRepository from '../../../../data/repository/ClaimRepository';
-import {STEP_PAYMENT_CONFIRMED} from '../../constants';
+import {STEP_PAYMENT_CONFIRMED, STEP_PICK_PRODUCTS} from '../../constants';
 
 
 const ConfirmSend = () => {
@@ -88,6 +88,10 @@ const ConfirmSend = () => {
             });
     }
 
+    function handleBackwardClick() {
+        dispatch(updateStep(STEP_PICK_PRODUCTS));
+    }
+
     return (
         <Box width={1} m={2}>
             <Paper>
@@ -102,7 +106,14 @@ const ConfirmSend = () => {
                     </Box>
                     <ConfirmedRecipients />
                     <ConfirmedProducts />
-                    <Box width={1} mb={2} display="flex" justifyContent="space-around" alignItems="center">
+                    <Box width={1} mb={2} pl={2} pr={2} display="flex" justifyContent="space-between" alignItems="center">
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleBackwardClick}
+                        >
+                            Tilbake
+                        </Button>
                         <Button
                             variant="contained"
                             color="secondary"

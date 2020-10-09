@@ -3,7 +3,7 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core';
+import {makeStyles} from '@material-ui/core';
 import Amount from '../utils/amount';
 
 const useStyles = makeStyles(() => ({
@@ -23,15 +23,6 @@ const SendToInvoiceTableRow = ({
     return (
         <TableRow hover>
             <TableCell align="left" className={classes.tableCell}>
-                {suggestion.orderNumber}
-            </TableCell>
-            <TableCell align="left" className={classes.tableCell}>
-                {suggestion.customer.name}
-            </TableCell>
-            <TableCell align="right" className={classes.tableCell}>
-                <Amount>{suggestion.originalAmountDue}</Amount>
-            </TableCell>
-            <TableCell align="center" className={classes.tableCell}>
                 <Checkbox
                     checked={selectedOrders[suggestion.orderNumber]
                         ? selectedOrders[suggestion.orderNumber].checked
@@ -39,6 +30,15 @@ const SendToInvoiceTableRow = ({
                     onChange={handleIndividualCheck}
                     value={suggestion.orderNumber}
                 />
+            </TableCell>
+            <TableCell align="left" className={classes.tableCell}>
+                {suggestion.orderNumber}
+            </TableCell>
+            <TableCell align="left" className={classes.tableCell}>
+                {suggestion.customer.name}
+            </TableCell>
+            <TableCell align="right" className={classes.tableCell}>
+                <Amount>{suggestion.originalAmountDue}</Amount>
             </TableCell>
         </TableRow>
     );

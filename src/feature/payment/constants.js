@@ -54,4 +54,8 @@ export const FILTER_LIST = [
         key: 'ERROR',
         label: 'Generell feil',
     },
+    {
+        key: 'CANCELLED',
+        label: 'Kansellerte',
+    },
 ];
