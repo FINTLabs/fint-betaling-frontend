@@ -8,6 +8,7 @@
     "@material-ui/core": "^4.4.2",
     "@material-ui/icons": "^4.2.1",
     "@material-ui/pickers": "^3.2.8",
+    "@material-ui/system": "latest",
     "autosuggest-highlight": "^3.1.1",
     "clsx": "^1.0.4",
     "fetch-retry": "^3.1.0",
@@ -17,14 +18,14 @@
     "prop-types": "latest",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-dropzone": "^11.1.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.4.0",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^6.1.1",
-    "redux-thunk": "^2.3.0",
-    "@material-ui/system": "latest"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -73,9 +73,7 @@ const RecipientChipList = () => {
 
 
     const recipientsKeys = Object.keys(recipients);
-    if (recipients.length === 0) {
-        dispatch(updateStep(0));
-    }
+
 
     const sortedRecipients = [];
 
@@ -98,9 +96,6 @@ const RecipientChipList = () => {
     }
 
     function handleDelete(key, label) {
-        if (getCheckedCount(recipients) < 2) {
-            dispatch(updateStep(STEP_PICK_RECIPIENTS));
-        }
         const checkedRecipients = {...recipients};
         checkedRecipients[key] = {
             checked: false,
@@ -108,6 +103,9 @@ const RecipientChipList = () => {
         };
         setToDelete({key: "", name:""});
         dispatch(updateRecipients(checkedRecipients));
+        if (getCheckedCount(recipients) < 2) {
+            dispatch(updateStep(STEP_PICK_RECIPIENTS));
+        }
     }
 
     return (
