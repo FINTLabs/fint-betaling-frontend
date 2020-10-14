@@ -1,5 +1,5 @@
 class ClaimRepository {
-    static fetchPayments() {
+    static fetchPayments(schoolId) {
         const url = '/api/claim';
         const stopFetch = 15;
 
@@ -10,7 +10,7 @@ class ClaimRepository {
             },
             method: 'GET',
             credentials: 'same-origin',
-            // headers: new Headers({'x-org-id': orgId})
+            headers: new Headers({'schoolId': schoolId})
         })
             .then((result) => Promise.all([result, result.json()]))
             .catch((error) => error);

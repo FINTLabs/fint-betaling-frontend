@@ -1,13 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Box, Typography } from '@material-ui/core';
+import {useDispatch, useSelector} from 'react-redux';
+import {Box, Typography} from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import OrderChipList from './order-chip-list';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
-import fetchPayments from '../../../data/redux/actions/payments';
 import {
     updateLatestSentPayment,
     updateLoadingSendingInvoice,
@@ -27,12 +26,10 @@ const SendToInvoiceContainer = () => {
     const payments = useSelector((state) => state.payments.payments);
     const searchValue = useSelector((state) => state.payment.sendToExternalSystem.searchValue);
     const selectedOrders = useSelector((state) => state.payment.sendToExternalSystem.selectedOrders);
-    const needsFetch = useSelector((state) => state.payment.sendToExternalSystem.needFetch);
     const me = useSelector((state) => state.me.me);
     const suggestions = payments.filter((payment) => payment.claimStatus === 'STORED'
         && payment.createdBy.name === me.name);
     const filteredSuggestions = suggestions.filter((s) => s.orderNumber.includes(searchValue));
-
     const [showSnackbar, setShowSnackbar] = React.useState(false);
     const [snackbarMessage, setSnackbarMessage] = React.useState('');
 
@@ -45,12 +42,6 @@ const SendToInvoiceContainer = () => {
     };
     // TODO We need to get this from the me object
     const orgId = 'fintlabs.no';
-
-    if (needsFetch) {
-        dispatch(fetchPayments());
-        dispatch(updateNeedFetch(false));
-    }
-
 
     function handleSearchValue(event) {
         dispatch(updateOrderSearchValue(event.target.value));
@@ -75,7 +66,6 @@ const SendToInvoiceContainer = () => {
                     dispatch(updateOrderSearchValue(1));
                     dispatch(updateRedirectFromExternal(true));
                     dispatch(updateLoadingSendingInvoice(false));
-                    dispatch(updateNeedFetch(true));
                     dispatch(updateLatestSentPayment({}));
 
                     setShowSnackbar(true);

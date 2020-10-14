@@ -15,10 +15,11 @@ import FilterSelect from './filter-selection';
 const PaymentHistoryContainer = () => {
     const searchBy = useSelector((state) => state.payment.payments.searchBy);
     const needsFetch = useSelector((state) => state.payment.sendToExternalSystem.needFetch);
+    const schoolId = useSelector((state) => state.payment.payment.schoolOrgId);
     const dispatch = useDispatch();
 
     if (needsFetch) {
-        dispatch(fetchPayments());
+        dispatch(fetchPayments(schoolId));
         dispatch(updateNeedFetch(false));
     }
 

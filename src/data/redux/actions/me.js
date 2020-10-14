@@ -1,4 +1,4 @@
-import { FETCH_ME, FETCH_ME_FULFILLED, FETCH_ME_REJECTED } from './actions';
+import {FETCH_ME, FETCH_ME_FORBIDDEN, FETCH_ME_FULFILLED, FETCH_ME_REJECTED} from './actions';
 import MeRepository from '../../repository/MeRepository';
 
 
@@ -14,6 +14,9 @@ export default function fetchMe() {
                         type: FETCH_ME_FULFILLED,
                         payload: json,
                     });
+                }
+                if (result.status === 403){
+                    dispatch({type: FETCH_ME_FORBIDDEN})
                 }
             })
             .catch((error) => {

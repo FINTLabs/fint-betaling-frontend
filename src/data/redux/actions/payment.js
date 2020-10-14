@@ -210,15 +210,6 @@ export function updateProductDescription(value) {
     };
 }
 
-export function updateSchool(value) {
-    return (dispatch) => {
-        dispatch({
-            type: UPDATE_SCHOOL,
-            payload: value,
-        });
-    };
-}
-
 export function updatePaymentsSearchValue(value) {
     return (dispatch) => {
         dispatch({
