@@ -1,16 +1,15 @@
-import React, {useCallback, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Box} from '@material-ui/core';
+cimport React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box } from '@material-ui/core';
 import PaymentsTable from './payments-table';
 import {
     updatePaymentsSearchValue,
     updatePaymentsSuggestions,
     updateSuggestionLength,
 } from '../../data/redux/actions/payment';
-import {FILTER_ALL, ORDER_NUMBER, SEARCH_PAGE_ROWS} from '../payment/constants';
+import { FILTER_ALL, ORDER_NUMBER, SEARCH_PAGE_ROWS } from '../payment/constants';
 import filterSuggestions from '../payment/utils/filter';
 import SearchField from '../../common/search-field';
-import _ from "lodash";
 
 
 const PaymentSearch = () => {
@@ -32,23 +31,20 @@ const PaymentSearch = () => {
     function matchedPayment(suggestion, input) {
         if (input.length > 0) {
             return searchBy === ORDER_NUMBER
-                ? suggestion.orderNumber.toString().slice(0, input.length).toLowerCase() === input
-                : suggestion.customer.toString().slice(0, input.length).toLowerCase() === input;
+                ? suggestion.orderNumber.includes(input)
+                : suggestion.customer.name.includes(input);
         }
         return false;
     }
 
     function getPaymentsLength(input) {
         const array = [];
-        suggestions.forEach((suggestion) => {
+        suggestions.filter((suggestion) => {
             if (matchedPayment(suggestion, input)
                 && (filterValue === suggestion.claimStatus || filterValue === FILTER_ALL)) {
-                if (!searchOnlyMe) {
-                    array.push(suggestion);
-                } else if (_.isEqual(suggestion.createdBy, me)) {
-                    array.push(suggestion)
-                }
+                array.push(suggestion);
             }
+            return null;
         });
         return array.length;
     }
@@ -59,7 +55,13 @@ const PaymentSearch = () => {
     );
 
     useEffect(() => {
-        dispatch(updateSuggestionLength(getPaymentsLengthCallback(searchValue)));
+        dispatch(updateSuggestionLength(getPaymentsLength(filterSuggestions(searchValue,
+            suggestions,
+            searchBy,
+            filterValue,
+            searchOnlyMe,
+            me,
+            activePage * rowsPerPage).size)));
         dispatch(updatePaymentsSuggestions(filterSuggestions(searchValue,
             suggestions,
             searchBy,
@@ -77,7 +79,13 @@ const PaymentSearch = () => {
         suggestions]);
 
     function handleSearchValue(event) {
-        dispatch(updateSuggestionLength(getPaymentsLength(event.target.value)));
+        dispatch(updateSuggestionLength(getPaymentsLength(filterSuggestions(event.target.value,
+            suggestions,
+            searchBy,
+            filterValue,
+            searchOnlyMe,
+            me,
+            activePage * rowsPerPage).length)));
         dispatch(updatePaymentsSearchValue(event.target.value));
         dispatch(updatePaymentsSuggestions(filterSuggestions(event.target.value,
             suggestions,
@@ -98,7 +106,7 @@ const PaymentSearch = () => {
                 value={searchValue}
             />
 
-            <PaymentsTable/>
+            <PaymentsTable />
 
         </Box>
     );

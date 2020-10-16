@@ -21,7 +21,7 @@ import {
     UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
     UPDATE_PAYMENTS_DIALOG_OPEN,
     UPDATE_PAYMENTS_SEARCH_BY,
-    UPDATE_PAYMENTS_SEARCH_VALUE,
+    UPDATE_PAYMENTS_SEARCH_VALUE, UPDATE_PAYMENTS_SHOW_ONLY_ME,
     UPDATE_PAYMENTS_SUGGESTIONS,
     UPDATE_PRODUCT_AMOUNT, UPDATE_PRODUCT_DESCRIPTION,
     UPDATE_PRODUCT_LENGTH, UPDATE_PRODUCT_PRICE,
@@ -81,6 +81,7 @@ export const defaultState = {
         searchValue: '',
         filteredSuggestions: [],
         searchBy: ORDER_NUMBER,
+        searchOnlyMe:false,
         dialogOpen: false,
         dialogOrderNumber: '',
         latestSent: [],
@@ -100,200 +101,208 @@ export const defaultState = {
 
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
-    case INITIALIZE_PAYMENT:
-        return defaultState;
-    case UPDATE_PAYMENT_SEARCH_BY:
-        return {
-            ...state,
-            form: {
-                ...state.form,
-                searchBy: action.payload,
-            },
-        };
-    case UPDATE_PAYMENT_SEARCH_VALUE:
-        return {
-            ...state,
-            form: {
-                ...state.form,
-                searchValue: action.payload,
-            },
-        };
-    case UPDATE_SUGGESTIONS:
-        return {
-            ...state,
-            form: {
-                ...state.form,
-                filteredSuggestions: action.payload,
-            },
-        };
-    case UPDATE_GROUP_CONTENT_OPEN:
-        return {
-            ...state,
-            form: {
-                ...state.form,
-                groupContentOpen: action.payload,
-            },
-        };
-    case UPDATE_CONFIRM_RECIPIENTS_OPEN:
-        return {
-            ...state,
-            form: {
-                ...state.form,
-                confirmRecipientsOpen: action.payload,
-            },
-        };
-    case UPDATE_SEARCH_PAGE:
-        return {
-            ...state,
-            form: {
-                ...state.form,
-                page: action.payload,
-            },
-        };
-    case UPDATE_SUGGESTION_LENGTH:
-        return {
-            ...state,
-            form: {
-                ...state.form,
-                suggestionLength: action.payload,
-            },
-        };
-    case UPDATE_STEP:
-        return {
-            ...state,
-            form: {
-                ...state.form,
-                step: action.payload,
-            },
-        };
-    case UPDATE_PRODUCT_SEARCH_VALUE:
-        return {
-            ...state,
-            product: {
-                ...state.product,
-                searchValue: action.payload,
-            },
-        };
-    case UPDATE_PRODUCT_SUGGESTIONS:
-        return {
-            ...state,
-            product: {
-                ...state.product,
-                filteredSuggestions: action.payload,
-            },
-        };
-    case UPDATE_PRODUCT_LENGTH:
-        return {
-            ...state,
-            product: {
-                ...state.product,
-                productsLength: action.payload,
-            },
-        };
-    case UPDATE_RECIPIENTS:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                recipients: action.payload,
-            },
-        };
-    case UPDATE_PRODUCTS:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                products: action.payload,
-            },
-        };
-    case UPDATE_SCHOOL:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                school: action.payload,
-            },
-        };
-    case UPDATE_ORDER_STATUS_OPEN:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                statusOpen: action.payload,
-            },
-        };
-    case UPDATE_ORDER_STATUS_CONTENT:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                statusContent: action.payload,
-            },
-        };
-    case UPDATE_SCHOOL_ORG_ID:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                schoolOrgId: action.payload,
-            },
-        };
-    case UPDATE_ORG_ID:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                orgId: action.payload,
-            },
-        };
-    case UPDATE_GROUPS_LOADED:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                groupsLoaded: action.payload,
-            },
-        };
-    case UPDATE_CUSTOMERS_LOADED:
-        return {
-            ...state,
-            payment: {
-                ...state.payment,
-                customersLoaded: action.payload,
-            },
-        };
-    case UPDATE_PRODUCT_AMOUNT:
-        return {
-            ...state,
-            product: {
-                ...state.product,
-                amount: action.payload,
-            },
-        };
-    case UPDATE_PRODUCT_PRICE:
-        return {
-            ...state,
-            product: {
-                ...state.product,
-                itemPrice: action.payload,
-            },
-        };
-    case UPDATE_PRODUCT_DESCRIPTION:
-        return {
-            ...state,
-            product: {
-                ...state.product,
-                description: action.payload,
-            },
-        };
-    case UPDATE_PAYMENTS_SEARCH_BY:
-        return {
-            ...state,
-            payments: {
-                ...state.payments,
-                searchBy: action.payload,
-            },
-        };
+        case INITIALIZE_PAYMENT:
+            return defaultState;
+        case UPDATE_PAYMENT_SEARCH_BY:
+            return {
+                ...state,
+                form: {
+                    ...state.form,
+                    searchBy: action.payload,
+                },
+            };
+        case UPDATE_PAYMENT_SEARCH_VALUE:
+            return {
+                ...state,
+                form: {
+                    ...state.form,
+                    searchValue: action.payload,
+                },
+            };
+        case UPDATE_SUGGESTIONS:
+            return {
+                ...state,
+                form: {
+                    ...state.form,
+                    filteredSuggestions: action.payload,
+                },
+            };
+        case UPDATE_GROUP_CONTENT_OPEN:
+            return {
+                ...state,
+                form: {
+                    ...state.form,
+                    groupContentOpen: action.payload,
+                },
+            };
+        case UPDATE_CONFIRM_RECIPIENTS_OPEN:
+            return {
+                ...state,
+                form: {
+                    ...state.form,
+                    confirmRecipientsOpen: action.payload,
+                },
+            };
+        case UPDATE_SEARCH_PAGE:
+            return {
+                ...state,
+                form: {
+                    ...state.form,
+                    page: action.payload,
+                },
+            };
+        case UPDATE_SUGGESTION_LENGTH:
+            return {
+                ...state,
+                form: {
+                    ...state.form,
+                    suggestionLength: action.payload,
+                },
+            };
+        case UPDATE_STEP:
+            return {
+                ...state,
+                form: {
+                    ...state.form,
+                    step: action.payload,
+                },
+            };
+        case UPDATE_PRODUCT_SEARCH_VALUE:
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    searchValue: action.payload,
+                },
+            };
+        case UPDATE_PRODUCT_SUGGESTIONS:
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    filteredSuggestions: action.payload,
+                },
+            };
+        case UPDATE_PRODUCT_LENGTH:
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    productsLength: action.payload,
+                },
+            };
+        case UPDATE_RECIPIENTS:
+            return {
+                ...state,
+                payment: {
+                    ...state.payment,
+                    recipients: action.payload,
+                },
+            };
+        case UPDATE_PRODUCTS:
+            return {
+                ...state,
+                payment: {
+                    ...state.payment,
+                    products: action.payload,
+                },
+            };
+        case UPDATE_SCHOOL:
+            return {
+                ...state,
+                payment: {
+                    ...state.payment,
+                    school: action.payload,
+                },
+            };
+        case UPDATE_ORDER_STATUS_OPEN:
+            return {
+                ...state,
+                payment: {
+                    ...state.payment,
+                    statusOpen: action.payload,
+                },
+            };
+        case UPDATE_ORDER_STATUS_CONTENT:
+            return {
+                ...state,
+                payment: {
+                    ...state.payment,
+                    statusContent: action.payload,
+                },
+            };
+        case UPDATE_SCHOOL_ORG_ID:
+            return {
+                ...state,
+                payment: {
+                    ...state.payment,
+                    schoolOrgId: action.payload,
+                },
+            };
+        case UPDATE_ORG_ID:
+            return {
+                ...state,
+                payment: {
+                    ...state.payment,
+                    orgId: action.payload,
+                },
+            };
+        case UPDATE_GROUPS_LOADED:
+            return {
+                ...state,
+                payment: {
+                    ...state.payment,
+                    groupsLoaded: action.payload,
+                },
+            };
+        case UPDATE_CUSTOMERS_LOADED:
+            return {
+                ...state,
+                payment: {
+                    ...state.payment,
+                    customersLoaded: action.payload,
+                },
+            };
+        case UPDATE_PRODUCT_AMOUNT:
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    amount: action.payload,
+                },
+            };
+        case UPDATE_PRODUCT_PRICE:
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    itemPrice: action.payload,
+                },
+            };
+        case UPDATE_PRODUCT_DESCRIPTION:
+            return {
+                ...state,
+                product: {
+                    ...state.product,
+                    description: action.payload,
+                },
+            };
+        case UPDATE_PAYMENTS_SEARCH_BY:
+            return {
+                ...state,
+                payments: {
+                    ...state.payments,
+                    searchBy: action.payload,
+                },
+            };
+        case UPDATE_PAYMENTS_SHOW_ONLY_ME:
+            return {
+                ...state,
+                payments: {
+                    ...state.payments,
+                    searchOnlyMe: action.payload,
+                },
+            };
     case UPDATE_PAYMENT_FILTER_VALUE:
         return {
             ...state,

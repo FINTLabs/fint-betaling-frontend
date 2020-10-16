@@ -21,7 +21,7 @@ import {
     UPDATE_PAYMENTS_DIALOG_CONTENT_ORDER_NUMBER,
     UPDATE_PAYMENTS_DIALOG_OPEN,
     UPDATE_PAYMENTS_SEARCH_BY,
-    UPDATE_PAYMENTS_SEARCH_VALUE,
+    UPDATE_PAYMENTS_SEARCH_VALUE, UPDATE_PAYMENTS_SHOW_ONLY_ME,
     UPDATE_PAYMENTS_SUGGESTIONS,
     UPDATE_PRODUCT_AMOUNT, UPDATE_PRODUCT_DESCRIPTION,
     UPDATE_PRODUCT_LENGTH, UPDATE_PRODUCT_PRICE,
@@ -241,6 +241,15 @@ export function updatePaymentsSearchBy(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_PAYMENTS_SEARCH_BY,
+            payload: value,
+        });
+    };
+}
+
+export function updatepaymentOnlyMeSearch(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_PAYMENTS_SHOW_ONLY_ME,
             payload: value,
         });
     };

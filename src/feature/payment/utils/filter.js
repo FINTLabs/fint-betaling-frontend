@@ -1,6 +1,7 @@
 import {FILTER_ALL, ORDER_NUMBER} from '../constants';
+import _ from 'lodash';
 
-export default function filterSuggestions(input, suggestions, searchBy, filterValue, keepSuggestionsFromCount) {
+export default function filterSuggestions(input, suggestions, searchBy, filterValue, searchOnlyMe, me, keepSuggestionsFromCount) {
   const inputValue = input.trim()
     .toLowerCase();
   const inputLength = inputValue.length;
@@ -10,6 +11,11 @@ export default function filterSuggestions(input, suggestions, searchBy, filterVa
   return inputLength < 0
     ? []
     : suggestions.filter((suggestion) => {
+          if (!searchOnlyMe){
+              return true;
+          }else return _.isEqual(suggestion.createdBy, me);
+      })
+          .filter((suggestion) => {
       let keep;
       const filter = filterValue.toString();
       const claimStatus = suggestion.claimStatus.toString();
