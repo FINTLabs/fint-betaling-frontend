@@ -13,7 +13,9 @@ import SearchField from '../../common/search-field';
 import _ from "lodash";
 
 
-const PaymentSearch = () => {
+const PaymentSearch = (props) => {
+    const {selectedDate, dateChecked} = props;
+    console.log(selectedDate);
     const dispatch = useDispatch();
 
     const payments = useSelector((state) => state.payments.payments);
@@ -44,7 +46,12 @@ const PaymentSearch = () => {
             if (matchedPayment(suggestion, input)
                 && (filterValue === suggestion.claimStatus || filterValue === FILTER_ALL)) {
                 if (!searchOnlyMe) {
-                    array.push(suggestion);
+                    if (dateChecked){
+                        const year = selectedDate.getFullYear();
+                        const month = (selectedDate.getMonth()+1) <10 ? "0"+(selectedDate.getMonth()+1) : selectedDate.getMonth()+1;
+                        const day = selectedDate.getDate()< 10 ? "0"+selectedDate.getDate() : selectedDate.getDate();
+                        if (suggestion.createdDate === year+"-"+month+"-"+day){array.push(suggestion);};
+                    }else{array.push(suggestion)}
                 } else if (_.isEqual(suggestion.createdBy, me)) {
                     array.push(suggestion)
                 }
@@ -66,6 +73,8 @@ const PaymentSearch = () => {
             filterValue,
             searchOnlyMe,
             me,
+            selectedDate,
+            dateChecked,
             activePage * rowsPerPage)));
     }, [activePage,
         searchValue,
@@ -85,6 +94,8 @@ const PaymentSearch = () => {
             filterValue,
             searchOnlyMe,
             me,
+            selectedDate,
+            dateChecked,
             activePage * rowsPerPage)));
     }
 
