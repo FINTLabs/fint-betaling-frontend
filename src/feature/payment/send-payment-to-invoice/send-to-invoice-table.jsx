@@ -41,6 +41,7 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
     const dispatch = useDispatch();
     const showAll = useSelector((state) => state.payment.sendToExternalSystem.ordersOpen);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+    const schoolId = useSelector((state) => state.payment.payment.schoolOrgId);
 
     function handleIndividualCheck(event) {
         const list = {...selectedOrders};
@@ -89,7 +90,7 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
         const keys = Object.keys(selectedOrders).filter((key) => selectedOrders[key].checked);
         ClaimRepository.cancelPayments(keys).then(r => {
             console.log(r);
-            dispatch(fetchPayments());
+            dispatch(fetchPayments(schoolId));
             dispatch(updateSelectedOrders([]));
             setDeleteDialogOpen(false);
         });

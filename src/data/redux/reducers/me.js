@@ -1,4 +1,4 @@
-import { FETCH_ME, FETCH_ME_FULFILLED, FETCH_ME_REJECTED } from '../actions/actions';
+import {FETCH_ME, FETCH_ME_FORBIDDEN, FETCH_ME_FULFILLED, FETCH_ME_REJECTED} from '../actions/actions';
 
 
 export const defaultState = {
@@ -7,6 +7,7 @@ export const defaultState = {
     loaded: false,
     error: false,
     errorMessage: '',
+    forbidden: false,
 };
 
 export default function reducer(state = defaultState, action) {
@@ -36,6 +37,15 @@ export default function reducer(state = defaultState, action) {
             error: true,
             errorMessage: action.payload,
         };
+        case FETCH_ME_FORBIDDEN:
+            return {
+                ...state,
+                isLoading: false,
+                loaded: false,
+                error: true,
+                errorMessage: action.payload,
+                forbidden: true,
+            };
     default:
         return state;
     }

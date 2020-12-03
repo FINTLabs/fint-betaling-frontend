@@ -34,6 +34,7 @@ import ListItemLink from './list-item-link';
 import UnsendtAlertButton from './unsendt-alert-button';
 import ErrorAlertButton from './error-alert-button';
 import fetchPayments from '../../data/redux/actions/payments';
+import {Card, CardContent, CardHeader} from "@material-ui/core";
 
 
 const drawerWidth = 240;
@@ -114,10 +115,10 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         paddingRight: theme.spacing(1),
     },
-    pipe:{
+    pipe: {
         marginLeft: theme.spacing(2),
     },
-    pipe2:{
+    pipe2: {
         marginRight: theme.spacing(1.5),
     },
 }));
@@ -150,7 +151,7 @@ export default function Scaffold() {
 
     const handleErrorClick = (event) => {
         setErrorAnchorEl(!errorAnchorEl ? event.currentTarget : null);
-        setAlertAnchorEl( null);
+        setAlertAnchorEl(null);
     };
 
     const handleErrorClose = () => {
@@ -159,6 +160,7 @@ export default function Scaffold() {
 
 
     const school = useSelector((state) => state.payment.payment.school);
+    const schoolId = useSelector((state) => state.payment.payment.schoolOrgId);
 
     let localStorageSchool = localStorage.getItem('school');
     let localStorageSchoolOrgId = localStorage.getItem('schoolOrgId');
@@ -179,39 +181,34 @@ export default function Scaffold() {
         if (_.isEmpty(me.me)) {
             dispatch(fetchMe());
         }
-        dispatch(fetchPayments());
-    }, [dispatch, me.me]);
-
-
-    if (me.loaded && school.toString() === '') {
-        localStorage.setItem('school', localStorageSchool
-        && me.me.organisationUnits.some((ou) => ou.name === localStorageSchool)
-            ? localStorageSchool
-            : me.me.organisationUnits[0].name);
-
-        localStorage.setItem('schoolOrgId',
-            localStorageSchoolOrgId
-            && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
-                ? localStorageSchoolOrgId
-                : me.me.organisationUnits[0].organisationNumber);
-
-        dispatch(setOrgId(me.me.organisation.organisationNumber));
-
-        dispatch(setSchoolOrgId(
-            localStorageSchoolOrgId
-            && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
-                ? localStorageSchoolOrgId
-                : me.me.organisationUnits[0].organisationNumber,
-        ));
-
-        dispatch(setSchool(
-            localStorageSchool
-            && me.me.organisationUnits.some((ou) => ou.name === localStorageSchool)
+        if (me.loaded && schoolId.toString() !== '') {
+            dispatch(fetchPayments(schoolId));
+        }
+        if (me.loaded && school.toString() === '') {
+            let schoolName = (localStorageSchool
+                && me.me.organisationUnits.some((ou) => ou.name === localStorageSchool))
                 ? localStorageSchool
-                : me.me.organisationUnits[0].name,
-        ));
-    }
+                : me.me.organisationUnits[0].name;
+            const schoolOrgId = localStorageSchoolOrgId
+            && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
+                ? localStorageSchoolOrgId
+                : me.me.organisationUnits[0].organisationNumber;
+            localStorage.setItem('school', schoolName);
 
+            localStorage.setItem('schoolOrgId', schoolOrgId
+            );
+
+            dispatch(setOrgId(me.me.organisation.organisationNumber));
+
+            dispatch(setSchoolOrgId(
+                schoolOrgId
+            ));
+
+            dispatch(setSchool(
+                schoolName
+            ));
+        }
+    }, [dispatch, me.me, me.loaded, schoolId, localStorageSchool, localStorageSchoolOrgId, school]);
 
     function handleDrawerOpen() {
         setOpen(true);
@@ -227,138 +224,149 @@ export default function Scaffold() {
         || me.isLoading;
 
     return (
-        <div className={classes.root}>
-            <CssBaseline/>
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open,
-                        })}
-                    >
-                        <MenuIcon/>
-                    </IconButton>
-                    <Link className={classes.menuLink} to="/">
-                        <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo}/>
-                    </Link>
-                    <Typography variant="h6" noWrap>
-                        FINT Betaling
-                    </Typography>
-                    <Box display="flex" ml="auto" alignItems="center">
-                        <UnsendtAlertButton
-                        handleClick={handleAlertClick}
-                        handleClose={handleAlertClose}
-                        anchorEl={alertAnchorEl}
-                        arrowRef={alertArrowRef}
-                        setArrowRef={setAlertArrowRef}
-                        />
-                        <ErrorAlertButton
-                            handleClick={handleErrorClick}
-                            handleClose={handleErrorClose}
-                            anchorEl={errorAnchorEl}
-                            arrowRef={errorArrowRef}
-                            setArrowRef={setErrorArrowRef}
-                        />
-                        <Typography variant="button" className={classes.pipe2}>
-                            |
+        (!me.loaded && me.error && me.forbidden) ? <div>
+                <Card>
+                    <CardHeader title="Ingen tilgang"/>
+                    <CardContent>
+                        <Typography variant="body2" component="p">
+                            Dette kan skyldes at du ikke er registrert som ansatt ved en skole i FINT.
                         </Typography>
-                        <Box display="flex" alignItems="center" justifyContent="flex-end">
-                            <Typography variant="button">
-                                {me.me.name}
-                            </Typography>
-                            <Typography className={classes.pipe} variant="button">
+                    </CardContent>
+                </Card>
+            </div> :
+            <div className={classes.root}>
+                <CssBaseline/>
+                <AppBar
+                    position="fixed"
+                    className={clsx(classes.appBar, {
+                        [classes.appBarShift]: open,
+                    })}
+                >
+                    <Toolbar>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            className={clsx(classes.menuButton, {
+                                [classes.hide]: open,
+                            })}
+                        >
+                            <MenuIcon/>
+                        </IconButton>
+                        <Link className={classes.menuLink} to="/">
+                            <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo}/>
+                        </Link>
+                        <Typography variant="h6" noWrap>
+                            FINT Betaling
+                        </Typography>
+                        <Box display="flex" ml="auto" alignItems="center">
+                            <UnsendtAlertButton
+                                handleClick={handleAlertClick}
+                                handleClose={handleAlertClose}
+                                anchorEl={alertAnchorEl}
+                                arrowRef={alertArrowRef}
+                                setArrowRef={setAlertArrowRef}
+                            />
+                            <ErrorAlertButton
+                                handleClick={handleErrorClick}
+                                handleClose={handleErrorClose}
+                                anchorEl={errorAnchorEl}
+                                arrowRef={errorArrowRef}
+                                setArrowRef={setErrorArrowRef}
+                            />
+                            <Typography variant="button" className={classes.pipe2}>
                                 |
                             </Typography>
-                            <OrganisationSelector/>
+                            <Box display="flex" alignItems="center" justifyContent="flex-end">
+                                <Typography variant="button">
+                                    {me.me.name}
+                                </Typography>
+                                <Typography className={classes.pipe} variant="button">
+                                    |
+                                </Typography>
+                                <OrganisationSelector/>
+                            </Box>
                         </Box>
-                    </Box>
-                </Toolbar>
-                {loading && <LinearProgress color="secondary"/>}
+                    </Toolbar>
 
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })}
-                classes={{
-                    paper: clsx({
+                    {loading && <LinearProgress color="secondary"/>}
+
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    className={clsx(classes.drawer, {
                         [classes.drawerOpen]: open,
                         [classes.drawerClose]: !open,
-                    }),
-                }}
-            >
-                <div className={classes.toolbar}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
-                    </IconButton>
-                </div>
-                <Divider/>
-                <List>
-                    <ListItem button component={Link} to="/">
-                        <ListItemIcon>
-                            <HomeIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Hjem"/>
-                    </ListItem>
+                    })}
+                    classes={{
+                        paper: clsx({
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open,
+                        }),
+                    }}
+                >
+                    <div className={classes.toolbar}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
+                        </IconButton>
+                    </div>
                     <Divider/>
+                    <List>
+                        <ListItem button component={Link} to="/">
+                            <ListItemIcon>
+                                <HomeIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Hjem"/>
+                        </ListItem>
+                        <Divider/>
 
-                    <ListItem
-                        button
-                        component={Link}
-                        to="/betaling/ny"
-                        onClick={() => {
-                            dispatch(initializePayment());
-                        }}
-                    >
-                        <ListItemIcon><NewInvoiceIcon/></ListItemIcon>
-                        <ListItemText primary="Opprett ordre"/>
-                    </ListItem>
+                        <ListItem
+                            button
+                            component={Link}
+                            to="/betaling/ny"
+                            onClick={() => {
+                                dispatch(initializePayment());
+                            }}
+                        >
+                            <ListItemIcon><NewInvoiceIcon/></ListItemIcon>
+                            <ListItemText primary="Opprett ordre"/>
+                        </ListItem>
 
 
-                    <ListItem
-                        button
-                        to="/betaling/send"
-                        component={Link}
-                        onClick={() => {
-                            dispatch(initializePayment());
-                        }}
-                    >
-                        <ListItemIcon><SendIcon/></ListItemIcon>
-                        <ListItemText primary="Send ordre"/>
-                    </ListItem>
-                    <ListItem
-                        button
-                        to="/betaling/historikk"
-                        component={Link}
-                    >
-                        <ListItemIcon><InvoiceHistoryIcon/></ListItemIcon>
-                        <ListItemText primary="Ordrehistorikk"/>
-                    </ListItem>
-                    <Divider/>
-                    <ListItemLink href="/AGLogout">
-                        <ListItemIcon><LogOutIcon/></ListItemIcon>
-                        <ListItemText primary="Logg ut"/>
-                    </ListItemLink>
-                </List>
-            </Drawer>
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            >
-                <Routes/>
-            </main>
-        </div>
+                        <ListItem
+                            button
+                            to="/betaling/send"
+                            component={Link}
+                            onClick={() => {
+                                dispatch(initializePayment());
+                            }}
+                        >
+                            <ListItemIcon><SendIcon/></ListItemIcon>
+                            <ListItemText primary="Send ordre"/>
+                        </ListItem>
+                        <ListItem
+                            button
+                            to="/betaling/historikk"
+                            component={Link}
+                        >
+                            <ListItemIcon><InvoiceHistoryIcon/></ListItemIcon>
+                            <ListItemText primary="Ordrehistorikk"/>
+                        </ListItem>
+                        <Divider/>
+                        <ListItemLink href="/AGLogout">
+                            <ListItemIcon><LogOutIcon/></ListItemIcon>
+                            <ListItemText primary="Logg ut"/>
+                        </ListItemLink>
+                    </List>
+                </Drawer>
+                <main
+                    className={clsx(classes.content, {
+                        [classes.contentShift]: open,
+                    })}
+                >
+                    <Routes/>
+                </main>
+            </div>
     );
 }
