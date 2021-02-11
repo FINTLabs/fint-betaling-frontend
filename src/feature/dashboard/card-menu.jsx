@@ -28,7 +28,7 @@ const CardMenu = () => {
     return (
         <Grid container justify="center" spacing={5} className={classes.root}>
             <Grid item>
-                <Card className={classes.card}>
+                <Card className={classes.card} id={"startPageNewPaymentCard"}>
                     <CardContent>
                         <Box display="flex" justifyContent="space-between">
                             <Box>
@@ -47,16 +47,16 @@ const CardMenu = () => {
                         </Box>
                     </CardContent>
                     <CardActions>
-                        <RouteButton to="/betaling/ny" size="small" color="secondary"onClick={() => {
+                        <RouteButton to="/betaling/ny" size="small" color="secondary" onClick={() => {
                             dispatch(initializePayment(INITIALIZE_PAYMENT));
-                        }}>
+                        }} >
                             Til opprett ordre
                         </RouteButton>
                     </CardActions>
                 </Card>
             </Grid>
             <Grid item>
-                <Card className={classes.card}>
+                <Card className={classes.card} id={"startPageSendPaymentCard"}>
                     <CardContent>
                         <Box display="flex" justifyContent="space-between">
                             <Typography variant="h1" component="h1">
@@ -75,14 +75,14 @@ const CardMenu = () => {
                     <CardActions>
                         <RouteButton to="/betaling/send" size="small" color="secondary" onClick={() => {
                             dispatch(initializePayment(INITIALIZE_PAYMENT));
-                        }}>
+                        }} >
                             Til send ordre
                         </RouteButton>
                     </CardActions>
                 </Card>
             </Grid>
             <Grid item>
-                <Card className={classes.card}>
+                <Card className={classes.card} id={"startPagePaymentHistoryCard"}>
                     <CardContent>
                         <Box display="flex" justifyContent="space-between">
                             <Typography variant="h1" component="h1">
@@ -100,7 +100,7 @@ const CardMenu = () => {
 
                     </CardContent>
                     <CardActions>
-                        <RouteButton to="/betaling/historikk" size="small" color="secondary">
+                        <RouteButton to="/betaling/historikk" size="small" color="secondary" >
                             Til ordrehistorikk
                         </RouteButton>
                     </CardActions>

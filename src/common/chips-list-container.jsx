@@ -69,6 +69,7 @@ const ChipsListContainer = ({
                         <div>
                             <Typography variant={"caption"}>Bekreft</Typography>
                             <ConfirmRemoveIcon
+                                id={"confirmRemoveAllIcon"}
                                 className={classes.removeIconRed}
                                 onClick={onClear}
 
@@ -76,6 +77,7 @@ const ChipsListContainer = ({
                         </div> :
 
                         <RemoveIcon
+                            id={"removeAllIcon"}
                             className={classes.removeIcon}
                             onClick={() => {
                                 setDeleteConfirmed(true);

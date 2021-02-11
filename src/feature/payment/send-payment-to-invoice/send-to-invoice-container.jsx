@@ -106,6 +106,7 @@ const SendToInvoiceContainer = () => {
                 autoHideDuration={6000}
                 onClose={handleClose}
                 message={snackbarMessage}
+                id={"sendOrderSnackbar"}
                 action={(
                     <>
                         <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
@@ -141,11 +142,18 @@ const SendToInvoiceContainer = () => {
                     onChange={handleSearchValue}
                     onClear={clearSearchValue}
                     value={searchValue}
+                    id={"sendToInvoiceSearchField"}
                 />
             </Box>
             <OrderChipList />
                     <Box display="flex" justifyContent="center">
-                        <Button variant="contained" color="secondary" onClick={handleConfirmSendPayments} disabled={Object.keys(selectedOrders).filter((key) => selectedOrders[key].checked).length < 1}>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={handleConfirmSendPayments}
+                            disabled={Object.keys(selectedOrders).filter((key) => selectedOrders[key].checked).length < 1}
+                            id={"sendOrderToInvoicingButton"}
+                        >
                             Send ordre til fakturering
                         </Button>
                     </Box>

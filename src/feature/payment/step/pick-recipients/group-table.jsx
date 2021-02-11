@@ -9,10 +9,10 @@ import TableBody from '@material-ui/core/TableBody';
 import Checkbox from '@material-ui/core/Checkbox';
 import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
 import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
-import { Collapse, makeStyles } from '@material-ui/core';
-import { useDispatch, useSelector } from 'react-redux';
+import {Collapse, makeStyles} from '@material-ui/core';
+import {useDispatch, useSelector} from 'react-redux';
 import Box from '@material-ui/core/Box';
-import { updateGroupContentOpen, updateRecipients, updateSearchPage } from '../../../../data/redux/actions/payment';
+import {updateGroupContentOpen, updateRecipients, updateSearchPage} from '../../../../data/redux/actions/payment';
 import GroupMemberTable from './group-member-table';
 import Pagination from '../../../../common/pagination';
 
@@ -55,7 +55,7 @@ const GroupTable = () => {
 
 
     function handleIndividualCheck(event) {
-        const recipientList = { ...recipients };
+        const recipientList = {...recipients};
         recipientList[event.target.value] = {
             checked: event.target.checked,
             name: event.target.name,
@@ -64,7 +64,7 @@ const GroupTable = () => {
     }
 
     function handleGroupChange(event, individualList) {
-        const recipientList = { ...recipients };
+        const recipientList = {...recipients};
         for (let customer = 0; customer < individualList.length; customer += 1) {
             const customerNumber = individualList[customer].id;
             recipientList[customerNumber] = {
@@ -81,21 +81,21 @@ const GroupTable = () => {
     }
 
     function groupShouldBeChecked(customerList) {
-        const { length } = customerList
+        const {length} = customerList
             .filter((c) => recipients[c.id])
             .filter((c) => recipients[c.id].checked);
         return length === customerList.length && length > 0;
     }
 
     function groupCheckboxIndeterminateCheck(customerList) {
-        const { length } = customerList
+        const {length} = customerList
             .filter((c) => recipients[c.id])
             .filter((c) => recipients[c.id].checked);
         return length < customerList.length && length > 0;
     }
 
     function handleGroupOpenClick(recipient) {
-        const newArray = { ...groupContentOpen };
+        const newArray = {...groupContentOpen};
         newArray[recipient] = !groupContentOpen[recipient];
         dispatch(updateGroupContentOpen(newArray));
     }
@@ -117,77 +117,81 @@ const GroupTable = () => {
                         <TableCell align="right" className={classes.tableCell}>Se medlemmer</TableCell>
                     </TableRow>
                 </TableHead>
-                {
-                    suggestions.map(
-                        (suggestion) => {
-                            const recipient = suggestion.name;
-                            const matches = match(recipient, query);
-                            const parts = parse(recipient, matches);
-                            return (
-                                <TableBody key={suggestion.name}>
-                                    <TableRow
-                                        hover={!groupContentOpen[recipient]}
-                                        className={groupContentOpen[recipient] ? classes.rowSelected : null}
-                                    >
-                                        <TableCell align="left" className={classes.tableCell}>
-                                            <Checkbox
-                                                onChange={(event) => handleGroupChange(event, suggestion.customers)}
-                                                value={suggestion.customers}
-                                                indeterminate={groupShouldBeChecked(suggestion.customers)
-                                                    ? false
-                                                    : groupCheckboxIndeterminateCheck(suggestion.customers)}
-                                                checked={groupShouldBeChecked(suggestion.customers)}
-                                                color={groupContentOpen[recipient] ? "primary" : "secondary"}
-                                                className={groupContentOpen[recipient] ? classes.checkBoxContentOpen : null}
-                                            />
-                                        </TableCell>
-                                        <TableCell align="left" className={classes.tableCell}>
-                                            {parts.map((part) => (
-                                                <span
-                                                    key={part.text}
-                                                    style={{ fontWeight: part.highlight ? 500 : 400 }}
-                                                >
+                <TableBody>
+                    {
+                        suggestions.map(
+                            (suggestion) => {
+                                const recipient = suggestion.name;
+                                const matches = match(recipient, query);
+                                const parts = parse(recipient, matches);
+                                return (<>
+                                        <TableRow
+                                            hover={!groupContentOpen[recipient]}
+                                            className={groupContentOpen[recipient] ? classes.rowSelected : null}
+                                        >
+                                            <TableCell align="left" className={classes.tableCell}>
+                                                <Checkbox
+                                                    onChange={(event) => handleGroupChange(event, suggestion.customers)}
+                                                    value={suggestion.customers}
+                                                    indeterminate={groupShouldBeChecked(suggestion.customers)
+                                                        ? false
+                                                        : groupCheckboxIndeterminateCheck(suggestion.customers)}
+                                                    checked={groupShouldBeChecked(suggestion.customers)}
+                                                    color={groupContentOpen[recipient] ? "primary" : "secondary"}
+                                                    className={groupContentOpen[recipient] ? classes.checkBoxContentOpen : null}
+                                                />
+                                            </TableCell>
+                                            <TableCell align="left" className={classes.tableCell}>
+                                                {parts.map((part) => (
+                                                    <span
+                                                        key={part.text}
+                                                        style={{fontWeight: part.highlight ? 500 : 400}}
+                                                    >
                                                     {part.text}
                                                 </span>
-                                            ))}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.description}
-                                        </TableCell>
-                                        <TableCell
-                                            align="right"
-                                            className={classes.tableCellArrow}
-                                            onClick={() => handleGroupOpenClick(recipient)}
-                                        >
-                                            {groupContentOpen[recipient] ? <ArrowDropUp/>: <ArrowDropDown />}
-
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell className={classes.tableCellNoPadding} colSpan={4}>
-                                            <Collapse
-                                                in={groupContentOpen[recipient]}
-                                                timeout="auto"
-                                                unmountOnExit
-                                                style={{
-                                                    display: 'block',
-                                                    float: 'bottom',
-                                                    minWidth: 'max-content',
-                                                }}
+                                                ))}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {suggestion.description}
+                                            </TableCell>
+                                            <TableCell
+                                                align="right"
+                                                className={classes.tableCellArrow}
+                                                onClick={() => handleGroupOpenClick(recipient)}
                                             >
-                                                <GroupMemberTable
-                                                    recipients={recipients}
-                                                    handleIndividualCheck={handleIndividualCheck}
-                                                    members={suggestion.customers}
-                                                />
-                                            </Collapse>
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            );
-                        },
-                    )
-                }
+                                                {groupContentOpen[recipient] ?
+                                                    <ArrowDropUp id={"collapseArrowIconClose"}/>
+                                                    :
+                                                    <ArrowDropDown id={"collapseArrowIconOpen"}/>}
+
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className={classes.tableCellNoPadding} colSpan={4}>
+                                                <Collapse
+                                                    in={groupContentOpen[recipient]}
+                                                    timeout="auto"
+                                                    unmountOnExit
+                                                    style={{
+                                                        display: 'block',
+                                                        float: 'bottom',
+                                                        minWidth: 'max-content',
+                                                    }}
+                                                >
+                                                    <GroupMemberTable
+                                                        recipients={recipients}
+                                                        handleIndividualCheck={handleIndividualCheck}
+                                                        members={suggestion.customers}
+                                                    />
+                                                </Collapse>
+                                            </TableCell>
+                                        </TableRow>
+                                    </>
+                                );
+                            },
+                        )
+                    }
+                </TableBody>
 
             </Table>
             <Pagination

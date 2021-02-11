@@ -47,16 +47,18 @@ const ConfirmedProducts = () => {
                             .filter((key) => products[key].checked)
                             .map((key) => (
                                 <TableRow key={key}>
-                                    <TableCell align="left">{products[key].description}</TableCell>
-                                    <TableCell align="left">{productDescription ? productDescription[key] ? productDescription[key].description : "":""}</TableCell>
-                                    <TableCell align="right" component="th" scope="row">
+                                    <TableCell align="left" id={"productDescriptionCell"}>{products[key].description}</TableCell>
+                                    <TableCell align="left" id={"productFreeTextCell"}>
+                                        {productDescription ? productDescription[key] ? productDescription[key].description : "":""}
+                                    </TableCell>
+                                    <TableCell align="right" component="th" scope="row" id={"productCodeCell"}>
                                         {key}
                                     </TableCell>
-                                    <TableCell align="right">{productAmounts[key].amount}</TableCell>
-                                    <TableCell align="right">
+                                    <TableCell align="right" id={"productAmountCell"}>{productAmounts[key].amount}</TableCell>
+                                    <TableCell align="right" id={"productItemPriceCell"}>
                                         <Amount>{productPrice[key].itemPrice}</Amount>
                                     </TableCell>
-                                    <TableCell align="right">
+                                    <TableCell align="right" id={"productTotalPriceCell"}>
                                         <Amount>
                                             {parseInt(productAmounts[key].amount, 10)
                                             * parseInt(productPrice[key].itemPrice, 10)}
@@ -74,7 +76,7 @@ const ConfirmedProducts = () => {
                 <Typography variant="subtitle2">
                     Total beløp per elev:
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1" id={"totalPriceForAllProductsTextField"}>
                     {getTotalPrice(products, productPrice, productAmounts)}
                 </Typography>
             </Box>

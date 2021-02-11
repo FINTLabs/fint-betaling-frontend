@@ -44,13 +44,13 @@ const OrganisationSelector = () => {
     }
 
     return (
-        <Box display="flex" justifyContent="flex-end">
+        <Box display="flex" justifyContent="flex-end" id={"schoolSelector"}>
             <Button className={classes.organisationButton} onClick={handleClick}>
                 {organisationUnits ? school : <CircularProgress color="secondary" size={25} />}
                 <OrganisationIcon className={classes.organsationIcon} />
             </Button>
             <Menu
-                id="simple-menu"
+                id="school-menu"
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
@@ -63,6 +63,7 @@ const OrganisationSelector = () => {
                 <Divider />
                 {organisationUnits && organisationUnits.map((o) => (
                     <MenuItem
+                        id={o.organisationNumber}
                         key={o.organisationNumber}
                         onClick={() => handleSchoolClick(o.name, o.organisationNumber)}
                     >

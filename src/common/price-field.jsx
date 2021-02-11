@@ -37,6 +37,7 @@ const PriceField = ({
     return (
         <Box display="flex" justifyContent="flex-end">
             <TextField
+                id={"productKronerField"}
                 className={classes.crown}
                 disabled={disabled}
                 value={crowns}
@@ -48,6 +49,7 @@ const PriceField = ({
                 }}
             />
             <TextField
+                id={"productOreField"}
                 disabled={disabled}
                 value={ore}
                 onChange={(e) => onOreChanged(e.target.value)}

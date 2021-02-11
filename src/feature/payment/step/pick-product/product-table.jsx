@@ -166,6 +166,7 @@ const ProductTable = () => {
                                         </TableCell>
                                         <TableCell align="left" className={classes.tableCellDescription}>
                                             <TextField
+                                                id={"freeTextTextField"}
                                                 fullWidth
                                                 disabled={pickedProducts[suggestion.itemCode] ? !pickedProducts[suggestion.itemCode].checked : true}
                                                 onChange={(e) => handleItemDescriptionChange(
@@ -190,6 +191,7 @@ const ProductTable = () => {
                                         <TableCell align="right" className={classes.tableCellAmount}>
                                             <FormControl>
                                                 <Input
+                                                    id={"productAmountField"}
                                                     disabled={pickedProducts[suggestion.itemCode] ? !pickedProducts[suggestion.itemCode].checked : true}
                                                     label="Antall"
                                                     value={getAmount(suggestion)}
@@ -201,7 +203,7 @@ const ProductTable = () => {
                                                 />
                                             </FormControl>
                                         </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
+                                        <TableCell align="right" className={classes.tableCell} id={"productPriceCell"}>
                                             <Amount>{getPrice(suggestion) * getAmount(suggestion)}</Amount>
                                         </TableCell>
                                     </TableRow>

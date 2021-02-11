@@ -160,6 +160,7 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
                                 variant="contained"
                                 className={classes.deleteButton}
                                 size={"small"}
+                                id={"deleteOrderButton"}
                             >
                                 Slett valgte
                             </Button>
@@ -180,10 +181,10 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseDialog} color="secondary" variant={"contained"}>
+                    <Button onClick={handleCloseDialog} color="secondary" variant={"contained"} id={"cancelDeleteOrderButton"}>
                         Nei
                     </Button>
-                    <Button onClick={handleDeleteOrders} color="secondary" autoFocus variant={"contained"}>
+                    <Button onClick={handleDeleteOrders} color="secondary" autoFocus variant={"contained"} id={"confirmDeleteOrderButton"}>
                         Ja
                     </Button>
                 </DialogActions>

@@ -118,7 +118,7 @@ const RecipientChipList = () => {
             title="Valgte mottakere"
             content="recipient"
         >
-            <List dense className={classes.recipientList}>{
+            <List dense className={classes.recipientList} id={"recipientList"}>{
                 sortedRecipients
                     .map((entry) => (
                         <div key={entry.key}>
@@ -137,6 +137,7 @@ const RecipientChipList = () => {
                                         <div className={classes.toDeleteBox}>
                                             <Typography variant={"caption"}>Bekreft</Typography>
                                         <ConfirmRemoveIcon
+                                            id={"confirmRemoveOneRecipientIcon"}
                                             className={classes.removeIconRed}
                                             onClick={() => {
                                                 handleDelete(toDelete.key, toDelete.name)
@@ -145,6 +146,7 @@ const RecipientChipList = () => {
                                         </div>:
 
                                         <RemoveIcon
+                                            id={"removeOneRecipientIcon"}
                                             className={classes.removeIcon}
                                             onClick={() => {
                                                 setToDelete({key: entry.key, name: entry.name});

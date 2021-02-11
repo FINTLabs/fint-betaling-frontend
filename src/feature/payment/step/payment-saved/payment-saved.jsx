@@ -16,6 +16,7 @@ const PaymentSaved = () => (
                 color="secondary"
                 to="/betaling/send"
                 fullWidth
+                id={"saveClaimButton"}
             >
                 Send til fakturering
             </RouteButton>

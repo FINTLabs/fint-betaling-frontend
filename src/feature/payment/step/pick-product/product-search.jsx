@@ -193,6 +193,7 @@ const ProductSearch = () => {
                 onChange={handleSearchValue}
                 onClear={() => dispatch(updateProductSearchValue(''))}
                 value={searchValue}
+                id={"productSearchField"}
             />
             <div className={classes.buttonBox}>
                 <Button
@@ -209,6 +210,7 @@ const ProductSearch = () => {
                     color="secondary"
                     onClick={handleOnClickConfirmProducts}
                     className={classes.buttonForward}
+                    id={"nextButtonToSummary"}
                 >
                     Videre
                 </Button>

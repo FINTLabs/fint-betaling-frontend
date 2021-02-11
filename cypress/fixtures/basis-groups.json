@@ -1,0 +1,54 @@
+[
+  {
+    "name": "1BAB",
+    "description": "1BAB",
+    "customers": [
+      {
+        "id": "4mrmdr",
+        "name": "Testbruker, Nummer En"
+      },
+      {
+        "id": "1nu65h",
+        "name": "Testbruker, Nummer To"
+      },
+      {
+        "id": "4yupuz",
+        "name": "Testbruker, Nummer Tre"
+      },
+      {
+        "id": "670i9",
+        "name": "Testbruker, Nummer Fire"
+      },
+      {
+        "id": "35nr8b",
+        "name": "Testbruker, Nummer Fem"
+      }
+    ]
+  },
+  {
+    "name": "2STA",
+    "description": "2STA",
+    "customers": [
+      {
+        "id": "4mrmdr",
+        "name": "Testbruker, Nummer En"
+      },
+      {
+        "id": "1nu65h",
+        "name": "Testbruker, Nummer To"
+      },
+      {
+        "id": "4yupuz",
+        "name": "Testbruker, Nummer Tre"
+      },
+      {
+        "id": "670i9",
+        "name": "Testbruker, Nummer Fire"
+      },
+      {
+        "id": "35nr8b",
+        "name": "Testbruker, Nummer Fem"
+      }
+    ]
+  }
+]

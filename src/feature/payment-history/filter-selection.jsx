@@ -80,6 +80,7 @@ const FilterSelect = () => {
                         name: 'Filter',
                         id: 'filter-simple',
                     }}
+                    id={"paymentHistoryFilter"}
                 >
                     {FILTER_LIST.map(
                         (filter) => (

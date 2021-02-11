@@ -96,7 +96,7 @@ const ErrorAlertButton = (props) => {
 
 
     return (
-        <Box>
+        <Box id={"errorAlertButton"}>
             <IconButton
                 aria-label="show new notifications"
                 color="inherit"
@@ -132,7 +132,7 @@ const ErrorAlertButton = (props) => {
                 <span className={classes.arrow} ref={setArrowRef} />
                 <Paper className={classes.paper}>
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
+                        <DialogContentText id="errorMessageField">
                             {errorPayments > 0
                                 ? 'Du har ordre med feil.'
                                 : 'Alt er i orden :)'}
@@ -144,7 +144,7 @@ const ErrorAlertButton = (props) => {
                         </Button>
                         {errorPayments > 0
                         && (
-                            <RouteButton to="/betaling/historikk" onClick={handleClose} color="secondary" autoFocus>
+                            <RouteButton to="/betaling/historikk" onClick={handleClose} color="secondary" autoFocus id={"errorButtonShortCut"}>
                                 Gå til ordrehistorikk
                             </RouteButton>
                         )}

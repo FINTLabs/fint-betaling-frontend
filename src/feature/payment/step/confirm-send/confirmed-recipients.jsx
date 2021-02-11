@@ -57,7 +57,7 @@ const ConfirmedRecipients = () => {
                             sortedRecipients
                                 .map((entry) => (
                                     <TableRow key={entry.key}>
-                                        <TableCell>{entry.name}</TableCell>
+                                        <TableCell id={"recipientNameCell"}>{entry.name}</TableCell>
                                     </TableRow>
                                 ))
                         }

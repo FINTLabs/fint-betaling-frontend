@@ -96,7 +96,7 @@ const UnsendtAlertButton = (props) => {
     const id = open ? 'spring-popper' : undefined;
 
     return (
-        <Box>
+        <Box id={"unsentAlertButton"}>
             <IconButton
                 aria-label="show new notifications"
                 color="inherit"
@@ -132,7 +132,7 @@ const UnsendtAlertButton = (props) => {
                 <span className={classes.arrow} ref={setArrowRef} />
                 <Paper className={classes.paper}>
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
+                        <DialogContentText id={"unsentMessageField"}>
                             {unsendtPayments > 0
                                 ? 'Du har ordre som ikke er sendt til økonomisystemet.'
                                 : 'Alt er i orden :)'}
@@ -144,7 +144,7 @@ const UnsendtAlertButton = (props) => {
                         </Button>
                         {unsendtPayments > 0
                         && (
-                            <RouteButton to="/betaling/send" onClick={handleClose} color="secondary" autoFocus>
+                            <RouteButton to="/betaling/send" onClick={handleClose} color="secondary" autoFocus id={"unsentButtonShortCut"}>
                                 Gå til send ordre
                             </RouteButton>
                         )}

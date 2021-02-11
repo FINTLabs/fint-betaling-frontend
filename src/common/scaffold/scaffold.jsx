@@ -114,10 +114,10 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(2),
         paddingRight: theme.spacing(1),
     },
-    pipe:{
+    pipe: {
         marginLeft: theme.spacing(2),
     },
-    pipe2:{
+    pipe2: {
         marginRight: theme.spacing(1.5),
     },
 }));
@@ -150,7 +150,7 @@ export default function Scaffold() {
 
     const handleErrorClick = (event) => {
         setErrorAnchorEl(!errorAnchorEl ? event.currentTarget : null);
-        setAlertAnchorEl( null);
+        setAlertAnchorEl(null);
     };
 
     const handleErrorClose = () => {
@@ -235,10 +235,11 @@ export default function Scaffold() {
                     [classes.appBarShift]: open,
                 })}
             >
-                <Toolbar>
+                <Toolbar id={"toolbar"}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
+                        id={"menuBurger"}
                         onClick={handleDrawerOpen}
                         edge="start"
                         className={clsx(classes.menuButton, {
@@ -255,11 +256,11 @@ export default function Scaffold() {
                     </Typography>
                     <Box display="flex" ml="auto" alignItems="center">
                         <UnsendtAlertButton
-                        handleClick={handleAlertClick}
-                        handleClose={handleAlertClose}
-                        anchorEl={alertAnchorEl}
-                        arrowRef={alertArrowRef}
-                        setArrowRef={setAlertArrowRef}
+                            handleClick={handleAlertClick}
+                            handleClose={handleAlertClose}
+                            anchorEl={alertAnchorEl}
+                            arrowRef={alertArrowRef}
+                            setArrowRef={setAlertArrowRef}
                         />
                         <ErrorAlertButton
                             handleClick={handleErrorClick}
@@ -272,7 +273,7 @@ export default function Scaffold() {
                             |
                         </Typography>
                         <Box display="flex" alignItems="center" justifyContent="flex-end">
-                            <Typography variant="button">
+                            <Typography variant="button" id={"userNameField"}>
                                 {me.me.name}
                             </Typography>
                             <Typography className={classes.pipe} variant="button">
@@ -304,12 +305,12 @@ export default function Scaffold() {
                     </IconButton>
                 </div>
                 <Divider/>
-                <List>
-                    <ListItem button component={Link} to="/">
+                <List id={"menuList"}>
+                    <ListItem button component={Link} to="/" id={"HomeMenuButton"}>
                         <ListItemIcon>
                             <HomeIcon/>
                         </ListItemIcon>
-                        <ListItemText primary="Hjem"/>
+                        <ListItemText primary="Hjem" id={"HomeMenuButtonText"}/>
                     </ListItem>
                     <Divider/>
 
@@ -346,10 +347,15 @@ export default function Scaffold() {
                         <ListItemText primary="Ordrehistorikk"/>
                     </ListItem>
                     <Divider/>
-                    <ListItemLink href="/AGLogout">
+                    <ListItem
+                        button
+                        to="/AGLogout"
+                        component={Link}
+                    >
                         <ListItemIcon><LogOutIcon/></ListItemIcon>
                         <ListItemText primary="Logg ut"/>
-                    </ListItemLink>
+                    </ListItem>
+
                 </List>
             </Drawer>
             <main

@@ -17,7 +17,7 @@ const PickProducts = () => {
 
     return (
         <Box width="90%" mt={4}>
-            <Typography variant="h3" className={classes.h2}>Velg produkt</Typography>
+            <Typography variant="h3" className={classes.h2} id={"productPageTitle"}>Velg produkt</Typography>
             <RecipientChipList/>
             <ProductChipList/>
             <Box mt={4}>

@@ -173,11 +173,13 @@ const PickPaymentRecipient = () => {
                                 value={GROUP.toString()}
                                 control={<Radio/>}
                                 label="Gruppe"
+                                id={"groupRadioButtonAtRecipientSearch"}
                             />
                             <FormControlLabel
                                 value={INDIVIDUAL.toString()}
                                 control={<Radio/>}
                                 label="Person"
+                                id={"personRadioButtonAtRecipientSearch"}
                             />
                         </RadioGroup>
                         <Box mt={2}>

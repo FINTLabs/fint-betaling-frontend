@@ -58,14 +58,23 @@ const PaymentHistoryContainer = () => {
                         value={searchBy}
                         onChange={handleSearchBy}
                     >
-                        <FormControlLabel value={ORDER_NUMBER.toString()} control={<Radio />} label="Ordrenummer" />
-                        <FormControlLabel value={CUSTOMER_NAME.toString()} control={<Radio />} label="Navn" />
+                        <FormControlLabel
+                            value={ORDER_NUMBER.toString()}
+                            control={<Radio />}
+                            label="Ordrenummer"
+                            id={"orderNumberRadioButtonAtRecipientSearch"}
+                        />
+                        <FormControlLabel
+                            value={CUSTOMER_NAME.toString()}
+                            control={<Radio />}
+                            label="Navn"
+                            id={"nameRadioButtonAtRecipientSearch"}
+                        />
                     </RadioGroup>
                     <FilterSelect />
                 </FormControl>
             </Box>
             <PaymentSearch />
-
         </Box>
     );
 };

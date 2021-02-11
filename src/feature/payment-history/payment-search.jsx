@@ -86,6 +86,7 @@ const PaymentSearch = () => {
                 onChange={handleSearchValue}
                 onClear={() => dispatch(updatePaymentsSearchValue(''))}
                 value={searchValue}
+                id={"paymentSearchField"}
             />
 
             <PaymentsTable />

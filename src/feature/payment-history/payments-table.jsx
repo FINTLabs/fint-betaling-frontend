@@ -67,10 +67,10 @@ const PaymentsTable = () => {
                         suggestions.map(
                             (suggestion) => (
                                 <TableRow hover key={suggestion.orderNumber}>
-                                    <TableCell align="left" className={classes.tableCellStatus}>
+                                    <TableCell align="left" className={classes.tableCellStatus} id={"paymentHistoryStatusIconCell"}>
                                         <PaymentStatusIcon payment={suggestion} />
                                     </TableCell>
-                                    <TableCell align="left" className={classes.tableCell}>
+                                    <TableCell align="left" className={classes.tableCell} id={"paymentHistoryNameCell"}>
                                         {searchBy === ORDER_NUMBER
                                             ? suggestion.customer.name
                                             : (
@@ -80,7 +80,7 @@ const PaymentsTable = () => {
                                                 />
                                             )}
                                     </TableCell>
-                                    <TableCell align="right" className={classes.tableCell}>
+                                    <TableCell align="right" className={classes.tableCell} id={"paymentHistoryOrderNumberCell"}>
                                         {searchBy === ORDER_NUMBER
                                             ? (
                                                 <SearchHighlighter
@@ -90,13 +90,13 @@ const PaymentsTable = () => {
                                             )
                                             : suggestion.orderNumber}
                                     </TableCell>
-                                    <TableCell align="right" className={classes.tableCell}>
+                                    <TableCell align="right" className={classes.tableCell} id={"paymentHistoryInvoiceNumberCell"}>
                                         {suggestion.invoiceNumbers}
                                     </TableCell>
-                                    <TableCell align="right" className={classes.tableCell}>
+                                    <TableCell align="right" className={classes.tableCell} id={"paymentHistoryOriginalAmountDueCell"}>
                                         <Amount>{suggestion.originalAmountDue}</Amount>
                                     </TableCell>
-                                    <TableCell align="right" className={classes.tableCell}>
+                                    <TableCell align="right" className={classes.tableCell} id={"paymentHistoryAmountDueCell"}>
                                         <Amount>{suggestion.amountDue}</Amount>
                                     </TableCell>
                                 </TableRow>

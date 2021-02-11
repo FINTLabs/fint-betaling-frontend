@@ -21,11 +21,12 @@ const SearchField = ({
     label,
     onChange,
     onClear,
+    id
 }) => {
     const classes = useStyles();
     return (
         <TextField
-            id="standard-name"
+            id={id}
             label={label}
             value={value}
             onChange={onChange}

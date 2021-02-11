@@ -132,6 +132,7 @@ const RecipientSearch = () => {
                 onChange={handleSearchValue}
                 onClear={() => dispatch(updateSearchValue(''))}
                 value={searchValue}
+                id={"recipientSearchField"}
             />
             <Box display={"flex"} justifyContent={"flex-end"}>
                 <Button
@@ -149,6 +150,7 @@ const RecipientSearch = () => {
                     color="secondary"
                     onClick={handleConfirmButtonClick}
                     className={classes.buttonForward}
+                    id={"recipientGoToProductsButton"}
                 >
                     Videre
                 </Button>
