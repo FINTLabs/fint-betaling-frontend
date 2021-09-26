@@ -14,7 +14,10 @@ const useStyles = makeStyles(() => ({
 }));
 
 const PriceField = ({
-    value, itemCode, disabled, onChange,
+    value,
+    itemCode,
+    disabled,
+    onChange,
 }) => {
     const classes = useStyles();
     const [crowns, setCrowns] = useState(value);

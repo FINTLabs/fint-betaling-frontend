@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.main,
     },
     checkBoxContentOpen: {
-        color: "#FFF",
+        color: '#FFF',
     },
 }));
 
@@ -137,7 +137,7 @@ const GroupTable = () => {
                                                     ? false
                                                     : groupCheckboxIndeterminateCheck(suggestion.customers)}
                                                 checked={groupShouldBeChecked(suggestion.customers)}
-                                                color={groupContentOpen[recipient] ? "primary" : "secondary"}
+                                                color={groupContentOpen[recipient] ? 'primary' : 'secondary'}
                                                 className={groupContentOpen[recipient] ? classes.checkBoxContentOpen : null}
                                             />
                                         </TableCell>
@@ -159,7 +159,7 @@ const GroupTable = () => {
                                             className={classes.tableCellArrow}
                                             onClick={() => handleGroupOpenClick(recipient)}
                                         >
-                                            {groupContentOpen[recipient] ? <ArrowDropUp/>: <ArrowDropDown />}
+                                            {groupContentOpen[recipient] ? <ArrowDropUp /> : <ArrowDropDown />}
 
                                         </TableCell>
                                     </TableRow>

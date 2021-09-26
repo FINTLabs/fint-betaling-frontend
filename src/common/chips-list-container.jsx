@@ -75,7 +75,7 @@ const ChipsListContainer = ({
                     {' '}
                     {
                         ((step !== '1' || (step === '1' && content !== 'recipient')) && !deleteConfirmed)
-                    && <Typography variant="caption" pl={1}>{deleteText}</Typography>
+                        && <Typography variant="caption" pl={1}>{deleteText}</Typography>
                     }
                     {(step !== '1' || content !== 'recipient')
                         ? deleteConfirmed

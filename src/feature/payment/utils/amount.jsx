@@ -1,4 +1,4 @@
-const Amount = ({children}) => {
+const Amount = ({ children }) => {
     function currency(input) {
         const inputToInt = parseInt(input, 10);
         const i = Math.trunc(inputToInt / 100);
@@ -6,13 +6,11 @@ const Amount = ({children}) => {
 
         if (f === 0) {
             return `${i},-`;
-        } else {
-            if (f >= 10) {
-                return `${i},${f}`;
-            } else {
-                return `${i},0${f}`;
-            }
         }
+        if (f >= 10) {
+            return `${i},${f}`;
+        }
+        return `${i},0${f}`;
     }
 
     if (children) {

@@ -1,15 +1,15 @@
 import React from 'react';
 
-import {Box, Paper} from '@material-ui/core';
+import { Box, Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ConfirmedRecipients from './confirmed-recipients';
 import ConfirmedProducts from './confirmed-products';
-import {updateLatestSentPayment, updateNeedFetch, updateStep} from '../../../../data/redux/actions/payment';
+import { updateLatestSentPayment, updateNeedFetch, updateStep } from '../../../../data/redux/actions/payment';
 import ClaimRepository from '../../../../data/repository/ClaimRepository';
-import {STEP_PAYMENT_CONFIRMED, STEP_PICK_PRODUCTS} from '../../constants';
+import { STEP_PAYMENT_CONFIRMED, STEP_PICK_PRODUCTS } from '../../constants';
 
 
 const ConfirmSend = () => {
@@ -48,7 +48,7 @@ const ConfirmSend = () => {
                 .map((key) => {
                     if (products[key].checked) {
                         const orderLine = {
-                            description: description ? description[key].description : "",
+                            description: description ? description[key].description : '',
                             itemQuantity: amount[key].amount,
                             itemPrice: price[key].itemPrice,
                             lineitem: {
@@ -106,7 +106,15 @@ const ConfirmSend = () => {
                     </Box>
                     <ConfirmedRecipients />
                     <ConfirmedProducts />
-                    <Box width={1} mb={2} pl={2} pr={2} display="flex" justifyContent="space-between" alignItems="center">
+                    <Box
+                        width={1}
+                        mb={2}
+                        pl={2}
+                        pr={2}
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
                         <Button
                             variant="contained"
                             color="secondary"

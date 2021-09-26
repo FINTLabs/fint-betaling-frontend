@@ -45,9 +45,9 @@ const PaymentHistoryContainer = () => {
                     </Typography>
                 </Box>
                 <Box m={1}>
-                    {/*<Typography variant="body2">
+                    {/* <Typography variant="body2">
                         Oversikten viser kun ordrer du har opprettet
-                    </Typography>*/}
+                    </Typography> */}
                 </Box>
             </Box>
             <Box display="flex" justifyContent="center" mt={3}>

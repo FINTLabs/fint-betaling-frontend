@@ -30,9 +30,12 @@ const ConfirmedRecipients = () => {
 
     const sortedRecipients = [];
 
-    keys.map(key => {
+    keys.map((key) => {
         if (recipients[key].checked) {
-            let newEntry = {...recipients[key], key: key};
+            const newEntry = {
+                ...recipients[key],
+                key,
+            };
             sortedRecipients.push(newEntry);
         }
         return key;

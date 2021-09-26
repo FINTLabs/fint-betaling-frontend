@@ -61,19 +61,18 @@ class ClaimRepository {
     static cancelPayments(orderNumbers) {
         const apiAddress = '/api/claim/order-number/';
         const urls = [];
-        orderNumbers.forEach(orderNumber => urls.push(apiAddress + orderNumber));
+        orderNumbers.forEach((orderNumber) => urls.push(apiAddress + orderNumber));
         const stopFetch = 15;
-        return Promise.allSettled(urls.map(url => fetch(url, {
-                method: 'DELETE',
-                headers: new Headers({
-                    'Content-Type': 'application/json',
-                }),
-                credentials: 'same-origin',
-                retryOn(attempt, error, response) {
-                    return (error !== null || response.status >= 400) && attempt <= stopFetch;
-                }
-            }))
-        );
+        return Promise.allSettled(urls.map((url) => fetch(url, {
+            method: 'DELETE',
+            headers: new Headers({
+                'Content-Type': 'application/json',
+            }),
+            credentials: 'same-origin',
+            retryOn(attempt, error, response) {
+                return (error !== null || response.status >= 400) && attempt <= stopFetch;
+            },
+        })));
     }
 }
 
