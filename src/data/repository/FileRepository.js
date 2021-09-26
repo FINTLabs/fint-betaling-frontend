@@ -12,7 +12,7 @@ class FileRepository {
             }),
             body: file,
         })
-            .then((result) => Promise.all( [result, result.json()]))
+            .then((result) => Promise.all([result, result.json()]))
             .catch((error) => error);
     }
 }

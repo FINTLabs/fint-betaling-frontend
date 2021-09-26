@@ -1,6 +1,7 @@
-import React, {useCallback, useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Box, makeStyles, Typography} from '@material-ui/core';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, makeStyles, Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import ProductTable from './product-table';
 import {
     updateFailedProductForm,
@@ -10,13 +11,14 @@ import {
     updateSearchPage,
     updateStep,
 } from '../../../../data/redux/actions/payment';
-import {SEARCH_PAGE_ROWS, SEARCH_PAGE_START, STEP_CONFIRM_PAYMENT, STEP_PICK_RECIPIENTS} from '../../constants';
+import {
+    SEARCH_PAGE_ROWS, SEARCH_PAGE_START, STEP_CONFIRM_PAYMENT, STEP_PICK_RECIPIENTS,
+} from '../../constants';
 import SearchField from '../../../../common/search-field';
-import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
 
-    searchField: {width: '100%'},
+    searchField: { width: '100%' },
     root: {
         flex: 1,
         '& .MuiInput-underline:after': {
@@ -55,20 +57,20 @@ const useStyles = makeStyles((theme) => ({
         flex: '0 0 25em',
     },
     errorMessage: {
-        color: "red",
+        color: 'red',
         marginLeft: theme.spacing(2),
-        textAlign: "center",
+        textAlign: 'center',
     },
     buttonForward: {
         margin: theme.spacing(1),
     },
     buttonBackward: {
-        marginInlineStart: "auto",
+        marginInlineStart: 'auto',
         margin: theme.spacing(1),
     },
     buttonBox: {
-        display: "flex",
-        justifyContent: "center"
+        display: 'flex',
+        justifyContent: 'center',
     },
 }));
 
@@ -160,12 +162,10 @@ const ProductSearch = () => {
     function handleOnClickConfirmProducts() {
         let formFilledCorrect = true;
         const keys = Object.keys(pickedProducts);
-        keys.filter(key => {
-            return pickedProducts[key].checked;
-        })
-            .map(key => {
+        keys.filter((key) => pickedProducts[key].checked)
+            .map((key) => {
                 if (productAmount[key] && productPrice[key]) {
-                    if (!(productPrice[key].itemPrice && productAmount[key].amount && productPrice[key].itemPrice !== 0 && productAmount[key].amount.toString() !== "0")) {
+                    if (!(productPrice[key].itemPrice && productAmount[key].amount && productPrice[key].itemPrice !== 0 && productAmount[key].amount.toString() !== '0')) {
                         formFilledCorrect = false;
                     }
                 } else {
@@ -179,7 +179,6 @@ const ProductSearch = () => {
         } else {
             dispatch(updateFailedProductForm(true));
         }
-
     }
 
     function handleBackwardClick() {
@@ -214,12 +213,14 @@ const ProductSearch = () => {
                 </Button>
             </div>
             {
-                failedProductForm &&
-                <Typography className={classes.errorMessage}>
-                    Oppgi pris på produktene
-                </Typography>
+                failedProductForm
+                && (
+                    <Typography className={classes.errorMessage}>
+                        Oppgi pris på produktene
+                    </Typography>
+                )
             }
-            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem}/> : <div/>}
+            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem} /> : <div />}
         </Box>
     );
 };

@@ -4,7 +4,8 @@ import {
     UPDATE_BACK_END_RESPONSE,
     UPDATE_CONFIRM_RECIPIENTS_OPEN,
     UPDATE_CUSTOMERS_LOADED,
-    UPDATE_EXTERNAL_REDIRECT, UPDATE_FAILED_PRODUCT_FORM,
+    UPDATE_EXTERNAL_REDIRECT,
+    UPDATE_FAILED_PRODUCT_FORM,
     UPDATE_FROM_VALUE_EXTERNAL,
     UPDATE_GROUP_CONTENT_OPEN,
     UPDATE_GROUPS_LOADED,
@@ -23,8 +24,10 @@ import {
     UPDATE_PAYMENTS_SEARCH_BY,
     UPDATE_PAYMENTS_SEARCH_VALUE,
     UPDATE_PAYMENTS_SUGGESTIONS,
-    UPDATE_PRODUCT_AMOUNT, UPDATE_PRODUCT_DESCRIPTION,
-    UPDATE_PRODUCT_LENGTH, UPDATE_PRODUCT_PRICE,
+    UPDATE_PRODUCT_AMOUNT,
+    UPDATE_PRODUCT_DESCRIPTION,
+    UPDATE_PRODUCT_LENGTH,
+    UPDATE_PRODUCT_PRICE,
     UPDATE_PRODUCT_SEARCH_VALUE,
     UPDATE_PRODUCT_SUGGESTIONS,
     UPDATE_PRODUCTS,
@@ -420,14 +423,14 @@ export default function reducer(state = defaultState, action) {
                 ordersOpen: action.payload,
             },
         };
-        case UPDATE_FAILED_PRODUCT_FORM:
-            return {
-                ...state,
-                product: {
-                    ...state.product,
-                    failedProductForm: action.payload,
-                },
-            };
+    case UPDATE_FAILED_PRODUCT_FORM:
+        return {
+            ...state,
+            product: {
+                ...state.product,
+                failedProductForm: action.payload,
+            },
+        };
     default:
         return state;
     }

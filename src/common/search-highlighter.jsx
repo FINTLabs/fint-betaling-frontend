@@ -3,7 +3,10 @@ import React from 'react';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 
-const SearchHighlighter = ({ query, value }) => {
+const SearchHighlighter = ({
+    query,
+    value,
+}) => {
     const matches = match(value, query);
     const highlights = parse(value, matches);
 

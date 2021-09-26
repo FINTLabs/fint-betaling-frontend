@@ -84,7 +84,13 @@ const useStyles = makeStyles((theme) => ({
 
 const ErrorAlertButton = (props) => {
     const classes = useStyles();
-    const {handleClick, handleClose, anchorEl, arrowRef, setArrowRef} = props;
+    const {
+        handleClick,
+        handleClose,
+        anchorEl,
+        arrowRef,
+        setArrowRef,
+    } = props;
 
     const payments = useSelector((state) => state.payments.payments);
     const me = useSelector((state) => state.me.me);

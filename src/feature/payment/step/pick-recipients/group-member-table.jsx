@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const GroupMemberTable = ({ members, recipients, handleIndividualCheck }) => {
+const GroupMemberTable = ({
+    members,
+    recipients,
+    handleIndividualCheck,
+}) => {
     const classes = useStyles();
     return (
         <Table className={classes.individualTable}>
@@ -39,29 +43,30 @@ const GroupMemberTable = ({ members, recipients, handleIndividualCheck }) => {
                     members.sort((a, b) => (
                         a.name > b.name
                             ? 1 : -1
-                    )).map(
-                        (customer) => (
-                            <TableRow key={customer.id}>
-                                <TableCell
-                                    align="left"
-                                    className={classes.tableCell}
-                                >
-                                    {customer.name}
-                                </TableCell>
-                                <TableCell
-                                    align="center"
-                                    className={classes.tableCell}
-                                >
-                                    <Checkbox
-                                        onChange={handleIndividualCheck}
-                                        name={customer.name}
-                                        value={customer.id}
-                                        checked={recipients[customer.id] ? recipients[customer.id].checked : false}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                        ),
-                    )
+                    ))
+                        .map(
+                            (customer) => (
+                                <TableRow key={customer.id}>
+                                    <TableCell
+                                        align="left"
+                                        className={classes.tableCell}
+                                    >
+                                        {customer.name}
+                                    </TableCell>
+                                    <TableCell
+                                        align="center"
+                                        className={classes.tableCell}
+                                    >
+                                        <Checkbox
+                                            onChange={handleIndividualCheck}
+                                            name={customer.name}
+                                            value={customer.id}
+                                            checked={recipients[customer.id] ? recipients[customer.id].checked : false}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            ),
+                        )
                 }
             </TableBody>
         </Table>

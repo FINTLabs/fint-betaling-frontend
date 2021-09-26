@@ -1,6 +1,8 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {Box} from '@material-ui/core';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import {
     updateSearchPage,
     updateSearchValue,
@@ -8,11 +10,11 @@ import {
     updateSuggestionLength,
     updateSuggestions,
 } from '../../../../data/redux/actions/payment';
-import {GROUP, SEARCH_PAGE_ROWS, SEARCH_PAGE_START, STEP_PICK_PRODUCTS} from '../../constants';
+import {
+    GROUP, SEARCH_PAGE_ROWS, SEARCH_PAGE_START, STEP_PICK_PRODUCTS,
+} from '../../constants';
 import RecipientSuggestItem from './recipient-suggest-item';
 import SearchField from '../../../../common/search-field';
-import Button from "@material-ui/core/Button";
-import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     buttonForward: {
@@ -133,12 +135,13 @@ const RecipientSearch = () => {
                 onClear={() => dispatch(updateSearchValue(''))}
                 value={searchValue}
             />
-            <Box display={"flex"} justifyContent={"flex-end"}>
+            <Box display="flex" justifyContent="flex-end">
                 <Button
-                    disabled={true}
+                    disabled
                     variant="contained"
                     color="secondary"
-                    onClick={() => {}}
+                    onClick={() => {
+                    }}
                     className={classes.buttonBackward}
                 >
                     Tilbake
@@ -153,7 +156,7 @@ const RecipientSearch = () => {
                     Videre
                 </Button>
             </Box>
-            {suggestionsLength > 0 ? <Box mt={2}><RecipientSuggestItem/></Box> : <div/>}
+            {suggestionsLength > 0 ? <Box mt={2}><RecipientSuggestItem /></Box> : <div />}
         </Box>
     );
 };

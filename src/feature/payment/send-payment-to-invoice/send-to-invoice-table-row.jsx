@@ -3,7 +3,7 @@ import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Checkbox from '@material-ui/core/Checkbox';
-import {makeStyles} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import Amount from '../utils/amount';
 
 const useStyles = makeStyles(() => ({
@@ -16,7 +16,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const SendToInvoiceTableRow = ({
-    suggestion, selectedOrders, handleIndividualCheck,
+    suggestion,
+    selectedOrders,
+    handleIndividualCheck,
 }) => {
     const classes = useStyles();
 

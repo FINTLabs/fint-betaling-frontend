@@ -144,11 +144,17 @@ const SendToInvoiceContainer = () => {
                 />
             </Box>
             <OrderChipList />
-                    <Box display="flex" justifyContent="center">
-                        <Button variant="contained" color="secondary" onClick={handleConfirmSendPayments} disabled={Object.keys(selectedOrders).filter((key) => selectedOrders[key].checked).length < 1}>
-                            Send ordre til fakturering
-                        </Button>
-                    </Box>
+            <Box display="flex" justifyContent="center">
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleConfirmSendPayments}
+                    disabled={Object.keys(selectedOrders)
+                        .filter((key) => selectedOrders[key].checked).length < 1}
+                >
+                    Send ordre til fakturering
+                </Button>
+            </Box>
 
             <SendToInvoiceTable filteredSuggestions={filteredSuggestions} selectedOrders={selectedOrders} />
         </Box>

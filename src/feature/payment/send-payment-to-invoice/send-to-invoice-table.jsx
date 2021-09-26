@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -7,16 +7,16 @@ import TableCell from '@material-ui/core/TableCell';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableBody from '@material-ui/core/TableBody';
 import Button from '@material-ui/core/Button';
-import {Dialog, makeStyles} from '@material-ui/core';
-import {useDispatch, useSelector} from 'react-redux';
-import {updateOrdersOpen, updateSelectedOrders} from '../../../data/redux/actions/payment';
+import { Dialog, makeStyles } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogActions from '@material-ui/core/DialogActions';
+import { updateOrdersOpen, updateSelectedOrders } from '../../../data/redux/actions/payment';
 import SendToInvoiceTableRow from './send-to-invoice-table-row';
-import ClaimRepository from "../../../data/repository/ClaimRepository";
-import fetchPayments from "../../../data/redux/actions/payments";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
+import ClaimRepository from '../../../data/repository/ClaimRepository';
+import fetchPayments from '../../../data/redux/actions/payments';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -32,18 +32,21 @@ const useStyles = makeStyles((theme) => ({
     },
     deleteButton: {
         backgroundColor: theme.status.error,
-        color: theme.palette.primary.main
+        color: theme.palette.primary.main,
     },
 }));
 
-const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
+const SendToInvoiceTable = ({
+    filteredSuggestions,
+    selectedOrders,
+}) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const showAll = useSelector((state) => state.payment.sendToExternalSystem.ordersOpen);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
     function handleIndividualCheck(event) {
-        const list = {...selectedOrders};
+        const list = { ...selectedOrders };
         list[event.target.value] = {
             checked: event.target.checked,
         };
@@ -70,7 +73,7 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
     }
 
     function handleAllChecked(event) {
-        const list = {...selectedOrders};
+        const list = { ...selectedOrders };
         for (let i = 0; i < filteredSuggestions.length; i += 1) {
             if (!(!showAll && i >= 10)) {
                 list[filteredSuggestions[i].orderNumber] = {
@@ -86,13 +89,15 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
     }
 
     function handleDeleteOrders() {
-        const keys = Object.keys(selectedOrders).filter((key) => selectedOrders[key].checked);
-        ClaimRepository.cancelPayments(keys).then(r => {
-            console.log(r);
-            dispatch(fetchPayments());
-            dispatch(updateSelectedOrders([]));
-            setDeleteDialogOpen(false);
-        });
+        const keys = Object.keys(selectedOrders)
+            .filter((key) => selectedOrders[key].checked);
+        ClaimRepository.cancelPayments(keys)
+            .then((r) => {
+                console.log(r);
+                dispatch(fetchPayments());
+                dispatch(updateSelectedOrders([]));
+                setDeleteDialogOpen(false);
+            });
     }
 
     function handleCloseDialog() {
@@ -118,17 +123,17 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
                                         />
                                         Velg alle
                                     </TableCell>
-                                    <TableCell align="right" colSpan="3"/>
+                                    <TableCell align="right" colSpan="3" />
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell align="right" className={classes.tableCell}/>
+                                    <TableCell align="right" className={classes.tableCell} />
                                     <TableCell>Ordrenummer</TableCell>
                                     <TableCell align="left" className={classes.tableCell}>Mottakernavn</TableCell>
                                     <TableCell align="right" className={classes.tableCell}>Restbeløp</TableCell>
                                 </TableRow>
                             </>
                         )
-                        : <TableRow/>}
+                        : <TableRow />}
 
                 </TableHead>
                 <TableBody>
@@ -151,15 +156,15 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
                                     {!showAll ? 'Vis alle' : 'Vis kun 10 første'}
                                 </Button>
                             </TableCell>
-                        ) : <TableCell colSpan={3}/>}
-                        <TableCell align={"right"}>
+                        ) : <TableCell colSpan={3} />}
+                        <TableCell align="right">
                             <Button
                                 disabled={Object.keys(selectedOrders)
                                     .filter((key) => selectedOrders[key].checked).length < 1}
                                 onClick={handleDeleteOrdersDialogOpen}
                                 variant="contained"
                                 className={classes.deleteButton}
-                                size={"small"}
+                                size="small"
                             >
                                 Slett valgte
                             </Button>
@@ -173,21 +178,22 @@ const SendToInvoiceTable = ({filteredSuggestions, selectedOrders}) => {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Slette ordre?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">Slette ordre?</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         Er du sikker på at du ønsker å slette ordrene du har valgt?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleCloseDialog} color="secondary" variant={"contained"}>
+                    <Button onClick={handleCloseDialog} color="secondary" variant="contained">
                         Nei
                     </Button>
-                    <Button onClick={handleDeleteOrders} color="secondary" autoFocus variant={"contained"}>
+                    <Button onClick={handleDeleteOrders} color="secondary" autoFocus variant="contained">
                         Ja
                     </Button>
                 </DialogActions>
-            </Dialog></>
+            </Dialog>
+        </>
     );
 };
 
