@@ -14,18 +14,20 @@ const useStyles = makeStyles(() => ({
 }));
 
 const PriceField = ({
-    value,
+    amount,
     itemCode,
     disabled,
     onChange,
 }) => {
     const classes = useStyles();
-    const [crowns, setCrowns] = useState(value);
-    const [ore, setOre] = useState('00');
+    const [crowns, setCrowns] = useState(parseInt((parseInt(amount, 10) / 100).toString(), 10));
+    const [ore, setOre] = useState(parseInt(amount, 10) % 1);
 
     function toOres(c, o) {
         return parseInt(c, 10) * 100 + parseInt(o, 10);
     }
+
+    const roundToCrowns = (o) => parseInt((parseInt(o, 10) / 100).toString(), 10);
 
     function onCrownsChanged(c) {
         setCrowns(c);
@@ -33,6 +35,7 @@ const PriceField = ({
     }
 
     function onOreChanged(o) {
+        console.log("øre", o)
         setOre(o);
         onChange(toOres(crowns, o), itemCode);
     }
@@ -69,7 +72,7 @@ PriceField.propTypes = {
     disabled: PropTypes.bool,
     itemCode: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
+    amount: PropTypes.string.isRequired,
 };
 
 export default PriceField;

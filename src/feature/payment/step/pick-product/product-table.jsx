@@ -70,7 +70,9 @@ const ProductTable = () => {
     };
 
     const handleItemPriceChange = (newItemPrice, itemCode) => {
+        console.log("newItemPrice", newItemPrice)
         const item = { ...productPrice };
+        console.log("oldItemPrice", item[itemCode])
         item[itemCode] = { itemPrice: newItemPrice };
         dispatch(updateProductPrice(item));
         dispatch(updateFailedProductForm(false));
@@ -181,8 +183,7 @@ const ProductTable = () => {
                                         <TableCell align="right" className={classes.tableCellPrice}>
                                             <PriceField
                                                 disabled={pickedProducts[suggestion.itemCode] ? !pickedProducts[suggestion.itemCode].checked : true}
-                                                value={getPrice(suggestion)
-                                                    .toString()}
+                                                amount={getPrice(suggestion).toString()}
                                                 itemCode={suggestion.itemCode}
                                                 onChange={handleItemPriceChange}
                                             />
