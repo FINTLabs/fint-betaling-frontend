@@ -94,9 +94,9 @@ const ProductSearch = () => {
         if (input.length > 0) {
             return (
                 suggestion.description.slice(0, input.length)
-                    .toLowerCase() === input
+                    .toLowerCase() === input.toLowerCase()
                 || suggestion.itemCode.slice(0, input.length)
-                    .toLowerCase() === input
+                    .toLowerCase() === input.toLowerCase()
             );
         }
         return false;
