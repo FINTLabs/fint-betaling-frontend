@@ -25,6 +25,8 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import ListItem from '@material-ui/core/ListItem';
+import axios from 'axios';
+import { useIdleTimer } from 'react-idle-timer';
 import VigoLogo from '../../assets/vigo-logo-no-iks.svg';
 import Routes from './routes';
 import OrganisationSelector from './organisation-selector';
@@ -158,6 +160,35 @@ export default function Scaffold() {
     const handleErrorClose = () => {
         setErrorAnchorEl(null);
     };
+
+    const handleOnIdle = () => {
+        console.log('user is idle');
+    };
+
+    const handleOnActive = (event) => {
+        console.log('Check if we are authenticated ', event);
+        axios.get('/api/me/ping')
+            .then((result) => {
+                if (result.status === 200 && result.data === 'Greatings for FINTLabs :)') {
+                    console.log('We\'re still authenticated');
+                } else if (result.status === 302) {
+                    window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
+                } else {
+                    console.log('We need to re-authenticate!');
+                    window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
+                }
+            })
+            .catch(() => {
+                console.log('We need to re-authenticate!');
+                window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
+            });
+    };
+    useIdleTimer({
+        timeout: me.me.idleTime,
+        onIdle: handleOnIdle,
+        onActive: handleOnActive,
+        debounce: 500,
+    });
 
 
     const school = useSelector((state) => state.payment.payment.school);

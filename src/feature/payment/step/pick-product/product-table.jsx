@@ -126,6 +126,7 @@ const ProductTable = () => {
                         <TableCell align="left">Navn</TableCell>
                         <TableCell align="left">Fritekst</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Kode</TableCell>
+                        <TableCell align="right" className={classes.tableCell}>Mva</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Netto pris pr. enhet</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Antall</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Netto sum</TableCell>
@@ -176,7 +177,12 @@ const ProductTable = () => {
                                         <TableCell align="right" className={classes.tableCell}>
                                             {suggestion.itemCode
                                                 ? suggestion.itemCode
-                                                : ''}
+                                                : '-'}
+                                        </TableCell>
+                                        <TableCell align="right" className={classes.tableCell}>
+                                            {suggestion.taxrate
+                                                ? `${(parseInt(suggestion.taxrate, 10) / 10).toString()}%`
+                                                : '-'}
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCellPrice}>
                                             <PriceField
