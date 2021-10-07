@@ -75,6 +75,8 @@ const ConfirmSend = () => {
             organisationNumber: schoolOrgId,
         };
 
+        setIsClaimSent(true);
+
         ClaimRepository.setPayment(
             orgId,
             JSON.parse(JSON.stringify(recipientsList)),
@@ -84,7 +86,6 @@ const ConfirmSend = () => {
             me,
         )
             .then((data) => {
-                setIsClaimSent(true);
                 dispatch(updateStep(STEP_PAYMENT_CONFIRMED));
                 dispatch(updateLatestSentPayment(data));
                 dispatch(updateNeedFetch(true));
