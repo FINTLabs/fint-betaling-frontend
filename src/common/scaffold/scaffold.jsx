@@ -34,7 +34,6 @@ import fetchMe from '../../data/redux/actions/me';
 import {
     initializePayment, setOrgId, setSchool, setSchoolOrgId,
 } from '../../data/redux/actions/payment';
-import ListItemLink from './list-item-link';
 import UnsendtAlertButton from './unsendt-alert-button';
 import ErrorAlertButton from './error-alert-button';
 import fetchPayments from '../../data/redux/actions/payments';
@@ -379,10 +378,16 @@ export default function Scaffold() {
                         <ListItemText primary="Ordrehistorikk" />
                     </ListItem>
                     <Divider />
-                    <ListItemLink href="/AGLogout">
-                        <ListItemIcon><LogOutIcon /></ListItemIcon>
+                    <ListItem
+                        button
+                        component="a"
+                        href="https://idp.felleskomponent.no/nidp/app/logout"
+                    >
+                        <ListItemIcon>
+                            <LogOutIcon />
+                        </ListItemIcon>
                         <ListItemText primary="Logg ut" />
-                    </ListItemLink>
+                    </ListItem>
                 </List>
             </Drawer>
             <main

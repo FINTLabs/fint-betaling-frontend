@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Box, Paper } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
@@ -24,6 +24,8 @@ const ConfirmSend = () => {
     const productsDescription = useSelector((state) => state.payment.product.description);
     const customers = useSelector((state) => state.customers.customers);
     const principal = useSelector((state) => state.principal.principal);
+    // Todo: Do we need this if we redirect to payment confirmed immediately?
+    const [isClaimSent, setIsClaimSent] = useState(false);
     const orgId = 'fake.fintlabs.no';
 
     function handleSendInvoice() {
@@ -82,8 +84,9 @@ const ConfirmSend = () => {
             me,
         )
             .then((data) => {
-                dispatch(updateLatestSentPayment(data));
+                setIsClaimSent(true);
                 dispatch(updateStep(STEP_PAYMENT_CONFIRMED));
+                dispatch(updateLatestSentPayment(data));
                 dispatch(updateNeedFetch(true));
             });
     }
@@ -123,6 +126,7 @@ const ConfirmSend = () => {
                             Tilbake
                         </Button>
                         <Button
+                            disabled={isClaimSent}
                             variant="contained"
                             color="secondary"
                             onClick={handleSendInvoice}
