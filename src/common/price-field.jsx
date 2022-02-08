@@ -21,13 +21,11 @@ const PriceField = ({
 }) => {
     const classes = useStyles();
     const [crowns, setCrowns] = useState(parseInt((parseInt(amount, 10) / 100).toString(), 10));
-    const [ore, setOre] = useState(parseInt(amount, 10) % 1);
+    const [ore, setOre] = useState(Math.trunc(parseInt(amount, 10) % 100));
 
     function toOres(c, o) {
         return parseInt(c, 10) * 100 + parseInt(o, 10);
     }
-
-    const roundToCrowns = (o) => parseInt((parseInt(o, 10) / 100).toString(), 10);
 
     function onCrownsChanged(c) {
         setCrowns(c);
@@ -35,7 +33,6 @@ const PriceField = ({
     }
 
     function onOreChanged(o) {
-        console.log("øre", o)
         setOre(o);
         onChange(toOres(crowns, o), itemCode);
     }
@@ -55,7 +52,7 @@ const PriceField = ({
             />
             <TextField
                 disabled={disabled}
-                value={ore}
+                value={ore === 0 ? '00' : ore}
                 onChange={(e) => onOreChanged(e.target.value)}
                 onBlur={(e) => onOreChanged(e.target.value.padEnd(2, '0'))}
                 className={classes.ore}

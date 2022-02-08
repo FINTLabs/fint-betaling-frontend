@@ -93,10 +93,8 @@ const ProductSearch = () => {
     function matchedProduct(suggestion, input) {
         if (input.length > 0) {
             return (
-                suggestion.description.slice(0, input.length)
-                    .toLowerCase() === input
-                || suggestion.itemCode.slice(0, input.length)
-                    .toLowerCase() === input
+                suggestion.description.toLowerCase().includes(input.toLowerCase())
+                || suggestion.itemCode.slice(0, input.length) === input
             );
         }
         return false;
@@ -165,7 +163,8 @@ const ProductSearch = () => {
         keys.filter((key) => pickedProducts[key].checked)
             .map((key) => {
                 if (productAmount[key] && productPrice[key]) {
-                    if (!(productPrice[key].itemPrice && productAmount[key].amount && productPrice[key].itemPrice !== 0 && productAmount[key].amount.toString() !== '0')) {
+                    if (!(productPrice[key].itemPrice && productAmount[key].amount
+                        && productPrice[key].itemPrice !== 0 && productAmount[key].amount.toString() !== '0')) {
                         formFilledCorrect = false;
                     }
                 } else {
