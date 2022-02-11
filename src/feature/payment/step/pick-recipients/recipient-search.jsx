@@ -48,11 +48,9 @@ const RecipientSearch = () => {
     function matchedSuggestion(suggestion, input) {
         if (input.length > 0) {
             if (recipientType === GROUP) {
-                return suggestion.name.slice(0, input.length)
-                    .toLowerCase() === input;
+                return suggestion.name.toLowerCase().includes(input.toLowerCase());
             }
-            if (suggestion.name.slice(0, input.length)
-                .toLowerCase() === input) {
+            if (suggestion.name.toLowerCase().includes(input.toLowerCase())) {
                 return true;
             }
             for (let i = 0; i < splitCustomers[suggestion.id].length; i++) {
