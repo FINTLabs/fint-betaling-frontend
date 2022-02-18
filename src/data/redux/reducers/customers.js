@@ -5,7 +5,6 @@ import {
     UPDATE_CUSTOMER_NAMES_SPLIT,
 } from '../actions/actions';
 
-
 export const defaultState = {
     customers: [],
     isLoading: false,

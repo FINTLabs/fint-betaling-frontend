@@ -67,11 +67,50 @@ const PickPaymentRecipient = () => {
         }
     }, [dispatch, schoolOrgId]);
 
-    function handleSearchBy(event) {
+    const handleSearchBy = (event) => {
         dispatch(updateSearchBy(event.target.value));
         dispatch(updateSearchValue(''));
         dispatch(updateSuggestions(event.target.value === GROUP ? groups : individual));
         dispatch(updateSearchPage(SEARCH_PAGE_START));
+    };
+
+    function handleRecipientList(individualList) {
+        const recipientList = { ...recipients };
+        for (let customer = 0; customer < individualList.length; customer += 1) {
+            const customerNumber = individualList[customer].id;
+            recipientList[customerNumber] = {
+                checked: true,
+                name: individualList[customer].name,
+                email: individualList[customer].email ? individualList[customer].email : '',
+                cellPhoneNumber: individualList[customer].mobile ? individualList[customer].mobile : '',
+                addressLine: individualList[customer].postalAddress ? individualList[customer].postalAddress : '',
+                addressZip: individualList[customer].postalCode ? individualList[customer].postalCode : '',
+                addressPlace: individualList[customer].city ? individualList[customer].city : '',
+            };
+        }
+        dispatch(updateRecipients(recipientList));
+    }
+
+    function sendToBackend(file) {
+        FileRepository.sendFile(schoolOrgId, file)
+            .then((r) => {
+                console.log(r);
+                if (r[0].status === 200) {
+                    setCustomersFromBackend(r[1]);
+                    setCustomerNotFoundOpen(true);
+                    handleRecipientList(r[1].foundCustomers.customers);
+                    setFileAlertOpen(false);
+                } else if (r[0].status === 415) {
+                    setFileRejectOpen(true);
+                    setErrormessage(r[1].message);
+                } else if (r[0].status === 400) {
+                    setFileRejectOpen(true);
+                    setErrormessage(r[1].message);
+                } else {
+                    setFileRejectOpen(true);
+                    setErrormessage('Ukjent feil');
+                }
+            });
     }
 
     function MyDropzone() {
@@ -98,7 +137,9 @@ const PickPaymentRecipient = () => {
         });
 
         return (
+            // eslint-disable-next-line react/jsx-props-no-spreading
             <div {...getRootProps()}>
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
                 <input {...getInputProps()} />
                 <Box display="flex" justifyContent="center">
                     <Typography>
@@ -112,57 +153,18 @@ const PickPaymentRecipient = () => {
         );
     }
 
-    function handleClose() {
+    const handleClose = () => {
         setFileAlertOpen(false);
-    }
+    };
 
-    function handleRecjectClose() {
+    const handleRecjectClose = () => {
         setFileRejectOpen(false);
         setErrormessage('');
-    }
+    };
 
-    function sendToBackend(file) {
-        FileRepository.sendFile(schoolOrgId, file)
-            .then((r) => {
-                console.log(r);
-                if (r[0].status === 200) {
-                    setCustomersFromBackend(r[1]);
-                    setCustomerNotFoundOpen(true);
-                    handleRecipientList(r[1].foundCustomers.customers);
-                    setFileAlertOpen(false);
-                } else if (r[0].status === 415) {
-                    setFileRejectOpen(true);
-                    setErrormessage(r[1].message);
-                } else if (r[0].status === 400) {
-                    setFileRejectOpen(true);
-                    setErrormessage(r[1].message);
-                } else {
-                    setFileRejectOpen(true);
-                    setErrormessage('Ukjent feil');
-                }
-            });
-    }
-
-    function handleRecipientList(individualList) {
-        const recipientList = { ...recipients };
-        for (let customer = 0; customer < individualList.length; customer += 1) {
-            const customerNumber = individualList[customer].id;
-            recipientList[customerNumber] = {
-                checked: true,
-                name: individualList[customer].name,
-                email: individualList[customer].email ? individualList[customer].email : '',
-                cellPhoneNumber: individualList[customer].mobile ? individualList[customer].mobile : '',
-                addressLine: individualList[customer].postalAddress ? individualList[customer].postalAddress : '',
-                addressZip: individualList[customer].postalCode ? individualList[customer].postalCode : '',
-                addressPlace: individualList[customer].city ? individualList[customer].city : '',
-            };
-        }
-        dispatch(updateRecipients(recipientList));
-    }
-
-    function handleNotFoundClose() {
+    const handleNotFoundClose = () => {
         setCustomerNotFoundOpen(false);
-    }
+    };
 
     return (
         <Box width="90%" mt={4}>
@@ -232,20 +234,24 @@ const PickPaymentRecipient = () => {
                     <DialogTitle id="simple-dialog-title">Opplasting klar</DialogTitle>
                     <DialogContent>
                         <List>
-                            {customersFromBackEnd && customersFromBackEnd.foundCustomers && customersFromBackEnd.foundCustomers.customers.length > 0
-                            && <b>Følgende lagt til som mottaker:</b>}
+                            {customersFromBackEnd
+                                && customersFromBackEnd.foundCustomers
+                                && customersFromBackEnd.foundCustomers.customers.length > 0
+                                && <b>Følgende lagt til som mottaker:</b>}
                             {customersFromBackEnd && customersFromBackEnd.foundCustomers.customers.map((customer) => (
-                                <ListItem>
+                                <ListItem key={customer.name}>
                                     {' '}
                                     {customer.name}
                                 </ListItem>
                             ))}
                         </List>
                         <List>
-                            {customersFromBackEnd && customersFromBackEnd.notFoundCustomers && customersFromBackEnd.notFoundCustomers.length > 0
-                            && <b>Fant ikke følgende på din skole:</b>}
+                            {customersFromBackEnd
+                                && customersFromBackEnd.notFoundCustomers
+                                && customersFromBackEnd.notFoundCustomers.length > 0
+                                && <b>Fant ikke følgende på din skole:</b>}
                             {customersFromBackEnd && customersFromBackEnd.notFoundCustomers.map((customer) => (
-                                <ListItem>
+                                <ListItem key={customer}>
                                     {' '}
                                     {customer}
                                 </ListItem>

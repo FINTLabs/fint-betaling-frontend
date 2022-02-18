@@ -41,9 +41,9 @@ const PaymentsTable = () => {
         ? []
         : suggestionTemp;
 
-    function handleChangePage(event, newPage) {
+    const handleChangePage = (event, newPage) => {
         dispatch(updateSearchPage(newPage));
-    }
+    };
 
     if (query.length < 1) {
         return <div />;

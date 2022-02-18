@@ -6,7 +6,6 @@ import ConfirmRemoveIcon from '@material-ui/icons/DeleteForever';
 import RemoveIcon from '@material-ui/icons/Delete';
 import PropTypes from 'prop-types';
 
-
 const useStyles = makeStyles((theme) => ({
     removeAllBox: {
         display: 'flex',
@@ -77,6 +76,7 @@ const ChipsListContainer = ({
                         ((step !== '1' || (step === '1' && content !== 'recipient')) && !deleteConfirmed)
                         && <Typography variant="caption" pl={1}>{deleteText}</Typography>
                     }
+                    {/* eslint-disable-next-line no-nested-ternary */}
                     {(step !== '1' || content !== 'recipient')
                         ? deleteConfirmed
                             ? (
@@ -114,12 +114,16 @@ const ChipsListContainer = ({
     );
 };
 
-
 ChipsListContainer.propTypes = {
     children: PropTypes.any.isRequired,
     count: PropTypes.number.isRequired,
     onClear: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
+    content: PropTypes.string,
+};
+
+ChipsListContainer.defaultProps = {
+    content: '',
 };
 
 export default ChipsListContainer;

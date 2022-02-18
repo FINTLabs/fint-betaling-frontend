@@ -25,6 +25,15 @@ const ConfirmedProducts = () => {
     const productPrice = useSelector((state) => state.payment.product.itemPrice);
     const productDescription = useSelector((state) => state.payment.product.description);
 
+    const getProductDescription = (k) => {
+        if (productDescription) {
+            if (productDescription[k]) {
+                return productDescription[k].description;
+            }
+        }
+        return '';
+    };
+
     return (
         <Box p={2} width={1}>
             <Typography variant="h6" className={classes.recipientHeader}>
@@ -51,7 +60,7 @@ const ConfirmedProducts = () => {
                                     <TableCell
                                         align="left"
                                     >
-                                        {productDescription ? productDescription[key] ? productDescription[key].description : '' : ''}
+                                        {getProductDescription(key)}
                                     </TableCell>
                                     <TableCell align="right" component="th" scope="row">
                                         {key}

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
@@ -97,7 +98,6 @@ const UnsendtAlertButton = (props) => {
     const unsendtPayments = payments.filter((payment) => payment.claimStatus === 'STORED'
         && payment.createdBy.name === me.name).length;
 
-
     const open = Boolean(anchorEl);
     const id = open ? 'spring-popper' : undefined;
 
@@ -161,4 +161,11 @@ const UnsendtAlertButton = (props) => {
     );
 };
 
+UnsendtAlertButton.propTypes = {
+    handleClick: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    anchorEl: PropTypes.func.isRequired,
+    arrowRef: PropTypes.func.isRequired,
+    setArrowRef: PropTypes.func.isRequired,
+};
 export default UnsendtAlertButton;

@@ -7,11 +7,9 @@ import {
 } from './actions';
 import GroupRepository from '../../repository/GroupRepository';
 
-
 export default function fetchCustomer(schoolOrgId) {
     return (dispatch) => {
         dispatch({ type: FETCH_CUSTOMERS });
-
 
         GroupRepository.fetchAllCustomersFromSchool(schoolOrgId)
             .then(([result, json]) => {

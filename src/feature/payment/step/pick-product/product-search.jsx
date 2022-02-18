@@ -89,7 +89,6 @@ const ProductSearch = () => {
     const productsLength = searchValue.length === 0 ? 0 : productsLengthTemp;
     const searchPlaceHolder = 'Produktnavn eller produktkode';
 
-
     function matchedProduct(suggestion, input) {
         if (input.length > 0) {
             return (
@@ -139,10 +138,10 @@ const ProductSearch = () => {
         return array.length;
     }
 
-    function handleSearchValue(event) {
+    const handleSearchValue = (event) => {
         dispatch(updateSearchPage(SEARCH_PAGE_START));
         dispatch(updateProductSearchValue(event.target.value));
-    }
+    };
 
     const getProductsLengthCallback = useCallback(getProductsLength, [getProductsLength]);
     const getSuggestionsCallback = useCallback(getSuggestions, [getSuggestions]);
@@ -157,7 +156,7 @@ const ProductSearch = () => {
             .filter((key) => pickedProducts[key].checked).length === 0;
     }
 
-    function handleOnClickConfirmProducts() {
+    const handleOnClickConfirmProducts = () => {
         let formFilledCorrect = true;
         const keys = Object.keys(pickedProducts);
         keys.filter((key) => pickedProducts[key].checked)
@@ -178,11 +177,11 @@ const ProductSearch = () => {
         } else {
             dispatch(updateFailedProductForm(true));
         }
-    }
+    };
 
-    function handleBackwardClick() {
+    const handleBackwardClick = () => {
         dispatch(updateStep(STEP_PICK_RECIPIENTS));
-    }
+    };
 
     return (
         <Box>

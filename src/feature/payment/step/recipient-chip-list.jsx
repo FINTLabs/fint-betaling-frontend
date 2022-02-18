@@ -71,9 +71,7 @@ const RecipientChipList = () => {
 
     const [timer, setTimer] = React.useState(null);
 
-
     const recipientsKeys = Object.keys(recipients);
-
 
     const sortedRecipients = [];
 
@@ -90,13 +88,13 @@ const RecipientChipList = () => {
 
     sortedRecipients.sort((a, b) => (a.name > b.name ? 1 : -1));
 
-    function toggleShowAllRecipients() {
+    const toggleShowAllRecipients = () => {
         dispatch(updateShowAllRecipients(!showAllRecipients));
-    }
+    };
 
-    function clearSelection() {
+    const clearSelection = () => {
         dispatch(clearRecipients());
-    }
+    };
 
     function handleDelete(key, label) {
         const checkedRecipients = { ...recipients };

@@ -1,6 +1,5 @@
 import { FETCH_PAYMENTS, FETCH_PAYMENTS_FULFILLED, FETCH_PAYMENTS_REJECTED } from '../actions/actions';
 
-
 export const defaultState = {
     payments: [],
     isLoading: false,

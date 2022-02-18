@@ -34,10 +34,9 @@ const OrderChipList = () => {
     const showAll = useSelector((state) => state.payment.recipientList.showAll);
     const selectedOrderListKeys = Object.keys(selectedOrders);
 
-
-    function toggleShowAll() {
+    const toggleShowAll = () => {
         dispatch(updateShowAllRecipients(!showAll));
-    }
+    };
 
     function handleDelete(key) {
         const newArray = { ...selectedOrders };

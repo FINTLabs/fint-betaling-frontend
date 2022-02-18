@@ -11,7 +11,6 @@ import { FILTER_ALL, ORDER_NUMBER, SEARCH_PAGE_ROWS } from '../payment/constants
 import filterSuggestions from '../payment/utils/filter';
 import SearchField from '../../common/search-field';
 
-
 const PaymentSearch = () => {
     const dispatch = useDispatch();
 
@@ -26,16 +25,16 @@ const PaymentSearch = () => {
     const activePage = useSelector((state) => state.payment.form.page);
     const rowsPerPage = SEARCH_PAGE_ROWS;
 
-    function matchedPayment(suggestion, input) {
+    const matchedPayment = (suggestion, input) => {
         if (input.length > 0) {
             return searchBy === ORDER_NUMBER
                 ? suggestion.orderNumber.includes(input)
-                : suggestion.customer.name.includes(input);
+                : suggestion.customer.name.indexOf(input);
         }
         return false;
-    }
+    };
 
-    function getPaymentsLength(input) {
+    const getPaymentsLength = (input) => {
         const array = [];
         suggestions.filter((suggestion) => {
             if (matchedPayment(suggestion, input)
@@ -45,7 +44,7 @@ const PaymentSearch = () => {
             return null;
         });
         return array.length;
-    }
+    };
 
     const getPaymentsLengthCallback = useCallback(
         getPaymentsLength,
@@ -68,7 +67,7 @@ const PaymentSearch = () => {
         searchBy,
         suggestions]);
 
-    function handleSearchValue(event) {
+    const handleSearchValue = (event) => {
         dispatch(updateSuggestionLength(getPaymentsLength(event.target.value)));
         dispatch(updatePaymentsSearchValue(event.target.value));
         dispatch(updatePaymentsSuggestions(filterSuggestions(event.target.value,
@@ -76,8 +75,7 @@ const PaymentSearch = () => {
             searchBy,
             filterValue,
             activePage * rowsPerPage)));
-    }
-
+    };
 
     return (
         <Box width={1}>

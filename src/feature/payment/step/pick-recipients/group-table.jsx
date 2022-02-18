@@ -53,15 +53,14 @@ const GroupTable = () => {
     let suggestions = useSelector((state) => state.payment.form.filteredSuggestions);
     suggestions = query.length === 0 ? [] : suggestions;
 
-
-    function handleIndividualCheck(event) {
+    const handleIndividualCheck = (event) => {
         const recipientList = { ...recipients };
         recipientList[event.target.value] = {
             checked: event.target.checked,
             name: event.target.name,
         };
         dispatch(updateRecipients(recipientList));
-    }
+    };
 
     function handleGroupChange(event, individualList) {
         const recipientList = { ...recipients };
@@ -100,11 +99,9 @@ const GroupTable = () => {
         dispatch(updateGroupContentOpen(newArray));
     }
 
-
-    function handleChangePage(event, newPage) {
+    const handleChangePage = (event, newPage) => {
         dispatch(updateSearchPage(newPage));
-    }
-
+    };
 
     return (
         <Box>
@@ -138,7 +135,9 @@ const GroupTable = () => {
                                                     : groupCheckboxIndeterminateCheck(suggestion.customers)}
                                                 checked={groupShouldBeChecked(suggestion.customers)}
                                                 color={groupContentOpen[recipient] ? 'primary' : 'secondary'}
-                                                className={groupContentOpen[recipient] ? classes.checkBoxContentOpen : null}
+                                                className={groupContentOpen[recipient]
+                                                    ? classes.checkBoxContentOpen
+                                                    : null}
                                             />
                                         </TableCell>
                                         <TableCell align="left" className={classes.tableCell}>

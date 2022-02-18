@@ -36,7 +36,6 @@ export default function PaymentStepper() {
                 {steps.map((label) => (
                     <Step key={label}>
                         <StepLabel
-
                             StepIconProps={{
                                 classes: {
                                     root: classes.root,

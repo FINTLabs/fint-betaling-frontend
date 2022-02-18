@@ -45,13 +45,13 @@ const SendToInvoiceTable = ({
     const showAll = useSelector((state) => state.payment.sendToExternalSystem.ordersOpen);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-    function handleIndividualCheck(event) {
+    const handleIndividualCheck = (event) => {
         const list = { ...selectedOrders };
         list[event.target.value] = {
             checked: event.target.checked,
         };
         dispatch(updateSelectedOrders(list));
-    }
+    };
 
     function displayedOrderIsInSelectedOrders(orderNumber) {
         return Object.keys(selectedOrders)
@@ -72,7 +72,7 @@ const SendToInvoiceTable = ({
         return allChecked;
     }
 
-    function handleAllChecked(event) {
+    const handleAllChecked = (event) => {
         const list = { ...selectedOrders };
         for (let i = 0; i < filteredSuggestions.length; i += 1) {
             if (!(!showAll && i >= 10)) {
@@ -82,31 +82,32 @@ const SendToInvoiceTable = ({
             }
         }
         dispatch(updateSelectedOrders(list));
-    }
+    };
 
-    function onShowAll() {
+    const onShowAll = () => {
         dispatch(updateOrdersOpen(!showAll));
-    }
+    };
 
-    function handleDeleteOrders() {
+    const handleDeleteOrders = () => {
         const keys = Object.keys(selectedOrders)
             .filter((key) => selectedOrders[key].checked);
         ClaimRepository.cancelPayments(keys)
             .then((r) => {
+                // eslint-disable-next-line no-console
                 console.log(r);
                 dispatch(fetchPayments());
                 dispatch(updateSelectedOrders([]));
                 setDeleteDialogOpen(false);
             });
-    }
+    };
 
-    function handleCloseDialog() {
+    const handleCloseDialog = () => {
         setDeleteDialogOpen(false);
-    }
+    };
 
-    function handleDeleteOrdersDialogOpen() {
+    const handleDeleteOrdersDialogOpen = () => {
         setDeleteDialogOpen(true);
-    }
+    };
 
     return (
         <>
@@ -196,7 +197,6 @@ const SendToInvoiceTable = ({
         </>
     );
 };
-
 
 SendToInvoiceTable.propTypes = {
     filteredSuggestions: PropTypes.array.isRequired,

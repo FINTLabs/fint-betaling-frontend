@@ -1,11 +1,9 @@
 import { FETCH_PAYMENTS, FETCH_PAYMENTS_FULFILLED, FETCH_PAYMENTS_REJECTED } from './actions';
 import ClaimRepository from '../../repository/ClaimRepository';
 
-
 export default function fetchPayments() {
     return (dispatch) => {
         dispatch({ type: FETCH_PAYMENTS });
-
 
         ClaimRepository.fetchPayments()
             .then(([result, json]) => {

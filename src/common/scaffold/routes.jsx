@@ -7,7 +7,6 @@ import PaymentHistoryContainer from '../../feature/payment-history/payment-histo
 import SendToInvoiceContainer from '../../feature/payment/send-payment-to-invoice/send-to-invoice-container';
 import SentToExternalContainer from '../../feature/payment/sent-payment-to-external/sent-to-external-container';
 
-
 const Routes = () => (
     <Box display="flex" flexDirection="column" alignItems="center">
         <Route exact path="/" component={DashboardContainer} />

@@ -20,7 +20,6 @@ import {
 import SearchField from '../../../common/search-field';
 import SendToInvoiceTable from './send-to-invoice-table';
 
-
 const SendToInvoiceContainer = () => {
     const dispatch = useDispatch();
 
@@ -51,18 +50,17 @@ const SendToInvoiceContainer = () => {
         dispatch(updateNeedFetch(false));
     }
 
-
-    function handleSearchValue(event) {
+    const handleSearchValue = (event) => {
         dispatch(updateOrderSearchValue(event.target.value));
-    }
+    };
 
-    function clearSearchValue() {
+    const clearSearchValue = () => {
         dispatch(updateOrderSearchValue(''));
         dispatch(updateLatestSentPayment({}));
         dispatch(updateSelectedOrders([]));
-    }
+    };
 
-    function handleConfirmSendPayments() {
+    const handleConfirmSendPayments = () => {
         ClaimRepository.sendOrders(
             orgId,
             Object.keys(selectedOrders)
@@ -92,8 +90,7 @@ const SendToInvoiceContainer = () => {
             });
         dispatch(updateLoadingSendingInvoice(true));
         clearSearchValue();
-    }
-
+    };
 
     return (
         <Box width="80%" alignSelf="center" mt={4}>

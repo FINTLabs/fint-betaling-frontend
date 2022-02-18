@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 const FilterSelect = () => {
     const classes = useStyles();
     const activePage = useSelector((state) => state.payment.form.page);
@@ -56,7 +55,7 @@ const FilterSelect = () => {
         return array.length;
     }
 
-    function handleChange(event) {
+    const handleChange = (event) => {
         dispatch(updatePaymentFilterValue(event.target.value));
         dispatch(updateSearchPage(SEARCH_PAGE_START));
         dispatch(updateSuggestionLength(getPaymentsLength(searchValue, event.target.value)));
@@ -67,7 +66,7 @@ const FilterSelect = () => {
             event.target.value,
             activePage * rowsPerPage,
         )));
-    }
+    };
 
     return (
         <Box>

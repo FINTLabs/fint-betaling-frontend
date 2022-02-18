@@ -14,10 +14,10 @@ const PaymentStatusMessageDialog = () => {
     const statusOpen = useSelector((state) => state.payment.payment.statusOpen);
     const statusMessage = useSelector((state) => state.payment.payment.statusContent);
 
-    function handleClose() {
+    const handleClose = () => {
         dispatch(updateOrderStatusOpen(false));
         dispatch(updateOrderStatusContent(''));
-    }
+    };
 
     return (
         <Dialog

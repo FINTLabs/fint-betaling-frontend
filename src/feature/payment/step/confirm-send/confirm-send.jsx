@@ -11,7 +11,6 @@ import { updateLatestSentPayment, updateNeedFetch, updateStep } from '../../../.
 import ClaimRepository from '../../../../data/repository/ClaimRepository';
 import { STEP_PAYMENT_CONFIRMED, STEP_PICK_PRODUCTS } from '../../constants';
 
-
 const ConfirmSend = () => {
     const dispatch = useDispatch();
     const me = useSelector((state) => state.me.me);
@@ -28,14 +27,14 @@ const ConfirmSend = () => {
     const [isClaimSent, setIsClaimSent] = useState(false);
     const orgId = 'fake.fintlabs.no';
 
-    function handleSendInvoice() {
-        function getRecipientsAsObjects(recipients) {
+    const handleSendInvoice = () => {
+        function getRecipientsAsObjects(recipientsX) {
             const list = [];
-            Object.keys(recipients)
+            Object.keys(recipientsX)
                 .map((key) => {
-                    for (let i = 0; i < customers.length; i++) {
+                    for (let i = 0; i < customers.length; i += 1) {
                         const customer = customers[i];
-                        if (key === customer.id && recipients[key].checked) {
+                        if (key === customer.id && recipientsX[key].checked) {
                             list.push(customer);
                         }
                     }
@@ -44,21 +43,21 @@ const ConfirmSend = () => {
             return list;
         }
 
-        function getProductsAsObjects(products, amount, price, description) {
+        function getProductsAsObjects(productsX, amount, price, description) {
             const list = [];
-            Object.keys(products)
+            Object.keys(productsX)
                 .map((key) => {
-                    if (products[key].checked) {
+                    if (productsX[key].checked) {
                         const orderLine = {
                             description: description ? description[key].description : '',
                             itemQuantity: amount[key].amount,
                             itemPrice: price[key].itemPrice,
                             lineitem: {
                                 itemCode: key,
-                                itemPrice: products[key].itemPrice,
-                                taxrate: products[key].taxRate,
-                                description: products[key].description,
-                                uri: products[key].uri,
+                                itemPrice: productsX[key].itemPrice,
+                                taxrate: productsX[key].taxRate,
+                                description: productsX[key].description,
+                                uri: productsX[key].uri,
                             },
                         };
                         list.push(orderLine);
@@ -90,11 +89,11 @@ const ConfirmSend = () => {
                 dispatch(updateLatestSentPayment(data));
                 dispatch(updateNeedFetch(true));
             });
-    }
+    };
 
-    function handleBackwardClick() {
+    const handleBackwardClick = () => {
         dispatch(updateStep(STEP_PICK_PRODUCTS));
-    }
+    };
 
     return (
         <Box width={1} m={2}>

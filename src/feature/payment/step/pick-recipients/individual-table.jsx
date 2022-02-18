@@ -67,9 +67,9 @@ const IndividualTable = () => {
         dispatch(updateRecipients(newArray));
     }
 
-    function handleChangePage(event, newPage) {
+    const handleChangePage = (event, newPage) => {
         dispatch(updateSearchPage(newPage));
-    }
+    };
 
     return (
         <Box>

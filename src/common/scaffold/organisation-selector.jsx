@@ -8,7 +8,6 @@ import OrganisationIcon from '@material-ui/icons/Domain';
 import Divider from '@material-ui/core/Divider';
 import { setSchool, setSchoolOrgId } from '../../data/redux/actions/payment';
 
-
 const useStyles = makeStyles((theme) => ({
     organisationButton: {
         margin: theme.spacing(1),
@@ -25,9 +24,9 @@ const OrganisationSelector = () => {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
 
-    function handleClick(event) {
+    const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-    }
+    };
 
     function handleSchoolClick(selectedSchool, schoolOrgId) {
         dispatch(setSchool(selectedSchool));
@@ -39,9 +38,9 @@ const OrganisationSelector = () => {
         setAnchorEl(null);
     }
 
-    function handleClose() {
+    const handleClose = () => {
         setAnchorEl(null);
-    }
+    };
 
     return (
         <Box display="flex" justifyContent="flex-end">

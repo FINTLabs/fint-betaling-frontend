@@ -80,16 +80,15 @@ const SentToExternalContainer = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-
-    function handleStatusClick(event, errormessage) {
+    const handleStatusClick = (event, errormessage) => {
         dispatch(updateOrderStatusContent(errormessage));
         dispatch(updateOrderStatusOpen(true));
-    }
+    };
 
-    function handleClose() {
+    const handleClose = () => {
         dispatch(updateOrderStatusOpen(false));
         dispatch(updateOrderStatusContent(''));
-    }
+    };
 
     return (
         <Box className={classes.root}>

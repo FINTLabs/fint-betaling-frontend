@@ -22,10 +22,10 @@ const PaymentHistoryContainer = () => {
         dispatch(updateNeedFetch(false));
     }
 
-    function handleSearchBy(event) {
+    const handleSearchBy = (event) => {
         dispatch(updatePaymentsSearchBy(event.target.value));
         dispatch(updatePaymentsSearchValue(''));
-    }
+    };
 
     return (
         <Box minWidth="80%" mt={4}>

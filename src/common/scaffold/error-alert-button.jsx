@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
@@ -12,6 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import RouteButton from '../route-button';
+// import ChipsListContainer from '../chips-list-container';
 
 const useStyles = makeStyles((theme) => ({
     popover: {
@@ -100,7 +102,6 @@ const ErrorAlertButton = (props) => {
     const open = Boolean(anchorEl);
     const id = open ? 'spring-popper' : undefined;
 
-
     return (
         <Box>
             <IconButton
@@ -159,6 +160,14 @@ const ErrorAlertButton = (props) => {
             </Popper>
         </Box>
     );
+};
+
+ErrorAlertButton.propTypes = {
+    handleClick: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    anchorEl: PropTypes.func.isRequired,
+    arrowRef: PropTypes.func.isRequired,
+    setArrowRef: PropTypes.func.isRequired,
 };
 
 export default ErrorAlertButton;

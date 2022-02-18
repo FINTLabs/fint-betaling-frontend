@@ -38,7 +38,6 @@ import UnsendtAlertButton from './unsendt-alert-button';
 import ErrorAlertButton from './error-alert-button';
 import fetchPayments from '../../data/redux/actions/payments';
 
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -189,7 +188,6 @@ export default function Scaffold() {
         debounce: 500,
     });
 
-
     const school = useSelector((state) => state.payment.payment.school);
 
     let localStorageSchool = localStorage.getItem('school');
@@ -213,7 +211,6 @@ export default function Scaffold() {
         }
         dispatch(fetchPayments());
     }, [dispatch, me.me]);
-
 
     if (me.loaded && school.toString() === '') {
         localStorage.setItem('school', localStorageSchool
@@ -244,14 +241,13 @@ export default function Scaffold() {
         ));
     }
 
-
-    function handleDrawerOpen() {
+    const handleDrawerOpen = () => {
         setOpen(true);
-    }
+    };
 
-    function handleDrawerClose() {
+    const handleDrawerClose = () => {
         setOpen(false);
-    }
+    };
 
     const loading = isCustomersLoading
         || isGroupsLoading
@@ -356,7 +352,6 @@ export default function Scaffold() {
                         <ListItemIcon><NewInvoiceIcon /></ListItemIcon>
                         <ListItemText primary="Opprett ordre" />
                     </ListItem>
-
 
                     <ListItem
                         button
