@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { Box, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, TextField } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
     ore: {
@@ -40,6 +40,7 @@ const PriceField = ({
     return (
         <Box display="flex" justifyContent="flex-end">
             <TextField
+                variant="standard"
                 className={classes.crown}
                 disabled={disabled}
                 value={crowns}
@@ -51,6 +52,7 @@ const PriceField = ({
                 }}
             />
             <TextField
+                variant="standard"
                 disabled={disabled}
                 value={ore === 0 ? '00' : ore}
                 onChange={(e) => onOreChanged(e.target.value)}

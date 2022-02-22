@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, makeStyles, Typography } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { Box, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import Button from '@mui/material/Button';
 import ProductTable from './product-table';
 import {
     updateFailedProductForm,

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Box, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useSelector } from 'react-redux';
-import ConfirmRemoveIcon from '@material-ui/icons/DeleteForever';
-import RemoveIcon from '@material-ui/icons/Delete';
+import ConfirmRemoveIcon from '@mui/icons-material/DeleteForever';
+import RemoveIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles((theme) => ({
@@ -54,7 +54,7 @@ const ChipsListContainer = ({
             border={1}
             borderColor="grey.100"
             bgcolor="grey.100"
-            borderRadius="borderRadius"
+            borderRadius={1}
         >
             <Box
                 m={1}

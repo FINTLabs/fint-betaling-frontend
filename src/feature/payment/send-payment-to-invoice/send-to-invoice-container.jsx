@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Typography } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import { Box, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import OrderChipList from './order-chip-list';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
 import fetchPayments from '../../../data/redux/actions/payments';
@@ -113,7 +113,7 @@ const SendToInvoiceContainer = () => {
             />
             <Box
                 bgcolor="grey.200"
-                borderRadius="borderRadius"
+                borderRadius={1}
                 p={2}
             >
                 <Box m={1}>

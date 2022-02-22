@@ -1,11 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+import makeStyles from '@mui/styles/makeStyles';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
 import { useSelector } from 'react-redux';
-import { Box } from '@material-ui/core';
-import { grey } from '@material-ui/core/colors';
+import { Box } from '@mui/material';
+import { grey } from '@mui/material/colors';
 
 const useStyles = makeStyles((theme) => ({
     root: {

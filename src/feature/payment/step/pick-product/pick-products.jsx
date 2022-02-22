@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
-import FormControl from '@material-ui/core/FormControl';
+import { Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
 import RecipientChipList from '../recipient-chip-list';
 import ProductSearch from './product-search';
 import ProductChipList from './products-chip-list';

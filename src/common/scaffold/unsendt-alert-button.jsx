@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import makeStyles from '@mui/styles/makeStyles';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useSelector } from 'react-redux';
-import Popper from '@material-ui/core/Popper';
-import { Paper } from '@material-ui/core';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
+import Popper from '@mui/material/Popper';
+import { Paper } from '@mui/material';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import RouteButton from '../route-button';
 
 const useStyles = makeStyles((theme) => ({
@@ -109,6 +109,7 @@ const UnsendtAlertButton = (props) => {
                 aria-owns={open ? 'mouse-over-popover' : undefined}
                 aria-haspopup="true"
                 onClick={handleClick}
+                size="large"
             >
                 <Badge badgeContent={unsendtPayments} color="secondary">
                     <NotificationsIcon />

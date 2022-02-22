@@ -1,10 +1,11 @@
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import { Card, makeStyles } from '@material-ui/core';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import CardActions from '@material-ui/core/CardActions';
-import Box from '@material-ui/core/Box';
+import Grid from '@mui/material/Grid';
+import { Card } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import CardActions from '@mui/material/CardActions';
+import Box from '@mui/material/Box';
 import { useDispatch } from 'react-redux';
 import RouteButton from '../../common/route-button';
 import { initializePayment } from '../../data/redux/actions/payment';
@@ -26,7 +27,7 @@ const CardMenu = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     return (
-        <Grid container justify="center" spacing={5} className={classes.root}>
+        <Grid container justifyContent="center" spacing={5} className={classes.root}>
             <Grid item>
                 <Card className={classes.card}>
                     <CardContent>

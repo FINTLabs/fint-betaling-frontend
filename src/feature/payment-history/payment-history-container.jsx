@@ -1,11 +1,11 @@
 import React from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import Box from '@material-ui/core/Box';
+import FormControl from '@mui/material/FormControl';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { CUSTOMER_NAME, ORDER_NUMBER } from '../payment/constants';
 import PaymentSearch from './payment-search';
 import { updateNeedFetch, updatePaymentsSearchBy, updatePaymentsSearchValue } from '../../data/redux/actions/payment';
@@ -31,7 +31,7 @@ const PaymentHistoryContainer = () => {
         <Box minWidth="80%" mt={4}>
             <Box
                 bgcolor="grey.200"
-                borderRadius="borderRadius"
+                borderRadius={1}
                 p={2}
             >
                 <Box m={1}>

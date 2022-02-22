@@ -1,32 +1,33 @@
 import React, { useEffect } from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
-import InvoiceHistoryIcon from '@material-ui/icons/History';
-import NewInvoiceIcon from '@material-ui/icons/NoteAdd';
-import LogOutIcon from '@material-ui/icons/ExitToApp';
-import SendIcon from '@material-ui/icons/Send';
+// import clsx from 'clsx';
+import { styled, useTheme } from '@mui/material/styles';
+// import makeStyles from '@mui/styles/makeStyles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import HomeIcon from '@mui/icons-material/Home';
+import InvoiceHistoryIcon from '@mui/icons-material/History';
+import NewInvoiceIcon from '@mui/icons-material/NoteAdd';
+import LogOutIcon from '@mui/icons-material/ExitToApp';
+import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from 'react-redux';
-import Box from '@material-ui/core/Box';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
+import ListItem from '@mui/material/ListItem';
 import axios from 'axios';
 import { useIdleTimer } from 'react-idle-timer';
+import MuiAppBar from '@mui/material/AppBar';
+import MuiDrawer from '@mui/material/Drawer';
 import VigoLogo from '../../assets/vigo-logo-no-iks.svg';
 import Routes from './routes';
 import OrganisationSelector from './organisation-selector';
@@ -40,28 +41,13 @@ import fetchPayments from '../../data/redux/actions/payments';
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+/* const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
     menuLink: {
         textDecoration: 'none',
         color: 'inherit',
-    },
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(['width', 'margin'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
     },
     menuButton: {
         marginRight: 36,
@@ -73,24 +59,6 @@ const useStyles = makeStyles((theme) => ({
         width: drawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
-    },
-    drawerOpen: {
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerClose: {
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        overflowX: 'hidden',
-        width: theme.spacing(7) + 1,
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9) + 1,
-        },
     },
     toolbar: {
         display: 'flex',
@@ -122,10 +90,75 @@ const useStyles = makeStyles((theme) => ({
     pipe2: {
         marginRight: theme.spacing(1.5),
     },
+})); */
+
+const openedMixin = (theme) => ({
+    width: drawerWidth,
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+    }),
+    overflowX: 'hidden',
+});
+
+const closedMixin = (theme) => ({
+    transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: 'hidden',
+    width: `calc(${theme.spacing(7)} + 1px)`,
+    [theme.breakpoints.up('sm')]: {
+        width: `calc(${theme.spacing(9)} + 1px)`,
+    },
+});
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
 }));
 
+const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+        width: drawerWidth,
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        ...(open && {
+            ...openedMixin(theme),
+            '& .MuiDrawer-paper': openedMixin(theme),
+        }),
+        ...(!open && {
+            ...closedMixin(theme),
+            '& .MuiDrawer-paper': closedMixin(theme),
+        }),
+    }),
+);
+
 export default function Scaffold() {
-    const classes = useStyles();
+    // const classes = useStyles();
     const theme = useTheme();
     const dispatch = useDispatch();
 
@@ -255,28 +288,31 @@ export default function Scaffold() {
         || me.isLoading;
 
     return (
-        <div className={classes.root}>
+        <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: open,
-                })}
-            >
+            <AppBar position="fixed" open={open} style={{ background: '#fafafa' }}>
+
                 <Toolbar>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
-                        className={clsx(classes.menuButton, {
-                            [classes.hide]: open,
-                        })}
+                        size="large"
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link className={classes.menuLink} to="/">
-                        <img src={VigoLogo} alt="Vigo logo" className={classes.vigoLogo} />
+                    <Link to="/">
+                        <Box
+                            component="img"
+                            sx={{
+                                height: 35,
+                                ml: 8,
+                                pr: 1.5,
+                            }}
+                            alt="Vigo Logo"
+                            src={VigoLogo}
+                        />
                     </Link>
                     <Typography variant="h6" noWrap>
                         FINT Betaling
@@ -296,14 +332,14 @@ export default function Scaffold() {
                             arrowRef={errorArrowRef}
                             setArrowRef={setErrorArrowRef}
                         />
-                        <Typography variant="button" className={classes.pipe2}>
+                        <Typography variant="button" sx={{ m: 2 }}>
                             |
                         </Typography>
                         <Box display="flex" alignItems="center" justifyContent="flex-end">
                             <Typography variant="button">
                                 {me.me.name}
                             </Typography>
-                            <Typography className={classes.pipe} variant="button">
+                            <Typography variant="button" sx={{ m: 1.5 }}>
                                 |
                             </Typography>
                             <OrganisationSelector />
@@ -313,24 +349,12 @@ export default function Scaffold() {
                 {loading && <LinearProgress color="secondary" />}
 
             </AppBar>
-            <Drawer
-                variant="permanent"
-                className={clsx(classes.drawer, {
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })}
-                classes={{
-                    paper: clsx({
-                        [classes.drawerOpen]: open,
-                        [classes.drawerClose]: !open,
-                    }),
-                }}
-            >
-                <div className={classes.toolbar}>
+            <Drawer variant="permanent" open={open}>
+                <DrawerHeader>
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                     </IconButton>
-                </div>
+                </DrawerHeader>
                 <Divider />
                 <List>
                     <ListItem button component={Link} to="/">
@@ -385,13 +409,14 @@ export default function Scaffold() {
                     </ListItem>
                 </List>
             </Drawer>
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
+            <Box
+                component="main"
+                sx={{ flexGrow: 1, mt: 8, p: 3 }}
             >
-                <Routes />
-            </main>
-        </div>
+                <main>
+                    <Routes />
+                </main>
+            </Box>
+        </Box>
     );
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import DashboardContainer from '../../feature/dashboard/dashboard-container';
 import PaymentContainer from '../../feature/payment/payment-container';
 import PaymentHistoryContainer from '../../feature/payment-history/payment-history-container';

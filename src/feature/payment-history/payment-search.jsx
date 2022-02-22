@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 import PaymentsTable from './payments-table';
 import {
     updatePaymentsSearchValue,

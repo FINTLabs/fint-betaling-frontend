@@ -1,17 +1,18 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles, TextField } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
+import Checkbox from '@mui/material/Checkbox';
+import { TextField } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import Input from '@mui/material/Input';
 import {
     updateFailedProductForm,
     updateProductAmount,
@@ -166,6 +167,7 @@ const ProductTable = () => {
                                         </TableCell>
                                         <TableCell align="left" className={classes.tableCellDescription}>
                                             <TextField
+                                                variant="standard"
                                                 fullWidth
                                                 disabled={pickedProducts[suggestion.itemCode]
                                                     ? !pickedProducts[suggestion.itemCode].checked : true}
@@ -206,6 +208,7 @@ const ProductTable = () => {
                                                     )}
                                                     type="number"
                                                     margin="dense"
+                                                    variant="standard"
                                                 />
                                             </FormControl>
                                         </TableCell>

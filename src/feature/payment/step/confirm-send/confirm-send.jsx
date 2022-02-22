@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
-import { Box, Paper } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { Box, Paper } from '@mui/material';
+import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
 import ConfirmedRecipients from './confirmed-recipients';
 import ConfirmedProducts from './confirmed-products';
 import { updateLatestSentPayment, updateNeedFetch, updateStep } from '../../../../data/redux/actions/payment';

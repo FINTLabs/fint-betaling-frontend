@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, makeStyles } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     updatePaymentFilterValue,

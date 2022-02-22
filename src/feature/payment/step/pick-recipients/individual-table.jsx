@@ -1,15 +1,15 @@
 import React from 'react';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import Checkbox from '@material-ui/core/Checkbox';
-import Table from '@material-ui/core/Table';
-import { makeStyles } from '@material-ui/core';
+import Checkbox from '@mui/material/Checkbox';
+import Table from '@mui/material/Table';
+import makeStyles from '@mui/styles/makeStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import { updateRecipients, updateSearchPage } from '../../../../data/redux/actions/payment';
 import Pagination from '../../../../common/pagination';
 
