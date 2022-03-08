@@ -41,57 +41,6 @@ import fetchPayments from '../../data/redux/actions/payments';
 
 const drawerWidth = 240;
 
-/* const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    menuLink: {
-        textDecoration: 'none',
-        color: 'inherit',
-    },
-    menuButton: {
-        marginRight: 36,
-    },
-    hide: {
-        display: 'none',
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-    },
-    toolbar: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: theme.spacing(0, 1),
-        ...theme.mixins.toolbar,
-    },
-    content: {
-        flexGrow: 1,
-        overflow: 'hidden',
-        marginTop: 68,
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    },
-    vigoLogo: {
-        height: '35px',
-        marginLeft: theme.spacing(2),
-        paddingRight: theme.spacing(1),
-    },
-    pipe: {
-        marginLeft: theme.spacing(2),
-    },
-    pipe2: {
-        marginRight: theme.spacing(1.5),
-    },
-})); */
-
 const openedMixin = (theme) => ({
     width: drawerWidth,
     transition: theme.transitions.create('width', {
@@ -315,7 +264,7 @@ export default function Scaffold() {
                         />
                     </Link>
                     <Typography variant="h6" noWrap>
-                        FINT Betaling
+                        FINT Elevfakturering
                     </Typography>
                     <Box display="flex" ml="auto" alignItems="center">
                         <UnsendtAlertButton

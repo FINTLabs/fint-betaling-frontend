@@ -1,15 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box } from '@mui/material';
-import PaymentsTable from './payments-table';
+import Box from '@mui/material/Box';
 import {
-    updatePaymentsSearchValue,
+    // updatePaymentsSearchValue,
     updatePaymentsSuggestions,
     updateSuggestionLength,
 } from '../../data/redux/actions/payment';
 import { FILTER_ALL, ORDER_NUMBER, SEARCH_PAGE_ROWS } from '../payment/constants';
 import filterSuggestions from '../payment/utils/filter';
-import SearchField from '../../common/search-field';
+import PaymentsDataGrid from './payments-data-grid';
 
 const PaymentSearch = () => {
     const dispatch = useDispatch();
@@ -21,7 +20,7 @@ const PaymentSearch = () => {
     const filterValue = useSelector((state) => state.payment.payments.filter)
         .toString();
     const suggestions = payments;
-    const searchPlaceHolder = searchBy === ORDER_NUMBER ? 'Ordrenummer' : 'Fakturamottaker';
+    // const searchPlaceHolder = searchBy === ORDER_NUMBER ? 'Ordrenummer' : 'Fakturamottaker';
     const activePage = useSelector((state) => state.payment.form.page);
     const rowsPerPage = SEARCH_PAGE_ROWS;
 
@@ -67,7 +66,7 @@ const PaymentSearch = () => {
         searchBy,
         suggestions]);
 
-    const handleSearchValue = (event) => {
+    /* const handleSearchValue = (event) => {
         dispatch(updateSuggestionLength(getPaymentsLength(event.target.value)));
         dispatch(updatePaymentsSearchValue(event.target.value));
         dispatch(updatePaymentsSuggestions(filterSuggestions(event.target.value,
@@ -75,19 +74,11 @@ const PaymentSearch = () => {
             searchBy,
             filterValue,
             activePage * rowsPerPage)));
-    };
+    }; */
 
     return (
         <Box width={1}>
-            <SearchField
-                label={`Søk på ${searchPlaceHolder.toLowerCase()}`}
-                onChange={handleSearchValue}
-                onClear={() => dispatch(updatePaymentsSearchValue(''))}
-                value={searchValue}
-            />
-
-            <PaymentsTable />
-
+            <PaymentsDataGrid />
         </Box>
     );
 };

@@ -1,30 +1,26 @@
 import React from 'react';
 import { Typography } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import RecipientChipList from '../recipient-chip-list';
 import ProductSearch from './product-search';
 import ProductChipList from './products-chip-list';
 
-const useStyles = makeStyles(() => ({
-    h2: {
-        textAlign: 'center',
-    },
-}));
-
 const PickProducts = () => {
-    const classes = useStyles();
+    const aErrorHold = ''; // TODO: fix this
 
     return (
         <Box width="90%" mt={4}>
-            <Typography variant="h3" className={classes.h2}>Velg produkt</Typography>
+            <Typography sx={{ variant: 'h3', align: 'center' }}>
+                Velg produkt
+                {aErrorHold}
+            </Typography>
             <RecipientChipList />
             <ProductChipList />
-            <Box mt={4}>
+            <Box sx={{ mt: 4 }}>
                 <FormControl component="fieldset" fullWidth>
                     <ProductSearch />
-                    <Box mt={2} display="flex" />
+                    <Box sx={{ mt: 2, display: 'flex' }} />
                 </FormControl>
             </Box>
         </Box>
