@@ -1,4 +1,21 @@
 class ClaimRepository {
+    static fetchPaymentsStatusCount(statusToGet) {
+        const url = `/api/claim/count/by-status/${statusToGet}`;
+        const stopFetch = 15;
+
+        return fetch(url, {
+
+            retryOn(attempt, error, response) {
+                return (error !== null || response.status >= 400) && attempt <= stopFetch;
+            },
+            method: 'GET',
+            credentials: 'same-origin',
+            // headers: new Headers({'x-org-id': orgId})
+        })
+            .then((result) => Promise.all([result, result.json()]))
+            .catch((error) => error);
+    }
+
     static fetchPayments() {
         const url = '/api/claim';
         const stopFetch = 15;
