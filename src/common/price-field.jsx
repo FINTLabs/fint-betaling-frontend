@@ -14,14 +14,14 @@ const useStyles = makeStyles(() => ({
 }));
 
 const PriceField = ({
-    value,
+    amount,
     itemCode,
     disabled,
     onChange,
 }) => {
     const classes = useStyles();
-    const [crowns, setCrowns] = useState(parseInt((parseInt(value, 10) / 100).toString(), 10));
-    const [ore, setOre] = useState(Math.trunc(parseInt(value, 10) % 100));
+    const [crowns, setCrowns] = useState(parseInt((parseInt(amount, 10) / 100).toString(), 10));
+    const [ore, setOre] = useState(Math.trunc(parseInt(amount, 10) % 100));
 
     function toOres(c, o) {
         return parseInt(c, 10) * 100 + parseInt(o, 10);
@@ -69,7 +69,7 @@ PriceField.propTypes = {
     disabled: PropTypes.bool,
     itemCode: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
+    amount: PropTypes.string.isRequired,
 };
 
 export default PriceField;
