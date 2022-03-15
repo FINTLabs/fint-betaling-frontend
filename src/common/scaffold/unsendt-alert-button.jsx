@@ -64,7 +64,6 @@ const UnsendtAlertButton = (props) => {
                     {
                         name: 'preventOverflow',
                         enabled: true,
-                        boundariesElement: 'scrollParent',
                     },
                     {
                         name: 'arrow',

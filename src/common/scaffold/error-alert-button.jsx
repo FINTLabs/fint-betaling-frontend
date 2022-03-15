@@ -56,7 +56,6 @@ const ErrorAlertButton = (props) => {
                     {
                         name: 'preventOverflow',
                         enabled: true,
-                        boundariesElement: 'scrollParent',
                     },
                     {
                         name: 'arrow',
@@ -92,7 +91,7 @@ const ErrorAlertButton = (props) => {
 ErrorAlertButton.propTypes = {
     handleClick: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
-    anchorEl: PropTypes.func,
+    anchorEl: PropTypes.object,
 };
 
 ErrorAlertButton.defaultProps = {
