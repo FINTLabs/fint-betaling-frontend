@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Error';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Popper from '@mui/material/Popper';
 import { Paper } from '@mui/material';
 import DialogContent from '@mui/material/DialogContent';
@@ -12,6 +12,7 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import RouteButton from '../route-button';
+import fetchPaymentsStatusCount from '../../data/redux/actions/status';
 
 const ErrorAlertButton = (props) => {
     const {
@@ -20,6 +21,12 @@ const ErrorAlertButton = (props) => {
         anchorEl,
     } = props;
 
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(fetchPaymentsStatusCount('STORED'));
+    }, []);
+
+    // START HERE
     const payments = useSelector((state) => state.payments.payments);
 
     const me = useSelector((state) => state.me.me);
