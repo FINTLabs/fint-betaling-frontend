@@ -13,16 +13,16 @@ import {
 // updatePaymentsSearchBy,
 // updatePaymentsSearchValue
 } from '../../data/redux/actions/payment';
+import fetchPayments from '../../data/redux/actions/payments';
 // import fetchPayments from '../../data/redux/actions/payments';
 // import FilterSelect from './filter-selection';
 
 const PaymentHistoryContainer = () => {
-    const searchBy = useSelector((state) => state.payment.payments.searchBy);
     const needsFetch = useSelector((state) => state.payment.sendToExternalSystem.needFetch);
     const dispatch = useDispatch();
 
     if (needsFetch) {
-        // dispatch(fetchPayments());
+        dispatch(fetchPayments());
         dispatch(updateNeedFetch(false));
     }
 
@@ -47,8 +47,7 @@ const PaymentHistoryContainer = () => {
                 <Box m={1}>
                     <Typography variant="body1">
                         Søk på skole eller dato i feltet under. Du kan også sorter og
-                        filtrer ved å klikke på overskriftene. @
-                        {searchBy}
+                        filtrer ved å klikke på overskriftene.
                     </Typography>
                 </Box>
                 <Box m={1}>

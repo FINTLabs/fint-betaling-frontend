@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import { useSelector } from 'react-redux';
-import { styled } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import { Send } from '@mui/icons-material';
 
 import Amount from '../payment/utils/amount';
 import noNB from './localeTextConstants';
@@ -11,15 +12,20 @@ import PaymentStatusChip from './paymen-status-chip';
 import { FILTER_LIST } from '../payment/constants';
 import PaymentStatusMessageDialog from './payment-status-message-dialog';
 import PaymentSelect from './payment-select';
+import ClaimRepository from '../../data/repository/ClaimRepository';
+import {
+    updateInvoiceSnackbarContent,
+    updateInvoiceSnackbarOpen, updateNeedFetch,
+} from '../../data/redux/actions/payment';
+import PaymentSnackbar from './payment-snackbar';
+import fetchPayments from '../../data/redux/actions/payments';
 
 const PaymentsDataGrid = () => {
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    const CustomizedGridToolbarExport = styled(GridToolbarExport)`
-      color: #8cc640;
-    `;
-
+    const [selectionModel, setSelectionModel] = React.useState([]);
     const [hideSchoolCol, setHideSchoolCol] = React.useState(true);
+    // const needsFetch = useSelector((state) => state.payment.sendToExternalSystem.needFetch);
 
     const handleSchool = (value) => {
         if (value && value === '0') {
@@ -29,21 +35,55 @@ const PaymentsDataGrid = () => {
         }
     };
 
-    // const rows = useSelector((state) => state.payment.payments.filteredSuggestions);
+    const handleConfirmSendPayments = () => {
+        // TODO We need to get this from the me object
+        const orgId = 'fintlabs.no';
+
+        if (selectionModel.length < 1) return;
+        ClaimRepository.sendOrders(
+            orgId,
+            selectionModel,
+        )
+            .then(([response, data]) => {
+                console.log('response', response);
+                if (response.status === 201) {
+                    // dispatch(updateSendOrderResponse(data));
+                    // dispatch(updateOrderSearchValue(1));
+                    // dispatch(updateRedirectFromExternal(true));
+                    // dispatch(updateLoadingSendingInvoice(false));
+                    dispatch(updateNeedFetch(true));
+                    // dispatch(updateLatestSentPayment({}));
+                    dispatch(fetchPayments());
+                    dispatch(updateInvoiceSnackbarContent(`${data.length} ordre er sendt til økonomisystemet!`));
+                    dispatch(updateInvoiceSnackbarOpen(true));
+                } else {
+                    dispatch(updateInvoiceSnackbarContent(`En feil oppstod ved sending til økonomisystemet!
+                    (Response status: ${response.status})`));
+                    dispatch(updateInvoiceSnackbarOpen(true));
+                }
+            })
+            .catch((error) => {
+                dispatch(updateInvoiceSnackbarContent(`En feil oppstod ved sending til økonomisystemet! 
+                (Error: ${error})`));
+                dispatch(updateInvoiceSnackbarOpen(true));
+            });
+
+        // dispatch(updateLoadingSendingInvoice(true));
+        // dispatch(updateOrderSearchValue(''));
+        // dispatch(updateLatestSentPayment({}));
+        // dispatch(updateSelectedOrders([]));
+    };
+
     const rows = useSelector((state) => state.payments.payments);
 
     const columns = [
         {
-            // eslint-disable-next-line react/display-name
             renderCell: (params) => <PaymentStatusChip payment={params} />,
             field: 'claimStatus',
             headerName: 'Status',
             width: 175,
             type: 'singleSelect',
-            // valueOptions: ['STORED', 'UPDATE_ERROR'],
-            // valueOptions: FILTER_LIST.map((option) => option.key),
             valueOptions: FILTER_LIST,
-            // onClick={(e) => handleStatusClick(e, "testing clicking")}
         },
         {
             field: 'customer.name',
@@ -75,8 +115,6 @@ const PaymentsDataGrid = () => {
             headerName: 'Netto totalpris',
             width: 150,
             type: 'number',
-            // eslint-disable-next-line react/display-name
-            // renderCell: (params) => <Amount>{params.getValue(params.id, 'originalAmountDue')}</Amount>,
             renderCell: (params) => <Amount>{params.row.originalAmountDue}</Amount>,
         },
         {
@@ -84,7 +122,6 @@ const PaymentsDataGrid = () => {
             headerName: 'Å betale',
             width: 150,
             type: 'number',
-            // eslint-disable-next-line react/display-name
             renderCell: (params) => <Amount>{params.row.amountDue}</Amount>,
         },
     ];
@@ -93,13 +130,19 @@ const PaymentsDataGrid = () => {
         return (
             <GridToolbarContainer>
                 <Grid container spacing={2}>
-                    <Grid item xs={10}>
+                    <Grid item xs={8}>
                         <PaymentSelect onSelectSchool={handleSchool} />
+                    </Grid>
+
+                    <Grid item xs={2}>
+                        <Button onClick={handleConfirmSendPayments} startIcon={<Send />}>
+                            Resend
+                        </Button>
                     </Grid>
 
                     <Grid item xs="auto">
                         <div>
-                            <CustomizedGridToolbarExport />
+                            <GridToolbarExport />
                         </div>
                     </Grid>
                 </Grid>
@@ -111,9 +154,18 @@ const PaymentsDataGrid = () => {
     return (
         <Box width={1}>
             <PaymentStatusMessageDialog />
+
+            <PaymentSnackbar />
+
             <div style={{ height: 800, width: '100%' }}>
                 <DataGrid
-                    // pageSize={5}
+                    isRowSelectable={
+                        (params) => params.row.claimStatus === 'SEND_ERROR' || params.row.claimStatus === 'STORED'
+                    }
+                    onSelectionModelChange={(newSelectionModel) => {
+                        setSelectionModel(newSelectionModel);
+                    }}
+                    selectionModel={selectionModel}
                     disableSelectionOnClick
                     autoHeight
                     rows={rows}
@@ -122,6 +174,17 @@ const PaymentsDataGrid = () => {
                     getRowId={(row) => row.orderNumber}
                     components={{ Toolbar: CustomToolbar }}
                     localeText={noNB}
+                    initialState={{
+                        ...rows.initialState,
+                        filter: {
+                            filterModel: {
+                                items: [{ columnField: 'claimStatus', operatorValue: 'is', value: 'STORED' }],
+                            },
+                        },
+                        sorting: {
+                            sortModel: [{ field: 'Ordrenummer', sort: 'desc' }],
+                        },
+                    }}
                 />
             </div>
         </Box>

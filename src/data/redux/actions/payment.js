@@ -41,6 +41,8 @@ import {
     UPDATE_SUGGESTION_LENGTH,
     UPDATE_SUGGESTIONS,
     UPDATE_TO_VALUE_EXTERNAL,
+    UPDATE_INVOICE_SNACKBAR_OPEN,
+    UPDATE_INVOICE_SNACKBAR_CONTENT,
 } from './actions';
 
 // TODO move functions to different files or sort them
@@ -396,6 +398,24 @@ export function updateOrderStatusOpen(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_ORDER_STATUS_OPEN,
+            payload: value,
+        });
+    };
+}
+
+export function updateInvoiceSnackbarContent(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_INVOICE_SNACKBAR_CONTENT,
+            payload: value,
+        });
+    };
+}
+
+export function updateInvoiceSnackbarOpen(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_INVOICE_SNACKBAR_OPEN,
             payload: value,
         });
     };

@@ -14,6 +14,8 @@ import {
     UPDATE_NEED_FETCH,
     UPDATE_ORDER_STATUS_CONTENT,
     UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_INVOICE_SNACKBAR_OPEN,
+    UPDATE_INVOICE_SNACKBAR_CONTENT,
     UPDATE_ORDERS_OPEN,
     UPDATE_ORG_ID,
     UPDATE_PAYMENT_FILTER_VALUE,
@@ -57,6 +59,8 @@ export const defaultState = {
         requestedNumberOfDaysToPaymentDeadLine: '',
         statusOpen: false,
         statusContent: '',
+        snackbarOpen: false,
+        snackbarContent: '',
     },
     form: {
         step: 0,
@@ -231,6 +235,22 @@ export default function reducer(state = defaultState, action) {
             payment: {
                 ...state.payment,
                 statusContent: action.payload,
+            },
+        };
+    case UPDATE_INVOICE_SNACKBAR_OPEN:
+        return {
+            ...state,
+            payment: {
+                ...state.payment,
+                snackbarOpen: action.payload,
+            },
+        };
+    case UPDATE_INVOICE_SNACKBAR_CONTENT:
+        return {
+            ...state,
+            payment: {
+                ...state.payment,
+                snackbarContent: action.payload,
             },
         };
     case UPDATE_SCHOOL_ORG_ID:
