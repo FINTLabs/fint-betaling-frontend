@@ -175,53 +175,55 @@ export default function Scaffold() {
     let localStorageSchool = localStorage.getItem('school');
     let localStorageSchoolOrgId = localStorage.getItem('schoolOrgId');
 
-    if (me.me.organisationUnits) {
-        const isSchoolPresentInMe = me.me.organisationUnits.some((ou) => ou.name === localStorageSchool);
-        if (!isSchoolPresentInMe) {
-            localStorageSchool = '';
-            localStorageSchoolOrgId = '';
-            localStorage.setItem('school', '');
-            localStorage.setItem('schoolOrgId', '');
-            dispatch(setSchool(''));
-            dispatch(setSchoolOrgId(''));
+    useEffect(() => {
+        if (me.me.organisationUnits) {
+            const isSchoolPresentInMe = me.me.organisationUnits.some((ou) => ou.name === localStorageSchool);
+            if (!isSchoolPresentInMe) {
+                localStorageSchool = '';
+                localStorageSchoolOrgId = '';
+                localStorage.setItem('school', '');
+                localStorage.setItem('schoolOrgId', '');
+                dispatch(setSchool(''));
+                dispatch(setSchoolOrgId(''));
+            }
         }
-    }
+    }, [me.me.organisationUnits]);
 
     useEffect(() => {
         if (_.isEmpty(me.me)) {
             dispatch(fetchMe());
         }
         dispatch(fetchPayments());
-    }, [dispatch, me.me]);
 
-    if (me.loaded && school.toString() === '') {
-        localStorage.setItem('school', localStorageSchool
-        && me.me.organisationUnits.some((ou) => ou.name === localStorageSchool)
-            ? localStorageSchool
-            : me.me.organisationUnits[0].name);
-
-        localStorage.setItem('schoolOrgId',
-            localStorageSchoolOrgId
-            && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
-                ? localStorageSchoolOrgId
-                : me.me.organisationUnits[0].organisationNumber);
-
-        dispatch(setOrgId(me.me.organisation.organisationNumber));
-
-        dispatch(setSchoolOrgId(
-            localStorageSchoolOrgId
-            && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
-                ? localStorageSchoolOrgId
-                : me.me.organisationUnits[0].organisationNumber,
-        ));
-
-        dispatch(setSchool(
-            localStorageSchool
+        if (me.loaded && school.toString() === '') {
+            localStorage.setItem('school', localStorageSchool
             && me.me.organisationUnits.some((ou) => ou.name === localStorageSchool)
                 ? localStorageSchool
-                : me.me.organisationUnits[0].name,
-        ));
-    }
+                : me.me.organisationUnits[0].name);
+
+            localStorage.setItem('schoolOrgId',
+                localStorageSchoolOrgId
+                && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
+                    ? localStorageSchoolOrgId
+                    : me.me.organisationUnits[0].organisationNumber);
+
+            dispatch(setOrgId(me.me.organisation.organisationNumber));
+
+            dispatch(setSchoolOrgId(
+                localStorageSchoolOrgId
+                && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
+                    ? localStorageSchoolOrgId
+                    : me.me.organisationUnits[0].organisationNumber,
+            ));
+
+            dispatch(setSchool(
+                localStorageSchool
+                && me.me.organisationUnits.some((ou) => ou.name === localStorageSchool)
+                    ? localStorageSchool
+                    : me.me.organisationUnits[0].name,
+            ));
+        }
+    }, [dispatch, me.me]);
 
     const handleDrawerOpen = () => {
         setOpen(true);

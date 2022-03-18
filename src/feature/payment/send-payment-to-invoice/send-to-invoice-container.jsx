@@ -11,7 +11,7 @@ import fetchPayments from '../../../data/redux/actions/payments';
 import {
     updateLatestSentPayment,
     updateLoadingSendingInvoice,
-    updateNeedFetch,
+    updateNeedFetch, updateNeedFetchCounts,
     updateOrderSearchValue,
     updateRedirectFromExternal,
     updateSelectedOrders,
@@ -74,6 +74,7 @@ const SendToInvoiceContainer = () => {
                     dispatch(updateRedirectFromExternal(true));
                     dispatch(updateLoadingSendingInvoice(false));
                     dispatch(updateNeedFetch(true));
+                    dispatch(updateNeedFetchCounts(true));
                     dispatch(updateLatestSentPayment({}));
 
                     setShowSnackbar(true);

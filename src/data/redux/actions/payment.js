@@ -12,6 +12,7 @@ import {
     UPDATE_LATEST_SENT_PAYMENTS,
     UPDATE_LOADING_TO_EXTERNAL,
     UPDATE_NEED_FETCH,
+    UPDATE_NEED_FETCH_COUNTS,
     UPDATE_ORDER_STATUS_CONTENT,
     UPDATE_ORDER_STATUS_OPEN,
     UPDATE_ORDERS_OPEN,
@@ -357,7 +358,14 @@ export function updateNeedFetch(value) {
         });
     };
 }
-
+export function updateNeedFetchCounts(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_NEED_FETCH_COUNTS,
+            payload: value,
+        });
+    };
+}
 export function updateLoadingSendingInvoice(value) {
     return (dispatch) => {
         dispatch({

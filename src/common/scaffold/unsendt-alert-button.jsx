@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
@@ -14,6 +14,7 @@ import Box from '@mui/material/Box';
 import RouteButton from '../route-button';
 
 import fetchPaymentsStatusCount from '../../data/redux/actions/status';
+import { updateNeedFetchCounts } from '../../data/redux/actions/payment';
 
 const UnsendtAlertButton = (props) => {
     const {
@@ -23,16 +24,24 @@ const UnsendtAlertButton = (props) => {
     } = props;
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    const unsendtPayments = useSelector((state) => state.payments.statusCount);
+    const needsFetchCounts = useSelector((state) => state.payment.sendToExternalSystem.needFetchCounts);
+
+    if (needsFetchCounts) {
         dispatch(fetchPaymentsStatusCount('STORED'));
-    }, []);
+        dispatch(updateNeedFetchCounts(false));
+    }
+
+    // useEffect(() => {
+    //     dispatch(fetchPaymentsStatusCount('STORED'));
+    // }, []);
 
     // const payments = useSelector((state) => state.payments.payments);
     // const me = useSelector((state) => state.me.me);
     // const unsendtPayments = payments.filter((payment) => payment.claimStatus === 'STORED'
     //    && payment.createdBy.name === me.name).length;
 
-    const unsendtPayments = useSelector((state) => state.payments.statusCount);
+    // const unsendtPayments = useSelector((state) => state.payments.statusCount);
     const open = Boolean(anchorEl);
     const id = open ? 'spring-popper' : undefined;
 

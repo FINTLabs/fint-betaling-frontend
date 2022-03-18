@@ -15,7 +15,7 @@ import PaymentSelect from './payment-select';
 import ClaimRepository from '../../data/repository/ClaimRepository';
 import {
     updateInvoiceSnackbarContent,
-    updateInvoiceSnackbarOpen, updateNeedFetch,
+    updateInvoiceSnackbarOpen, updateNeedFetch, updateNeedFetchCounts,
 } from '../../data/redux/actions/payment';
 import PaymentSnackbar from './payment-snackbar';
 import fetchPayments from '../../data/redux/actions/payments';
@@ -52,6 +52,7 @@ const PaymentsDataGrid = () => {
                     // dispatch(updateRedirectFromExternal(true));
                     // dispatch(updateLoadingSendingInvoice(false));
                     dispatch(updateNeedFetch(true));
+                    dispatch(updateNeedFetchCounts(true));
                     // dispatch(updateLatestSentPayment({}));
                     dispatch(fetchPayments());
                     dispatch(updateInvoiceSnackbarContent(`${data.length} ordre er sendt til økonomisystemet!`));
@@ -174,17 +175,6 @@ const PaymentsDataGrid = () => {
                     getRowId={(row) => row.orderNumber}
                     components={{ Toolbar: CustomToolbar }}
                     localeText={noNB}
-                    initialState={{
-                        ...rows.initialState,
-                        filter: {
-                            filterModel: {
-                                items: [{ columnField: 'claimStatus', operatorValue: 'is', value: 'STORED' }],
-                            },
-                        },
-                        sorting: {
-                            sortModel: [{ field: 'Ordrenummer', sort: 'desc' }],
-                        },
-                    }}
                 />
             </div>
         </Box>
