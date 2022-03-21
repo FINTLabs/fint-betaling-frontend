@@ -12,7 +12,6 @@ import {
     UPDATE_LATEST_SENT_PAYMENTS,
     UPDATE_LOADING_TO_EXTERNAL,
     UPDATE_NEED_FETCH,
-    UPDATE_NEED_FETCH_COUNTS,
     UPDATE_ORDER_STATUS_CONTENT,
     UPDATE_ORDER_STATUS_OPEN,
     UPDATE_INVOICE_SNACKBAR_OPEN,
@@ -100,7 +99,6 @@ export const defaultState = {
         needFetch: true,
         loading: false,
         redirect: false,
-        needFetchCounts: true,
     },
     backEndResponse: {
         responseOrder: '',
@@ -412,14 +410,6 @@ export default function reducer(state = defaultState, action) {
             sendToExternalSystem: {
                 ...state.sendToExternalSystem,
                 needFetch: action.payload,
-            },
-        };
-    case UPDATE_NEED_FETCH_COUNTS:
-        return {
-            ...state,
-            sendToExternalSystem: {
-                ...state.sendToExternalSystem,
-                needFetchCounts: action.payload,
             },
         };
     case UPDATE_LOADING_TO_EXTERNAL:

@@ -4,17 +4,18 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useDispatch, useSelector } from 'react-redux';
-import Popper from '@mui/material/Popper';
-import { Paper } from '@mui/material';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogActions from '@mui/material/DialogActions';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import RouteButton from '../route-button';
+import {
+    Paper,
+    Popper,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Button,
+    Box,
+} from '@mui/material';
 
+import RouteButton from '../route-button';
 import fetchPaymentsStatusCount from '../../data/redux/actions/status';
-import { updateNeedFetchCounts } from '../../data/redux/actions/payment';
 
 const UnsendtAlertButton = (props) => {
     const {
@@ -24,17 +25,14 @@ const UnsendtAlertButton = (props) => {
     } = props;
     const dispatch = useDispatch();
 
-    const unsendtPayments = useSelector((state) => state.payments.statusCount);
-    const needsFetchCounts = useSelector((state) => state.payment.sendToExternalSystem.needFetchCounts);
+    const unsendtPayments = useSelector((state) => state.payments.statusCountUnsendt);
 
-    if (needsFetchCounts) {
-        dispatch(fetchPaymentsStatusCount('STORED'));
-        dispatch(updateNeedFetchCounts(false));
+    if (unsendtPayments === null) {
+        dispatch(fetchPaymentsStatusCount());
     }
-
-    // useEffect(() => {
-    //     dispatch(fetchPaymentsStatusCount('STORED'));
-    // }, []);
+    /* useEffect(() => {
+         dispatch(fetchPaymentsStatusCount());
+     }, [unsendtPayments]); */
 
     // const payments = useSelector((state) => state.payments.payments);
     // const me = useSelector((state) => state.me.me);

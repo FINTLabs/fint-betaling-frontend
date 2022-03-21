@@ -11,7 +11,7 @@ import fetchPayments from '../../../data/redux/actions/payments';
 import {
     updateLatestSentPayment,
     updateLoadingSendingInvoice,
-    updateNeedFetch, updateNeedFetchCounts,
+    updateNeedFetch,
     updateOrderSearchValue,
     updateRedirectFromExternal,
     updateSelectedOrders,
@@ -19,6 +19,7 @@ import {
 } from '../../../data/redux/actions/payment';
 import SearchField from '../../../common/search-field';
 import SendToInvoiceTable from './send-to-invoice-table';
+import fetchPaymentsStatusCountUnsendt from '../../../data/redux/actions/status';
 
 const SendToInvoiceContainer = () => {
     const dispatch = useDispatch();
@@ -74,7 +75,7 @@ const SendToInvoiceContainer = () => {
                     dispatch(updateRedirectFromExternal(true));
                     dispatch(updateLoadingSendingInvoice(false));
                     dispatch(updateNeedFetch(true));
-                    dispatch(updateNeedFetchCounts(true));
+                    dispatch(fetchPaymentsStatusCountUnsendt('STORED'));
                     dispatch(updateLatestSentPayment({}));
 
                     setShowSnackbar(true);

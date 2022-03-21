@@ -14,10 +14,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
-import { updateNeedFetchCounts, updateOrdersOpen, updateSelectedOrders } from '../../../data/redux/actions/payment';
+import { updateOrdersOpen, updateSelectedOrders } from '../../../data/redux/actions/payment';
 import SendToInvoiceTableRow from './send-to-invoice-table-row';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
 import fetchPayments from '../../../data/redux/actions/payments';
+import fetchPaymentsStatusCountUnsendt from '../../../data/redux/actions/status';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -99,7 +100,7 @@ const SendToInvoiceTable = ({
                 dispatch(fetchPayments());
                 dispatch(updateSelectedOrders([]));
                 setDeleteDialogOpen(false);
-                dispatch(updateNeedFetchCounts(true));
+                dispatch(fetchPaymentsStatusCountUnsendt('STORED'));
             });
     };
 

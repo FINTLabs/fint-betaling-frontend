@@ -15,10 +15,11 @@ import PaymentSelect from './payment-select';
 import ClaimRepository from '../../data/repository/ClaimRepository';
 import {
     updateInvoiceSnackbarContent,
-    updateInvoiceSnackbarOpen, updateNeedFetch, updateNeedFetchCounts,
+    updateInvoiceSnackbarOpen, updateNeedFetch,
 } from '../../data/redux/actions/payment';
 import PaymentSnackbar from './payment-snackbar';
 import fetchPayments from '../../data/redux/actions/payments';
+import fetchPaymentsStatusCountUnsendt from '../../data/redux/actions/status';
 
 const PaymentsDataGrid = () => {
     const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const PaymentsDataGrid = () => {
                     // dispatch(updateRedirectFromExternal(true));
                     // dispatch(updateLoadingSendingInvoice(false));
                     dispatch(updateNeedFetch(true));
-                    dispatch(updateNeedFetchCounts(true));
+                    dispatch(fetchPaymentsStatusCountUnsendt('STORED'));
                     // dispatch(updateLatestSentPayment({}));
                     dispatch(fetchPayments());
                     dispatch(updateInvoiceSnackbarContent(`${data.length} ordre er sendt til økonomisystemet!`));
