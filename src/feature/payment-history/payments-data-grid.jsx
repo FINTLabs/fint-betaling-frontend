@@ -126,6 +126,12 @@ const PaymentsDataGrid = () => {
             type: 'number',
             renderCell: (params) => <Amount>{params.row.amountDue}</Amount>,
         },
+        {
+            field: 'createdDate',
+            headerName: 'Opprettet',
+            width: 150,
+            type: 'date',
+        },
     ];
 
     function CustomToolbar() {
