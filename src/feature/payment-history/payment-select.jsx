@@ -5,19 +5,11 @@ import { useSelector } from 'react-redux';
 import { NativeSelect } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const PaymentSelect = ({ onSelectSchool }) => {
-    const [date, setDate] = React.useState('10');
-    const [school, setSchool] = React.useState('10');
-    const selectedSchool = useSelector((state) => state.payment.payment.school);
-
-    const handleChange = (event) => {
-        setSchool(Number(event.target.value) || '');
-        onSelectSchool(event.target.value);
-    };
-
-    const handleChangeDate = (event) => {
-        setDate(Number(event.target.value) || '');
-    };
+const PaymentSelect = ({ onSelectSchool, onSelectDate }) => {
+    const periodSelection = useSelector((state) => state.payment.payments.periodSelection);
+    const schoolSelection = useSelector((state) => state.payment.payments.schoolSelection);
+    const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
+    const organisationUnits = useSelector((state) => state.me.me.organisationUnits);
 
     return (
         <div>
@@ -26,34 +18,38 @@ const PaymentSelect = ({ onSelectSchool }) => {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
 
                     <NativeSelect
-                        defaultValue={date}
+                        defaultValue={periodSelection}
                         inputProps={{
                             name: 'age',
                             id: 'uncontrolled-native',
                         }}
-                        onChange={handleChangeDate}
+                        onChange={onSelectDate}
                     >
-                        <option value={10}>Denne uka</option>
-                        <option value={20}>Denne måneden</option>
-                        <option value={30}>I år</option>
-                        <option value={40}>I år og i fjor</option>
-                        <option value={40}>Alle</option>
+                        <option value="WEEK">Denne uka</option>
+                        <option value="MONTH">Denne måneden</option>
+                        <option value="YEAR">I år</option>
+                        <option value="ALL">Alle</option>
                     </NativeSelect>
                 </FormControl>
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
 
                     <NativeSelect
-                        defaultValue={school}
-                        onChange={handleChange}
+                        defaultValue={schoolSelection.length < 1 ? schoolOrgId : schoolSelection}
+                        onChange={onSelectSchool}
                         inputProps={{
                             name: 'age',
                             id: 'uncontrolled-native',
                         }}
                     >
-                        <option value={0}>Alle</option>
-                        <option value={10}>{selectedSchool}</option>
-                        <option value={20}>skole 2</option>
-                        <option value={30}>skole 3</option>
+                        <option value="0">Alle</option>
+                        {organisationUnits && organisationUnits.map((o) => (
+                            <option
+                                key={o.organisationNumber}
+                                value={o.organisationNumber}
+                            >
+                                {o.name}
+                            </option>
+                        ))}
                     </NativeSelect>
                 </FormControl>
 
@@ -65,5 +61,6 @@ const PaymentSelect = ({ onSelectSchool }) => {
 
 PaymentSelect.propTypes = {
     onSelectSchool: PropTypes.func.isRequired,
+    onSelectDate: PropTypes.func.isRequired,
 };
 export default PaymentSelect;

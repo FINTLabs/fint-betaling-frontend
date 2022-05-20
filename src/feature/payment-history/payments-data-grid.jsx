@@ -15,7 +15,7 @@ import PaymentSelect from './payment-select';
 import ClaimRepository from '../../data/repository/ClaimRepository';
 import {
     updateInvoiceSnackbarContent,
-    updateInvoiceSnackbarOpen, updateNeedFetch,
+    updateInvoiceSnackbarOpen, updateNeedFetch, updatePeriodSelection, updateSchoolSelection,
 } from '../../data/redux/actions/payment';
 import PaymentSnackbar from './payment-snackbar';
 import fetchPayments from '../../data/redux/actions/payments';
@@ -26,13 +26,24 @@ const PaymentsDataGrid = () => {
 
     const [selectionModel, setSelectionModel] = React.useState([]);
     const [hideSchoolCol, setHideSchoolCol] = React.useState(true);
-    // const needsFetch = useSelector((state) => state.payment.sendToExternalSystem.needFetch);
 
-    const handleSchool = (value) => {
-        if (value && value === '0') {
+    const periodSelection = useSelector((state) => state.payment.payments.periodSelection);
+    const schoolSelection = useSelector((state) => state.payment.payments.schoolSelection);
+
+    const handleSelectDate = (event) => {
+        dispatch(updatePeriodSelection(event.target.value));
+        dispatch(fetchPayments(event.target.value, schoolSelection));
+    };
+
+    const handleSelectSchool = (event) => {
+        if (event && event === '0') {
             setHideSchoolCol(false);
+            dispatch(updateSchoolSelection('0'));
+            dispatch(fetchPayments(periodSelection));
         } else {
             setHideSchoolCol(true);
+            dispatch(updateSchoolSelection(event.target.value));
+            dispatch(fetchPayments(periodSelection, event.target.value));
         }
     };
 
@@ -48,14 +59,9 @@ const PaymentsDataGrid = () => {
             .then(([response, data]) => {
                 console.log('response', response);
                 if (response.status === 201) {
-                    // dispatch(updateSendOrderResponse(data));
-                    // dispatch(updateOrderSearchValue(1));
-                    // dispatch(updateRedirectFromExternal(true));
-                    // dispatch(updateLoadingSendingInvoice(false));
                     dispatch(updateNeedFetch(true));
                     dispatch(fetchPaymentsStatusCountUnsendt('STORED'));
-                    // dispatch(updateLatestSentPayment({}));
-                    dispatch(fetchPayments());
+                    dispatch(fetchPayments(periodSelection));
                     dispatch(updateInvoiceSnackbarContent(`${data.length} ordre er sendt til økonomisystemet!`));
                     dispatch(updateInvoiceSnackbarOpen(true));
                 } else {
@@ -69,11 +75,6 @@ const PaymentsDataGrid = () => {
                 (Error: ${error})`));
                 dispatch(updateInvoiceSnackbarOpen(true));
             });
-
-        // dispatch(updateLoadingSendingInvoice(true));
-        // dispatch(updateOrderSearchValue(''));
-        // dispatch(updateLatestSentPayment({}));
-        // dispatch(updateSelectedOrders([]));
     };
 
     const rows = useSelector((state) => state.payments.payments);
@@ -139,7 +140,10 @@ const PaymentsDataGrid = () => {
             <GridToolbarContainer>
                 <Grid container spacing={2}>
                     <Grid item xs={8}>
-                        <PaymentSelect onSelectSchool={handleSchool} />
+                        <PaymentSelect
+                            onSelectSchool={handleSelectSchool}
+                            onSelectDate={handleSelectDate}
+                        />
                     </Grid>
 
                     <Grid item xs={2}>

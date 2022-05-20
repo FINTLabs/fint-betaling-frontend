@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-// import clsx from 'clsx';
 import { styled, useTheme } from '@mui/material/styles';
-// import makeStyles from '@mui/styles/makeStyles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
@@ -37,7 +35,6 @@ import {
 } from '../../data/redux/actions/payment';
 import UnsendtAlertButton from './unsendt-alert-button';
 import ErrorAlertButton from './error-alert-button';
-import fetchPayments from '../../data/redux/actions/payments';
 
 const drawerWidth = 240;
 
@@ -107,7 +104,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function Scaffold() {
-    // const classes = useStyles();
     const theme = useTheme();
     const dispatch = useDispatch();
 
@@ -193,7 +189,7 @@ export default function Scaffold() {
         if (_.isEmpty(me.me)) {
             dispatch(fetchMe());
         }
-        dispatch(fetchPayments());
+        // dispatch(fetchPayments());
     }, [dispatch, me.me]);
 
     if (me.loaded && school.toString() === '') {

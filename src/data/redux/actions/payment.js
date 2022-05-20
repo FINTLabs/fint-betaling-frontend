@@ -43,6 +43,8 @@ import {
     UPDATE_TO_VALUE_EXTERNAL,
     UPDATE_INVOICE_SNACKBAR_OPEN,
     UPDATE_INVOICE_SNACKBAR_CONTENT,
+    UPDATE_PAYMENTS_PERIOD_SELECTION,
+    UPDATE_SCHOOL_SELECTION,
 } from './actions';
 
 // TODO move functions to different files or sort them
@@ -228,6 +230,24 @@ export function updatePaymentsSearchValue(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_PAYMENTS_SEARCH_VALUE,
+            payload: value,
+        });
+    };
+}
+
+export function updatePeriodSelection(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_PAYMENTS_PERIOD_SELECTION,
+            payload: value,
+        });
+    };
+}
+
+export function updateSchoolSelection(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_SCHOOL_SELECTION,
             payload: value,
         });
     };

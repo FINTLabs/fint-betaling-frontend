@@ -43,6 +43,8 @@ import {
     UPDATE_SUGGESTION_LENGTH,
     UPDATE_SUGGESTIONS,
     UPDATE_TO_VALUE_EXTERNAL,
+    UPDATE_PAYMENTS_PERIOD_SELECTION,
+    UPDATE_SCHOOL_SELECTION,
 } from '../actions/actions';
 import { GROUP, ORDER_NUMBER } from '../../../feature/payment/constants';
 
@@ -91,6 +93,8 @@ export const defaultState = {
         dialogOpen: false,
         dialogOrderNumber: '',
         latestSent: [],
+        periodSelection: 'WEEK',
+        schoolSelection: '',
     },
     sendToExternalSystem: {
         ordersOpen: false,
@@ -339,6 +343,22 @@ export default function reducer(state = defaultState, action) {
             payments: {
                 ...state.payments,
                 searchValue: action.payload,
+            },
+        };
+    case UPDATE_PAYMENTS_PERIOD_SELECTION:
+        return {
+            ...state,
+            payments: {
+                ...state.payments,
+                periodSelection: action.payload,
+            },
+        };
+    case UPDATE_SCHOOL_SELECTION:
+        return {
+            ...state,
+            payments: {
+                ...state.payments,
+                schoolSelection: action.payload,
             },
         };
     case UPDATE_PAYMENTS_DIALOG_OPEN:
