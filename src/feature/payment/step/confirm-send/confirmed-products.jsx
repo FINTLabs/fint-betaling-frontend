@@ -1,13 +1,12 @@
 import React from 'react';
-import {
-    Box, makeStyles, Table, Typography,
-} from '@material-ui/core';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
+import { Box, Table, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
 import { useSelector } from 'react-redux';
-import Divider from '@material-ui/core/Divider';
+import Divider from '@mui/material/Divider';
 import { getTotalPrice } from '../../utils/list-utils';
 import Amount from '../../utils/amount';
 
@@ -24,6 +23,15 @@ const ConfirmedProducts = () => {
     const productAmounts = useSelector((state) => state.payment.product.amount);
     const productPrice = useSelector((state) => state.payment.product.itemPrice);
     const productDescription = useSelector((state) => state.payment.product.description);
+
+    const getProductDescription = (k) => {
+        if (productDescription) {
+            if (productDescription[k]) {
+                return productDescription[k].description;
+            }
+        }
+        return '';
+    };
 
     return (
         <Box p={2} width={1}>
@@ -51,7 +59,7 @@ const ConfirmedProducts = () => {
                                     <TableCell
                                         align="left"
                                     >
-                                        {productDescription ? productDescription[key] ? productDescription[key].description : '' : ''}
+                                        {getProductDescription(key)}
                                     </TableCell>
                                     <TableCell align="right" component="th" scope="row">
                                         {key}

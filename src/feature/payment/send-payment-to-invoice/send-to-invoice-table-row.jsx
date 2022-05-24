@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import Checkbox from '@mui/material/Checkbox';
+import makeStyles from '@mui/styles/makeStyles';
 import Amount from '../utils/amount';
 
 const useStyles = makeStyles(() => ({
@@ -45,7 +45,6 @@ const SendToInvoiceTableRow = ({
         </TableRow>
     );
 };
-
 
 SendToInvoiceTableRow.propTypes = {
     handleIndividualCheck: PropTypes.func.isRequired,

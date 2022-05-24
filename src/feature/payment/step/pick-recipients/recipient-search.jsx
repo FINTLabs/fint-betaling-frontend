@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import makeStyles from '@mui/styles/makeStyles';
 import {
     updateSearchPage,
     updateSearchValue,
@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 const RecipientSearch = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -44,7 +43,6 @@ const RecipientSearch = () => {
     const suggestions = recipientType === GROUP ? groups : individual;
     const searchPlaceHolder = recipientType === GROUP ? 'Gruppenavn' : 'Etternavn, Fornavn Mellomnavn';
 
-
     function matchedSuggestion(suggestion, input) {
         if (input.length > 0) {
             if (recipientType === GROUP) {
@@ -53,7 +51,7 @@ const RecipientSearch = () => {
             if (suggestion.name.toLowerCase().includes(input.toLowerCase())) {
                 return true;
             }
-            for (let i = 0; i < splitCustomers[suggestion.id].length; i++) {
+            for (let i = 0; i < splitCustomers[suggestion.id].length; i += 1) {
                 if (splitCustomers[suggestion.id][i].slice(0, input.length)
                     .toLowerCase() === input) {
                     return true;
@@ -93,7 +91,6 @@ const RecipientSearch = () => {
             : filterSuggestions(inputValue);
     }
 
-
     function getSuggestionsLength(input) {
         let count = 0;
         suggestions.filter((suggestion) => matchedSuggestion(suggestion, input.toLowerCase()))
@@ -109,21 +106,20 @@ const RecipientSearch = () => {
         dispatch(updateSuggestions(getSuggestions(searchValue)));
     });
 
-
-    function handleSearchValue(event) {
+    const handleSearchValue = (event) => {
         dispatch(updateSearchPage(SEARCH_PAGE_START));
         dispatch(updateSearchValue(event.target.value));
-    }
+    };
 
     function isConfirmButtonDisabled() {
         return Object.keys(recipients)
             .filter((key) => recipients[key].checked).length === 0;
     }
 
-    function handleConfirmButtonClick() {
+    const handleConfirmButtonClick = () => {
         dispatch(updateStep(STEP_PICK_PRODUCTS));
         dispatch(updateSearchPage(SEARCH_PAGE_START));
-    }
+    };
 
     return (
         <Box>

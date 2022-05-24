@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import SearchIcon from '@material-ui/icons/Search';
-import { grey } from '@material-ui/core/colors';
-import ClearIcon from '@material-ui/icons/Cancel';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
+import { grey } from '@mui/material/colors';
+import ClearIcon from '@mui/icons-material/Cancel';
+import TextField from '@mui/material/TextField';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
     clearIcon: {

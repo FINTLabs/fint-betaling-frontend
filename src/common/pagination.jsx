@@ -1,8 +1,8 @@
 import React from 'react';
-import TablePagination from '@material-ui/core/TablePagination';
-import TablePaginationActions from '@material-ui/core/TablePagination/TablePaginationActions';
+import TablePagination from '@mui/material/TablePagination';
+import TablePaginationActions from '@mui/material/TablePagination/TablePaginationActions';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import { SEARCH_PAGE_ROWS } from '../feature/payment/constants';
 
 const Pagination = ({
@@ -21,7 +21,7 @@ const Pagination = ({
                 inputProps: { 'aria-label': 'rows per page' },
                 native: true,
             }}
-            onChangePage={handleChangePage}
+            onPageChange={handleChangePage}
             ActionsComponent={TablePaginationActions}
             component={Box}
         />

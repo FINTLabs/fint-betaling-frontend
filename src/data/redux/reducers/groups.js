@@ -2,7 +2,6 @@ import {
     FETCH_GROUPS, FETCH_GROUPS_FULFILLED, FETCH_GROUPS_REJECTED, UPDATE_GROUPS_LOADED,
 } from '../actions/actions';
 
-
 export const defaultState = {
     groups: [],
     isLoading: false,

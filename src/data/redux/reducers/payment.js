@@ -14,6 +14,8 @@ import {
     UPDATE_NEED_FETCH,
     UPDATE_ORDER_STATUS_CONTENT,
     UPDATE_ORDER_STATUS_OPEN,
+    UPDATE_INVOICE_SNACKBAR_OPEN,
+    UPDATE_INVOICE_SNACKBAR_CONTENT,
     UPDATE_ORDERS_OPEN,
     UPDATE_ORG_ID,
     UPDATE_PAYMENT_FILTER_VALUE,
@@ -41,6 +43,8 @@ import {
     UPDATE_SUGGESTION_LENGTH,
     UPDATE_SUGGESTIONS,
     UPDATE_TO_VALUE_EXTERNAL,
+    UPDATE_PAYMENTS_PERIOD_SELECTION,
+    UPDATE_SCHOOL_SELECTION,
 } from '../actions/actions';
 import { GROUP, ORDER_NUMBER } from '../../../feature/payment/constants';
 
@@ -57,6 +61,8 @@ export const defaultState = {
         requestedNumberOfDaysToPaymentDeadLine: '',
         statusOpen: false,
         statusContent: '',
+        snackbarOpen: false,
+        snackbarContent: '',
     },
     form: {
         step: 0,
@@ -87,6 +93,8 @@ export const defaultState = {
         dialogOpen: false,
         dialogOrderNumber: '',
         latestSent: [],
+        periodSelection: 'WEEK',
+        schoolSelection: '',
     },
     sendToExternalSystem: {
         ordersOpen: false,
@@ -233,6 +241,22 @@ export default function reducer(state = defaultState, action) {
                 statusContent: action.payload,
             },
         };
+    case UPDATE_INVOICE_SNACKBAR_OPEN:
+        return {
+            ...state,
+            payment: {
+                ...state.payment,
+                snackbarOpen: action.payload,
+            },
+        };
+    case UPDATE_INVOICE_SNACKBAR_CONTENT:
+        return {
+            ...state,
+            payment: {
+                ...state.payment,
+                snackbarContent: action.payload,
+            },
+        };
     case UPDATE_SCHOOL_ORG_ID:
         return {
             ...state,
@@ -319,6 +343,22 @@ export default function reducer(state = defaultState, action) {
             payments: {
                 ...state.payments,
                 searchValue: action.payload,
+            },
+        };
+    case UPDATE_PAYMENTS_PERIOD_SELECTION:
+        return {
+            ...state,
+            payments: {
+                ...state.payments,
+                periodSelection: action.payload,
+            },
+        };
+    case UPDATE_SCHOOL_SELECTION:
+        return {
+            ...state,
+            payments: {
+                ...state.payments,
+                schoolSelection: action.payload,
             },
         };
     case UPDATE_PAYMENTS_DIALOG_OPEN:

@@ -1,6 +1,5 @@
 import { FETCH_ME, FETCH_ME_FULFILLED, FETCH_ME_REJECTED } from '../actions/actions';
 
-
 export const defaultState = {
     me: {},
     isLoading: false,

@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {
     Block, CheckCircle, Info, PaymentRounded, Warning,
-} from '@material-ui/icons';
-import { makeStyles, Typography } from '@material-ui/core';
+} from '@mui/icons-material';
+import { Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useDispatch } from 'react-redux';
 import { updateOrderStatusContent, updateOrderStatusOpen } from '../../data/redux/actions/payment';
 

@@ -1,15 +1,18 @@
 import React from 'react';
 import './App.css';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import {
+    createTheme,
+    ThemeProvider,
+} from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Scaffold from './common/scaffold/scaffold';
 import store from './data/redux/store';
 
-const theme = createMuiTheme({
+const theme = createTheme({
     palette: {
         primary: {
-            main: '#fff',
+            main: '#8cc640',
             dark: '#666666',
         },
         secondary: {
@@ -50,13 +53,13 @@ const theme = createMuiTheme({
 
 function App() {
     return (
-        <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
             <Provider store={store}>
                 <BrowserRouter basename="/">
                     <Scaffold />
                 </BrowserRouter>
             </Provider>
-        </MuiThemeProvider>
+        </ThemeProvider>
     );
 }
 

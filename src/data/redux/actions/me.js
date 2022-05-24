@@ -1,11 +1,9 @@
 import { FETCH_ME, FETCH_ME_FULFILLED, FETCH_ME_REJECTED } from './actions';
 import MeRepository from '../../repository/MeRepository';
 
-
 export default function fetchMe() {
     return (dispatch) => {
         dispatch({ type: FETCH_ME });
-
 
         MeRepository.fetchMe()
             .then(([result, json]) => {

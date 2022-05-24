@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Chip from '@material-ui/core/Chip';
-import { makeStyles } from '@material-ui/core';
+import Chip from '@mui/material/Chip';
+import makeStyles from '@mui/styles/makeStyles';
 import { updateProducts } from '../../../../data/redux/actions/payment';
 import ChipsListContainer from '../../../../common/chips-list-container';
 

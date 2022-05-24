@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { Box, CircularProgress, makeStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Box, CircularProgress } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import OrganisationIcon from '@material-ui/icons/Domain';
-import Divider from '@material-ui/core/Divider';
+import OrganisationIcon from '@mui/icons-material/Domain';
+import Divider from '@mui/material/Divider';
 import { setSchool, setSchoolOrgId } from '../../data/redux/actions/payment';
-
 
 const useStyles = makeStyles((theme) => ({
     organisationButton: {
         margin: theme.spacing(1),
+        color: '#000',
     },
-    organsationIcon: {
+    organisationIcon: {
         marginLeft: theme.spacing(1),
     },
 }));
@@ -25,9 +26,9 @@ const OrganisationSelector = () => {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = useState(null);
 
-    function handleClick(event) {
+    const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
-    }
+    };
 
     function handleSchoolClick(selectedSchool, schoolOrgId) {
         dispatch(setSchool(selectedSchool));
@@ -39,15 +40,15 @@ const OrganisationSelector = () => {
         setAnchorEl(null);
     }
 
-    function handleClose() {
+    const handleClose = () => {
         setAnchorEl(null);
-    }
+    };
 
     return (
         <Box display="flex" justifyContent="flex-end">
             <Button className={classes.organisationButton} onClick={handleClick}>
                 {organisationUnits ? school : <CircularProgress color="secondary" size={25} />}
-                <OrganisationIcon className={classes.organsationIcon} />
+                <OrganisationIcon className={classes.organisationIcon} />
             </Button>
             <Menu
                 id="simple-menu"

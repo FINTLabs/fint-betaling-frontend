@@ -1,12 +1,11 @@
 import React from 'react';
-import {
-    Box, makeStyles, Table, Typography,
-} from '@material-ui/core';
+import { Box, Table, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useSelector } from 'react-redux';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableBody from '@mui/material/TableBody';
 
 const useStyles = makeStyles((theme) => ({
     tableWrapper: {

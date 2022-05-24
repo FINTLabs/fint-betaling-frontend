@@ -1,20 +1,19 @@
 import React from 'react';
-import {
-    Box, makeStyles, Paper, Typography,
-} from '@material-ui/core';
+import { Box, Paper, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
-import Table from '@material-ui/core/Table';
-import Button from '@material-ui/core/Button';
-import { Check, Warning } from '@material-ui/icons';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+import Table from '@mui/material/Table';
+import Button from '@mui/material/Button';
+import { Check, Warning } from '@mui/icons-material';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
 import { Link } from 'react-router-dom';
 import Amount from '../utils/amount';
 import {
@@ -80,16 +79,15 @@ const SentToExternalContainer = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-
-    function handleStatusClick(event, errormessage) {
+    const handleStatusClick = (event, errormessage) => {
         dispatch(updateOrderStatusContent(errormessage));
         dispatch(updateOrderStatusOpen(true));
-    }
+    };
 
-    function handleClose() {
+    const handleClose = () => {
         dispatch(updateOrderStatusOpen(false));
         dispatch(updateOrderStatusContent(''));
-    }
+    };
 
     return (
         <Box className={classes.root}>
