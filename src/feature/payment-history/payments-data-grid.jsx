@@ -7,8 +7,8 @@ import Button from '@mui/material/Button';
 import { Send } from '@mui/icons-material';
 
 import Amount from '../payment/utils/amount';
-import noNB from './localeTextConstants';
-import PaymentStatusChip from './paymen-status-chip';
+import noNB from '../../common/translations/noNB';
+import PaymentStatusChip from './payment-status-chip';
 import { FILTER_LIST } from '../payment/constants';
 import PaymentStatusMessageDialog from './payment-status-message-dialog';
 import PaymentSelect from './payment-select';

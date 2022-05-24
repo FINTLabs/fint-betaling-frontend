@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import NotificationsIcon from '@mui/icons-material/Error';
+import ErrorIcon from '@mui/icons-material/Error';
 import { useDispatch, useSelector } from 'react-redux';
 import Popper from '@mui/material/Popper';
 import { Paper } from '@mui/material';
@@ -39,7 +39,7 @@ const ErrorAlertButton = (props) => {
                 size="large"
             >
                 <Badge badgeContent={errorPayments} color="error">
-                    <NotificationsIcon />
+                    <ErrorIcon />
                 </Badge>
             </IconButton>
             <Popper

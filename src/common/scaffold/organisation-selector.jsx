@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1),
         color: '#000',
     },
-    organsationIcon: {
+    organisationIcon: {
         marginLeft: theme.spacing(1),
     },
 }));
@@ -48,7 +48,7 @@ const OrganisationSelector = () => {
         <Box display="flex" justifyContent="flex-end">
             <Button className={classes.organisationButton} onClick={handleClick}>
                 {organisationUnits ? school : <CircularProgress color="secondary" size={25} />}
-                <OrganisationIcon className={classes.organsationIcon} />
+                <OrganisationIcon className={classes.organisationIcon} />
             </Button>
             <Menu
                 id="simple-menu"

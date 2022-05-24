@@ -145,7 +145,7 @@ export default function Scaffold() {
         console.log('Check if we are authenticated ', event);
         axios.get('/api/me/ping')
             .then((result) => {
-                if (result.status === 200 && result.data === 'Greatings for FINTLabs :)') {
+                if (result.status === 200 && result.data === 'Greetings from FINTLabs :)') {
                     console.log('We\'re still authenticated');
                 } else if (result.status === 302) {
                     window.location = 'https://idp.felleskomponent.no/nidp/app/logout';

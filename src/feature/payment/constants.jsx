@@ -5,9 +5,7 @@ import {
 
 export const GROUP = 'group';
 export const INDIVIDUAL = 'individual';
-
 export const ORDER_NUMBER = 'order_number';
-export const CUSTOMER_NAME = 'customer_name';
 
 export const STEP_PICK_RECIPIENTS = 0;
 export const STEP_PICK_PRODUCTS = 1;

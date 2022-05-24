@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ErrorOutline } from '@mui/icons-material/';
+import ErrorOutline from '@mui/icons-material/ErrorOutline';
 import { useDispatch } from 'react-redux';
 import Chip from '@mui/material/Chip';
 import { updateOrderStatusContent, updateOrderStatusOpen } from '../../data/redux/actions/payment';
