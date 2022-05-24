@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import RecipientIcon from '@material-ui/icons/Person';
-import RemoveIcon from '@material-ui/icons/Delete';
-import ConfirmRemoveIcon from '@material-ui/icons/DeleteForever';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
+import makeStyles from '@mui/styles/makeStyles';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import RecipientIcon from '@mui/icons-material/Person';
+import RemoveIcon from '@mui/icons-material/Delete';
+import ConfirmRemoveIcon from '@mui/icons-material/DeleteForever';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
 import ChipsListContainer from '../../../common/chips-list-container';
 import { STEP_PICK_RECIPIENTS } from '../constants';
 import { getCheckedCount } from '../utils/list-utils';
@@ -71,9 +71,7 @@ const RecipientChipList = () => {
 
     const [timer, setTimer] = React.useState(null);
 
-
     const recipientsKeys = Object.keys(recipients);
-
 
     const sortedRecipients = [];
 
@@ -90,13 +88,13 @@ const RecipientChipList = () => {
 
     sortedRecipients.sort((a, b) => (a.name > b.name ? 1 : -1));
 
-    function toggleShowAllRecipients() {
+    const toggleShowAllRecipients = () => {
         dispatch(updateShowAllRecipients(!showAllRecipients));
-    }
+    };
 
-    function clearSelection() {
+    const clearSelection = () => {
         dispatch(clearRecipients());
-    }
+    };
 
     function handleDelete(key, label) {
         const checkedRecipients = { ...recipients };

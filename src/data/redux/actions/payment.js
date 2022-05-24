@@ -41,6 +41,10 @@ import {
     UPDATE_SUGGESTION_LENGTH,
     UPDATE_SUGGESTIONS,
     UPDATE_TO_VALUE_EXTERNAL,
+    UPDATE_INVOICE_SNACKBAR_OPEN,
+    UPDATE_INVOICE_SNACKBAR_CONTENT,
+    UPDATE_PAYMENTS_PERIOD_SELECTION,
+    UPDATE_SCHOOL_SELECTION,
 } from './actions';
 
 // TODO move functions to different files or sort them
@@ -231,6 +235,24 @@ export function updatePaymentsSearchValue(value) {
     };
 }
 
+export function updatePeriodSelection(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_PAYMENTS_PERIOD_SELECTION,
+            payload: value,
+        });
+    };
+}
+
+export function updateSchoolSelection(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_SCHOOL_SELECTION,
+            payload: value,
+        });
+    };
+}
+
 export function updatePaymentsSuggestions(value) {
     return (dispatch) => {
         dispatch({
@@ -396,6 +418,24 @@ export function updateOrderStatusOpen(value) {
     return (dispatch) => {
         dispatch({
             type: UPDATE_ORDER_STATUS_OPEN,
+            payload: value,
+        });
+    };
+}
+
+export function updateInvoiceSnackbarContent(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_INVOICE_SNACKBAR_CONTENT,
+            payload: value,
+        });
+    };
+}
+
+export function updateInvoiceSnackbarOpen(value) {
+    return (dispatch) => {
+        dispatch({
+            type: UPDATE_INVOICE_SNACKBAR_OPEN,
             payload: value,
         });
     };

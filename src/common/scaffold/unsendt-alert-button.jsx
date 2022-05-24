@@ -1,103 +1,45 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { useSelector } from 'react-redux';
-import Popper from '@material-ui/core/Popper';
-import { Paper } from '@material-ui/core';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
-import RouteButton from '../route-button';
+import PropTypes from 'prop-types';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    Paper,
+    Popper,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    Button,
+    Box,
+} from '@mui/material';
 
-const useStyles = makeStyles((theme) => ({
-    popover: {
-        pointerEvents: 'none',
-    },
-    paper: {
-        maxWidth: 350,
-        overflow: 'auto',
-    },
-    popper: {
-        zIndex: 1,
-        '&[x-placement*="bottom"] $arrow': {
-            top: 0,
-            left: 0,
-            marginTop: '-0.9em',
-            width: '3em',
-            height: '1em',
-            '&::before': {
-                borderWidth: '0 1em 1em 1em',
-                borderColor: `transparent transparent ${theme.palette.background.paper} transparent`,
-            },
-        },
-        '&[x-placement*="top"] $arrow': {
-            bottom: 0,
-            left: 0,
-            marginBottom: '-0.9em',
-            width: '3em',
-            height: '1em',
-            '&::before': {
-                borderWidth: '1em 1em 0 1em',
-                borderColor: `${theme.palette.background.paper} transparent transparent transparent`,
-            },
-        },
-        '&[x-placement*="right"] $arrow': {
-            left: 0,
-            marginLeft: '-0.9em',
-            height: '3em',
-            width: '1em',
-            '&::before': {
-                borderWidth: '1em 1em 1em 0',
-                borderColor: `transparent ${theme.palette.background.paper} transparent transparent`,
-            },
-        },
-        '&[x-placement*="left"] $arrow': {
-            right: 0,
-            marginRight: '-0.9em',
-            height: '3em',
-            width: '1em',
-            '&::before': {
-                borderWidth: '1em 0 1em 1em',
-                borderColor: `transparent transparent transparent ${theme.palette.background.paper}`,
-            },
-        },
-    },
-    arrow: {
-        position: 'absolute',
-        fontSize: 7,
-        width: '3em',
-        height: '3em',
-        '&::before': {
-            content: '""',
-            margin: 'auto',
-            display: 'block',
-            width: 0,
-            height: 0,
-            borderStyle: 'solid',
-        },
-    },
-}));
+import RouteButton from '../route-button';
+import fetchPaymentsStatusCount from '../../data/redux/actions/status';
 
 const UnsendtAlertButton = (props) => {
-    const classes = useStyles();
     const {
         handleClick,
         handleClose,
         anchorEl,
-        arrowRef,
-        setArrowRef,
     } = props;
+    const dispatch = useDispatch();
 
-    const payments = useSelector((state) => state.payments.payments);
-    const me = useSelector((state) => state.me.me);
-    const unsendtPayments = payments.filter((payment) => payment.claimStatus === 'STORED'
-        && payment.createdBy.name === me.name).length;
+    const unsendtPayments = useSelector((state) => state.payments.statusCountUnsendt);
 
+    if (unsendtPayments === null) {
+        dispatch(fetchPaymentsStatusCount());
+    }
+    /* useEffect(() => {
+         dispatch(fetchPaymentsStatusCount());
+     }, [unsendtPayments]); */
 
+    // const payments = useSelector((state) => state.payments.payments);
+    // const me = useSelector((state) => state.me.me);
+    // const unsendtPayments = payments.filter((payment) => payment.claimStatus === 'STORED'
+    //    && payment.createdBy.name === me.name).length;
+
+    // const unsendtPayments = useSelector((state) => state.payments.statusCount);
     const open = Boolean(anchorEl);
     const id = open ? 'spring-popper' : undefined;
 
@@ -109,6 +51,7 @@ const UnsendtAlertButton = (props) => {
                 aria-owns={open ? 'mouse-over-popover' : undefined}
                 aria-haspopup="true"
                 onClick={handleClick}
+                size="large"
             >
                 <Badge badgeContent={unsendtPayments} color="secondary">
                     <NotificationsIcon />
@@ -120,23 +63,22 @@ const UnsendtAlertButton = (props) => {
                 anchorEl={anchorEl}
                 placement="bottom-end"
                 disablePortal
-                className={classes.popper}
-                modifiers={{
-                    flip: {
+                modifiers={[
+                    {
+                        name: 'flip',
                         enabled: true,
                     },
-                    preventOverflow: {
+                    {
+                        name: 'preventOverflow',
                         enabled: true,
-                        boundariesElement: 'scrollParent',
                     },
-                    arrow: {
-                        enabled: true,
-                        element: arrowRef,
+                    {
+                        name: 'arrow',
+                        enabled: false,
                     },
-                }}
+                ]}
             >
-                <span className={classes.arrow} ref={setArrowRef} />
-                <Paper className={classes.paper}>
+                <Paper sx={{ width: 350 }}>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             {unsendtPayments > 0
@@ -161,4 +103,13 @@ const UnsendtAlertButton = (props) => {
     );
 };
 
+UnsendtAlertButton.propTypes = {
+    handleClick: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    anchorEl: PropTypes.object,
+};
+
+UnsendtAlertButton.defaultProps = {
+    anchorEl: null,
+};
 export default UnsendtAlertButton;

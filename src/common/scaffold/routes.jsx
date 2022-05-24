@@ -1,12 +1,11 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import DashboardContainer from '../../feature/dashboard/dashboard-container';
 import PaymentContainer from '../../feature/payment/payment-container';
 import PaymentHistoryContainer from '../../feature/payment-history/payment-history-container';
 import SendToInvoiceContainer from '../../feature/payment/send-payment-to-invoice/send-to-invoice-container';
 import SentToExternalContainer from '../../feature/payment/sent-payment-to-external/sent-to-external-container';
-
 
 const Routes = () => (
     <Box display="flex" flexDirection="column" alignItems="center">

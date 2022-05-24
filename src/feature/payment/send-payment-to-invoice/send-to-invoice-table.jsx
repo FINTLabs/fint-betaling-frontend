@@ -1,21 +1,23 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import Checkbox from '@material-ui/core/Checkbox';
-import TableBody from '@material-ui/core/TableBody';
-import Button from '@material-ui/core/Button';
-import { Dialog, makeStyles } from '@material-ui/core';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import Checkbox from '@mui/material/Checkbox';
+import TableBody from '@mui/material/TableBody';
+import Button from '@mui/material/Button';
+import { Dialog } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
 import { updateOrdersOpen, updateSelectedOrders } from '../../../data/redux/actions/payment';
 import SendToInvoiceTableRow from './send-to-invoice-table-row';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
+import fetchPaymentsStatusCountUnsendt from '../../../data/redux/actions/status';
 import fetchPayments from '../../../data/redux/actions/payments';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,13 +47,13 @@ const SendToInvoiceTable = ({
     const showAll = useSelector((state) => state.payment.sendToExternalSystem.ordersOpen);
     const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-    function handleIndividualCheck(event) {
+    const handleIndividualCheck = (event) => {
         const list = { ...selectedOrders };
         list[event.target.value] = {
             checked: event.target.checked,
         };
         dispatch(updateSelectedOrders(list));
-    }
+    };
 
     function displayedOrderIsInSelectedOrders(orderNumber) {
         return Object.keys(selectedOrders)
@@ -72,7 +74,7 @@ const SendToInvoiceTable = ({
         return allChecked;
     }
 
-    function handleAllChecked(event) {
+    const handleAllChecked = (event) => {
         const list = { ...selectedOrders };
         for (let i = 0; i < filteredSuggestions.length; i += 1) {
             if (!(!showAll && i >= 10)) {
@@ -82,31 +84,35 @@ const SendToInvoiceTable = ({
             }
         }
         dispatch(updateSelectedOrders(list));
-    }
+    };
 
-    function onShowAll() {
+    const onShowAll = () => {
         dispatch(updateOrdersOpen(!showAll));
-    }
+    };
 
-    function handleDeleteOrders() {
+    const handleDeleteOrders = () => {
         const keys = Object.keys(selectedOrders)
             .filter((key) => selectedOrders[key].checked);
         ClaimRepository.cancelPayments(keys)
             .then((r) => {
+                // eslint-disable-next-line no-console
                 console.log(r);
-                dispatch(fetchPayments());
+                // dispatch(fetchPayments());
+                dispatch(fetchPayments(null, null, 'STORED'));
                 dispatch(updateSelectedOrders([]));
+
                 setDeleteDialogOpen(false);
+                dispatch(fetchPaymentsStatusCountUnsendt('STORED'));
             });
-    }
+    };
 
-    function handleCloseDialog() {
+    const handleCloseDialog = () => {
         setDeleteDialogOpen(false);
-    }
+    };
 
-    function handleDeleteOrdersDialogOpen() {
+    const handleDeleteOrdersDialogOpen = () => {
         setDeleteDialogOpen(true);
-    }
+    };
 
     return (
         <>
@@ -196,7 +202,6 @@ const SendToInvoiceTable = ({
         </>
     );
 };
-
 
 SendToInvoiceTable.propTypes = {
     filteredSuggestions: PropTypes.array.isRequired,

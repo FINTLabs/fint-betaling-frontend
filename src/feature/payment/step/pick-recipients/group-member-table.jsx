@@ -1,13 +1,12 @@
 import React from 'react';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
-import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
+import TableBody from '@mui/material/TableBody';
+import Checkbox from '@mui/material/Checkbox';
+import makeStyles from '@mui/styles/makeStyles';
 import PropTypes from 'prop-types';
-
 
 const useStyles = makeStyles((theme) => ({
     individualTable: {

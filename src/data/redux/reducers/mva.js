@@ -1,6 +1,5 @@
 import { FETCH_MVA, FETCH_MVA_FULFILLED, FETCH_MVA_REJECTED } from '../actions/actions';
 
-
 export const defaultState = {
     mva: [],
     isLoading: false,

@@ -1,17 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { Box, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(() => ({
-    ore: {
-        minWidth: 25,
-        maxWidth: 25,
-    },
-    crown: {
-        minWidth: 75,
-    },
-}));
+import { Box, TextField } from '@mui/material';
 
 const PriceField = ({
     value,
@@ -19,7 +8,6 @@ const PriceField = ({
     disabled,
     onChange,
 }) => {
-    const classes = useStyles();
     const [crowns, setCrowns] = useState(parseInt((parseInt(value, 10) / 100).toString(), 10));
     const [ore, setOre] = useState(Math.trunc(parseInt(value, 10) % 100));
 
@@ -40,7 +28,9 @@ const PriceField = ({
     return (
         <Box display="flex" justifyContent="flex-end">
             <TextField
-                className={classes.crown}
+                sx={{ minWidth: 75 }}
+                variant="standard"
+                // className={classes.crown}
                 disabled={disabled}
                 value={crowns}
                 onChange={(e) => onCrownsChanged(e.target.value)}
@@ -51,11 +41,12 @@ const PriceField = ({
                 }}
             />
             <TextField
+                sx={{ minWidth: 25, maxWidth: 25 }}
+                variant="standard"
                 disabled={disabled}
                 value={ore === 0 ? '00' : ore}
                 onChange={(e) => onOreChanged(e.target.value)}
                 onBlur={(e) => onOreChanged(e.target.value.padEnd(2, '0'))}
-                className={classes.ore}
             />
         </Box>
     );

@@ -1,6 +1,5 @@
 import { FETCH_PRINCIPALS, FETCH_PRINCIPALS_FULFILLED, FETCH_PRINCIPALS_REJECTED } from '../actions/actions';
 
-
 export const defaultState = {
     principal: {},
     isLoading: false,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core';
-import Chip from '@material-ui/core/Chip';
+import makeStyles from '@mui/styles/makeStyles';
+import Chip from '@mui/material/Chip';
 import { updateSelectedOrders, updateShowAllRecipients } from '../../../data/redux/actions/payment';
 import { getCheckedCount } from '../utils/list-utils';
 import ChipsListContainer from '../../../common/chips-list-container';
@@ -34,10 +34,9 @@ const OrderChipList = () => {
     const showAll = useSelector((state) => state.payment.recipientList.showAll);
     const selectedOrderListKeys = Object.keys(selectedOrders);
 
-
-    function toggleShowAll() {
+    const toggleShowAll = () => {
         dispatch(updateShowAllRecipients(!showAll));
-    }
+    };
 
     function handleDelete(key) {
         const newArray = { ...selectedOrders };

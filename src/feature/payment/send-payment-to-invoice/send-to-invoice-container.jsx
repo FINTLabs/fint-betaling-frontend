@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Typography } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import { Box, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import OrderChipList from './order-chip-list';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
-import fetchPayments from '../../../data/redux/actions/payments';
+// import fetchPayments from '../../../data/redux/actions/payments';
 import {
     updateLatestSentPayment,
     updateLoadingSendingInvoice,
@@ -19,7 +19,8 @@ import {
 } from '../../../data/redux/actions/payment';
 import SearchField from '../../../common/search-field';
 import SendToInvoiceTable from './send-to-invoice-table';
-
+import fetchPaymentsStatusCountUnsendt from '../../../data/redux/actions/status';
+import fetchPayments from '../../../data/redux/actions/payments';
 
 const SendToInvoiceContainer = () => {
     const dispatch = useDispatch();
@@ -45,55 +46,54 @@ const SendToInvoiceContainer = () => {
     };
     // TODO We need to get this from the me object
     const orgId = 'fintlabs.no';
-
+    // jennifer
     if (needsFetch) {
-        dispatch(fetchPayments());
+        // dispatch(fetchPayments());
+        dispatch(fetchPayments(null, null, 'STORED'));
         dispatch(updateNeedFetch(false));
     }
 
-
-    function handleSearchValue(event) {
+    const handleSearchValue = (event) => {
         dispatch(updateOrderSearchValue(event.target.value));
-    }
+    };
 
-    function clearSearchValue() {
+    const clearSearchValue = () => {
         dispatch(updateOrderSearchValue(''));
         dispatch(updateLatestSentPayment({}));
         dispatch(updateSelectedOrders([]));
-    }
+    };
 
-    function handleConfirmSendPayments() {
+    const handleConfirmSendPayments = () => {
         ClaimRepository.sendOrders(
             orgId,
             Object.keys(selectedOrders)
                 .filter((key) => selectedOrders[key].checked),
-        )
-            .then(([response, data]) => {
-                console.log('response', response);
-                if (response.status === 201) {
-                    dispatch(updateSendOrderResponse(data));
-                    dispatch(updateOrderSearchValue(1));
-                    dispatch(updateRedirectFromExternal(true));
-                    dispatch(updateLoadingSendingInvoice(false));
-                    dispatch(updateNeedFetch(true));
-                    dispatch(updateLatestSentPayment({}));
+        ).then(([response, data]) => {
+            console.log('response', response);
+            if (response.status === 201) {
+                dispatch(updateSendOrderResponse(data));
+                dispatch(updateOrderSearchValue(1));
+                dispatch(updateRedirectFromExternal(true));
+                dispatch(updateLoadingSendingInvoice(false));
+                dispatch(updateNeedFetch(true));
+                dispatch(fetchPaymentsStatusCountUnsendt('STORED'));
+                dispatch(updateLatestSentPayment({}));
 
-                    setShowSnackbar(true);
-                    setSnackbarMessage(`${data.length} ordre er sendt til økonomisystemet!`);
-                } else {
-                    setShowSnackbar(true);
-                    setSnackbarMessage(`En feil oppstod ved sending til økonomisystemet!
-                     (Response status: ${response.status})`);
-                }
-            })
+                setShowSnackbar(true);
+                setSnackbarMessage(`${data.length} ordre er sendt til økonomisystemet!`);
+            } else {
+                setShowSnackbar(true);
+                setSnackbarMessage(`En feil oppstod ved sending til økonomisystemet!
+                 (Response status: ${response.status})`);
+            }
+        })
             .catch((error) => {
                 setShowSnackbar(true);
                 setSnackbarMessage(`En feil oppstod ved sending til økonomisystemet! (Error: ${error})`);
             });
         dispatch(updateLoadingSendingInvoice(true));
         clearSearchValue();
-    }
-
+    };
 
     return (
         <Box width="80%" alignSelf="center" mt={4}>
@@ -116,7 +116,7 @@ const SendToInvoiceContainer = () => {
             />
             <Box
                 bgcolor="grey.200"
-                borderRadius="borderRadius"
+                borderRadius={1}
                 p={2}
             >
                 <Box m={1}>

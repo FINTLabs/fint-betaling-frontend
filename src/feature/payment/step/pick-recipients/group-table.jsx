@@ -1,17 +1,18 @@
 import React from 'react';
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
+import Table from '@mui/material/Table';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableCell from '@mui/material/TableCell';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import TableBody from '@material-ui/core/TableBody';
-import Checkbox from '@material-ui/core/Checkbox';
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUp from '@material-ui/icons/ArrowDropUp';
-import { Collapse, makeStyles } from '@material-ui/core';
+import TableBody from '@mui/material/TableBody';
+import Checkbox from '@mui/material/Checkbox';
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
+import { Collapse } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import Box from '@material-ui/core/Box';
+import Box from '@mui/material/Box';
 import { updateGroupContentOpen, updateRecipients, updateSearchPage } from '../../../../data/redux/actions/payment';
 import GroupMemberTable from './group-member-table';
 import Pagination from '../../../../common/pagination';
@@ -53,15 +54,14 @@ const GroupTable = () => {
     let suggestions = useSelector((state) => state.payment.form.filteredSuggestions);
     suggestions = query.length === 0 ? [] : suggestions;
 
-
-    function handleIndividualCheck(event) {
+    const handleIndividualCheck = (event) => {
         const recipientList = { ...recipients };
         recipientList[event.target.value] = {
             checked: event.target.checked,
             name: event.target.name,
         };
         dispatch(updateRecipients(recipientList));
-    }
+    };
 
     function handleGroupChange(event, individualList) {
         const recipientList = { ...recipients };
@@ -100,11 +100,9 @@ const GroupTable = () => {
         dispatch(updateGroupContentOpen(newArray));
     }
 
-
-    function handleChangePage(event, newPage) {
+    const handleChangePage = (event, newPage) => {
         dispatch(updateSearchPage(newPage));
-    }
-
+    };
 
     return (
         <Box>
@@ -138,7 +136,9 @@ const GroupTable = () => {
                                                     : groupCheckboxIndeterminateCheck(suggestion.customers)}
                                                 checked={groupShouldBeChecked(suggestion.customers)}
                                                 color={groupContentOpen[recipient] ? 'primary' : 'secondary'}
-                                                className={groupContentOpen[recipient] ? classes.checkBoxContentOpen : null}
+                                                className={groupContentOpen[recipient]
+                                                    ? classes.checkBoxContentOpen
+                                                    : null}
                                             />
                                         </TableCell>
                                         <TableCell align="left" className={classes.tableCell}>
