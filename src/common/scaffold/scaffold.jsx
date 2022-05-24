@@ -138,23 +138,29 @@ export default function Scaffold() {
     };
 
     const handleOnIdle = () => {
+        // eslint-disable-next-line no-console
         console.log('user is idle');
     };
 
     const handleOnActive = (event) => {
+        // eslint-disable-next-line no-console
         console.log('Check if we are authenticated ', event);
         axios.get('/api/me/ping')
             .then((result) => {
                 if (result.status === 200 && result.data === 'Greetings from FINTLabs :)') {
+                    // eslint-disable-next-line no-console
                     console.log('We\'re still authenticated');
                 } else if (result.status === 302) {
+                    // eslint-disable-next-line no-console
                     window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
                 } else {
+                    // eslint-disable-next-line no-console
                     console.log('We need to re-authenticate!');
                     window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
                 }
             })
             .catch(() => {
+                // eslint-disable-next-line no-console
                 console.log('We need to re-authenticate!');
                 window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
             });

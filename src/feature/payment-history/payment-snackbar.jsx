@@ -15,7 +15,6 @@ const PaymentSnackbar = () => {
         if (reason === 'clickaway') {
             return;
         }
-        console.log('close snackbar');
         dispatch(updateInvoiceSnackbarOpen(false));
     };
 

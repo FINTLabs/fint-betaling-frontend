@@ -95,7 +95,6 @@ const PickPaymentRecipient = () => {
     function sendToBackend(file) {
         FileRepository.sendFile(schoolOrgId, file)
             .then((r) => {
-                console.log(r);
                 if (r[0].status === 200) {
                     setCustomersFromBackend(r[1]);
                     setCustomerNotFoundOpen(true);

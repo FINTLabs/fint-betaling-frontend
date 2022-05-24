@@ -46,9 +46,7 @@ const SendToInvoiceContainer = () => {
     };
     // TODO We need to get this from the me object
     const orgId = 'fintlabs.no';
-    // jennifer
     if (needsFetch) {
-        // dispatch(fetchPayments());
         dispatch(fetchPayments(null, null, 'STORED'));
         dispatch(updateNeedFetch(false));
     }
@@ -69,7 +67,6 @@ const SendToInvoiceContainer = () => {
             Object.keys(selectedOrders)
                 .filter((key) => selectedOrders[key].checked),
         ).then(([response, data]) => {
-            console.log('response', response);
             if (response.status === 201) {
                 dispatch(updateSendOrderResponse(data));
                 dispatch(updateOrderSearchValue(1));

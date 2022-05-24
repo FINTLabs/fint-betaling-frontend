@@ -57,7 +57,6 @@ const PaymentsDataGrid = () => {
             selectionModel,
         )
             .then(([response, data]) => {
-                console.log('response', response);
                 if (response.status === 201) {
                     dispatch(updateNeedFetch(true));
                     dispatch(fetchPaymentsStatusCountUnsendt('STORED'));

@@ -35,6 +35,7 @@ class ClaimRepository {
         const searchParams = buildSearchParams.toString();
         const url = `/api/claim/?${searchParams}`;
 
+        // eslint-disable-next-line no-console
         console.log('Fetching payments from:', url);
         return fetch(url, {
 
