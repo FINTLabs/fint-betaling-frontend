@@ -14,7 +14,7 @@ import {
 } from '../../../../data/redux/actions/payment';
 import ClaimRepository from '../../../../data/repository/ClaimRepository';
 import { STEP_PAYMENT_CONFIRMED, STEP_PICK_PRODUCTS } from '../../constants';
-import fetchPaymentsStatusCountUnsendt from '../../../../data/redux/actions/status';
+import fetchPaymentsStatusCountUnsent from '../../../../data/redux/actions/status';
 
 const ConfirmSend = () => {
     const dispatch = useDispatch();
@@ -93,7 +93,7 @@ const ConfirmSend = () => {
                 dispatch(updateStep(STEP_PAYMENT_CONFIRMED));
                 dispatch(updateLatestSentPayment(data));
                 dispatch(updateNeedFetch(true));
-                dispatch(fetchPaymentsStatusCountUnsendt('STORED'));
+                dispatch(fetchPaymentsStatusCountUnsent('STORED'));
             });
     };
 

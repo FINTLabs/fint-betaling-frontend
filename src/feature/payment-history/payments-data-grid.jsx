@@ -19,7 +19,7 @@ import {
 } from '../../data/redux/actions/payment';
 import PaymentSnackbar from './payment-snackbar';
 import fetchPayments from '../../data/redux/actions/payments';
-import fetchPaymentsStatusCountUnsendt from '../../data/redux/actions/status';
+import fetchPaymentsStatusCountUnsent from '../../data/redux/actions/status';
 
 const PaymentsDataGrid = () => {
     const dispatch = useDispatch();
@@ -59,7 +59,7 @@ const PaymentsDataGrid = () => {
             .then(([response, data]) => {
                 if (response.status === 201) {
                     dispatch(updateNeedFetch(true));
-                    dispatch(fetchPaymentsStatusCountUnsendt('STORED'));
+                    dispatch(fetchPaymentsStatusCountUnsent('STORED'));
                     dispatch(fetchPayments(periodSelection));
                     dispatch(updateInvoiceSnackbarContent(`${data.length} ordre er sendt til økonomisystemet!`));
                     dispatch(updateInvoiceSnackbarOpen(true));

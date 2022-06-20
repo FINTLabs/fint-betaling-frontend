@@ -17,7 +17,7 @@ import DialogActions from '@mui/material/DialogActions';
 import { updateOrdersOpen, updateSelectedOrders } from '../../../data/redux/actions/payment';
 import SendToInvoiceTableRow from './send-to-invoice-table-row';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
-import fetchPaymentsStatusCountUnsendt from '../../../data/redux/actions/status';
+import fetchPaymentsStatusCountUnsent from '../../../data/redux/actions/status';
 import fetchPayments from '../../../data/redux/actions/payments';
 
 const useStyles = makeStyles((theme) => ({
@@ -102,7 +102,7 @@ const SendToInvoiceTable = ({
                 dispatch(updateSelectedOrders([]));
 
                 setDeleteDialogOpen(false);
-                dispatch(fetchPaymentsStatusCountUnsendt('STORED'));
+                dispatch(fetchPaymentsStatusCountUnsent('STORED'));
             });
     };
 
