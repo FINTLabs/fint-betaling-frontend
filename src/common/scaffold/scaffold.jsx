@@ -18,6 +18,8 @@ import LogOutIcon from '@mui/icons-material/ExitToApp';
 import SendIcon from '@mui/icons-material/Send';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
+import { Card, CardHeader } from '@mui/material';
+import CardContent from '@mui/material/CardContent';
 import LinearProgress from '@mui/material/LinearProgress';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
@@ -241,135 +243,149 @@ export default function Scaffold() {
         || me.isLoading;
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position="fixed" open={open} style={{ background: '#fafafa' }}>
-
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        size="large"
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Link to="/">
-                        <Box
-                            component="img"
-                            sx={{
-                                height: 35,
-                                ml: 8,
-                                pr: 1.5,
-                            }}
-                            alt="Vigo Logo"
-                            src={VigoLogo}
-                        />
-                    </Link>
-                    <Typography variant="h6" noWrap>
-                        FINT Elevfakturering
-                    </Typography>
-                    <Box display="flex" ml="auto" alignItems="center">
-                        <UnsendtAlertButton
-                            handleClick={handleAlertClick}
-                            handleClose={handleAlertClose}
-                            anchorEl={alertAnchorEl}
-                            arrowRef={alertArrowRef}
-                            setArrowRef={setAlertArrowRef}
-                        />
-                        <ErrorAlertButton
-                            handleClick={handleErrorClick}
-                            handleClose={handleErrorClose}
-                            anchorEl={errorAnchorEl}
-                            arrowRef={errorArrowRef}
-                            setArrowRef={setErrorArrowRef}
-                        />
-                        <Typography variant="button" sx={{ m: 2 }}>
-                            |
+        (!me.loaded && me.error) ? (
+            <div>
+                <Card>
+                    <CardHeader title="Ingen tilgang" />
+                    <CardContent>
+                        <Typography variant="body2" component="p">
+                            Dette kan skyldes at du ikke er registrert som ansatt ved en skole i FINT.
                         </Typography>
-                        <Box display="flex" alignItems="center" justifyContent="flex-end">
-                            <Typography variant="button">
-                                {me.me.name}
+                    </CardContent>
+                </Card>
+            </div>
+        )
+            : (
+                <Box sx={{ display: 'flex' }}>
+                    <CssBaseline />
+                    <AppBar position="fixed" open={open} style={{ background: '#fafafa' }}>
+
+                        <Toolbar>
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={handleDrawerOpen}
+                                edge="start"
+                                size="large"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Link to="/">
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 35,
+                                        ml: 8,
+                                        pr: 1.5,
+                                    }}
+                                    alt="Vigo Logo"
+                                    src={VigoLogo}
+                                />
+                            </Link>
+                            <Typography variant="h6" noWrap>
+                                FINT Elevfakturering
                             </Typography>
-                            <Typography variant="button" sx={{ m: 1.5 }}>
-                                |
-                            </Typography>
-                            <OrganisationSelector />
-                        </Box>
+                            <Box display="flex" ml="auto" alignItems="center">
+                                <UnsendtAlertButton
+                                    handleClick={handleAlertClick}
+                                    handleClose={handleAlertClose}
+                                    anchorEl={alertAnchorEl}
+                                    arrowRef={alertArrowRef}
+                                    setArrowRef={setAlertArrowRef}
+                                />
+                                <ErrorAlertButton
+                                    handleClick={handleErrorClick}
+                                    handleClose={handleErrorClose}
+                                    anchorEl={errorAnchorEl}
+                                    arrowRef={errorArrowRef}
+                                    setArrowRef={setErrorArrowRef}
+                                />
+                                <Typography variant="button" sx={{ m: 2 }}>
+                                    |
+                                </Typography>
+                                <Box display="flex" alignItems="center" justifyContent="flex-end">
+                                    <Typography variant="button">
+                                        {me.me.name}
+                                    </Typography>
+                                    <Typography variant="button" sx={{ m: 1.5 }}>
+                                        |
+                                    </Typography>
+                                    <OrganisationSelector />
+                                </Box>
+                            </Box>
+                        </Toolbar>
+                        {loading && <LinearProgress color="secondary" />}
+
+                    </AppBar>
+                    <Drawer variant="permanent" open={open}>
+                        <DrawerHeader>
+                            <IconButton onClick={handleDrawerClose}>
+                                {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                            </IconButton>
+                        </DrawerHeader>
+                        <Divider />
+                        <List>
+                            <ListItem button component={Link} to="/">
+                                <ListItemIcon>
+                                    <HomeIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Hjem" />
+                            </ListItem>
+                            <Divider />
+
+                            <ListItem
+                                button
+                                component={Link}
+                                to="/betaling/ny"
+                                onClick={() => {
+                                    dispatch(initializePayment());
+                                }}
+                            >
+                                <ListItemIcon><NewInvoiceIcon /></ListItemIcon>
+                                <ListItemText primary="Opprett ordre" />
+                            </ListItem>
+
+                            <ListItem
+                                button
+                                to="/betaling/send"
+                                component={Link}
+                                onClick={() => {
+                                    dispatch(initializePayment());
+                                }}
+                            >
+                                <ListItemIcon><SendIcon /></ListItemIcon>
+                                <ListItemText primary="Send ordre" />
+                            </ListItem>
+                            <ListItem
+                                button
+                                to="/betaling/historikk"
+                                component={Link}
+                            >
+                                <ListItemIcon><InvoiceHistoryIcon /></ListItemIcon>
+                                <ListItemText primary="Ordrehistorikk" />
+                            </ListItem>
+                            <Divider />
+                            <ListItem
+                                button
+                                component="a"
+                                href="https://idp.felleskomponent.no/nidp/app/logout"
+                            >
+                                <ListItemIcon>
+                                    <LogOutIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Logg ut" />
+                            </ListItem>
+                        </List>
+                    </Drawer>
+                    <Box
+                        component="main"
+                        sx={{ flexGrow: 1, mt: 8, p: 3 }}
+                    >
+                        <main>
+                            <Routes />
+                        </main>
                     </Box>
-                </Toolbar>
-                {loading && <LinearProgress color="secondary" />}
-
-            </AppBar>
-            <Drawer variant="permanent" open={open}>
-                <DrawerHeader>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <List>
-                    <ListItem button component={Link} to="/">
-                        <ListItemIcon>
-                            <HomeIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Hjem" />
-                    </ListItem>
-                    <Divider />
-
-                    <ListItem
-                        button
-                        component={Link}
-                        to="/betaling/ny"
-                        onClick={() => {
-                            dispatch(initializePayment());
-                        }}
-                    >
-                        <ListItemIcon><NewInvoiceIcon /></ListItemIcon>
-                        <ListItemText primary="Opprett ordre" />
-                    </ListItem>
-
-                    <ListItem
-                        button
-                        to="/betaling/send"
-                        component={Link}
-                        onClick={() => {
-                            dispatch(initializePayment());
-                        }}
-                    >
-                        <ListItemIcon><SendIcon /></ListItemIcon>
-                        <ListItemText primary="Send ordre" />
-                    </ListItem>
-                    <ListItem
-                        button
-                        to="/betaling/historikk"
-                        component={Link}
-                    >
-                        <ListItemIcon><InvoiceHistoryIcon /></ListItemIcon>
-                        <ListItemText primary="Ordrehistorikk" />
-                    </ListItem>
-                    <Divider />
-                    <ListItem
-                        button
-                        component="a"
-                        href="https://idp.felleskomponent.no/nidp/app/logout"
-                    >
-                        <ListItemIcon>
-                            <LogOutIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Logg ut" />
-                    </ListItem>
-                </List>
-            </Drawer>
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, mt: 8, p: 3 }}
-            >
-                <main>
-                    <Routes />
-                </main>
-            </Box>
-        </Box>
+                </Box>
+            )
     );
 }
