@@ -35,7 +35,7 @@ import fetchMe from '../../data/redux/actions/me';
 import {
     initializePayment, setOrgId, setSchool, setSchoolOrgId,
 } from '../../data/redux/actions/payment';
-import UnsendtAlertButton from './unsendt-alert-button';
+import UnsentAlertButton from './unsent-alert-button';
 import ErrorAlertButton from './error-alert-button';
 
 const drawerWidth = 240;
