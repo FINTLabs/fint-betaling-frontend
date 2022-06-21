@@ -17,7 +17,7 @@ import {
 import RouteButton from '../route-button';
 import fetchPaymentsStatusCount from '../../data/redux/actions/status';
 
-const UnsendtAlertButton = (props) => {
+const UnsentAlertButton = (props) => {
     const {
         handleClick,
         handleClose,
@@ -25,21 +25,12 @@ const UnsendtAlertButton = (props) => {
     } = props;
     const dispatch = useDispatch();
 
-    const unsendtPayments = useSelector((state) => state.payments.statusCountUnsendt);
+    const unsentPayments = useSelector((state) => state.payments.statusCountUnsent);
 
-    if (unsendtPayments === null) {
+    if (unsentPayments === null) {
         dispatch(fetchPaymentsStatusCount());
     }
-    /* useEffect(() => {
-         dispatch(fetchPaymentsStatusCount());
-     }, [unsendtPayments]); */
 
-    // const payments = useSelector((state) => state.payments.payments);
-    // const me = useSelector((state) => state.me.me);
-    // const unsendtPayments = payments.filter((payment) => payment.claimStatus === 'STORED'
-    //    && payment.createdBy.name === me.name).length;
-
-    // const unsendtPayments = useSelector((state) => state.payments.statusCount);
     const open = Boolean(anchorEl);
     const id = open ? 'spring-popper' : undefined;
 
@@ -53,7 +44,7 @@ const UnsendtAlertButton = (props) => {
                 onClick={handleClick}
                 size="large"
             >
-                <Badge badgeContent={unsendtPayments} color="secondary">
+                <Badge badgeContent={unsentPayments} color="secondary">
                     <NotificationsIcon />
                 </Badge>
             </IconButton>
@@ -81,7 +72,7 @@ const UnsendtAlertButton = (props) => {
                 <Paper sx={{ width: 350 }}>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            {unsendtPayments > 0
+                            {unsentPayments > 0
                                 ? 'Du har ordre som ikke er sendt til økonomisystemet.'
                                 : 'Alt er i orden :)'}
                         </DialogContentText>
@@ -90,7 +81,7 @@ const UnsendtAlertButton = (props) => {
                         <Button onClick={handleClose} color="secondary">
                             Lukk
                         </Button>
-                        {unsendtPayments > 0
+                        {unsentPayments > 0
                         && (
                             <RouteButton to="/betaling/send" onClick={handleClose} color="secondary" autoFocus>
                                 Gå til send ordre
@@ -103,13 +94,13 @@ const UnsendtAlertButton = (props) => {
     );
 };
 
-UnsendtAlertButton.propTypes = {
+UnsentAlertButton.propTypes = {
     handleClick: PropTypes.func.isRequired,
     handleClose: PropTypes.func.isRequired,
     anchorEl: PropTypes.object,
 };
 
-UnsendtAlertButton.defaultProps = {
+UnsentAlertButton.defaultProps = {
     anchorEl: null,
 };
-export default UnsendtAlertButton;
+export default UnsentAlertButton;
