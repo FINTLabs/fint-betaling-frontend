@@ -286,7 +286,7 @@ export default function Scaffold() {
                                 FINT Elevfakturering
                             </Typography>
                             <Box display="flex" ml="auto" alignItems="center">
-                                <UnsendtAlertButton
+                                <UnsentAlertButton
                                     handleClick={handleAlertClick}
                                     handleClose={handleAlertClose}
                                     anchorEl={alertAnchorEl}
