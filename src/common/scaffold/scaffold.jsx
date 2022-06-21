@@ -35,7 +35,7 @@ import fetchMe from '../../data/redux/actions/me';
 import {
     initializePayment, setOrgId, setSchool, setSchoolOrgId,
 } from '../../data/redux/actions/payment';
-import UnsendtAlertButton from './unsendt-alert-button';
+import UnsentAlertButton from './unsendt-alert-button';
 import ErrorAlertButton from './error-alert-button';
 
 const drawerWidth = 240;
@@ -286,7 +286,7 @@ export default function Scaffold() {
                                 FINT Elevfakturering
                             </Typography>
                             <Box display="flex" ml="auto" alignItems="center">
-                                <UnsendtAlertButton
+                                <UnsentAlertButton
                                     handleClick={handleAlertClick}
                                     handleClose={handleAlertClose}
                                     anchorEl={alertAnchorEl}
