@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 const PaymentSelect = ({ onSelectSchool, onSelectDate }) => {
     const periodSelection = useSelector((state) => state.payment.payments.periodSelection);
     const schoolSelection = useSelector((state) => state.payment.payments.schoolSelection);
-    const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
     const organisationUnits = useSelector((state) => state.me.me.organisationUnits);
 
     return (
@@ -34,7 +33,7 @@ const PaymentSelect = ({ onSelectSchool, onSelectDate }) => {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
 
                     <NativeSelect
-                        defaultValue={schoolSelection.length < 1 ? schoolOrgId : schoolSelection}
+                        defaultValue={schoolSelection.length < 1 ? '0' : schoolSelection}
                         onChange={onSelectSchool}
                         inputProps={{
                             name: 'age',

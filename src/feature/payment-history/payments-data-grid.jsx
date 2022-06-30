@@ -25,7 +25,7 @@ const PaymentsDataGrid = () => {
     const dispatch = useDispatch();
 
     const [selectionModel, setSelectionModel] = React.useState([]);
-    const [hideSchoolCol, setHideSchoolCol] = React.useState(true);
+    const [hideSchoolCol, setHideSchoolCol] = React.useState(false);
 
     const periodSelection = useSelector((state) => state.payment.payments.periodSelection);
     const schoolSelection = useSelector((state) => state.payment.payments.schoolSelection);
@@ -36,7 +36,7 @@ const PaymentsDataGrid = () => {
     };
 
     const handleSelectSchool = (event) => {
-        if (event && event === '0') {
+        if (event && event.target.value === '0') {
             setHideSchoolCol(false);
             dispatch(updateSchoolSelection('0'));
             dispatch(fetchPayments(periodSelection));
