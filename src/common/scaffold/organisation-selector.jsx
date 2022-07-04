@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import OrganisationIcon from '@mui/icons-material/Domain';
 import Divider from '@mui/material/Divider';
-import { setSchool, setSchoolOrgId } from '../../data/redux/actions/payment';
+import { setSchool, setSchoolOrgId, updateSearchValue } from '../../data/redux/actions/payment';
 
 const useStyles = makeStyles((theme) => ({
     organisationButton: {
@@ -33,6 +33,7 @@ const OrganisationSelector = () => {
     function handleSchoolClick(selectedSchool, schoolOrgId) {
         dispatch(setSchool(selectedSchool));
         dispatch(setSchoolOrgId(schoolOrgId));
+        dispatch(updateSearchValue(''));
         localStorage.setItem('school', selectedSchool);
         localStorage.setItem('schoolOrgId', schoolOrgId);
         // dispatch(updateGroupsLoaded(false));
