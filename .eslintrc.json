@@ -24,13 +24,6 @@
     "jest"
   ],
   "rules": {
-    "react/function-component-definition": [
-      2,
-      {
-        "namedComponents": "arrow-function",
-        "unnamedComponents": "arrow-function"
-      }
-    ],
     "max-len": [
       2,
       {
