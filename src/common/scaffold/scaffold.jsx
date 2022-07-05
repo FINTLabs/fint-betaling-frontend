@@ -310,7 +310,7 @@ export default function Scaffold() {
                                     <Typography variant="button" sx={{ m: 1.5 }}>
                                         |
                                     </Typography>
-                                    <OrganisationSelector />
+                                    {me.me.organisationUnits && <OrganisationSelector />}
                                 </Box>
                             </Box>
                         </Toolbar>
