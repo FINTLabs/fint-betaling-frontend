@@ -35,7 +35,7 @@ import fetchMe from '../../data/redux/actions/me';
 import {
     initializePayment, setOrgId, setSchool, setSchoolOrgId,
 } from '../../data/redux/actions/payment';
-import UnsentAlertButton from './unsendt-alert-button';
+import UnsentAlertButton from './unsent-alert-button';
 import ErrorAlertButton from './error-alert-button';
 
 const drawerWidth = 240;
@@ -310,7 +310,7 @@ export default function Scaffold() {
                                     <Typography variant="button" sx={{ m: 1.5 }}>
                                         |
                                     </Typography>
-                                    <OrganisationSelector />
+                                    {me.me.organisationUnits && <OrganisationSelector />}
                                 </Box>
                             </Box>
                         </Toolbar>

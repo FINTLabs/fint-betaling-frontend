@@ -2,7 +2,7 @@ import {
     FETCH_PAYMENTS,
     FETCH_PAYMENTS_FULFILLED,
     FETCH_PAYMENTS_REJECTED,
-    FETCH_STATUS_COUNT_UNSENDT,
+    FETCH_STATUS_COUNT_UNSENT,
     FETCH_STATUS_COUNT_ERROR,
 } from '../actions/actions';
 
@@ -12,7 +12,7 @@ export const defaultState = {
     loaded: false,
     error: false,
     errorMessage: '',
-    statusCountUnsendt: null,
+    statusCountUnsent: null,
     statusCountError: null,
 };
 
@@ -44,10 +44,10 @@ export default function reducer(state = defaultState, action) {
             errorMessage: action.payload,
         };
 
-    case FETCH_STATUS_COUNT_UNSENDT:
+    case FETCH_STATUS_COUNT_UNSENT:
         return {
             ...state,
-            statusCountUnsendt: action.payload,
+            statusCountUnsent: action.payload,
         };
     case FETCH_STATUS_COUNT_ERROR:
         return {
