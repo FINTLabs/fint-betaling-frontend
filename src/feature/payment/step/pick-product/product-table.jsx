@@ -147,12 +147,14 @@ const ProductTable = () => {
                                                 checked={pickedProducts[suggestion.itemCode]
                                                     ? pickedProducts[suggestion.itemCode].checked
                                                     : false}
-                                                onChange={(e) => handleIndividualCheck(e,
+                                                onChange={(e) => handleIndividualCheck(
+                                                    e,
                                                     suggestion.itemCode,
                                                     suggestion.description,
                                                     suggestion.itemPrice,
                                                     suggestion.taxrate,
-                                                    suggestion.uri)}
+                                                    suggestion.uri,
+                                                )}
                                             />
                                         </TableCell>
                                         <TableCell align="left" className={classes.tableCell}>
@@ -171,9 +173,9 @@ const ProductTable = () => {
                                                 fullWidth
                                                 disabled={pickedProducts[suggestion.itemCode]
                                                     ? !pickedProducts[suggestion.itemCode].checked : true}
-                                                onChange={(e) => handleItemDescriptionChange(
-                                                    e.target.value, suggestion.itemCode,
-                                                )}
+                                                onChange={(
+                                                    e,
+                                                ) => handleItemDescriptionChange(e.target.value, suggestion.itemCode)}
                                             />
                                         </TableCell>
                                         <TableCell align="right" className={classes.tableCell}>
@@ -203,9 +205,9 @@ const ProductTable = () => {
                                                         ? !pickedProducts[suggestion.itemCode].checked : true}
                                                     label="Antall"
                                                     value={getAmount(suggestion)}
-                                                    onChange={(e) => handleAmountChange(
-                                                        e.target.value, suggestion.itemCode,
-                                                    )}
+                                                    onChange={
+                                                        (e) => handleAmountChange(e.target.value, suggestion.itemCode)
+                                                    }
                                                     type="number"
                                                     margin="dense"
                                                     variant="standard"

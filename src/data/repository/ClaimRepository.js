@@ -49,7 +49,8 @@ class ClaimRepository {
     }
 
     static sendOrders(orgId, orderList) {
-        const request = new Request('/api/claim/send',
+        const request = new Request(
+            '/api/claim/send',
             {
                 method: 'POST',
                 headers: new Headers({
@@ -57,7 +58,8 @@ class ClaimRepository {
                     'x-org-id': orgId,
                 }),
                 body: JSON.stringify(orderList),
-            });
+            }
+            );
 
         return fetch(request)
             .then((response) => Promise.all([response, response.json()]));
