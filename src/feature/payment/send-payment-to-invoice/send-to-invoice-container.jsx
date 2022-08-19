@@ -104,11 +104,11 @@ const SendToInvoiceContainer = () => {
                 onClose={handleClose}
                 message={snackbarMessage}
                 action={(
-                    <>
+                    <div>
                         <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
                             <CloseIcon fontSize="small" />
                         </IconButton>
-                    </>
+                    </div>
                 )}
             />
             <Box

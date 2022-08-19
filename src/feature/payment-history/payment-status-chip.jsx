@@ -40,7 +40,7 @@ const PaymentStatusChip = ({ payment }) => {
     }
 
     return (
-        <>
+        <div>
             <Chip
                 icon={thisStatus.icon}
                 label={thisStatus.label}
@@ -48,7 +48,7 @@ const PaymentStatusChip = ({ payment }) => {
                 color={thisStatus.color}
                 onClick={(e) => handleStatusClick(e, thisStatus.statusMessage, thisStatus.value)}
             />
-        </>
+        </div>
     );
 };
 

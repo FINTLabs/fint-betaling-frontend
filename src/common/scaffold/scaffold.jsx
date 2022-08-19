@@ -211,7 +211,7 @@ export default function Scaffold() {
             localStorageSchoolOrgId
             && me.me.organisationUnits.some((ou) => ou.organisationNumber === localStorageSchoolOrgId)
                 ? localStorageSchoolOrgId
-                : me.me.organisationUnits[0].organisationNumber
+                : me.me.organisationUnits[0].organisationNumber,
         );
 
         dispatch(setOrgId(me.me.organisation.organisationNumber));
