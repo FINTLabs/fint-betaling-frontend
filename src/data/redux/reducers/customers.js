@@ -13,7 +13,7 @@ export const defaultState = {
     errorMessage: '',
     namesSplit: {},
 };
-
+// eslint-disable-next-line default-param-last
 export default function reducer(state = defaultState, action) {
     let array;
 

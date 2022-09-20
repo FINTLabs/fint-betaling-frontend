@@ -79,7 +79,7 @@ const ChipsListContainer = ({
                                         );
                                     }}
                                 />
-                            ) : <></>}
+                            ) : <div />}
                 </Box>
 
             </Box>

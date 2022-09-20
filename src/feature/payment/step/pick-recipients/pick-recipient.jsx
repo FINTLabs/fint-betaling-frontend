@@ -45,6 +45,46 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+function MyDropzone(setUploadedFiles, setFileAlertOpen, setFileRejectOpen, setErrormessage, sendToBackend) {
+    const onDrop = useCallback((acceptedFiles) => {
+        if (acceptedFiles.length > 1) {
+            setUploadedFiles(acceptedFiles);
+            setFileAlertOpen(true);
+        } else {
+            acceptedFiles.forEach((file) => {
+                sendToBackend(file);
+            });
+        }
+    }, []);
+    const onDropRejected = useCallback((rejected) => {
+        setFileRejectOpen(true);
+        setErrormessage(rejected[0].errors[0].message);
+    }, []);
+    const {
+        getRootProps,
+        getInputProps,
+    } = useDropzone({
+        onDrop,
+        onDropRejected,
+    });
+
+    return (
+        // eslint-disable-next-line react/jsx-props-no-spreading
+        <div {...getRootProps()}>
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <input {...getInputProps()} />
+            <Box display="flex" justifyContent="center">
+                <Typography>
+                    Dra en fil hit for å laste opp
+                </Typography>
+                <Box ml={2} display="flex">
+                    <UploadIcon color="secondary" />
+                </Box>
+            </Box>
+        </div>
+    );
+}
+
 const PickPaymentRecipient = () => {
     const classes = useStyles();
     const recipientType = useSelector((state) => state.payment.form.searchBy);
@@ -113,46 +153,6 @@ const PickPaymentRecipient = () => {
             });
     }
 
-    function MyDropzone() {
-        const onDrop = useCallback((acceptedFiles) => {
-            if (acceptedFiles.length > 1) {
-                setUploadedFiles(acceptedFiles);
-                setFileAlertOpen(true);
-            } else {
-                acceptedFiles.forEach((file) => {
-                    sendToBackend(file);
-                });
-            }
-        }, []);
-        const onDropRejected = useCallback((rejected) => {
-            setFileRejectOpen(true);
-            setErrormessage(rejected[0].errors[0].message);
-        }, []);
-        const {
-            getRootProps,
-            getInputProps,
-        } = useDropzone({
-            onDrop,
-            onDropRejected,
-        });
-
-        return (
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            <div {...getRootProps()}>
-                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-                <input {...getInputProps()} />
-                <Box display="flex" justifyContent="center">
-                    <Typography>
-                        Dra en fil hit for å laste opp
-                    </Typography>
-                    <Box ml={2} display="flex">
-                        <UploadIcon color="secondary" />
-                    </Box>
-                </Box>
-            </div>
-        );
-    }
-
     const handleClose = () => {
         setFileAlertOpen(false);
     };
@@ -171,7 +171,7 @@ const PickPaymentRecipient = () => {
             <Typography variant="h3" className={classes.h2}>Velg mottaker</Typography>
             <RecipientChipList />
             <Box p={3} border={1} borderColor="secondary.main" bgcolor="grey.200" style={{ borderStyle: 'dashed' }}>
-                <MyDropzone />
+                {MyDropzone(setUploadedFiles, setFileAlertOpen, setFileRejectOpen, setErrormessage, sendToBackend)}
             </Box>
             <Box mt={4}>
                 <FormControl component="fieldset" fullWidth>
@@ -210,7 +210,7 @@ const PickPaymentRecipient = () => {
                                 </ListItemAvatar>
                                 <ListItemText primary={file.name} />
                             </ListItem>
-                        )) : <></>}
+                        )) : <div />}
                     </List>
                 </Dialog>
 

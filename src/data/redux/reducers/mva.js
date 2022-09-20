@@ -7,7 +7,7 @@ export const defaultState = {
     error: false,
     errorMessage: '',
 };
-
+// eslint-disable-next-line default-param-last
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
     case FETCH_MVA:

@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { DataGrid, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid';
+import PropTypes from 'prop-types';
+import {
+    DataGrid,
+    GridToolbarContainer,
+    GridToolbarExport,
+} from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { Send } from '@mui/icons-material';
-
 import Amount from '../payment/utils/amount';
 import noNB from '../../common/translations/noNB';
 import PaymentStatusChip from './payment-status-chip';
@@ -15,46 +19,24 @@ import PaymentSelect from './payment-select';
 import ClaimRepository from '../../data/repository/ClaimRepository';
 import {
     updateInvoiceSnackbarContent,
-    updateInvoiceSnackbarOpen, updateNeedFetch, updatePeriodSelection, updateSchoolSelection,
+    updateInvoiceSnackbarOpen, updateNeedFetch,
 } from '../../data/redux/actions/payment';
 import PaymentSnackbar from './payment-snackbar';
 import fetchPayments from '../../data/redux/actions/payments';
 import fetchPaymentsStatusCountUnsent from '../../data/redux/actions/status';
 
-const PaymentsDataGrid = () => {
+function CustomToolbar({ selectedItems }) {
     const dispatch = useDispatch();
-
-    const [selectionModel, setSelectionModel] = React.useState([]);
-    const [hideSchoolCol, setHideSchoolCol] = React.useState(false);
-
     const periodSelection = useSelector((state) => state.payment.payments.periodSelection);
-    const schoolSelection = useSelector((state) => state.payment.payments.schoolSelection);
 
-    const handleSelectDate = (event) => {
-        dispatch(updatePeriodSelection(event.target.value));
-        dispatch(fetchPayments(event.target.value, schoolSelection));
-    };
-
-    const handleSelectSchool = (event) => {
-        if (event && event.target.value === '0') {
-            setHideSchoolCol(false);
-            dispatch(updateSchoolSelection('0'));
-            dispatch(fetchPayments(periodSelection));
-        } else {
-            setHideSchoolCol(true);
-            dispatch(updateSchoolSelection(event.target.value));
-            dispatch(fetchPayments(periodSelection, event.target.value));
-        }
-    };
-
-    const handleConfirmSendPayments = () => {
+    function handleConfirmSendPayments() {
         // TODO We need to get this from the me object
         const orgId = 'fintlabs.no';
 
-        if (selectionModel.length < 1) return;
+        if (selectedItems.length < 1) return;
         ClaimRepository.sendOrders(
             orgId,
-            selectionModel,
+            selectedItems,
         )
             .then(([response, data]) => {
                 if (response.status === 201) {
@@ -74,8 +56,40 @@ const PaymentsDataGrid = () => {
                 (Error: ${error})`));
                 dispatch(updateInvoiceSnackbarOpen(true));
             });
-    };
+    }
 
+    return (
+        <GridToolbarContainer>
+            <Grid container spacing={2}>
+                <Grid item xs={8}>
+                    <PaymentSelect />
+                </Grid>
+                <Grid item xs={2}>
+                    <Button
+                        // onClick={handleConfirmSendPaymentsA}
+                        onClick={() => {
+                            handleConfirmSendPayments();
+                        }}
+                        startIcon={<Send />}
+                        sx={{ fontSize: 13 }}
+                    >
+                        Resend
+                    </Button>
+                </Grid>
+
+                <Grid item xs="auto">
+                    <div>
+                        <GridToolbarExport />
+                    </div>
+                </Grid>
+            </Grid>
+        </GridToolbarContainer>
+    );
+}
+
+const PaymentsDataGrid = () => {
+    const [selectionModel, setSelectionModel] = React.useState([]);
+    // const [hideSchoolCol, setHideSchoolCol] = React.useState(false);
     const rows = useSelector((state) => state.payments.payments);
 
     const columns = [
@@ -98,7 +112,7 @@ const PaymentsDataGrid = () => {
             headerName: 'Skole',
             width: 150,
             valueGetter: (params) => params.row.organisationUnit.name,
-            hide: hideSchoolCol,
+            // hide: hideSchoolCol,
         },
         {
             field: 'orderNumber',
@@ -134,34 +148,6 @@ const PaymentsDataGrid = () => {
         },
     ];
 
-    function CustomToolbar() {
-        return (
-            <GridToolbarContainer>
-                <Grid container spacing={2}>
-                    <Grid item xs={8}>
-                        <PaymentSelect
-                            onSelectSchool={handleSelectSchool}
-                            onSelectDate={handleSelectDate}
-                        />
-                    </Grid>
-
-                    <Grid item xs={2}>
-                        <Button onClick={handleConfirmSendPayments} startIcon={<Send />}>
-                            Resend
-                        </Button>
-                    </Grid>
-
-                    <Grid item xs="auto">
-                        <div>
-                            <GridToolbarExport />
-                        </div>
-                    </Grid>
-                </Grid>
-
-            </GridToolbarContainer>
-        );
-    }
-
     return (
         <Box width={1}>
             <PaymentStatusMessageDialog />
@@ -184,11 +170,24 @@ const PaymentsDataGrid = () => {
                     checkboxSelection
                     getRowId={(row) => row.orderNumber}
                     components={{ Toolbar: CustomToolbar }}
+                    componentsProps={
+                        {
+                            toolbar: {
+                                selectedItems: selectionModel,
+                            },
+                        }
+                    }
                     localeText={noNB}
                 />
             </div>
         </Box>
     );
+};
+CustomToolbar.propTypes = {
+    selectedItems: PropTypes.array,
+};
+CustomToolbar.defaultProps = {
+    selectedItems: [],
 };
 
 export default PaymentsDataGrid;

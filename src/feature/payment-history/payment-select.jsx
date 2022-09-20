@@ -1,14 +1,33 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NativeSelect } from '@mui/material';
-import PropTypes from 'prop-types';
+import { updatePeriodSelection, updateSchoolSelection } from '../../data/redux/actions/payment';
+import fetchPayments from '../../data/redux/actions/payments';
 
-const PaymentSelect = ({ onSelectSchool, onSelectDate }) => {
+const PaymentSelect = () => {
     const periodSelection = useSelector((state) => state.payment.payments.periodSelection);
     const schoolSelection = useSelector((state) => state.payment.payments.schoolSelection);
     const organisationUnits = useSelector((state) => state.me.me.organisationUnits);
+    const dispatch = useDispatch();
+
+    function handleSelectDate(event) {
+        dispatch(updatePeriodSelection(event.target.value));
+        dispatch(fetchPayments(event.target.value, schoolSelection));
+    }
+
+    function handleSelectSchool(event) {
+        if (event && event.target.value === '0') {
+            // setHideSchoolCol(false);
+            dispatch(updateSchoolSelection('0'));
+            dispatch(fetchPayments(periodSelection));
+        } else {
+            // setHideSchoolCol(true);
+            dispatch(updateSchoolSelection(event.target.value));
+            dispatch(fetchPayments(periodSelection, event.target.value));
+        }
+    }
 
     return (
         <div>
@@ -22,7 +41,10 @@ const PaymentSelect = ({ onSelectSchool, onSelectDate }) => {
                             name: 'age',
                             id: 'uncontrolled-native',
                         }}
-                        onChange={onSelectDate}
+                        // onChange={handleSelectDate}
+                        onChange={(e) => {
+                            handleSelectDate(e);
+                        }}
                     >
                         <option value="WEEK">Denne uka</option>
                         <option value="MONTH">Denne måneden</option>
@@ -34,7 +56,10 @@ const PaymentSelect = ({ onSelectSchool, onSelectDate }) => {
 
                     <NativeSelect
                         defaultValue={schoolSelection.length < 1 ? '0' : schoolSelection}
-                        onChange={onSelectSchool}
+                        // onChange={handleSelectSchool}
+                        onChange={(e) => {
+                            handleSelectSchool(e);
+                        }}
                         inputProps={{
                             name: 'age',
                             id: 'uncontrolled-native',
@@ -58,8 +83,4 @@ const PaymentSelect = ({ onSelectSchool, onSelectDate }) => {
     );
 };
 
-PaymentSelect.propTypes = {
-    onSelectSchool: PropTypes.func.isRequired,
-    onSelectDate: PropTypes.func.isRequired,
-};
 export default PaymentSelect;
