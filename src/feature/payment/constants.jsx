@@ -25,13 +25,13 @@ export const FILTER_LIST = [
     },
     {
         value: 'SENT',
-        label: 'Sendt til økonomisystem',
+        label: 'Sendt',
         icon: <Payment />,
         color: 'info',
     },
     {
         value: 'ACCEPTED',
-        label: 'Klar til fakturering',
+        label: 'Klar',
         icon: <Payment />,
         color: 'success',
     },
