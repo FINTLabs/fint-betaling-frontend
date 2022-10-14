@@ -185,7 +185,7 @@ const ProductSearch = () => {
     };
 
     return (
-        <Box>
+        <Box data-testid="productSearchBox">
             <SearchField
                 label={`Søk på ${searchPlaceHolder.toLowerCase()}`}
                 onChange={handleSearchValue}
@@ -207,6 +207,7 @@ const ProductSearch = () => {
                     color="secondary"
                     onClick={handleOnClickConfirmProducts}
                     className={classes.buttonForward}
+                    data-testid="nextButtonToSummary"
                 >
                     Videre
                 </Button>

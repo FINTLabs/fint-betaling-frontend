@@ -104,9 +104,14 @@ const ConfirmSend = () => {
     return (
         <Box width={1} m={2}>
             <Paper>
-                <Box width={1} display="flex" flexDirection="column" alignItems="center">
+                <Box
+                    width={1}
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                >
                     <Box p={2}>
-                        <Typography variant="h4">
+                        <Typography variant="h4" data-testid="pageTitle">
                             Lagre betaling
                         </Typography>
                     </Box>
@@ -136,6 +141,7 @@ const ConfirmSend = () => {
                             variant="contained"
                             color="secondary"
                             onClick={handleSendInvoice}
+                            data-testid="saveInvoice"
                         >
                             Lagre betaling
                         </Button>

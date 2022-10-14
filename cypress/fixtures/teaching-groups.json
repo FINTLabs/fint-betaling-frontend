@@ -1,0 +1,34 @@
+[
+  {
+    "name": "1BAA/BAT1005",
+    "description": "",
+    "customers": [
+      {
+        "id": "4mrmdr",
+        "name": "Testbruker, Nummer En"
+      },
+      {
+        "id": "1nu65h",
+        "name": "Testbruker, Nummer To"
+      },
+      {
+        "id": "4yupuz",
+        "name": "Testbruker, Nummer Tre"
+      }
+    ]
+  },
+  {
+    "name": "1BAA/BAT1006",
+    "description": "",
+    "customers": [
+      {
+        "id": "670i9",
+        "name": "Testbruker, Nummer Fire"
+      },
+      {
+        "id": "35nr8b",
+        "name": "Testbruker, Nummer Fem"
+      }
+    ]
+  }
+]

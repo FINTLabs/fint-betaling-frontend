@@ -121,7 +121,7 @@ const RecipientChipList = () => {
             title="Valgte mottakere"
             content="recipient"
         >
-            <List dense className={classes.recipientList}>
+            <List dense className={classes.recipientList} data-testid="recipientList">
                 {
                     sortedRecipients
                         .map((entry) => (

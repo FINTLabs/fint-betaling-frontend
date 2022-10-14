@@ -1,0 +1,1082 @@
+[
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102535",
+    "invoiceNumbers": [
+      "313000371"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 0,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Test, Testesen"
+    },
+    "createdBy": {
+      "name": "Ola Stålberg",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  },
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102536",
+    "invoiceNumbers": [
+      "313000372"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 0,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Rimmen, Anne"
+    },
+    "createdBy": {
+      "name": "Test Testesen",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "STORED",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  },
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102537",
+    "invoiceNumbers": [
+      "313000373"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 150000,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Testesen, Cypress"
+    },
+    "createdBy": {
+      "name": "Ola Stålberg",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "SENT",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  },
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102538",
+    "invoiceNumbers": [
+      "313000374"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 0,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Test Testesen"
+    },
+    "createdBy": {
+      "name": "Ola Stålberg",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  },
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102539",
+    "invoiceNumbers": [
+      "313000375"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 0,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Test Testesen"
+    },
+    "createdBy": {
+      "name": "Berit Andersen",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  },
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102539",
+    "invoiceNumbers": [
+      "313000375"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 0,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Test Testesen"
+    },
+    "createdBy": {
+      "name": "Test Testesen",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "ERROR",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  },
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102539",
+    "invoiceNumbers": [
+      "313000375"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 0,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Test Testesen"
+    },
+    "createdBy": {
+      "name": "Berit Andersen",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  },
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102539",
+    "invoiceNumbers": [
+      "313000375"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 0,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Test Testesem"
+    },
+    "createdBy": {
+      "name": "Ola Stålberg",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  },
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102539",
+    "invoiceNumbers": [
+      "313000375"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 0,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Test Testesen"
+    },
+    "createdBy": {
+      "name": "Asgeir Frodesen",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "UPDATE_ERROR",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  },
+  {
+    "orgId": "viken.no",
+    "orderNumber": "102539",
+    "invoiceNumbers": [
+      "313000375"
+    ],
+    "invoiceDate": "2020-11-17",
+    "paymentDueDate": "2020-12-02",
+    "createdDate": "2020-11-17",
+    "lastModifiedDate": "2020-11-17",
+    "creditNotes": null,
+    "amountDue": 0,
+    "originalAmountDue": 150000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customer": {
+      "id": "2ti6c4",
+      "name": "Test Testesen"
+    },
+    "createdBy": {
+      "name": "Frode Asgeirsson",
+      "organisation": {
+        "name": "Viken fylkeskommune",
+        "organisationNumber": "921693230"
+      },
+      "organisationUnits": [
+        {
+          "name": "Fagskolen i Østfold",
+          "organisationNumber": "980880648"
+        }
+      ]
+    },
+    "organisationUnit": {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "980880648"
+    },
+    "principal": {
+      "code": "313",
+      "description": "FAGSKOLEN I ØSTFOLD",
+      "lineitems": [
+        {
+          "itemCode": "1354--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "STUDIEAVGIFT",
+          "uri": "www.www.www.1354--313"
+        },
+        {
+          "itemCode": "1353--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "ID-KORT",
+          "uri": "www.www.www.1353--313"
+        },
+        {
+          "itemCode": "5030--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "INTERNFAKTURERING",
+          "uri": "www.www.www.5030--313"
+        },
+        {
+          "itemCode": "1350--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "DIVERSE TJENESTER/ARBEID",
+          "uri": "www.www.www.1350--313"
+        },
+        {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        },
+        {
+          "itemCode": "1351--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "KURS OG KONFERANSER",
+          "uri": "www.www.www.1351--313"
+        }
+      ],
+      "uri": "www.www.www.313",
+      "organisation": {
+        "name": "Fagskolen i Østfold",
+        "organisationNumber": "980880648"
+      }
+    },
+    "invoiceUri": "www.www.www.102535",
+    "orderItems": [
+      {
+        "description": "Skoleåret 2020-2021",
+        "itemQuantity": 1,
+        "itemPrice": 150000,
+        "lineitem": {
+          "itemCode": "1352--313",
+          "itemPrice": 0,
+          "taxrate": 0,
+          "description": "SEMESTERAVGIFT",
+          "uri": "www.www.www.1352--313"
+        }
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": null,
+    "classes": null,
+    "timestamp": 1605625893425
+  }
+]

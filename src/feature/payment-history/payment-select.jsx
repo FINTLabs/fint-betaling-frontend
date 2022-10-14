@@ -36,6 +36,7 @@ const PaymentSelect = () => {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
 
                     <NativeSelect
+                        data-testid="selectDate"
                         defaultValue={periodSelection}
                         inputProps={{
                             name: 'age',
@@ -55,6 +56,7 @@ const PaymentSelect = () => {
                 <FormControl sx={{ m: 1, minWidth: 120 }}>
 
                     <NativeSelect
+                        data-testid="selectSchool"
                         defaultValue={schoolSelection.length < 1 ? '0' : schoolSelection}
                         // onChange={handleSelectSchool}
                         onChange={(e) => {

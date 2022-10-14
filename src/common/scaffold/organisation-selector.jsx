@@ -57,7 +57,7 @@ const OrganisationSelector = () => {
     };
 
     return (
-        <Box display="flex" justifyContent="flex-end">
+        <Box display="flex" justifyContent="flex-end" data-testid="schoolSelector">
             <Button className={classes.organisationButton} onClick={handleClick}>
                 {organisationUnits ? school : <CircularProgress color="secondary" size={25} />}
                 <OrganisationIcon className={classes.organisationIcon} />
