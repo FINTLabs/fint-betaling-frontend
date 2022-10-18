@@ -25,7 +25,7 @@ spec:
       kind: Rule
       services:
         - name: fint-betaling-frontend-demo
-          port: 8080
+          port: 8000
 ---
 apiVersion: apps/v1
 kind: Deployment
