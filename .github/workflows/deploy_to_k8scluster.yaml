@@ -44,7 +44,7 @@ jobs:
             k8s/manifests/pwf/betaling-demo.yaml
           images: |
             ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
-          namespace: betaling-demo
+          namespace: ${{ env.NAMESPACE }}
 
 #      ## Alpha cluster ##
 #      - name: Set the target Alpha cluster.
