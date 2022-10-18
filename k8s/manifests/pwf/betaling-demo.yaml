@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     io.kompose.service: fint-betaling-frontend-demo
-  name: fint-betaling-frontend
+  name: fint-betaling-frontend-demo
 spec:
   ports:
     - port: 8000
