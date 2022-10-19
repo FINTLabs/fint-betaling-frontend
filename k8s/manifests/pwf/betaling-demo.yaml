@@ -32,24 +32,24 @@ kind: Deployment
 metadata:
   annotations:
   labels:
-    io.kompose.service: fint-betaling-frontend
-  name: fint-betaling-frontend
+    io.kompose.service: fint-betaling-frontend-demo
+  name: fint-betaling-frontend-demo
 spec:
   replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      io.kompose.service: fint-betaling-frontend
+      io.kompose.service: fint-betaling-frontend-demo
   template:
     metadata:
       labels:
-        io.kompose.service: fint-betaling-frontend
+        io.kompose.service: fint-betaling-frontend-demo
     spec:
       restartPolicy: Always
       containers:
         - image: fintlabsacr.azurecr.io/fint-betaling-frontend:dummy
-          name: fint-betaling-frontend
+          name: fint-betaling-frontend-demo
           resources:
             limits:
               cpu: 500m
