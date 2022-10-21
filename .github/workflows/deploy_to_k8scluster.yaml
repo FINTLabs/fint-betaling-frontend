@@ -1,7 +1,7 @@
 name: deploy
 on:
   repository_dispatch:
-    types: [trigger-to-deploy]
+    types: [ trigger-to-deploy ]
 
   workflow_dispatch:
 
@@ -62,6 +62,22 @@ jobs:
 #          images: |
 #            ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
 #          namespace: viken-no
+
+      ## Api cluster ##
+      - name: Set the target Api cluster.
+        uses: azure/aks-set-context@v1
+        with:
+          creds: '${{ secrets.AKS_API_FINT_GITHUB }}'
+          cluster-name: ${{ env.API_CLUSTER_NAME }}
+          resource-group: ${{ env.API_CLUSTER_RESOURCE_GROUP }}
+
+      - name: Deploy to Api
+        uses: azure/k8s-deploy@v3.1
+        with:
+          manifests: k8s/api/viken.yaml
+          images: ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+          namespace: 'viken-no'
+          action: deploy
 
       ## Update slack channel ##
       - name: Update FINT slack channel
