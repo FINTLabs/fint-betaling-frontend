@@ -8,8 +8,8 @@ metadata:
   name: fint-betaling-frontend
 spec:
   ports:
-    - name: "80"
-      port: 80
+    - name: "8080"
+      port: 8080
   type: LoadBalancer
   selector:
     io.kompose.service: fint-betaling-frontend
