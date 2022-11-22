@@ -1,7 +1,8 @@
 name: publish image to ACR
 on:
   push:
-
+    branches:
+      - main
   workflow_dispatch:
 
 env:

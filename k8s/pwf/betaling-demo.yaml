@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
   labels:
     io.kompose.service: fint-betaling-frontend-demo
   name: fint-betaling-frontend-demo
 spec:
   ports:
-    - port: 8000
-  type: ClusterIP
+    - port: 80
+  type: LoadBalancer
   selector:
     io.kompose.service: fint-betaling-frontend-demo
 ---
