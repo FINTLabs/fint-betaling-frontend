@@ -152,7 +152,7 @@ export default function Scaffold() {
                 if (result.status === 200 && result.data === 'Greetings from FINTLabs :)') {
                     // eslint-disable-next-line no-console
                     console.log('We\'re still authenticated');
-                } else if (result.status === 302) {
+                } else if (result.status === 302 || result.status === 403) {
                     // eslint-disable-next-line no-console
                     window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
                 } else {
