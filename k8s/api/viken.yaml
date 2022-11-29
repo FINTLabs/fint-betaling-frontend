@@ -27,6 +27,8 @@ spec:
       services:
         - name: fint-betaling-frontend
           port: 8000
+      middlewares:
+        - name: betaling-auth-forward
 ---
 apiVersion: apps/v1
 kind: Deployment
