@@ -67,7 +67,7 @@ const ErrorAlertButton = (props) => {
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
                             {errorPayments > 0
-                                ? 'Du har ordre med feil.'
+                                ? 'Du har hatt ordre med feil de siste 14 dagene.'
                                 : 'Alt er i orden :)'}
                         </DialogContentText>
                     </DialogContent>
