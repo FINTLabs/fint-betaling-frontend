@@ -21,7 +21,7 @@ export default function fetchPaymentsStatusCount() {
             });
 
         dispatch({ type: FETCH_STATUS_COUNT_ERROR });
-        ClaimRepository.fetchPaymentsStatusCount('ERROR,SEND_ERROR,ACCEPT_ERROR,UPDATE_ERROR')
+        ClaimRepository.fetchPaymentsStatusCount('ERROR,SEND_ERROR,ACCEPT_ERROR,UPDATE_ERROR', 14)
             .then(([result, totalCount]) => {
                 if (result.status === 200) {
                     dispatch({

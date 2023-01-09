@@ -146,6 +146,7 @@ const RecipientSearch = () => {
                     color="secondary"
                     onClick={handleConfirmButtonClick}
                     className={classes.buttonForward}
+                    data-testid="recipientGoToProductsButton"
                 >
                     Videre
                 </Button>

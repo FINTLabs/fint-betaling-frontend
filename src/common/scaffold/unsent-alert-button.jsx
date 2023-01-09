@@ -35,7 +35,7 @@ const UnsentAlertButton = (props) => {
     const id = open ? 'spring-popper' : undefined;
 
     return (
-        <Box>
+        <Box data-cy="UnsentAlertButton">
             <IconButton
                 aria-label="show new notifications"
                 color="inherit"

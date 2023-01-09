@@ -262,7 +262,7 @@ export default function Scaffold() {
                     <CssBaseline />
                     <AppBar position="fixed" open={open} style={{ background: '#fafafa' }}>
 
-                        <Toolbar>
+                        <Toolbar testid="toolbar" data-testid="toolbar">
                             <IconButton
                                 color="inherit"
                                 aria-label="open drawer"
@@ -305,7 +305,12 @@ export default function Scaffold() {
                                 <Typography variant="button" sx={{ m: 2 }}>
                                     |
                                 </Typography>
-                                <Box display="flex" alignItems="center" justifyContent="flex-end">
+                                <Box
+                                    display="flex"
+                                    alignItems="center"
+                                    justifyContent="flex-end"
+                                    data-testid="userNameField"
+                                >
                                     <Typography variant="button">
                                         {me.me.name}
                                     </Typography>
@@ -326,7 +331,7 @@ export default function Scaffold() {
                             </IconButton>
                         </DrawerHeader>
                         <Divider />
-                        <List>
+                        <List data-testid="homepageCards">
                             <ListItem button component={Link} to="/">
                                 <ListItemIcon>
                                     <HomeIcon />

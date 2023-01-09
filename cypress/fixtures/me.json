@@ -1,0 +1,17 @@
+{
+  "name": "Test Testesen",
+  "organisation": {
+    "name": "Viken fylkeskommune",
+    "organisationNumber": "921693230"
+  },
+  "organisationUnits": [
+    {
+      "name": "Fagskolen i Østfold",
+      "organisationNumber": "974544520"
+    },
+    {
+      "name": "Testskolen videregående skole",
+      "organisationNumber": "999999999"
+    }
+  ]
+}
