@@ -1,10 +1,10 @@
 class ClaimRepository {
-    static fetchPaymentsStatusCount(statusToGet, daysOld) {
+    static fetchPaymentsStatusCount(statusToGet, days) {
         const stopFetch = 15;
         const buildSearchParams = new URLSearchParams();
 
-        if (daysOld != null) {
-            buildSearchParams.append('daysold', daysOld);
+        if (days != null) {
+            buildSearchParams.append('days', days);
         }
         const searchParams = buildSearchParams.toString();
 
