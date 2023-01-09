@@ -9,7 +9,6 @@ class ClaimRepository {
         const searchParams = buildSearchParams.toString();
 
         const url = `/api/claim/count/by-status/${statusToGet}?${searchParams}`;
-        console.log('jennifer days to get', searchParams);
         return fetch(url, {
 
             retryOn(attempt, error, response) {
