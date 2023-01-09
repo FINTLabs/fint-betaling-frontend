@@ -1,0 +1,25 @@
+{
+  "code": "305",
+  "description": "TEST VIDEREGÅENDE SKOLE",
+  "lineitems": [
+    {
+      "itemCode": "1004--305",
+      "itemPrice": 0,
+      "taxrate": 250,
+      "description": "ELEVARBEID VED",
+      "uri": "www.www.www.1004--305"
+    },
+    {
+      "itemCode": "1085--305",
+      "itemPrice": 0,
+      "taxrate": 250,
+      "description": "DIVERSE SALG MED MVA",
+      "uri": "www.www.www.1085--305"
+    }
+  ],
+  "uri": "www.www.www.305",
+  "organisation": {
+    "name": "Test videregående skole",
+    "organisationNumber": "999999999"
+  }
+}

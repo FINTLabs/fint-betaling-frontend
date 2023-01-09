@@ -66,7 +66,7 @@ function CustomToolbar({ selectedItems }) {
                 </Grid>
                 <Grid item xs={2}>
                     <Button
-                        // onClick={handleConfirmSendPaymentsA}
+                        data-testid="resendButton"
                         onClick={() => {
                             handleConfirmSendPayments();
                         }}

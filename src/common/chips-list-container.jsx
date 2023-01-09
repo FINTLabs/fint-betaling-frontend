@@ -47,41 +47,48 @@ const ChipsListContainer = ({
                     {count}
                     )
                 </Typography>
-                <Box mt={1} mr="22px">
-                    {' '}
-                    {
-                        ((step !== '1' || (step === '1' && content !== 'recipient')) && !deleteConfirmed)
-                        && <Typography variant="caption" pl={1}>{deleteText}</Typography>
-                    }
-                    {/* eslint-disable-next-line no-nested-ternary */}
-                    {(step !== '1' || content !== 'recipient')
-                        ? deleteConfirmed
-                            ? (
-                                <div>
-                                    <Typography variant="caption">Bekreft</Typography>
-                                    <ConfirmRemoveIcon
-                                        sx={{ color: 'warning.dark', cursor: 'pointer', verticalAlign: 'bottom' }}
-                                        onClick={onClear}
-                                    />
-                                </div>
-                            )
+                {children.length > 0
+                    ? (
+                        <Box mt={1} mr="22px" data-testid="delete-icon">
+                            {' '}
+                            {
+                                ((step !== '1' || (step === '1' && content !== 'recipient')) && !deleteConfirmed)
+                                && <Typography variant="caption" pl={1}>{deleteText}</Typography>
+                            }
+                            {/* eslint-disable-next-line no-nested-ternary */}
+                            {(step !== '1' || content !== 'recipient')
+                                ? deleteConfirmed
+                                    ? (
+                                        <div>
+                                            <Typography variant="caption">Bekreft</Typography>
+                                            <ConfirmRemoveIcon
+                                                sx={{
+                                                    color: 'warning.dark',
+                                                    cursor: 'pointer',
+                                                    verticalAlign: 'bottom',
+                                                }}
+                                                onClick={onClear}
+                                            />
+                                        </div>
+                                    )
 
-                            : (
-                                <RemoveIcon
-                                    sx={{ cursor: 'pointer', verticalAlign: 'bottom' }}
-                                    onClick={() => {
-                                        setDeleteConfirmed(true);
-                                        clearTimeout(timer);
-                                        setTimer(
-                                            setTimeout(() => {
-                                                setDeleteConfirmed(false);
-                                            }, 1500),
-                                        );
-                                    }}
-                                />
-                            ) : <div />}
-                </Box>
-
+                                    : (
+                                        <RemoveIcon
+                                            sx={{ cursor: 'pointer', verticalAlign: 'bottom' }}
+                                            onClick={() => {
+                                                setDeleteConfirmed(true);
+                                                clearTimeout(timer);
+                                                setTimer(
+                                                    setTimeout(() => {
+                                                        setDeleteConfirmed(false);
+                                                    }, 1500),
+                                                );
+                                            }}
+                                        />
+                                    ) : <div />}
+                        </Box>
+                    )
+                    : null }
             </Box>
             <Box display="flex" width="100%" justifyContent="center" flexWrap="wrap" m={1}>
                 {children}
