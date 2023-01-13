@@ -13,7 +13,7 @@ const PaymentHistoryContainer = () => {
                 p={2}
             >
                 <Box m={1}>
-                    <Typography variant="h5">
+                    <Typography variant="h5" data-testid="pageTitle">
                         {pageTitle}
                     </Typography>
                 </Box>

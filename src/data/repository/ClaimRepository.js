@@ -1,8 +1,14 @@
 class ClaimRepository {
-    static fetchPaymentsStatusCount(statusToGet) {
-        const url = `/api/claim/count/by-status/${statusToGet}`;
+    static fetchPaymentsStatusCount(statusToGet, days) {
         const stopFetch = 15;
+        const buildSearchParams = new URLSearchParams();
 
+        if (days != null) {
+            buildSearchParams.append('days', days);
+        }
+        const searchParams = buildSearchParams.toString();
+
+        const url = `/api/claim/count/by-status/${statusToGet}?${searchParams}`;
         return fetch(url, {
 
             retryOn(attempt, error, response) {

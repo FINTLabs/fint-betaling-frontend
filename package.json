@@ -60,6 +60,7 @@
   "devDependencies": {
     "@types/jest": "^28.1.4",
     "browserify": "^17.0.0",
+    "cypress": "^10.9.0",
     "downshift": "^6.1.7",
     "eslint": "^8.19.0",
     "eslint-config-airbnb": "^19.0.4",
