@@ -11,10 +11,9 @@ import {
     DialogContentText,
     DialogActions,
     Button,
-    Box,
+    Box, Link, css,
 } from '@mui/material';
 
-import RouteButton from '../route-button';
 import fetchPaymentsStatusCount from '../../data/redux/actions/status';
 
 const UnsentAlertButton = (props) => {
@@ -24,6 +23,10 @@ const UnsentAlertButton = (props) => {
         anchorEl,
     } = props;
     const dispatch = useDispatch();
+
+    const linkStyle = css`
+      text-decoration: none;
+    `;
 
     const unsentPayments = useSelector((state) => state.payments.statusCountUnsent);
 
@@ -83,9 +86,15 @@ const UnsentAlertButton = (props) => {
                         </Button>
                         {unsentPayments > 0
                         && (
-                            <RouteButton to="/betaling/send" onClick={handleClose} color="secondary" autoFocus>
+                            <Link
+                                href="/betaling/send"
+                                onClick={handleClose}
+                                color="secondary"
+                                autoFocus
+                                sx={linkStyle}
+                            >
                                 Gå til send ordre
-                            </RouteButton>
+                            </Link>
                         )}
                     </DialogActions>
                 </Paper>

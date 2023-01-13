@@ -19,6 +19,7 @@ const SendToInvoiceTableRow = ({
     suggestion,
     selectedOrders,
     handleIndividualCheck,
+    includeMeFilter,
 }) => {
     const classes = useStyles();
 
@@ -39,6 +40,16 @@ const SendToInvoiceTableRow = ({
             <TableCell align="left" className={classes.tableCell}>
                 {suggestion.customer.name}
             </TableCell>
+            <TableCell align="left" className={classes.tableCell}>
+                {suggestion.organisationUnit.name}
+            </TableCell>
+            {!includeMeFilter
+                ? (
+                    <TableCell align="left" className={classes.tableCell}>
+                        {suggestion.createdBy.name}
+                    </TableCell>
+                )
+                : null}
             <TableCell align="right" className={classes.tableCell}>
                 <Amount>{suggestion.originalAmountDue}</Amount>
             </TableCell>
@@ -50,6 +61,7 @@ SendToInvoiceTableRow.propTypes = {
     handleIndividualCheck: PropTypes.func.isRequired,
     selectedOrders: PropTypes.any.isRequired,
     suggestion: PropTypes.object.isRequired,
+    includeMeFilter: PropTypes.bool.isRequired,
 };
 
 export default SendToInvoiceTableRow;

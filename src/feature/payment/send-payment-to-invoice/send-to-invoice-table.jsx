@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const SendToInvoiceTable = ({
     filteredSuggestions,
     selectedOrders,
+    includeMeFilter,
 }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -129,12 +130,16 @@ const SendToInvoiceTable = ({
                                         />
                                         Velg alle
                                     </TableCell>
-                                    <TableCell align="right" colSpan="3" />
+                                    <TableCell align="right" colSpan={includeMeFilter ? 5 : 6} />
                                 </TableRow>
                                 <TableRow>
                                     <TableCell align="right" className={classes.tableCell} />
                                     <TableCell>Ordrenummer</TableCell>
                                     <TableCell align="left" className={classes.tableCell}>Mottakernavn</TableCell>
+                                    <TableCell align="left" className={classes.tableCell}>Skole</TableCell>
+                                    {!includeMeFilter
+                                        ? <TableCell>Created By</TableCell>
+                                        : null}
                                     <TableCell align="right" className={classes.tableCell}>Restbeløp</TableCell>
                                 </TableRow>
                             </>
@@ -152,6 +157,7 @@ const SendToInvoiceTable = ({
                                     handleIndividualCheck={handleIndividualCheck}
                                     selectedOrders={selectedOrders}
                                     suggestion={suggestion}
+                                    includeMeFilter={includeMeFilter}
                                 />
                             ))
                     }
@@ -162,7 +168,7 @@ const SendToInvoiceTable = ({
                                     {!showAll ? 'Vis alle' : 'Vis kun 10 første'}
                                 </Button>
                             </TableCell>
-                        ) : <TableCell colSpan={3} />}
+                        ) : <TableCell colSpan={includeMeFilter ? 4 : 5} />}
                         <TableCell align="right">
                             <Button
                                 disabled={Object.keys(selectedOrders)
@@ -206,6 +212,7 @@ const SendToInvoiceTable = ({
 SendToInvoiceTable.propTypes = {
     filteredSuggestions: PropTypes.array.isRequired,
     selectedOrders: PropTypes.any.isRequired,
+    includeMeFilter: PropTypes.bool.isRequired,
 };
 
 export default SendToInvoiceTable;
