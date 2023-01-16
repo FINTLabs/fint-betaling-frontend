@@ -13,5 +13,6 @@
       "name": "Testskolen videregående skole",
       "organisationNumber": "999999999"
     }
-  ]
+  ],
+  "admin": true
 }

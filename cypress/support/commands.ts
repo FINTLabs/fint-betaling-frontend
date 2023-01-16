@@ -30,14 +30,14 @@ Cypress.Commands.add('apiIntercept', (beforeAdd: boolean) => {
         url: 'http://localhost:3000/api/claim/send',
     }, {statusCode: 201, fixture: 'sentClaim.json'});
 
-    cy.intercept({
-        method: 'GET',
-        url: 'http://localhost:3000/api/claim/count/by-status/ERROR,SEND_ERROR,ACCEPT_ERROR,UPDATE_ERROR',
-    }, {statusCode: 200, fixture: 'by-status.json'});
+    // cy.intercept({
+    //     method: 'GET',
+    //     url: 'http://localhost:3000/api/claim/count/by-status/ERROR,SEND_ERROR,ACCEPT_ERROR,UPDATE_ERROR',
+    // }, {statusCode: 200, fixture: 'by-status.json'});
 
     cy.intercept({
         method: 'GET',
-        url: 'http://localhost:3000/api/claim/count/by-status/ERROR,SEND_ERROR,ACCEPT_ERROR,UPDATE_ERROR',
+        url: 'http://localhost:3000/api/claim/count/by-status/ERROR,SEND_ERROR,ACCEPT_ERROR,UPDATE_ERROR?days=14',
     }, {statusCode: 200, fixture: 'by-status.json'});
 
     if (beforeAdd) {
@@ -47,13 +47,17 @@ Cypress.Commands.add('apiIntercept', (beforeAdd: boolean) => {
         }, {statusCode: 200, fixture: 'claims.json'});
         cy.intercept({
             method: 'GET',
-            url: 'http://localhost:3000/api/claim/count/by-status/STORED',
+            url: 'http://localhost:3000/api/claim/count/by-status/STORED?',
         }, {statusCode: 200, fixture: 'by-status.json'});
     } else {
         cy.intercept({
             method: 'GET',
             url: 'http://localhost:3000/api/claim/?status=STORED',
         }, {statusCode: 200, fixture: 'claims.json'});
+        cy.intercept({
+            method: 'GET',
+            url: 'http://localhost:3000/api/claim/count/by-status/STORED?',
+        }, {statusCode: 200, fixture: 'by-status.json'});
     }
 
 });

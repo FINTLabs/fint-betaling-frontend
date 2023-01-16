@@ -1,5 +1,5 @@
 describe('Testing start page', () => {
-  it('Logo and FINT Betaling found', () => {
+  it('1. Logo and FINT Betaling found', () => {
     cy.apiIntercept(true);
     // cy.getClaimsBeforeAdd();
     cy.goToHome();
@@ -7,19 +7,19 @@ describe('Testing start page', () => {
     cy.apiIntercept();
   });
 
-  it('Name is displayed', () => {
+  it('2. Name is displayed', () => {
         cy.get('[data-testid="userNameField"]').contains("Test Testesen");
       }
   );
 
-  it('Menu exists, can open', () => {
+  it('3. Menu exists, can open', () => {
     cy.apiIntercept();
     cy.get('.MuiDrawer-root > .MuiIconButton-root').should('not.exist');
     cy.get('.MuiToolbar-root > :nth-child(1) > .MuiSvgIcon-root').click()
     cy.get('.MuiDrawer-root > .MuiPaper-root').should('be.visible');
   });
 
-  it('Menu has 5 links', () => {
+  it('4. Menu has 5 links', () => {
         cy.apiIntercept();
         cy.get(".MuiDrawer-root > .MuiPaper-root")
             .find('a')
@@ -31,7 +31,7 @@ describe('Testing start page', () => {
       }
   );
 
-  it('Testing menu buttons clicks', () => {
+  it('5. Testing menu buttons clicks', () => {
         cy.apiIntercept();
         cy.get(".MuiDrawer-root > .MuiPaper-root").children().contains("Opprett ordre").click();
         cy.url().should('include', '/betaling/ny');
@@ -46,28 +46,29 @@ describe('Testing start page', () => {
       }
   );
 
-  it('Menu can close', () => {
+  it('6. Menu can close', () => {
     cy.apiIntercept();
     cy.get('.MuiDrawer-root > .MuiPaper-root').should('be.visible');
     cy.get('[data-testid="ChevronLeftIcon"]').click()
     cy.get('.MuiDrawer-root > .MuiIconButton-root').should('not.exist');
   });
 
-  it('Unsent button exists', () => {
+  it('7. Unsent button exists', () => {
     cy.apiIntercept();
     cy.get('[data-cy="UnsentAlertButton"]').should('be.visible');
   });
 
-  it.skip('Unsent button indicates 1 unsent claim', () => {
-    cy.apiIntercept();
-    cy.get('[data-cy="NotificationsIcon"] >.MuiBadge-anchorOriginTopRight').contains("1");
+  it.skip('8. Unsent button indicates 2 unsent claim', () => {
+      cy.apiIntercept();
+      cy.get('[data-cy="UnsentAlertButton"] > .MuiButtonBase-root').contains("2");
+      cy.wait(500);
   });
 
-  it('Unsent field message box shows, has correct links, closes', () => {
+  it('9. Unsent field message box shows, has correct links, closes', () => {
     cy.apiIntercept();
     cy.get('[data-testid="NotificationsIcon"] > path').click();
     cy.get('.MuiDialogContent-root').should('be.visible');
-    cy.get('.MuiDialogActions-root > a.MuiButtonBase-root').contains("Gå til send ordre").click();
+      cy.get('.MuiDialogActions-root > .MuiTypography-root').contains("Gå til send ordre").click();
     cy.url().should('include', '/betaling/send');
     cy.go('back');
     cy.get('[data-testid="NotificationsIcon"] > path').click();

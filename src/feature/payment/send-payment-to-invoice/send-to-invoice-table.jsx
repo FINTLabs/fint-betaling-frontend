@@ -177,6 +177,7 @@ const SendToInvoiceTable = ({
                                 variant="contained"
                                 className={classes.deleteButton}
                                 size="small"
+                                data-testid="delete-icon"
                             >
                                 Slett valgte
                             </Button>

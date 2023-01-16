@@ -142,9 +142,13 @@ const SendToInvoiceContainer = () => {
                     value={searchValue}
                 />
             </Box>
-            {me.admin === 'true'
+            {me.admin
                 ? (
-                    <Button variant="outlined" onClick={() => setIncludeMeNameFilter(!includeMeNameFilter)}>
+                    <Button
+                        variant="outlined"
+                        onClick={() => setIncludeMeNameFilter(!includeMeNameFilter)}
+                        data-testid="admin-show-all-button"
+                    >
                         {includeMeNameFilter ? 'Vis alle' : 'Bare min'}
                     </Button>
                 )
