@@ -29,7 +29,7 @@ describe('Send claims', () => {
     });
 
     it('Delete order should not exist', () => {
-        cy.get('[data-testid="delete-icon"]').should("not.exist");
+        cy.get('[data-testid="delete-icon"]').should("be.disabled");
     });
 
     it('Selecting the claim works', () => {
@@ -40,13 +40,14 @@ describe('Send claims', () => {
     });
 
     it('Delete order should be enabled', () => {
-        cy.get('[data-testid="delete-icon"]').should("exist");
+        cy.get('[data-testid="delete-icon"]').should("be.enabled");
     });
 
     it('Delete order confirm icon', () => {
-        cy.get('[data-testid="DeleteIcon"]').click();
+        cy.get('[data-testid="delete-icon"]').click();
         cy.wait(500);
-        cy.get('[data-testid="delete-icon"]').should("contain", "Bekreft");
+        cy.get('.MuiDialogActions-root > :nth-child(2)').should("exist");
+        cy.get('.MuiDialogActions-root > :nth-child(1)').click();
         cy.wait(500);
     });
 
@@ -88,4 +89,26 @@ describe('Send claims', () => {
     it('Snackbar showing 1 order sent', () => {
         cy.get('.MuiSnackbar-root > .MuiPaper-root').contains("1 ordre er sendt til økonomisystemet!")
     });
+
+    it('Admin button exists, is clickable, and changes the list', () => {
+        cy.get('.MuiSnackbar-root > .MuiPaper-root').should("exist");
+        cy.get('[data-testid="admin-show-all-button"]').click();
+        cy.get("tbody")
+            .children()
+            .should(
+                ($tr) => {
+                    expect($tr).to.have.length(3)
+                }
+            )
+        cy.wait(500);
+        cy.get('[data-testid="admin-show-all-button"]').click();
+        cy.get("tbody")
+            .children()
+            .should(
+                ($tr) => {
+                    expect($tr).to.have.length(2)
+                }
+            )
+    });
+
 })

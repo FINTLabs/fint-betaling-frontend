@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
-import OrderChipList from './order-chip-list';
 import ClaimRepository from '../../../data/repository/ClaimRepository';
 // import fetchPayments from '../../../data/redux/actions/payments';
 import {
@@ -30,8 +29,11 @@ const SendToInvoiceContainer = () => {
     const selectedOrders = useSelector((state) => state.payment.sendToExternalSystem.selectedOrders);
     const needsFetch = useSelector((state) => state.payment.sendToExternalSystem.needFetch);
     const me = useSelector((state) => state.me.me);
+
+    const [includeMeNameFilter, setIncludeMeNameFilter] = React.useState(true);
+
     const suggestions = payments.filter((payment) => payment.claimStatus === 'STORED'
-        && payment.createdBy.name === me.name);
+        && (includeMeNameFilter ? payment.createdBy.name === me.name : true));
     const filteredSuggestions = suggestions.filter((s) => s.orderNumber.includes(searchValue));
 
     const [showSnackbar, setShowSnackbar] = React.useState(false);
@@ -140,7 +142,18 @@ const SendToInvoiceContainer = () => {
                     value={searchValue}
                 />
             </Box>
-            <OrderChipList />
+            {me.admin
+                ? (
+                    <Button
+                        variant="outlined"
+                        onClick={() => setIncludeMeNameFilter(!includeMeNameFilter)}
+                        data-testid="admin-show-all-button"
+                    >
+                        {includeMeNameFilter ? 'Vis alle' : 'Bare min'}
+                    </Button>
+                )
+                : null}
+
             <Box display="flex" justifyContent="center">
                 <Button
                     variant="contained"
@@ -153,7 +166,11 @@ const SendToInvoiceContainer = () => {
                 </Button>
             </Box>
 
-            <SendToInvoiceTable filteredSuggestions={filteredSuggestions} selectedOrders={selectedOrders} />
+            <SendToInvoiceTable
+                filteredSuggestions={filteredSuggestions}
+                selectedOrders={selectedOrders}
+                includeMeFilter={includeMeNameFilter}
+            />
         </Box>
     );
 };
