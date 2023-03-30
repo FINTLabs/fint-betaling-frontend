@@ -1,0 +1,54 @@
+{
+  "name": "Kalnes videregående skole",
+  "description": null,
+  "customers": [
+    {
+      "id": "4mrmdr",
+      "name": "First, User"
+    },
+    {
+      "id": "1nu65h",
+      "name": "Second User"
+    },
+    {
+      "id": "4yupuz",
+      "name": "Third User"
+    },
+    {
+      "id": "670i9",
+      "name": "Another User"
+    },
+    {
+      "id": "35nr8b",
+      "name": "Whatever user"
+    },
+    {
+      "id": "8yh56k",
+      "name": "New User 1"
+    },
+    {
+      "id": "7ehe3s",
+      "name": "New User 2"
+    },
+    {
+      "id": "3jnk1f",
+      "name": "New User 3"
+    },
+    {
+      "id": "9ls2hg",
+      "name": "New User 4"
+    },
+    {
+      "id": "2jks5e",
+      "name": "New User 5"
+    },
+    {
+      "id": "2jks5e",
+      "name": "New User 5"
+    },
+    {
+      "id": "2jks5f",
+      "name": "should be on the next page"
+    }
+  ]
+}

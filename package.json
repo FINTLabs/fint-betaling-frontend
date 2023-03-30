@@ -72,6 +72,7 @@
     "react-autosuggest": "^9.4.3",
     "react-test-renderer": "^17.0.2",
     "react-window": "^1.8.5",
-    "redux-mock-store": "^1.5.3"
+    "redux-mock-store": "^1.5.3",
+    "webpack-cli": "^5.0.1"
   }
 }

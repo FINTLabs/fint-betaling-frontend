@@ -86,8 +86,8 @@ const ProductSearch = () => {
     const searchValue = useSelector((state) => state.payment.product.searchValue);
     const suggestions = useSelector((state) => state.principal.principal.lineitems);
     const activePage = useSelector((state) => state.payment.form.page);
-    const productsLengthTemp = useSelector((state) => state.payment.product.productsLength);
-    const productsLength = searchValue.length === 0 ? 0 : productsLengthTemp;
+    // const productsLengthTemp = useSelector((state) => state.payment.product.productsLength);
+    // const productsLength = searchValue.length === 0 ? 0 : productsLengthTemp;
     const searchPlaceHolder = 'Produktnavn eller produktkode';
 
     function matchedProduct(suggestion, input) {
@@ -148,9 +148,20 @@ const ProductSearch = () => {
     const getSuggestionsCallback = useCallback(getSuggestions, [getSuggestions]);
 
     useEffect(() => {
-        dispatch(updateProductLength(getProductsLengthCallback(searchValue)));
-        dispatch(updateProductSuggestions(getSuggestionsCallback(searchValue)));
+        if (searchValue.length > 0) {
+            dispatch(updateProductLength(getProductsLengthCallback(searchValue)));
+            dispatch(updateProductSuggestions(getSuggestionsCallback(searchValue)));
+        } else {
+            dispatch(updateProductSuggestions(suggestions));
+            dispatch(updateProductLength(suggestions.length));
+        }
     }, [activePage, searchValue, getProductsLengthCallback, getSuggestionsCallback, dispatch]);
+
+    useEffect(() => {
+        console.log('test products effect', suggestions);
+        dispatch(updateProductSuggestions(suggestions));
+        dispatch(updateProductLength(suggestions.length));
+    }, []);
 
     function isConfirmButtonDisabled() {
         return Object.keys(pickedProducts)
@@ -220,7 +231,7 @@ const ProductSearch = () => {
                     </Typography>
                 )
             }
-            {productsLength > 0 ? <ProductTable className={classes.recipientSuggestItem} /> : <div />}
+            <ProductTable className={classes.recipientSuggestItem} />
         </Box>
     );
 };

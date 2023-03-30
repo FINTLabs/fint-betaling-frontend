@@ -16,6 +16,7 @@ import Box from '@mui/material/Box';
 import { updateGroupContentOpen, updateRecipients, updateSearchPage } from '../../../../data/redux/actions/payment';
 import GroupMemberTable from './group-member-table';
 import Pagination from '../../../../common/pagination';
+import EnhancedTableToolbar from './CustomToolbar';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -46,13 +47,13 @@ const GroupTable = () => {
 
     const query = useSelector((state) => state.payment.form.searchValue);
     const activePage = useSelector((state) => state.payment.form.page);
-    const suggestionLengthTemp = useSelector((state) => state.payment.form.suggestionLength);
-    const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
+    const suggestionsLength = useSelector((state) => state.payment.form.suggestionLength);
+    // const suggestionsLength = query.length === 0 ? 0 : suggestionLengthTemp;
     const groupContentOpen = useSelector((state) => state.payment.form.groupContentOpen);
     const recipients = useSelector((state) => state.payment.payment.recipients);
 
-    let suggestions = useSelector((state) => state.payment.form.filteredSuggestions);
-    suggestions = query.length === 0 ? [] : suggestions;
+    const suggestions = useSelector((state) => state.payment.form.filteredSuggestions);
+    // suggestions = query.length === 0 ? [] : suggestions;
 
     const handleIndividualCheck = (event) => {
         const recipientList = { ...recipients };
@@ -106,7 +107,9 @@ const GroupTable = () => {
 
     return (
         <Box>
+            <EnhancedTableToolbar />
             <Table className={classes.table} size="small">
+
                 <TableHead>
                     <TableRow>
                         <TableCell align="left" className={classes.tableCell}>Velg</TableCell>
@@ -116,77 +119,79 @@ const GroupTable = () => {
                     </TableRow>
                 </TableHead>
                 {
-                    suggestions.map(
-                        (suggestion) => {
-                            const recipient = suggestion.name;
-                            const matches = match(recipient, query);
-                            const parts = parse(recipient, matches);
-                            return (
-                                <TableBody key={suggestion.name}>
-                                    <TableRow
-                                        hover={!groupContentOpen[recipient]}
-                                        className={groupContentOpen[recipient] ? classes.rowSelected : null}
-                                    >
-                                        <TableCell align="left" className={classes.tableCell}>
-                                            <Checkbox
-                                                onChange={(event) => handleGroupChange(event, suggestion.customers)}
-                                                value={suggestion.customers}
-                                                indeterminate={groupShouldBeChecked(suggestion.customers)
-                                                    ? false
-                                                    : groupCheckboxIndeterminateCheck(suggestion.customers)}
-                                                checked={groupShouldBeChecked(suggestion.customers)}
-                                                color={groupContentOpen[recipient] ? 'primary' : 'secondary'}
-                                                className={groupContentOpen[recipient]
-                                                    ? classes.checkBoxContentOpen
-                                                    : null}
-                                            />
-                                        </TableCell>
-                                        <TableCell align="left" className={classes.tableCell}>
-                                            {parts.map((part) => (
-                                                <span
-                                                    key={part.text}
-                                                    style={{ fontWeight: part.highlight ? 500 : 400 }}
-                                                >
-                                                    {part.text}
-                                                </span>
-                                            ))}
-                                        </TableCell>
-                                        <TableCell align="right" className={classes.tableCell}>
-                                            {suggestion.description}
-                                        </TableCell>
-                                        <TableCell
-                                            align="right"
-                                            className={classes.tableCellArrow}
-                                            onClick={() => handleGroupOpenClick(recipient)}
+                    suggestions
+                        .slice(activePage * 10, activePage * 10 + 10)
+                        .map(
+                            (suggestion) => {
+                                const recipient = suggestion.name;
+                                const matches = match(recipient, query);
+                                const parts = parse(recipient, matches);
+                                return (
+                                    <TableBody key={suggestion.name}>
+                                        <TableRow
+                                            hover={!groupContentOpen[recipient]}
+                                            className={groupContentOpen[recipient] ? classes.rowSelected : null}
                                         >
-                                            {groupContentOpen[recipient] ? <ArrowDropUp /> : <ArrowDropDown />}
-
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell className={classes.tableCellNoPadding} colSpan={4}>
-                                            <Collapse
-                                                in={groupContentOpen[recipient]}
-                                                timeout="auto"
-                                                unmountOnExit
-                                                style={{
-                                                    display: 'block',
-                                                    float: 'bottom',
-                                                    minWidth: 'max-content',
-                                                }}
-                                            >
-                                                <GroupMemberTable
-                                                    recipients={recipients}
-                                                    handleIndividualCheck={handleIndividualCheck}
-                                                    members={suggestion.customers}
+                                            <TableCell align="left" className={classes.tableCell}>
+                                                <Checkbox
+                                                    onChange={(event) => handleGroupChange(event, suggestion.customers)}
+                                                    value={suggestion.customers}
+                                                    indeterminate={groupShouldBeChecked(suggestion.customers)
+                                                        ? false
+                                                        : groupCheckboxIndeterminateCheck(suggestion.customers)}
+                                                    checked={groupShouldBeChecked(suggestion.customers)}
+                                                    color={groupContentOpen[recipient] ? 'primary' : 'secondary'}
+                                                    className={groupContentOpen[recipient]
+                                                        ? classes.checkBoxContentOpen
+                                                        : null}
                                                 />
-                                            </Collapse>
-                                        </TableCell>
-                                    </TableRow>
-                                </TableBody>
-                            );
-                        },
-                    )
+                                            </TableCell>
+                                            <TableCell align="left" className={classes.tableCell}>
+                                                {parts.map((part) => (
+                                                    <span
+                                                        key={part.text}
+                                                        style={{ fontWeight: part.highlight ? 500 : 400 }}
+                                                    >
+                                                        {part.text}
+                                                    </span>
+                                                ))}
+                                            </TableCell>
+                                            <TableCell align="right" className={classes.tableCell}>
+                                                {suggestion.description}
+                                            </TableCell>
+                                            <TableCell
+                                                align="right"
+                                                className={classes.tableCellArrow}
+                                                onClick={() => handleGroupOpenClick(recipient)}
+                                            >
+                                                {groupContentOpen[recipient] ? <ArrowDropUp /> : <ArrowDropDown />}
+
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell className={classes.tableCellNoPadding} colSpan={4}>
+                                                <Collapse
+                                                    in={groupContentOpen[recipient]}
+                                                    timeout="auto"
+                                                    unmountOnExit
+                                                    style={{
+                                                        display: 'block',
+                                                        float: 'bottom',
+                                                        minWidth: 'max-content',
+                                                    }}
+                                                >
+                                                    <GroupMemberTable
+                                                        recipients={recipients}
+                                                        handleIndividualCheck={handleIndividualCheck}
+                                                        members={suggestion.customers}
+                                                    />
+                                                </Collapse>
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                );
+                            },
+                        )
                 }
 
             </Table>

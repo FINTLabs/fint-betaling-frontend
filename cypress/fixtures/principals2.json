@@ -1,0 +1,109 @@
+{
+  "code": "305",
+  "description": "TEST VIDEREGÅENDE SKOLE",
+  "lineitems": [
+    {
+      "itemCode": "1004--305",
+      "itemPrice": 0,
+      "taxrate": 250,
+      "description": "something here",
+      "uri": "www.www.www.1004--305"
+    },
+    {
+      "itemCode": "1085--305",
+      "itemPrice": 0,
+      "taxrate": 250,
+      "description": "bla bla bla",
+      "uri": "www.www.www.1085--305"
+    },
+    {
+      "itemCode": "1111--305",
+      "itemPrice": 1000,
+      "taxrate": 250,
+      "description": "textbook",
+      "uri": "www.www.www.1111--305"
+    },
+    {
+      "itemCode": "1222--305",
+      "itemPrice": 500,
+      "taxrate": 250,
+      "description": "lab equipment",
+      "uri": "www.www.www.1222--305"
+    },
+    {
+      "itemCode": "1333--305",
+      "itemPrice": 750,
+      "taxrate": 250,
+      "description": "art supplies",
+      "uri": "www.www.www.1333--305"
+    },
+    {
+      "itemCode": "1444--305",
+      "itemPrice": 2000,
+      "taxrate": 250,
+      "description": "computer hardware",
+      "uri": "www.www.www.1444--305"
+    },
+    {
+      "itemCode": "1555--305",
+      "itemPrice": 2500,
+      "taxrate": 250,
+      "description": "projector",
+      "uri": "www.www.www.1555--305"
+    },
+    {
+      "itemCode": "1666--305",
+      "itemPrice": 1500,
+      "taxrate": 250,
+      "description": "musical instruments",
+      "uri": "www.www.www.1666--305"
+    },
+    {
+      "itemCode": "1777--305",
+      "itemPrice": 500,
+      "taxrate": 250,
+      "description": "pens and pencils",
+      "uri": "www.www.www.1777--305"
+    },
+    {
+      "itemCode": "1888--305",
+      "itemPrice": 100,
+      "taxrate": 250,
+      "description": "notebooks",
+      "uri": "www.www.www.1888--305"
+    },
+    {
+      "itemCode": "1999--305",
+      "itemPrice": 150,
+      "taxrate": 250,
+      "description": "binders",
+      "uri": "www.www.www.1999--305"
+    },
+    {
+      "itemCode": "2000--305",
+      "itemPrice": 100,
+      "taxrate": 250,
+      "description": "folders",
+      "uri": "www.www.www.2000--305"
+    },
+    {
+      "itemCode": "2111--305",
+      "itemPrice": 3000,
+      "taxrate": 250,
+      "description": "textbook rental",
+      "uri": "www.www.www.2111--305"
+    },
+    {
+      "itemCode": "1085--305",
+      "itemPrice": 0,
+      "taxrate": 250,
+      "description": "bla bla bla",
+      "uri": "www.www.www.1085--305"
+    }
+  ],
+  "uri": "www.www.www.305",
+  "organisation": {
+    "name": "Test videregående skole",
+    "organisationNumber": "999999999"
+  }
+}
