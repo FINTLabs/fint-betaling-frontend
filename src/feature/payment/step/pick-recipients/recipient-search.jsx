@@ -1,32 +1,33 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
-import Button from '@mui/material/Button';
-import makeStyles from '@mui/styles/makeStyles';
+// import makeStyles from '@mui/styles/makeStyles';
 import {
-    updateSearchPage,
-    updateSearchValue,
-    updateStep,
+    // updateSearchPage,
+    // updateSearchValue,
+    // updateStep,
     updateSuggestionLength,
     updateSuggestions,
 } from '../../../../data/redux/actions/payment';
 import {
-    GROUP, SEARCH_PAGE_ROWS, SEARCH_PAGE_START, STEP_PICK_PRODUCTS,
+    GROUP, SEARCH_PAGE_ROWS,
+    // SEARCH_PAGE_START,
+    // STEP_PICK_PRODUCTS,
 } from '../../constants';
 import RecipientSuggestItem from './recipient-suggest-item';
-import SearchField from '../../../../common/search-field';
+// import SearchField from '../../../../common/search-field';
 
-const useStyles = makeStyles((theme) => ({
-    buttonForward: {
-        margin: theme.spacing(1),
-    },
-    buttonBackward: {
-        margin: theme.spacing(1),
-    },
-}));
+// const useStyles = makeStyles((theme) => ({
+//     buttonForward: {
+//         margin: theme.spacing(1),
+//     },
+//     buttonBackward: {
+//         margin: theme.spacing(1),
+//     },
+// }));
 
 const RecipientSearch = () => {
-    const classes = useStyles();
+    // const classes = useStyles();
     const dispatch = useDispatch();
 
     const searchValue = useSelector((state) => state.payment.form.searchValue);
@@ -36,12 +37,12 @@ const RecipientSearch = () => {
     const individual = useSelector((state) => state.customers.customers);
     const splitCustomers = useSelector((state) => state.customers.namesSplit);
     const activePage = useSelector((state) => state.payment.form.page);
-    const suggestionLengthTemp = useSelector((state) => state.payment.form.suggestionLength);
-    const recipients = useSelector((state) => state.payment.payment.recipients);
-    const suggestionsLength = searchValue.length === 0 ? 0 : suggestionLengthTemp;
+    // const suggestionLengthTemp = useSelector((state) => state.payment.form.suggestionLength);
+    // const recipients = useSelector((state) => state.payment.payment.recipients);
+    // const suggestionsLength = 1;
     const rowsPerPage = SEARCH_PAGE_ROWS;
     const suggestions = recipientType === GROUP ? groups : individual;
-    const searchPlaceHolder = recipientType === GROUP ? 'Gruppenavn' : 'Etternavn, Fornavn Mellomnavn';
+    // const searchPlaceHolder = recipientType === GROUP ? 'Gruppenavn' : 'Etternavn, Fornavn Mellomnavn';
 
     function matchedSuggestion(suggestion, input) {
         if (input.length > 0) {
@@ -102,57 +103,35 @@ const RecipientSearch = () => {
     }
 
     useEffect(() => {
-        dispatch(updateSuggestionLength(getSuggestionsLength(searchValue)));
-        dispatch(updateSuggestions(getSuggestions(searchValue)));
+        dispatch(updateSuggestionLength(suggestions.length));
+        dispatch(updateSuggestions(suggestions));
+        // console.log('test effect', suggestions.length);
     });
 
-    const handleSearchValue = (event) => {
-        dispatch(updateSearchPage(SEARCH_PAGE_START));
-        dispatch(updateSearchValue(event.target.value));
-    };
+    useEffect(() => {
+        if (searchValue !== '') {
+            dispatch(updateSuggestionLength(getSuggestionsLength(searchValue)));
+            dispatch(updateSuggestions(getSuggestions(searchValue)));
+        }
+    }, [searchValue]);
 
-    function isConfirmButtonDisabled() {
-        return Object.keys(recipients)
-            .filter((key) => recipients[key].checked).length === 0;
-    }
-
-    const handleConfirmButtonClick = () => {
-        dispatch(updateStep(STEP_PICK_PRODUCTS));
-        dispatch(updateSearchPage(SEARCH_PAGE_START));
-    };
+    // const handleSearchValue = (event) => {
+    //     dispatch(updateSearchPage(SEARCH_PAGE_START));
+    //     dispatch(updateSearchValue(event.target.value));
+    // };
+    //
+    // function isConfirmButtonDisabled() {
+    //     return Object.keys(recipients)
+    //         .filter((key) => recipients[key].checked).length === 0;
+    // }
+    //
+    // const handleConfirmButtonClick = () => {
+    //     dispatch(updateStep(STEP_PICK_PRODUCTS));
+    //     dispatch(updateSearchPage(SEARCH_PAGE_START));
+    // };
 
     return (
-        <Box>
-            <SearchField
-                label={`Søk på ${searchPlaceHolder.toLowerCase()}`}
-                onChange={handleSearchValue}
-                onClear={() => dispatch(updateSearchValue(''))}
-                value={searchValue}
-            />
-            <Box display="flex" justifyContent="flex-end">
-                <Button
-                    disabled
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => {
-                    }}
-                    className={classes.buttonBackward}
-                >
-                    Tilbake
-                </Button>
-                <Button
-                    disabled={isConfirmButtonDisabled()}
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleConfirmButtonClick}
-                    className={classes.buttonForward}
-                    data-testid="recipientGoToProductsButton"
-                >
-                    Videre
-                </Button>
-            </Box>
-            {suggestionsLength > 0 ? <Box mt={2}><RecipientSuggestItem /></Box> : <div />}
-        </Box>
+        <Box mt={2}><RecipientSuggestItem /></Box>
     );
 };
 

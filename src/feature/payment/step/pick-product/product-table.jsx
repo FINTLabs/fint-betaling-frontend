@@ -51,14 +51,15 @@ const ProductTable = () => {
     const query = useSelector((state) => state.payment.product.searchValue);
     const pickedProducts = useSelector((state) => state.payment.payment.products);
     const activePage = useSelector((state) => state.payment.form.page);
-    const productsLengthTemp = useSelector((state) => state.payment.product.productsLength);
-    const productsLength = query.length === 0 ? 0 : productsLengthTemp;
+    // const productsLengthTemp = useSelector((state) => state.payment.product.productsLength);
+    // const productsLength = query.length === 0 ? 0 : productsLengthTemp;
+    const productsLength = useSelector((state) => state.payment.product.productsLength);
     const productAmount = useSelector((state) => state.payment.product.amount);
     const productPrice = useSelector((state) => state.payment.product.itemPrice);
     const productDescription = useSelector((state) => state.payment.product.description);
 
-    let suggestions = useSelector((state) => state.payment.product.filteredSuggestions);
-    suggestions = query.length === 0 ? [] : suggestions;
+    const suggestions = useSelector((state) => state.payment.product.filteredSuggestions);
+    // suggestions = query.length === 0 ? [] : suggestions;
 
     const handleAmountChange = (newAmount, itemCode) => {
         if (newAmount > 0) {
@@ -123,7 +124,10 @@ const ProductTable = () => {
                 <TableHead>
                     <TableRow>
                         <TableCell align="left" className={classes.tableCell}>Velg</TableCell>
-                        <TableCell align="left">Navn</TableCell>
+                        <TableCell align="left">
+                            Navn
+                            {suggestions.length}
+                        </TableCell>
                         <TableCell align="left">Fritekst</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Kode</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Mva</TableCell>
@@ -134,7 +138,7 @@ const ProductTable = () => {
                 </TableHead>
                 <TableBody>
                     {
-                        suggestions.map(
+                        suggestions.slice(activePage * 10, activePage * 10 + 10).map(
                             (suggestion) => {
                                 const product = suggestion.description;
                                 const matches = match(product, query);

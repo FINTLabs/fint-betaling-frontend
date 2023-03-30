@@ -2,9 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { DialogContent, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import { useDropzone } from 'react-dropzone';
@@ -23,13 +20,16 @@ import fetchPrincipal from '../../../../data/redux/actions/principal';
 import fetchCustomer from '../../../../data/redux/actions/customers';
 import fetchGroup from '../../../../data/redux/actions/groups';
 import RecipientChipList from '../recipient-chip-list';
-import { GROUP, INDIVIDUAL, SEARCH_PAGE_START } from '../../constants';
+// import {
+//     GROUP,
+//     SEARCH_PAGE_START
+// } from '../../constants';
 import {
     updateRecipients,
-    updateSearchBy,
-    updateSearchPage,
-    updateSearchValue,
-    updateSuggestions,
+    // updateSearchBy,
+    // updateSearchPage,
+    // updateSearchValue,
+    // updateSuggestions,
 } from '../../../../data/redux/actions/payment';
 import RecipientSearch from './recipient-search';
 
@@ -87,10 +87,10 @@ function MyDropzone(setUploadedFiles, setFileAlertOpen, setFileRejectOpen, setEr
 
 const PickPaymentRecipient = () => {
     const classes = useStyles();
-    const recipientType = useSelector((state) => state.payment.form.searchBy);
+    // const recipientType = useSelector((state) => state.payment.form.searchBy);
     const dispatch = useDispatch();
-    const groups = useSelector((state) => state.groups.groups);
-    const individual = useSelector((state) => state.customers.customers);
+    // const groups = useSelector((state) => state.groups.groups);
+    // const individual = useSelector((state) => state.customers.customers);
     const schoolOrgId = useSelector((state) => state.payment.payment.schoolOrgId);
     const recipients = useSelector((state) => state.payment.payment.recipients);
     const [fileAlertOpen, setFileAlertOpen] = useState(false);
@@ -105,15 +105,16 @@ const PickPaymentRecipient = () => {
             dispatch(fetchGroup(schoolOrgId));
             dispatch(fetchCustomer(schoolOrgId));
             dispatch(fetchPrincipal(schoolOrgId));
+            console.log('test effect recipient school:', schoolOrgId);
         }
     }, [dispatch, schoolOrgId]);
 
-    const handleSearchBy = (event) => {
-        dispatch(updateSearchBy(event.target.value));
-        dispatch(updateSearchValue(''));
-        dispatch(updateSuggestions(event.target.value === GROUP ? groups : individual));
-        dispatch(updateSearchPage(SEARCH_PAGE_START));
-    };
+    // const handleSearchBy = (event) => {
+    //     dispatch(updateSearchBy(event.target.value));
+    //     dispatch(updateSearchValue(''));
+    //     dispatch(updateSuggestions(event.target.value === GROUP ? groups : individual));
+    //     dispatch(updateSearchPage(SEARCH_PAGE_START));
+    // };
 
     function handleRecipientList(individualList) {
         const recipientList = { ...recipients };
@@ -175,24 +176,6 @@ const PickPaymentRecipient = () => {
             </Box>
             <Box mt={4}>
                 <FormControl component="fieldset" fullWidth>
-                    <RadioGroup
-                        className={classes.radioGroup}
-                        aria-label="recipientType"
-                        name="recipientType"
-                        value={recipientType}
-                        onChange={handleSearchBy}
-                    >
-                        <FormControlLabel
-                            value={GROUP.toString()}
-                            control={<Radio />}
-                            label="Gruppe"
-                        />
-                        <FormControlLabel
-                            value={INDIVIDUAL.toString()}
-                            control={<Radio />}
-                            label="Person"
-                        />
-                    </RadioGroup>
                     <Box mt={2}>
                         <RecipientSearch />
 
