@@ -108,6 +108,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function Scaffold() {
     const theme = useTheme();
     const dispatch = useDispatch();
+    const [customError, setCustomError] = React.useState(null);
 
     const [open, setOpen] = React.useState(false);
 
@@ -152,21 +153,20 @@ export default function Scaffold() {
                 if (result.status === 200 && result.data === 'Greetings from FINTLabs :)') {
                     // eslint-disable-next-line no-console
                     console.log('We\'re still authenticated');
-                } else if (result.status === 302 || result.status === 403) {
-                    // eslint-disable-next-line no-console
-                    window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
-                } else {
-                    // eslint-disable-next-line no-console
-                    console.log('We need to re-authenticate!');
-                    window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
                 }
             })
-            .catch(() => {
+            .catch((result) => {
                 // eslint-disable-next-line no-console
-                console.log('We need to re-authenticate!');
+                if (result.response.status === 500) {
+                    setCustomError(result.response.data);
+                    console.error('500 Error: ', customError);
+                } else {
+                    console.error('We need to re-authenticate!', result);
+                }
                 window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
             });
     };
+
     useIdleTimer({
         timeout: me.me.idleTime,
         onIdle: handleOnIdle,
@@ -180,6 +180,7 @@ export default function Scaffold() {
     let localStorageSchoolOrgId = localStorage.getItem('schoolOrgId');
 
     useEffect(() => {
+        handleOnActive();
         if (me.me.organisationUnits) {
             const isSchoolPresentInMe = me.me.organisationUnits.some((ou) => ou.name === localStorageSchool);
             if (!isSchoolPresentInMe) {
