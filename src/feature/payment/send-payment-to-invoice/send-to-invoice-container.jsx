@@ -1,6 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Typography } from '@mui/material';
+import {
+    Box,
+    Typography,
+    Dialog,
+    CircularProgress,
+} from '@mui/material';
 import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
@@ -23,6 +28,7 @@ import fetchPayments from '../../../data/redux/actions/payments';
 
 const SendToInvoiceContainer = () => {
     const dispatch = useDispatch();
+    const [open, setOpen] = React.useState(false);
 
     const payments = useSelector((state) => state.payments.payments);
     const searchValue = useSelector((state) => state.payment.sendToExternalSystem.searchValue);
@@ -64,6 +70,7 @@ const SendToInvoiceContainer = () => {
     };
 
     const handleConfirmSendPayments = () => {
+        setOpen(true);
         ClaimRepository.sendOrders(
             orgId,
             Object.keys(selectedOrders)
@@ -89,6 +96,9 @@ const SendToInvoiceContainer = () => {
             .catch((error) => {
                 setShowSnackbar(true);
                 setSnackbarMessage(`En feil oppstod ved sending til økonomisystemet! (Error: ${error})`);
+            })
+            .finally(() => {
+                setOpen(false);
             });
         dispatch(updateLoadingSendingInvoice(true));
         clearSearchValue();
@@ -96,6 +106,29 @@ const SendToInvoiceContainer = () => {
 
     return (
         <Box width="80%" alignSelf="center" mt={4}>
+            <div>
+                <Dialog
+                    open={open}
+                    BackdropProps={{ invisible: true }}
+                    PaperProps={{ style: { borderRadius: '20px' } }}
+                    id="loading-dialog"
+                >
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '150px',
+                            width: '300px',
+                        }}
+                    >
+                        <Typography variant="h5">Ordre sendes...</Typography>
+                        <CircularProgress style={{ marginTop: '20px' }} />
+                    </div>
+                </Dialog>
+            </div>
+
             <Snackbar
                 anchorOrigin={{
                     vertical: 'top',
