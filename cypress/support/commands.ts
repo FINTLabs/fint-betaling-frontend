@@ -46,8 +46,6 @@ Cypress.Commands.add('apiIntercept', (beforeAdd: boolean) => {
         url: 'http://localhost:3000/api/claim/send',
     }, {statusCode: 201, fixture: 'sentClaim.json'});
 
-    // START HERE ON MONDAY!!
-
     // cy.intercept({
     //     method: 'GET',
     //     url: 'http://localhost:3000/api/principal',
