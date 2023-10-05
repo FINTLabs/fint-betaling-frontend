@@ -157,7 +157,9 @@ const PaymentsDataGrid = () => {
             <div style={{ height: 800, width: '100%' }}>
                 <DataGrid
                     isRowSelectable={
-                        (params) => params.row.claimStatus === 'SEND_ERROR' || params.row.claimStatus === 'STORED'
+                        (params) => params.row.claimStatus === 'SEND_ERROR'
+                            || params.row.claimStatus === 'STORED'
+                            || params.row.claimStatus === 'ACCEPT_ERROR'
                     }
                     onSelectionModelChange={(newSelectionModel) => {
                         setSelectionModel(newSelectionModel);
