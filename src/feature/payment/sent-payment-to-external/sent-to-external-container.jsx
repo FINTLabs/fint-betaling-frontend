@@ -138,7 +138,7 @@ const SentToExternalContainer = () => {
                                                     {suggestion.orderNumber}
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>
-                                                    {suggestion.customer.name}
+                                                    {suggestion.customerName}
                                                 </TableCell>
                                                 <TableCell align="right" className={classes.tableCell}>
                                                     <Amount>{suggestion.originalAmountDue}</Amount>
