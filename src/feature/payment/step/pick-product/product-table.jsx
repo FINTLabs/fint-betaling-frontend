@@ -126,7 +126,6 @@ const ProductTable = () => {
                         <TableCell align="left" className={classes.tableCell}>Velg</TableCell>
                         <TableCell align="left">
                             Navn
-                            {suggestions.length}
                         </TableCell>
                         <TableCell align="left">Fritekst</TableCell>
                         <TableCell align="right" className={classes.tableCell}>Kode</TableCell>

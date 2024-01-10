@@ -7,6 +7,11 @@ Cypress.Commands.add('apiIntercept', (beforeAdd: boolean) => {
 
     cy.intercept({
         method: 'GET',
+        url: 'http://localhost:3000/api/me/ping',
+    }, {fixture: 'meping.txt'});
+
+    cy.intercept({
+        method: 'GET',
         url: 'http://localhost:3000/api/me',
     }, {fixture: 'me.json'});
 
@@ -81,7 +86,7 @@ Cypress.Commands.add('apiIntercept', (beforeAdd: boolean) => {
     } else {
         cy.intercept({
             method: 'GET',
-            url: 'http://localhost:3000/api/claim/?status=STORED',
+            url: 'http://localhost:3000/api/claim?status=STORED',
         }, {statusCode: 200, fixture: 'claims.json'});
         cy.intercept({
             method: 'GET',

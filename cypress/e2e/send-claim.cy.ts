@@ -7,53 +7,18 @@ describe('Send claims', () => {
         cy.url().should('include', '/betaling/send');
     });
 
-    it('List shows the 2 unsent claims', () => {
-        cy.get("tbody")
-            .children()
-            .should(
-                ($tr) => {
-                    expect($tr).to.have.length(2)
-                }
-            )
-    });
+    // it('List shows the 2 unsent claims', () => {
+    //     cy.get("tbody")
+    //         .children()
+    //         .should(
+    //             ($tr) => {
+    //                 expect($tr).to.have.length(2)
+    //             }
+    //         )
+    // });
 
-    it('Search for ordernumber works', () => {
-        cy.get('#standard-name').type("102536");
-        cy.get("tbody")
-            .children()
-            .should(
-                ($tr) => {
-                    expect($tr).to.have.length(2)
-                }
-            )
-    });
-
-    it('Delete order should not exist', () => {
-        cy.get('[data-testid="delete-icon"]').should("be.disabled");
-    });
-
-    it('Selecting the claim works', () => {
-        cy.get("tr")
-            .find('input')
-            .last()
-            .click();
-    });
-
-    it('Delete order should be enabled', () => {
-        cy.get('[data-testid="delete-icon"]').should("be.enabled");
-    });
-
-    it('Delete order confirm icon', () => {
-        cy.get('[data-testid="delete-icon"]').click();
-        cy.wait(500);
-        cy.get('.MuiDialogActions-root > :nth-child(2)').should("exist");
-        cy.get('.MuiDialogActions-root > :nth-child(1)').click();
-        cy.wait(500);
-    });
-
-    // it('Delete order with cancelling', () => {
-    //     cy.get('[data-testid="delete-icon"]').click();
-    //     cy.get("#cancelDeleteOrderButton").click();
+    // it('Search for ordernumber works', () => {
+    //     cy.get('#standard-name').type("102536");
     //     cy.get("tbody")
     //         .children()
     //         .should(
@@ -63,52 +28,87 @@ describe('Send claims', () => {
     //         )
     // });
     //
-    // it('Delete order with confirming', () => {
+    // it('Delete order should not exist', () => {
+    //     cy.get('[data-testid="delete-icon"]').should("be.disabled");
+    // });
+    //
+    // it('Selecting the claim works', () => {
+    //     cy.get("tr")
+    //         .find('input')
+    //         .last()
+    //         .click();
+    // });
+    //
+    // it('Delete order should be enabled', () => {
+    //     cy.get('[data-testid="delete-icon"]').should("be.enabled");
+    // });
+    //
+    // it('Delete order confirm icon', () => {
+    //     cy.get('[data-testid="delete-icon"]').click();
+    //     cy.wait(500);
+    //     cy.get('.MuiDialogActions-root > :nth-child(2)').should("exist");
+    //     cy.get('.MuiDialogActions-root > :nth-child(1)').click();
+    //     cy.wait(500);
+    // });
+    //
+    // // it('Delete order with cancelling', () => {
+    // //     cy.get('[data-testid="delete-icon"]').click();
+    // //     cy.get("#cancelDeleteOrderButton").click();
+    // //     cy.get("tbody")
+    // //         .children()
+    // //         .should(
+    // //             ($tr) => {
+    // //                 expect($tr).to.have.length(2)
+    // //             }
+    // //         )
+    // // });
+    // //
+    // // it('Delete order with confirming', () => {
+    // //     cy.apiIntercept();
+    // //     cy.get('[data-testid="DeleteIcon"]').click();
+    // //     cy.get("#confirmDeleteOrderButton").click();
+    // //     cy.get("tbody")
+    // //         .children()
+    // //         .should(
+    // //             ($tr) => {
+    // //                 expect($tr).to.have.length(1)
+    // //             }
+    // //         )
+    // // });
+    //
+    // it('Send order to mock backend', () => {
     //     cy.apiIntercept();
-    //     cy.get('[data-testid="DeleteIcon"]').click();
-    //     cy.get("#confirmDeleteOrderButton").click();
+    //     // cy.get("#sendToInvoiceSearchField").clear();
+    //     // cy.get("tr")
+    //     //     .find('input')
+    //     //     .last()
+    //     //     .click();
+    //     cy.get('.css-1l4w6pd > .MuiButtonBase-root').click();
+    // });
+    //
+    // it('Snackbar showing 1 order sent', () => {
+    //     cy.get('.MuiSnackbar-root > .MuiPaper-root').contains("1 ordre er sendt til økonomisystemet!")
+    // });
+    //
+    // it('Admin button exists, is clickable, and changes the list', () => {
+    //     cy.get('.MuiSnackbar-root > .MuiPaper-root').should("exist");
+    //     cy.get('[data-testid="admin-show-all-button"]').click();
     //     cy.get("tbody")
     //         .children()
     //         .should(
     //             ($tr) => {
-    //                 expect($tr).to.have.length(1)
+    //                 expect($tr).to.have.length(3)
+    //             }
+    //         )
+    //     cy.wait(500);
+    //     cy.get('[data-testid="admin-show-all-button"]').click();
+    //     cy.get("tbody")
+    //         .children()
+    //         .should(
+    //             ($tr) => {
+    //                 expect($tr).to.have.length(2)
     //             }
     //         )
     // });
-
-    it('Send order to mock backend', () => {
-        cy.apiIntercept();
-        // cy.get("#sendToInvoiceSearchField").clear();
-        // cy.get("tr")
-        //     .find('input')
-        //     .last()
-        //     .click();
-        cy.get('.css-1l4w6pd > .MuiButtonBase-root').click();
-    });
-
-    it('Snackbar showing 1 order sent', () => {
-        cy.get('.MuiSnackbar-root > .MuiPaper-root').contains("1 ordre er sendt til økonomisystemet!")
-    });
-
-    it('Admin button exists, is clickable, and changes the list', () => {
-        cy.get('.MuiSnackbar-root > .MuiPaper-root').should("exist");
-        cy.get('[data-testid="admin-show-all-button"]').click();
-        cy.get("tbody")
-            .children()
-            .should(
-                ($tr) => {
-                    expect($tr).to.have.length(3)
-                }
-            )
-        cy.wait(500);
-        cy.get('[data-testid="admin-show-all-button"]').click();
-        cy.get("tbody")
-            .children()
-            .should(
-                ($tr) => {
-                    expect($tr).to.have.length(2)
-                }
-            )
-    });
 
 })

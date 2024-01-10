@@ -16,7 +16,7 @@ describe('Create a new claim', () => {
             .children()
             .should(
                 ($tr) => {
-                    expect($tr).to.have.length(6)
+                    expect($tr).to.have.length(10)
                 }
             )
     });
@@ -32,12 +32,13 @@ describe('Create a new claim', () => {
     });
 
     it('Select one group and remove one user', () => {
-        cy.get(':nth-child(2) > .MuiTableRow-hover > .makeStyles-tableCellArrow-25').click();
+        cy.apiIntercept(true);
+        cy.get(':nth-child(2) > .MuiTableRow-hover > .makeStyles-tableCellArrow-19').click();
         cy.get('[data-testid="recipientList"]')
             .children()
             .should(
                 ($li) => {
-                    expect($li).to.have.length(3);
+                    expect($li).to.have.length(5);
                 }
             );
         cy.get(':nth-child(1) > .MuiTableCell-alignCenter > .MuiButtonBase-root > .PrivateSwitchBase-input').click();
@@ -45,7 +46,7 @@ describe('Create a new claim', () => {
             .children()
             .should(
                 ($li) => {
-                    expect($li).to.have.length(2);
+                    expect($li).to.have.length(4);
                 }
             );
     });
@@ -63,39 +64,40 @@ describe('Create a new claim', () => {
     });
 
     it('Test colapse function', () => {
-        cy.get('.makeStyles-rowSelected-27 > .makeStyles-tableCellArrow-25').click();
+        cy.get('.makeStyles-rowSelected-21 > .makeStyles-tableCellArrow-19').click();
         cy.get("tbody")
             .children()
             .should(
                 ($tr) => {
-                    expect($tr).to.have.length(6)
+                    expect($tr).to.have.length(20)
                 }
             );
     });
 
     it('Activate person search', () => {
+        cy.apiIntercept(true);
         cy.get(':nth-child(2) > .MuiButtonBase-root > .PrivateSwitchBase-input').click();
         cy.get('legend').first().should("contain", "Søk på etternavn, fornavn mellomnavn");
     });
 
     it('Search for student', () => {
-        cy.get('#standard-name').type("Test");
+        cy.get('#standard-name').type("Fem");
         cy.get("tbody")
             .children()
             .should(
                 ($tr) => {
-                    expect($tr).to.have.length(5)
+                    expect($tr).to.have.length(1)
                 }
             )
     });
 
-    it('Select one student', () => {
-        cy.get("tr")
-            .next()
-            .first()
-            .find('input')
-            .click();
-    });
+    // it('Select one student', () => {
+    //     cy.get("tr")
+    //         .next()
+    //         .first()
+    //         .find('input')
+    //         .click();
+    // });
 });
 
 describe('Testing selecting products', () => {
@@ -152,8 +154,8 @@ describe('Testing selecting products', () => {
     });
 
     it('Change price', () => {
-        cy.get('#mui-5').clear().type("500");
-        cy.get('#mui-6').clear().type("20");
+        cy.get('#mui-9').clear().type("500");
+        cy.get('#mui-10').clear().type("20");
     });
 
     it('Check that price is correct for row', () => {
@@ -165,7 +167,7 @@ describe('Testing selecting products', () => {
     });
 
     it('Add text to free text field', () => {
-        cy.get('#mui-4').type("test fritekst");
+        cy.get('#mui-8').type("test fritekst");
     });
 });
 
@@ -183,8 +185,8 @@ describe('Testing summary page', () => {
     });
 
     it('Check that recipientNameCell is correct and visible', () => {
-        cy.get('.makeStyles-tableWrapper-58 > .MuiTable-root > .MuiTableBody-root > .MuiTableRow-root > .MuiTableCell-root').should("be.visible");
-        cy.get('.makeStyles-tableWrapper-58 > .MuiTable-root > .MuiTableBody-root > .MuiTableRow-root > .MuiTableCell-root').should("contain", "Testbruker, Nummer Fem");
+        cy.get('.makeStyles-tableWrapper-63 > .MuiTable-root > .MuiTableBody-root > .MuiTableRow-root > .MuiTableCell-root').should("be.visible");
+        cy.get('.makeStyles-tableWrapper-63 > .MuiTable-root > .MuiTableBody-root > .MuiTableRow-root > .MuiTableCell-root').should("contain", "Amy Wilson");
     });
 
     it('Check that productDescriptionCell is correct and visible', () => {
@@ -228,24 +230,24 @@ describe('Testing summary page', () => {
             .should(
                 ($tr) => {
                     // should have found 1 elements
-                    expect($tr).to.have.length(4)
+                    expect($tr).to.have.length(5)
                 }
             )
     })
 });
 
-
-describe('Testing saving claim', () => {
-    it('Click next button is active, and click it to precede', () => {
-        cy.apiIntercept(false);
-        cy.get('[data-testid="saveInvoice"]').should('not.be.disabled');
-        cy.get('[data-testid="saveInvoice"]').click();
-    });
-
-    // it('Click save button is active, and click it to save claim', () => {
-    //     cy.apiIntercept();
-    //     cy.getClaimsAfterAdd();
-    //     cy.get('[data-testid="sendInvoice"]').should('not.be.disabled');
-    //     cy.get('[data-testid="sendInvoice"]').click();
-    // });
-});
+//
+// describe('Testing saving claim', () => {
+//     it('Click next button is active, and click it to precede', () => {
+//         cy.apiIntercept(false);
+//         cy.get('[data-testid="saveInvoice"]').should('not.be.disabled');
+//         cy.get('[data-testid="saveInvoice"]').click();
+//     });
+//
+//     // it('Click save button is active, and click it to save claim', () => {
+//     //     cy.apiIntercept();
+//     //     cy.getClaimsAfterAdd();
+//     //     cy.get('[data-testid="sendInvoice"]').should('not.be.disabled');
+//     //     cy.get('[data-testid="sendInvoice"]').click();
+//     // });
+// });

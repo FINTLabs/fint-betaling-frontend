@@ -82,7 +82,6 @@ const IndividualTable = () => {
                     <TableRow>
                         <TableCell className={classes.tableCellName}>
                             Navn
-                            {suggestionsLength}
                         </TableCell>
                         <TableCell align="center" className={classes.tableCell}>Velg</TableCell>
 
