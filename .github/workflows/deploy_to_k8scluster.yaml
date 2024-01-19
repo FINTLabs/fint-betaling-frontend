@@ -54,33 +54,33 @@ jobs:
           #          images: |
           #            ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
           #          namespace: ${{ env.NAMESPACE }}
-          
-          
-          ##Beta Cluster
-          - uses: azure/login@v1
-            with:
-              creds: '${{ secrets.AKS_BETA_FINT_GITHUB }}'
 
-          - uses: azure/use-kubelogin@v1.1
-            with:
-              kubelogin-version: 'v0.0.26'
 
-          - name: Set the target Beta cluster.
-            uses: azure/aks-set-context@v3
-            with:
-              cluster-name: ${{ env.BETA_CLUSTER_NAME }}
-              resource-group: ${{ env.BETA_CLUSTER_RESOURCE_GROUP }}
-              admin: 'true'
-              use-kubelogin: 'true'
+        ##Beta Cluster
+      - uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AKS_BETA_FINT_GITHUB }}'
 
-          - name: Deploy to Beta
-            uses: azure/k8s-deploy@v3.0
-            with:
-              manifests: |
-                k8s/beta/betaling-demo.yaml
-              images: |
-                ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
-              namespace: ${{ env.NAMESPACE }}
+      - uses: azure/use-kubelogin@v1.1
+        with:
+          kubelogin-version: 'v0.0.26'
+
+      - name: Set the target Beta cluster.
+        uses: azure/aks-set-context@v3
+        with:
+          cluster-name: ${{ env.BETA_CLUSTER_NAME }}
+          resource-group: ${{ env.BETA_CLUSTER_RESOURCE_GROUP }}
+          admin: 'true'
+          use-kubelogin: 'true'
+
+      - name: Deploy to Beta
+        uses: azure/k8s-deploy@v3.0
+        with:
+          manifests: |
+            k8s/beta/betaling-demo.yaml
+          images: |
+            ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+          namespace: ${{ env.NAMESPACE }}
 
 
       #      ## Alpha cluster ##
