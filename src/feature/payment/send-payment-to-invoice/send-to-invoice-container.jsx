@@ -39,8 +39,10 @@ const SendToInvoiceContainer = () => {
     const [includeMeNameFilter, setIncludeMeNameFilter] = React.useState(true);
 
     const suggestions = payments.filter((payment) => payment.claimStatus === 'STORED'
-        && (includeMeNameFilter ? payment.createdBy.name === me.name : true));
-    const filteredSuggestions = suggestions.filter((s) => s.orderNumber.includes(searchValue));
+        && (includeMeNameFilter ? payment.createdByEmployeeNumber === me.employeeNumber : true));
+    // const filteredSuggestions = suggestions.filter((s) => s.orderNumber.includes(searchValue));
+    // const filteredSuggestions = suggestions;
+    const filteredSuggestions = suggestions.filter((s) => s.orderNumber.toString().includes(searchValue.toString()));
 
     const [showSnackbar, setShowSnackbar] = React.useState(false);
     const [snackbarMessage, setSnackbarMessage] = React.useState('');

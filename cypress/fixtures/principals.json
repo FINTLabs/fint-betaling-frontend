@@ -3,18 +3,18 @@
   "description": "TEST VIDEREGÅENDE SKOLE",
   "lineitems": [
     {
-      "itemCode": "1004--305",
-      "itemPrice": 0,
-      "taxrate": 250,
-      "description": "ELEVARBEID VED",
-      "uri": "www.www.www.1004--305"
+      "itemCode": "9999999",
+      "itemPrice": 1599200,
+      "taxrate": null,
+      "description": "Lenovo ThinkPad X1 Carbon gen. 6 14.0\", Core i7-8550U, 8GB RAM, 256GB SSD",
+      "uri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1068534"
     },
     {
       "itemCode": "1085--305",
-      "itemPrice": 0,
-      "taxrate": 250,
+      "itemPrice": 64900,
+      "taxrate": null,
       "description": "DIVERSE SALG MED MVA",
-      "uri": "www.www.www.1085--305"
+      "uri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10001"
     }
   ],
   "uri": "www.www.www.305",

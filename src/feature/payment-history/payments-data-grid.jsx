@@ -105,7 +105,7 @@ const PaymentsDataGrid = () => {
             field: 'customer.name',
             headerName: 'Navn',
             width: 150,
-            valueGetter: (params) => params.row.customer.name,
+            valueGetter: (params) => params.row.customerName,
         },
         {
             field: 'organisationUnit.name',

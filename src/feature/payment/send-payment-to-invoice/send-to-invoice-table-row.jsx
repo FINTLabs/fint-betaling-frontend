@@ -38,7 +38,7 @@ const SendToInvoiceTableRow = ({
                 {suggestion.orderNumber}
             </TableCell>
             <TableCell align="left" className={classes.tableCell}>
-                {suggestion.customer.name}
+                {suggestion.customerName}
             </TableCell>
             <TableCell align="left" className={classes.tableCell}>
                 {suggestion.organisationUnit.name}
