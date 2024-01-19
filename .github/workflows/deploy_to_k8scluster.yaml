@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
 
 env:
-  PWF_CLUSTER_NAME: aks-pwf-fint-2021-10-20
-  PWF_CLUSTER_RESOURCE_GROUP: rg-aks-pwf
+  PWF_CLUSTER_NAME: aks-beta-fint-2021-10-20
+  PWF_CLUSTER_RESOURCE_GROUP: rg-aks-beta
   ALPHA_CLUSTER_NAME: aks-alpha-fint-2021-11-18
   ALPHA_CLUSTER_RESOURCE_GROUP: rg-aks-alpha
   BETA_CLUSTER_NAME: aks-beta-fint-2021-11-23
@@ -28,84 +28,112 @@ jobs:
       - name: Get repo name
         id: get_repo
         run: echo ::set-output name=REPO::${GITHUB_REPOSITORY#*/}
+          
+          ## PWF cluster ##
+          #      - uses: azure/login@v1
+          #        with:
+          #          creds: '${{ secrets.AKS_PWF_FINT_GITHUB }}'
+          #
+          #      - uses: azure/use-kubelogin@v1.1
+          #        with:
+          #          kubelogin-version: 'v0.0.26'
+          #
+          #      - name: Set the target PWF cluster.
+          #        uses: azure/aks-set-context@v3
+          #        with:
+          #          cluster-name: ${{ env.PWF_CLUSTER_NAME }}
+          #          resource-group: ${{ env.PWF_CLUSTER_RESOURCE_GROUP }}
+          #          admin: 'true'
+          #          use-kubelogin: 'true'
+          #
+          #      - name: Deploy to PWF
+          #        uses: azure/k8s-deploy@v3.0
+          #        with:
+          #          manifests: |
+          #            k8s/pwf/betaling-demo.yaml
+          #          images: |
+          #            ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+          #          namespace: ${{ env.NAMESPACE }}
+          
+          
+          ##Beta Cluster
+          - uses: azure/login@v1
+            with:
+              creds: '${{ secrets.AKS_BETA_FINT_GITHUB }}'
 
-      ## PWF cluster ##
-      - uses: azure/login@v1
-        with:
-          creds: '${{ secrets.AKS_PWF_FINT_GITHUB }}'
+          - uses: azure/use-kubelogin@v1.1
+            with:
+              kubelogin-version: 'v0.0.26'
 
-      - uses: azure/use-kubelogin@v1.1
-        with:
-          kubelogin-version: 'v0.0.26'
+          - name: Set the target Beta cluster.
+            uses: azure/aks-set-context@v3
+            with:
+              cluster-name: ${{ env.BETA_CLUSTER_NAME }}
+              resource-group: ${{ env.BETA_CLUSTER_RESOURCE_GROUP }}
+              admin: 'true'
+              use-kubelogin: 'true'
 
-      - name: Set the target PWF cluster.
-        uses: azure/aks-set-context@v3
-        with:
-          cluster-name: ${{ env.PWF_CLUSTER_NAME }}
-          resource-group: ${{ env.PWF_CLUSTER_RESOURCE_GROUP }}
-          admin: 'true'
-          use-kubelogin: 'true'
+          - name: Deploy to Beta
+            uses: azure/k8s-deploy@v3.0
+            with:
+              manifests: |
+                k8s/beta/betaling-demo.yaml
+              images: |
+                ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+              namespace: ${{ env.NAMESPACE }}
 
-      - name: Deploy to PWF
-        uses: azure/k8s-deploy@v3.0
-        with:
-          manifests: |
-            k8s/pwf/betaling-demo.yaml
-          images: |
-            ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
-          namespace: ${{ env.NAMESPACE }}
 
-#      ## Alpha cluster ##
-#      - uses: azure/login@v1
-#        with:
-#          creds: '${{ secrets.AKS_ALPHA_FINT_GITHUB }}'
+      #      ## Alpha cluster ##
+      #      - uses: azure/login@v1
+      #        with:
+      #          creds: '${{ secrets.AKS_ALPHA_FINT_GITHUB }}'
 
-#      - uses: azure/use-kubelogin@v1.1
-#        with:
-#         kubelogin-version: 'v0.0.26'
+      #      - uses: azure/use-kubelogin@v1.1
+      #        with:
+      #         kubelogin-version: 'v0.0.26'
 
-#      - name: Set the target Alpha cluster.
-#        uses: azure/aks-set-context@v3
-#        with:
-#          cluster-name: ${{ env.ALPHA_CLUSTER_NAME }}
-#          resource-group: ${{ env.ALPHA_CLUSTER_RESOURCE_GROUP }}
-#          admin: 'true'
-#          use-kubelogin: 'true'
+      #      - name: Set the target Alpha cluster.
+      #        uses: azure/aks-set-context@v3
+      #        with:
+      #          cluster-name: ${{ env.ALPHA_CLUSTER_NAME }}
+      #          resource-group: ${{ env.ALPHA_CLUSTER_RESOURCE_GROUP }}
+      #          admin: 'true'
+      #          use-kubelogin: 'true'
 
-#      - name: Deploy to alpha - viken.no
-#        uses: azure/k8s-deploy@v3.0
-#        with:
-#          manifests: |
-#            k8s/manifests/alpha/viken-no.yaml
-#          images: |
-#            ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
-#          namespace: viken-no
+      #      - name: Deploy to alpha - viken.no
+      #        uses: azure/k8s-deploy@v3.0
+      #        with:
+      #          manifests: |
+      #            k8s/manifests/alpha/viken-no.yaml
+      #          images: |
+      #            ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+      #          namespace: viken-no
 
       ## Api cluster ##
 
-      - uses: azure/login@v1
-        with:
-          creds: '${{ secrets.AKS_API_FINT_GITHUB }}'
-
-      - uses: azure/use-kubelogin@v1.1
-        with:
-          kubelogin-version: 'v0.0.26'
-
-      - name: Set the target Api cluster.
-        uses: azure/aks-set-context@v3
-        with:
-          cluster-name: ${{ env.API_CLUSTER_NAME }}
-          resource-group: ${{ env.API_CLUSTER_RESOURCE_GROUP }}
-          admin: 'true'
-          use-kubelogin: 'true'
-
-      - name: Deploy to Api
-        uses: azure/k8s-deploy@v3.1
-        with:
-          manifests: k8s/api/viken.yaml
-          images: ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
-          namespace: 'viken-no'
-          action: deploy
+      #      - uses: azure/login@v1
+      #        with:
+      #          creds: '${{ secrets.AKS_API_FINT_GITHUB }}'
+      #
+      #      - uses: azure/use-kubelogin@v1.1
+      #        with:
+      #          kubelogin-version: 'v0.0.26'
+      #
+      #      - name: Set the target Api cluster.
+      #        uses: azure/aks-set-context@v3
+      #        with:
+      #          cluster-name: ${{ env.API_CLUSTER_NAME }}
+      #          resource-group: ${{ env.API_CLUSTER_RESOURCE_GROUP }}
+      #          admin: 'true'
+      #          use-kubelogin: 'true'
+      #
+      #      - name: Deploy to Api
+      #        uses: azure/k8s-deploy@v3.1
+      #        with:
+      #          manifests: k8s/api/viken.yaml
+      #          images: ${{ env.REGISTRY_NAME }}.azurecr.io/${{steps.get_repo.outputs.REPO}}:${{ github.sha }}
+      #          namespace: 'viken-no'
+      #          action: deploy
 
       ## Update slack channel ##
       - name: Update FINT slack channel
