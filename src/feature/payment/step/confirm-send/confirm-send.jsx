@@ -61,7 +61,7 @@ const ConfirmSend = () => {
                             originalItemPrice: productsX[key].itemPrice,
                             taxrate: productsX[key].taxRate,
                             originalDescription: productsX[key].description,
-                            uri: productsX[key].uri,
+                            itemUri: productsX[key].uri,
                         };
                         list.push(orderLine);
                     }
