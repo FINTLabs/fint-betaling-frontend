@@ -57,13 +57,11 @@ const ConfirmSend = () => {
                             description: description ? description[key].description : '',
                             itemQuantity: amount[key].amount,
                             itemPrice: price[key].itemPrice,
-                            // lineitem: {
                             itemCode: key,
                             originalItemPrice: productsX[key].itemPrice,
                             taxrate: productsX[key].taxRate,
                             originalDescription: productsX[key].description,
                             uri: productsX[key].uri,
-                            // },
                         };
                         list.push(orderLine);
                     }
