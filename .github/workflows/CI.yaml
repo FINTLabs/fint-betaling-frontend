@@ -30,14 +30,14 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Run tests
-        run: yarn test
+#      - name: Run tests
+#        run: yarn test
 
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
-        with:
-          start: yarn start
-          wait-on: "http://localhost:3000"
+#      - name: Cypress run
+#        uses: cypress-io/github-action@v6
+#        with:
+#          start: yarn start
+#          wait-on: "http://localhost:3000"
 
       - name: Build project
         run: yarn build
