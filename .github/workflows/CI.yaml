@@ -43,6 +43,7 @@ jobs:
         run: yarn build
 
       - name: Trigger CD
+        if: github.ref == 'refs/heads/CT-1086-Deployment'
         uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.GITHUBACTION_TOKEN }}
