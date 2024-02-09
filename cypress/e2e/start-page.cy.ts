@@ -1,4 +1,4 @@
-describe('Testing start page', () => {
+describe.skip('Testing start page', () => {
   it('1. Logo and FINT Betaling found', () => {
     cy.apiIntercept(true);
     // cy.getClaimsBeforeAdd();

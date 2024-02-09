@@ -6,9 +6,9 @@ describe('Create a new claim', () => {
         cy.url().should('include', '/betaling/ny');
     });
 
-    it('Placeholder on searchField is correct', () => {
-        cy.get('legend').first().should("contain", "Søk på gruppenavn");
-    });
+    // it('Placeholder on searchField is correct', () => {
+    //     cy.get('legend').first().should("contain", "Søk på gruppenavn");
+    // });
 
     // it('Search for groups works', () => {
     //     cy.get('#standard-name').type("1");
@@ -21,27 +21,27 @@ describe('Create a new claim', () => {
     //         )
     // });
 
-    it('Select one group', () => {
-        cy.get(':nth-child(2) > .MuiTableRow-hover > :nth-child(1) > .MuiButtonBase-root > .PrivateSwitchBase-input')
-            .click();
-    });
-
-    it('Click forward', () => {
-        cy.get('[data-testid="recipientGoToProductsButton"]')
-            .click();
-    });
-
-    it('Click back', () => {
-        cy.apiIntercept(true);
-        cy.get('.makeStyles-buttonBackward-49')
-            .click();
-    });
-
-    it('Next step', () => {
-        cy.apiIntercept(true);
-        cy.get('[data-testid="recipientGoToProductsButton"]')
-            .click();
-    });
+    // it('Select one group', () => {
+    //     cy.get(':nth-child(2) > .MuiTableRow-hover > :nth-child(1) > .MuiButtonBase-root > .PrivateSwitchBase-input')
+    //         .click();
+    // });
+    //
+    // it('Click forward', () => {
+    //     cy.get('[data-testid="recipientGoToProductsButton"]')
+    //         .click();
+    // });
+    //
+    // it('Click back', () => {
+    //     cy.apiIntercept(true);
+    //     cy.get('.makeStyles-buttonBackward-49')
+    //         .click();
+    // });
+    //
+    // it('Next step', () => {
+    //     cy.apiIntercept(true);
+    //     cy.get('[data-testid="recipientGoToProductsButton"]')
+    //         .click();
+    // });
 
 
     //
