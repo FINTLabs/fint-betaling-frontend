@@ -22,7 +22,7 @@ spec:
   ingress:
     enabled: true
     middlewares:
-      - fint-betaling-auth-forward-sso
+      - betaling-auth-forward
   env:
     - name: BASE_PATH
       value: path
