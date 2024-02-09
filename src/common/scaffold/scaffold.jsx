@@ -142,7 +142,7 @@ export default function Scaffold() {
 
     const handleOnIdle = () => {
         // eslint-disable-next-line no-console
-        console.log('user is idle');
+        //console.log('user is idle');
     };
 
     const handleOnActive = (event) => {
@@ -159,8 +159,9 @@ export default function Scaffold() {
                 // eslint-disable-next-line no-console
                 if (result.response.status === 500) {
                     setCustomError(result.response.data);
-                    console.error('500 Error: ', customError);
+                    //console.error('500 Error: ', customError);
                 } else {
+                    // eslint-disable-next-line no-console
                     console.error('We need to re-authenticate!', result);
                 }
                 window.location = 'https://idp.felleskomponent.no/nidp/app/logout';
