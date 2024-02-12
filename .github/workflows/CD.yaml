@@ -105,7 +105,6 @@ jobs:
           use-kubelogin: 'true'
 
       - name: Deploy
-        if: github.ref == 'refs/heads/CT-1086-Deployment'
         uses: azure/k8s-deploy@v4
         with:
           action: deploy
