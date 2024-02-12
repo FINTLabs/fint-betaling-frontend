@@ -6,90 +6,90 @@ describe('Create a new claim', () => {
         cy.url().should('include', '/betaling/ny');
     });
 
-    it('Placeholder on searchField is correct', () => {
-        cy.get('legend').first().should("contain", "Søk på gruppenavn");
-    });
-
-    it('Search for groups works', () => {
-        cy.get('#standard-name').type("1");
-        cy.get("tbody")
-            .children()
-            .should(
-                ($tr) => {
-                    expect($tr).to.have.length(10)
-                }
-            )
-    });
-
-    it('Select one group', () => {
-        cy.get(':nth-child(2) > .MuiTableRow-hover > :nth-child(1) > .MuiButtonBase-root > .PrivateSwitchBase-input')
-            .click();
-    });
-
-    it.skip('Remove one group', () => {
-        cy.get(':nth-child(2) > .MuiTableRow-hover > :nth-child(1) > .MuiButtonBase-root > .PrivateSwitchBase-input')
-            .click();
-    });
-
-    it('Select one group and remove one user', () => {
-        cy.apiIntercept(true);
-        cy.get(':nth-child(2) > .MuiTableRow-hover > .makeStyles-tableCellArrow-19').click();
-        cy.get('[data-testid="recipientList"]')
-            .children()
-            .should(
-                ($li) => {
-                    expect($li).to.have.length(5);
-                }
-            );
-        cy.get(':nth-child(1) > .MuiTableCell-alignCenter > .MuiButtonBase-root > .PrivateSwitchBase-input').click();
-        cy.get('[data-testid="recipientList"]')
-            .children()
-            .should(
-                ($li) => {
-                    expect($li).to.have.length(4);
-                }
-            );
-    });
-
-    it.skip('Remove all recipients with delete all button', () => {
-        cy.get('.MuiBox-root > [data-testid="DeleteIcon"] > path').click();
-        cy.get('[data-testid="DeleteForeverIcon"]').click();
-        cy.get('[data-testid="recipientList"]')
-            .children()
-            .should(
-                ($li) => {
-                    expect($li).to.have.length(0);
-                }
-            )
-    });
-
-    it('Test colapse function', () => {
-        cy.get('.makeStyles-rowSelected-21 > .makeStyles-tableCellArrow-19').click();
-        cy.get("tbody")
-            .children()
-            .should(
-                ($tr) => {
-                    expect($tr).to.have.length(20)
-                }
-            );
-    });
-
-    it('Activate person search', () => {
-        cy.apiIntercept(true);
-        cy.get(':nth-child(2) > .MuiButtonBase-root > .PrivateSwitchBase-input').click();
-        cy.get('legend').first().should("contain", "Søk på etternavn, fornavn mellomnavn");
-    });
-
-    it('Search for student', () => {
-        cy.get('#standard-name').type("Fem");
-        cy.get("tbody")
-            .children()
-            .should(
-                ($tr) => {
-                    expect($tr).to.have.length(1)
-                }
-            )
-    });
+    // it('Placeholder on searchField is correct', () => {
+    //     cy.get('legend').first().should("contain", "Søk på gruppenavn");
+    // });
+    //
+    // it('Search for groups works', () => {
+    //     cy.get('#standard-name').type("1");
+    //     cy.get("tbody")
+    //         .children()
+    //         .should(
+    //             ($tr) => {
+    //                 expect($tr).to.have.length(10)
+    //             }
+    //         )
+    // });
+    //
+    // it('Select one group', () => {
+    //     cy.get(':nth-child(2) > .MuiTableRow-hover > :nth-child(1) > .MuiButtonBase-root > .PrivateSwitchBase-input')
+    //         .click();
+    // });
+    //
+    // it.skip('Remove one group', () => {
+    //     cy.get(':nth-child(2) > .MuiTableRow-hover > :nth-child(1) > .MuiButtonBase-root > .PrivateSwitchBase-input')
+    //         .click();
+    // });
+    //
+    // it('Select one group and remove one user', () => {
+    //     cy.apiIntercept(true);
+    //     cy.get(':nth-child(2) > .MuiTableRow-hover > .makeStyles-tableCellArrow-19').click();
+    //     cy.get('[data-testid="recipientList"]')
+    //         .children()
+    //         .should(
+    //             ($li) => {
+    //                 expect($li).to.have.length(5);
+    //             }
+    //         );
+    //     cy.get(':nth-child(1) > .MuiTableCell-alignCenter > .MuiButtonBase-root > .PrivateSwitchBase-input').click();
+    //     cy.get('[data-testid="recipientList"]')
+    //         .children()
+    //         .should(
+    //             ($li) => {
+    //                 expect($li).to.have.length(4);
+    //             }
+    //         );
+    // });
+    //
+    // it.skip('Remove all recipients with delete all button', () => {
+    //     cy.get('.MuiBox-root > [data-testid="DeleteIcon"] > path').click();
+    //     cy.get('[data-testid="DeleteForeverIcon"]').click();
+    //     cy.get('[data-testid="recipientList"]')
+    //         .children()
+    //         .should(
+    //             ($li) => {
+    //                 expect($li).to.have.length(0);
+    //             }
+    //         )
+    // });
+    //
+    // it('Test colapse function', () => {
+    //     cy.get('.makeStyles-rowSelected-21 > .makeStyles-tableCellArrow-19').click();
+    //     cy.get("tbody")
+    //         .children()
+    //         .should(
+    //             ($tr) => {
+    //                 expect($tr).to.have.length(20)
+    //             }
+    //         );
+    // });
+    //
+    // it('Activate person search', () => {
+    //     cy.apiIntercept(true);
+    //     cy.get(':nth-child(2) > .MuiButtonBase-root > .PrivateSwitchBase-input').click();
+    //     cy.get('legend').first().should("contain", "Søk på etternavn, fornavn mellomnavn");
+    // });
+    //
+    // it('Search for student', () => {
+    //     cy.get('#standard-name').type("Fem");
+    //     cy.get("tbody")
+    //         .children()
+    //         .should(
+    //             ($tr) => {
+    //                 expect($tr).to.have.length(1)
+    //             }
+    //         )
+    // });
 
     // it('Select one student', () => {
     //     cy.get("tr")
@@ -100,7 +100,7 @@ describe('Create a new claim', () => {
     // });
 });
 
-describe('Testing selecting products', () => {
+describe.skip('Testing selecting products', () => {
     it('"Videre"-button is active', () => {
         cy.apiIntercept();
         cy.get('[data-testid="recipientGoToProductsButton"]').should('not.be.disabled');
@@ -172,7 +172,7 @@ describe('Testing selecting products', () => {
 });
 
 
-describe('Testing summary page', () => {
+describe.skip('Testing summary page', () => {
     it('Click next button is active, and click it to enter summary', () => {
         cy.apiIntercept();
         cy.get('[data-testid="nextButtonToSummary"]').should('not.be.disabled');

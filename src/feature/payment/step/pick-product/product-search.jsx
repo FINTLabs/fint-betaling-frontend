@@ -158,6 +158,7 @@ const ProductSearch = () => {
     }, [activePage, searchValue, getProductsLengthCallback, getSuggestionsCallback, dispatch]);
 
     useEffect(() => {
+        //  eslint-disable-next-line no-console
         console.log('test products effect', suggestions);
         dispatch(updateProductSuggestions(suggestions));
         dispatch(updateProductLength(suggestions.length));

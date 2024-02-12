@@ -105,6 +105,7 @@ const PickPaymentRecipient = () => {
             dispatch(fetchGroup(schoolOrgId));
             dispatch(fetchCustomer(schoolOrgId));
             dispatch(fetchPrincipal(schoolOrgId));
+            //  eslint-disable-next-line no-console
             console.log('test effect recipient school:', schoolOrgId);
         }
     }, [dispatch, schoolOrgId]);

@@ -1,0 +1,15 @@
+apiVersion: fintlabs.no/v1alpha1
+kind: FLAISSso
+metadata:
+  name: fint-betaling-auth-forward-sso
+  labels:
+    app.kubernetes.io/name: fint-betaling-auth-forward-sso
+    app.kubernetes.io/instance: fint-betaling-auth-forward-sso_fintlabs_no
+    app.kubernetes.io/version: latest
+    app.kubernetes.io/component: sso
+    app.kubernetes.io/part-of: fint-betaling
+    fintlabs.no/team: betaling
+    fintlabs.no/org-id: fintlabs.no
+spec:
+  hostname: betaling.felleskomponent.no
+  basePath: path
