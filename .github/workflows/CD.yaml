@@ -59,9 +59,9 @@ jobs:
           - bfk-no
           - ofk-no
         cluster:
+              - aks-api-fint-2022-02-08
     #          - aks-alpha-fint-2021-11-18
     #          - aks-beta-fint-2021-11-23
-              - aks-api-fint-2022-02-08
     #          - aks-pwf-fint-2021-10-20
         include:
           - org: fintlabs-no
@@ -89,7 +89,7 @@ jobs:
         uses: azure/k8s-bake@v2
         with:
           renderEngine: 'kustomize'
-          kustomizationPath: 'kustomize/overlays/${{ steps.environment.outputs.result }}'
+          kustomizationPath: 'kustomize/overlays/${{ steps.environment.outputs.result }}/${{ matrix.org }}'
 
       - uses: azure/login@v1
         with:
