@@ -2,7 +2,7 @@ name: CD
 
 on:
   repository_dispatch:
-    types: [ trigger-cd ]
+    types: [trigger-cd]
 
 env:
   REGISTRY: ghcr.io
@@ -33,7 +33,9 @@ jobs:
         id: meta
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: type=sha,enable=true,priority=100,prefix=shaF-,suffix=,format=short
+          tags: |
+            type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
+            latest
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -56,26 +58,27 @@ jobs:
           - afk-no
           - bfk-no
           - ofk-no
-#          - vlfk-no
         cluster:
-          - aks-api-fint-2022-02-08
+    #          - aks-alpha-fint-2021-11-18
+    #          - aks-beta-fint-2021-11-23
+              - aks-api-fint-2022-02-08
+    #          - aks-pwf-fint-2021-10-20
         include:
           - org: fintlabs-no
-            cluster:  aks-beta-fint-2021-11-23
-
+            cluster: aks-beta-fint-2021-11-23
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Get environment
-        uses: actions/github-script@v7
+        uses: actions/github-script@v6
         id: environment
         with:
           script: return '${{ matrix.cluster }}'.split('-')[1]
           result-encoding: string
 
       - name: Get resource group name
-        uses: actions/github-script@v7
+        uses: actions/github-script@v6
         id: resource-group
         with:
           script: return 'rg-aks-${{ steps.environment.outputs.result }}'
@@ -86,15 +89,15 @@ jobs:
         uses: azure/k8s-bake@v2
         with:
           renderEngine: 'kustomize'
-          kustomizationPath: 'kustomize/overlays/${{ matrix.org }}/${{ steps.environment.outputs.result }}'
+          kustomizationPath: 'kustomize/overlays/${{ steps.environment.outputs.result }}'
 
       - uses: azure/login@v1
         with:
           creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
 
-      - uses: azure/use-kubelogin@v1
+      - uses: azure/use-kubelogin@v1.1
         with:
-          kubelogin-version: 'v0.0.32'
+          kubelogin-version: 'v0.0.26'
 
       - name: Set the target cluster
         uses: azure/aks-set-context@v3
@@ -105,7 +108,7 @@ jobs:
           use-kubelogin: 'true'
 
       - name: Deploy
-        uses: azure/k8s-deploy@v4
+        uses: azure/k8s-deploy@v4.9
         with:
           action: deploy
           manifests: ${{ steps.bake.outputs.manifestsBundle }}
