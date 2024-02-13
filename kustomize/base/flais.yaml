@@ -14,7 +14,7 @@ metadata:
 spec:
   port: 8000
   imagePullPolicy: Always
-  orgId: afk.no
+  orgId: fintlabs.no
   image: fintlabsacr.azurecr.io/fint-betaling-frontend:c07351656d999955015fe3c567fe319f8f5e407a
   url:
     hostname: betaling.felleskomponent.no
