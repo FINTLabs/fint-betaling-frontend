@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: fintlabs-no
 resources:
-  - ../../../base
+  - application.yaml
 commonLabels:
   app.kubernetes.io/name: fint-betaling-frontend
   app.kubernetes.io/instance: fint-betaling-frontend_fintlabs_no
@@ -11,6 +11,3 @@ commonLabels:
   app.kubernetes.io/part-of: fint-core
   fintlabs.no/team: core
   fintlabs.no/org-id: fintlabs.no
-
-patchesStrategicMerge:
-  - application.yaml

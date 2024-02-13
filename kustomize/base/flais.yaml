@@ -30,7 +30,3 @@ spec:
       memory: "256Mi"
       cpu: "250m"
   restartPolicy: Always
-  replicas: 1
-#  strategy:
-#    type: RollingUpdate
-#    rollingUpdate: { maxSurge: 1, maxUnavailable: 0 }
