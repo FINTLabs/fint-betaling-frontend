@@ -16,7 +16,7 @@ patches:
   - patch: |-
       - op: replace
         path: "/spec/url/hostname"
-        value: 'betaling.felleskomponent.no'
+        value: 'betaling.felleskomponent.no/bfk'
     target:
       kind: Application
       name: fint-betaling-frontend

@@ -19,4 +19,4 @@ patches:
         value: 'betaling-demo.felleskomponent.no'
     target:
       kind: Application
-      name: fint-betaling-frontend
+      name: fint-betaling-frontend-demo
