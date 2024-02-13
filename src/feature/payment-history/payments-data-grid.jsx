@@ -145,6 +145,13 @@ const PaymentsDataGrid = () => {
             headerName: 'Opprettet',
             width: 150,
             type: 'date',
+            valueFormatter: (params) => {
+                const date = new Date(params.value);
+                const day = date.getDate().toString().padStart(2, '0');
+                const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth() is zero-based
+                const year = date.getFullYear();
+                return `${day}.${month}.${year}`; // Concatenates the date in dd.mm.yyyy format
+            },
         },
     ];
 
