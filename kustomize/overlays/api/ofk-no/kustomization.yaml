@@ -12,11 +12,5 @@ commonLabels:
   fintlabs.no/team: core
   fintlabs.no/org-id: ofk.no
 
-patches:
-  - patch: |-
-      - op: replace
-        path: "/spec/url/hostname"
-        value: 'betaling.felleskomponent.no/ofk'
-    target:
-      kind: Application
-      name: fint-betaling-frontend
+patchesStrategicMerge:
+  - application.yaml

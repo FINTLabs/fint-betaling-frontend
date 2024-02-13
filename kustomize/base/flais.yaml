@@ -2,7 +2,6 @@ apiVersion: fintlabs.no/v1alpha1
 kind: Application
 metadata:
   name: fint-betaling-frontend
-  namespace: fintlabs-no
   labels:
     app.kubernetes.io/name: fint-betaling-frontend
     app.kubernetes.io/instance: fint-betaling-frontend_fintlabs_no
@@ -15,7 +14,7 @@ spec:
   port: 8000
   imagePullPolicy: Always
   orgId: fintlabs.no
-  image: fintlabsacr.azurecr.io/fint-betaling-frontend:latest
+  image: fintlabsacr.azurecr.io/fint-betaling-frontend:c07351656d999955015fe3c567fe319f8f5e407a
   url:
     hostname: betaling.felleskomponent.no
     basePath: /

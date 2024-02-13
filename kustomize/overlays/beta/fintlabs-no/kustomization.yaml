@@ -4,7 +4,7 @@ namespace: fintlabs-no
 resources:
   - ../../../base
 commonLabels:
-  app.kubernetes.io/name: fint-betaling-frontend-demo
+  app.kubernetes.io/name: fint-betaling-frontend
   app.kubernetes.io/instance: fint-betaling-frontend_fintlabs_no
   app.kubernetes.io/version: latest
   app.kubernetes.io/component: frontend
@@ -12,11 +12,5 @@ commonLabels:
   fintlabs.no/team: core
   fintlabs.no/org-id: fintlabs.no
 
-patches:
-  - patch: |-
-      - op: replace
-        path: "/spec/url/hostname"
-        value: 'betaling-demo.felleskomponent.no'
-    target:
-      kind: Application
-      name: fint-betaling-frontend-demo
+patchesStrategicMerge:
+  - application.yaml
