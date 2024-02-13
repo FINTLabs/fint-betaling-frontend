@@ -4,7 +4,7 @@ namespace: fintlabs-no
 resources:
   - ../../../base
 commonLabels:
-  app.kubernetes.io/name: fint-betaling-frontend
+  app.kubernetes.io/name: fint-betaling-frontend-demo
   app.kubernetes.io/instance: fint-betaling-frontend_fintlabs_no
   app.kubernetes.io/version: latest
   app.kubernetes.io/component: frontend
