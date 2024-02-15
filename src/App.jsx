@@ -55,7 +55,6 @@ function App() {
     const BASE_PATH = process.env.BASE_PATH || '/afk';
     // eslint-disable-next-line no-console
     console.log('BASE_PATH', BASE_PATH);
-
     return (
         <ThemeProvider theme={theme}>
             <Provider store={store}>
