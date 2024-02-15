@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import {
     createTheme,
@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import axios from 'axios';
 import Scaffold from './common/scaffold/scaffold';
 import store from './data/redux/store';
 
@@ -29,7 +30,6 @@ const theme = createTheme({
             root: {
                 '&:hover:not($disabled):not($focused):not($error) $notchedOutline': {
                     borderColor: '#8cc640',
-                    // Reset on touch devices, it doesn't add specificity
                     '@media (hover: none)': {
                         borderColor: 'rgba(0, 0, 0, 0.23)',
                     },
@@ -52,18 +52,31 @@ const theme = createTheme({
 });
 
 function App() {
-    const BASE_PATH = process.env.BASE_PATH || '/afk';
-    // eslint-disable-next-line no-console
-    console.log('BASE_PATH', BASE_PATH);
+    const [basePath, setBasePath] = useState();
+    useEffect(() => {
+        axios
+            .get('api/application/configuration')
+            .then((value) => {
+                axios.defaults.baseURL = value.data.basePath;
+                setBasePath(value.data.basePath);
+            })
+            .catch((reason) => {
+                // eslint-disable-next-line no-console
+                console.log(reason);
+                setBasePath('/');
+            });
+    }, [basePath]);
 
-    return (
+    return basePath ? (
         <ThemeProvider theme={theme}>
             <Provider store={store}>
-                <BrowserRouter basename={BASE_PATH}>
+                <BrowserRouter basename={basePath}>
                     <Scaffold />
                 </BrowserRouter>
             </Provider>
         </ThemeProvider>
+    ) : (
+        <h1>Loading</h1>
     );
 }
 

@@ -24,3 +24,4 @@ yarn-error.log*
 
 .idea/
 /cypress/screenshots/
+/server/node_modules/
