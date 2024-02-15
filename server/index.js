@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const rewrite = require('express-urlrewrite');
 const morgan = require('morgan');
-const log4js = require("log4js");
+const log4js = require('log4js');
 const log = log4js.getLogger();
 const promMid = require('express-prometheus-middleware');
 
@@ -31,7 +31,8 @@ app.get(`${BASE_PATH}/api/application/configuration`, (req, res) => {
 })
 
 app.get(`${BASE_PATH}/*`, (req, res) => {
-    console.log("Request path", req.path);
+    // eslint-disable-next-line no-console
+    console.log('Request path', req.path);
     if (req.path.includes("/api/")) {
         res.send([])
     } else {

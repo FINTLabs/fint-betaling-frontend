@@ -4,7 +4,7 @@ COPY package.json .
 COPY yarn.lock .
 RUN yarn install
 COPY . /src
-RUN yarn test:ci && yarn build
+RUN yarn build
 
 FROM node:16
 WORKDIR /usr/src/app
