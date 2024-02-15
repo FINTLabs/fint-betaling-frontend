@@ -52,10 +52,11 @@ const theme = createTheme({
 });
 
 function App() {
+    const BASE_PATH = process.env.BASE_PATH || '/';
     return (
         <ThemeProvider theme={theme}>
             <Provider store={store}>
-                <BrowserRouter basename="/">
+                <BrowserRouter basename={BASE_PATH}>
                     <Scaffold />
                 </BrowserRouter>
             </Provider>
