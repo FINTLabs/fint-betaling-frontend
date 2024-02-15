@@ -1,0 +1,6 @@
+apiVersion: fintlabs.no/v1alpha1
+kind: FLAISSso
+metadata:
+  name: fint-betaling-auth-forward-sso
+spec:
+  basePath: /ofk
