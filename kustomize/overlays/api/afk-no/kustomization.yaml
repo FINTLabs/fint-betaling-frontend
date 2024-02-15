@@ -2,7 +2,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: afk-no
 resources:
-  - ../../../base
+  - flais.yaml
+  - FLAISSso.yaml
 commonLabels:
   app.kubernetes.io/name: fint-betaling-frontend
   app.kubernetes.io/instance: fint-betaling-frontend_afk_no
@@ -12,6 +13,3 @@ commonLabels:
   fintlabs.no/team: core
   fintlabs.no/org-id: afk.no
 
-patchesStrategicMerge:
-  - application.yaml
-  - FLAISSso.yaml

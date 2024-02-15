@@ -1,0 +1,32 @@
+apiVersion: fintlabs.no/v1alpha1
+kind: Application
+metadata:
+  name: fint-betaling-frontend
+  labels:
+    app.kubernetes.io/name: fint-betaling-frontend
+    app.kubernetes.io/instance: fint-betaling-frontend_ofk_no
+    app.kubernetes.io/version: latest
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: fint-core
+    fintlabs.no/team: core
+    fintlabs.no/org-id: ofk.no
+spec:
+  port: 8000
+  imagePullPolicy: Always
+  orgId: ofk.no
+  image: ghcr.io/fintlabs/fint-betaling-frontend:latest
+  url:
+    hostname: betaling.felleskomponent.no
+    basePath: /ofk
+  ingress:
+    enabled: true
+    middlewares:
+      - fint-betaling-auth-forward-sso
+  resources:
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+  restartPolicy: Always

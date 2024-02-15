@@ -1,8 +1,0 @@
-apiVersion: fintlabs.no/v1alpha1
-kind: Application
-metadata:
-  name: fint-betaling-frontend
-spec:
-  url:
-    hostname: betaling.felleskomponent.no
-    basePath: /afk
