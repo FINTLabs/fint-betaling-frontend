@@ -1,0 +1,51 @@
+apiVersion: fintlabs.no/v1alpha1
+kind: Application
+metadata:
+  labels:
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/instance: fint-betaling-frontend_bfk_no
+    app.kubernetes.io/name: fint-betaling-frontend
+    app.kubernetes.io/part-of: fint-core
+    app.kubernetes.io/version: latest
+    fintlabs.no/org-id: bfk.no
+    fintlabs.no/team: core
+  name: fint-betaling-frontend
+  namespace: bfk-no
+spec:
+  image: ghcr.io/fintlabs/fint-betaling-frontend:latest
+  imagePullPolicy: Always
+  ingress:
+    enabled: true
+    middlewares:
+    - fint-betaling-auth-forward-sso
+  orgId: bfk.no
+  port: 8000
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 250m
+      memory: 256Mi
+  restartPolicy: Always
+  url:
+    basePath: /bfk
+    hostname: betaling.felleskomponent.no
+---
+apiVersion: fintlabs.no/v1alpha1
+kind: FLAISSso
+metadata:
+  labels:
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/instance: fint-betaling-frontend_bfk_no
+    app.kubernetes.io/name: fint-betaling-frontend
+    app.kubernetes.io/part-of: fint-core
+    app.kubernetes.io/version: latest
+    fintlabs.no/org-id: bfk.no
+    fintlabs.no/team: core
+  name: fint-betaling-auth-forward-sso
+  namespace: bfk-no
+spec:
+  basePath: /bfk
+  hostname: betaling.felleskomponent.no
+  loggingLevel: debug

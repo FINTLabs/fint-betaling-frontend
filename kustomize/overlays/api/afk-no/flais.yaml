@@ -23,6 +23,7 @@ spec:
     basePath: /afk
   ingress:
     enabled: true
+    basePath: /afk
     middlewares:
       - fint-betaling-auth-forward-sso
   resources:

@@ -20,6 +20,7 @@ spec:
     basePath: /bfk
   ingress:
     enabled: true
+    basePath: /bfk
     middlewares:
       - fint-betaling-auth-forward-sso
   resources:
