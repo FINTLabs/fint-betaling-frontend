@@ -1,6 +1,6 @@
 class FileRepository {
     static sendFile(schoolOrgId, file) {
-        const url = '/api/file';
+        const url = 'api/file';
         const stopFetch = 15;
         return fetch(url, {
             retryOn(attempt, error, response) {
