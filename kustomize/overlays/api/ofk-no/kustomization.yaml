@@ -4,11 +4,3 @@ namespace: ofk-no
 resources:
   - flais.yaml
   - FLAISSso.yaml
-commonLabels:
-  app.kubernetes.io/name: fint-betaling-frontend
-  app.kubernetes.io/instance: fint-betaling-frontend_ofk_no
-  app.kubernetes.io/version: latest
-  app.kubernetes.io/component: frontend
-  app.kubernetes.io/part-of: fint-core
-  fintlabs.no/team: core
-  fintlabs.no/org-id: ofk.no

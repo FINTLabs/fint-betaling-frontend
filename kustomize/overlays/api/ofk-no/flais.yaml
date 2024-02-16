@@ -13,7 +13,7 @@ metadata:
 spec:
   port: 8000
   imagePullPolicy: Always
-  orgId: ofk.no
+  orgId: ofk.yaml
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
   env:
     - name: BASE_PATH
@@ -23,7 +23,6 @@ spec:
     basePath: /ofk
   ingress:
     enabled: true
-    basePath: /ofk
     middlewares:
       - fint-betaling-auth-forward-sso
   resources:
