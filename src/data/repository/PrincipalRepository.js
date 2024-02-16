@@ -1,6 +1,6 @@
 class PrincipalRepository {
     static fetchPrincipals(orgId) {
-        const url = '/api/principal';
+        const url = 'api/principal';
         const stopFetch = 15;
 
         return fetch(url, {
