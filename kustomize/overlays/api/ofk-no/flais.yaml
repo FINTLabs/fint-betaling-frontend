@@ -15,6 +15,9 @@ spec:
   imagePullPolicy: Always
   orgId: ofk.no
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
+  env:
+    - name: BASE_PATH
+      value: /ofk
   url:
     hostname: betaling.felleskomponent.no
     basePath: /ofk
