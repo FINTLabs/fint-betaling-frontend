@@ -3,9 +3,9 @@ const path = require('path');
 const rewrite = require('express-urlrewrite');
 const morgan = require('morgan');
 const log4js = require('log4js');
+
 const log = log4js.getLogger();
 const promMid = require('express-prometheus-middleware');
-
 
 const PORT = process.env.PORT || 8000;
 const BASE_PATH = process.env.BASE_PATH || '/';
@@ -13,7 +13,7 @@ log.level = process.env.LOGGING_LEVEL || 'info';
 
 const app = express();
 
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 app.use(rewrite(/\/static\/(\w.+)/i, `${BASE_PATH}/static/$1`));
 app.use(rewrite(/\/manifest.json$/, `${BASE_PATH}/manifest.json`));
 app.use(rewrite(/\/api\/application\/configuration/, `${BASE_PATH}/api/application/configuration`));

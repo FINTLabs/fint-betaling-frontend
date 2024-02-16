@@ -39,7 +39,7 @@ class ClaimRepository {
         }
 
         const searchParams = buildSearchParams.toString();
-        const url = `api/claim?${searchParams}`;
+        const url = `/api/claim?${searchParams}`;
 
         return fetch(url, {
 
