@@ -65,6 +65,7 @@ function App() {
                 console.log(reason);
                 setBasePath('/');
             });
+        // eslint-disable-next-line no-console
         console.log('Base path:', basePath);
     }, [basePath]);
 
