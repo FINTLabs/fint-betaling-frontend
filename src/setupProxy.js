@@ -2,14 +2,14 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function (app) {
     // Specific proxy for the configuration endpoint
-    app.use(
-        '/api/application/configuration',
-        createProxyMiddleware({
-            target: 'http://localhost:8000',
-            changeOrigin: true,
-            pathRewrite: { '^/api/application/configuration': '/api/application/configuration' },
-        }),
-    );
+    // app.use(
+    //     '/api/application/configuration',
+    //     createProxyMiddleware({
+    //         target: 'http://localhost:8000',
+    //         changeOrigin: true,
+    //         pathRewrite: { '^/api/application/configuration': '/api/application/configuration' },
+    //     }),
+    // );
 
     // General proxy for all other API calls to go to localhost:8080
     app.use(

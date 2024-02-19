@@ -148,7 +148,7 @@ export default function Scaffold() {
     const handleOnActive = (event) => {
         //  eslint-disable-next-line no-console
         console.log('Check if we are authenticated ', event);
-        axios.get('/api/me/ping')
+        axios.get('api/me/ping')
             .then((result) => {
                 if (result.status === 200 && result.data === 'Greetings from FINTLabs :)') {
                     //  eslint-disable-next-line no-console
