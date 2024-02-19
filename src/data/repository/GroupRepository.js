@@ -1,6 +1,6 @@
 class GroupRepository {
     static fetchAllCustomersFromSchool(schoolOrgId) {
-        const url = 'api/group/school';
+        const url = '/api/group/school';
         const stopFetch = 15;
         return fetch(url, {
             retryOn(attempt, error, response) {
@@ -16,7 +16,7 @@ class GroupRepository {
     }
 
     static fetchAllBasisGroupsBySchool(schoolOrgId) {
-        const url = 'api/group/basis-group';
+        const url = '/api/group/basis-group';
         const stopFetch = 15;
         return fetch(url, {
             retryOn(attempt, error, response) {
@@ -32,7 +32,7 @@ class GroupRepository {
     }
 
     static fetchAllTeachingGroupBySchool(schoolOrgId) {
-        const url = 'api/group/teaching-group';
+        const url = '/api/group/teaching-group';
         const stopFetch = 15;
         return fetch(url, {
             retryOn(attempt, error, response) {
@@ -48,7 +48,7 @@ class GroupRepository {
     }
 
     static fetchAllContactTeachingGroupBySchool(schoolOrgId) {
-        const url = 'api/group/contact-teacher-group';
+        const url = '/api/group/contact-teacher-group';
         const stopFetch = 15;
         return fetch(url, {
             retryOn(attempt, error, response) {

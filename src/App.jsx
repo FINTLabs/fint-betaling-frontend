@@ -65,6 +65,7 @@ function App() {
                 console.log(reason);
                 setBasePath('/');
             });
+        console.log('Base path:', basePath);
     }, [basePath]);
 
     return basePath ? (

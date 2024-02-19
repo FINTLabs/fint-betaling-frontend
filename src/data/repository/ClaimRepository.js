@@ -8,7 +8,7 @@ class ClaimRepository {
         }
         const searchParams = buildSearchParams.toString();
 
-        const url = `api/claim/count/by-status/${statusToGet}?${searchParams}`;
+        const url = `/api/claim/count/by-status/${statusToGet}?${searchParams}`;
         return fetch(url, {
 
             retryOn(attempt, error, response) {
@@ -56,7 +56,7 @@ class ClaimRepository {
 
     static sendOrders(orgId, orderList) {
         const request = new Request(
-            'api/claim/send',
+            '/api/claim/send',
             {
                 method: 'POST',
                 headers: new Headers({
@@ -80,7 +80,7 @@ class ClaimRepository {
         createdBy,
     ) {
         const request = new Request(
-            'api/claim',
+            '/api/claim',
             {
                 method: 'POST',
                 headers: new Headers({
@@ -101,7 +101,7 @@ class ClaimRepository {
     }
 
     static cancelPayments(orderNumbers) {
-        const apiAddress = 'api/claim/order-number/';
+        const apiAddress = '/api/claim/order-number/';
         const urls = [];
         orderNumbers.forEach((orderNumber) => urls.push(apiAddress + orderNumber));
         const stopFetch = 15;

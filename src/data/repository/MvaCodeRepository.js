@@ -1,6 +1,6 @@
 class MvaCodeRepository {
     static fetchMvaCodes() {
-        const url = 'api/mva-code';
+        const url = '/api/mva-code';
         const stopFetch = 15;
         return fetch(url, {
             retryOn(attempt, error, response) {
