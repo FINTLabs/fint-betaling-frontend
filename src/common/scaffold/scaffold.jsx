@@ -105,7 +105,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
 );
 
-export default function Scaffold(basename) {
+export default function Scaffold() {
     const theme = useTheme();
     const dispatch = useDispatch();
     const [customError, setCustomError] = React.useState(null);
@@ -149,10 +149,7 @@ export default function Scaffold(basename) {
         //  eslint-disable-next-line no-console
         console.log('Check if we are authenticated ', event);
 
-        //  eslint-disable-next-line no-console
-        console.log('base name', basename);
-
-        axios.get(`${basename}/api/me/ping`)
+        axios.get('/api/me/ping')
             .then((result) => {
                 if (result.status === 200 && result.data === 'Greetings from FINTLabs :)') {
                     //  eslint-disable-next-line no-console
