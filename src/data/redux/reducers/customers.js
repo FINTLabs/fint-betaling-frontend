@@ -27,15 +27,31 @@ export default function reducer(state = defaultState, action) {
             errorMessage: '',
         };
 
+    // case FETCH_CUSTOMERS_FULFILLED:
+    //     action.payload.sort((a, b) => (
+    //         a.name > b.name ? 1 : -1
+    //     ));
+    //     return {
+    //         ...state,
+    //         isLoading: false,
+    //         loaded: true,
+    //         customers: action.payload,
+    //     };
     case FETCH_CUSTOMERS_FULFILLED:
-        action.payload.sort((a, b) => (
-            a.name > b.name ? 1 : -1
-        ));
+        // Sort customers only if it's an array
+        // eslint-disable-next-line no-case-declarations
+        let sortedCustomers = Array.isArray(action.payload.customers)
+            ? action.payload.customers.slice().sort((a, b) => (a.name > b.name ? 1 : -1))
+            : [];
+
+        // Filter out items with null name
+        sortedCustomers = sortedCustomers.filter((customer) => customer.name !== null);
+
         return {
             ...state,
             isLoading: false,
             loaded: true,
-            customers: action.payload,
+            customers: sortedCustomers,
         };
 
     case FETCH_CUSTOMERS_REJECTED:

@@ -52,10 +52,15 @@ export default function fetchCustomer(schoolOrgId) {
                     payload: customers,
                 });
 
-                dispatch({
-                    type: UPDATE_CUSTOMER_NAMES_SPLIT,
-                    payload: customers,
-                });
+                // Verify that customers is an array before sorting
+                if (Array.isArray(customers)) {
+                    dispatch({
+                        type: UPDATE_CUSTOMER_NAMES_SPLIT,
+                        payload: customers.sort((a, b) => (
+                            a.name > b.name ? 1 : -1
+                        )),
+                    });
+                }
             })
             .catch((error) => {
                 dispatch({
