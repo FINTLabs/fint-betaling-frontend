@@ -73,7 +73,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <Provider store={store}>
                 <BrowserRouter basename={basePath}>
-                    <Scaffold basename={basePath}/>
+                    <Scaffold basename={basePath} />
                 </BrowserRouter>
             </Provider>
         </ThemeProvider>
