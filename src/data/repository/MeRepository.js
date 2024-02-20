@@ -20,7 +20,7 @@ class MeRepository {
     static fetchMe() {
         const url = '/api/me';
         return axios.get(url)
-            .then((response) => response.data) // Automatically parsed as JSON
+            .then((response) => response.data)
             .catch((error) => error);
     }
 }

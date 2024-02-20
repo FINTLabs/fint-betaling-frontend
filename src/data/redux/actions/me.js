@@ -30,13 +30,11 @@ export default function fetchMe() {
         dispatch({ type: FETCH_ME });
 
         MeRepository.fetchMe()
-            .then((response) => {
-                if (response.status === 200) {
-                    dispatch({
-                        type: FETCH_ME_FULFILLED,
-                        payload: response.data,
-                    });
-                }
+            .then((data) => {
+                dispatch({
+                    type: FETCH_ME_FULFILLED,
+                    payload: data,
+                });
             })
             .catch((error) => {
                 dispatch({
