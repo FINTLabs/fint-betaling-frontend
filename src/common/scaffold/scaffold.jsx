@@ -152,7 +152,7 @@ export default function Scaffold(basename) {
         //  eslint-disable-next-line no-console
         console.log('base name', basename);
 
-        axios.get(`${basePath}/api/me/ping`)
+        axios.get(`${basename}/api/me/ping`)
             .then((result) => {
                 if (result.status === 200 && result.data === 'Greetings from FINTLabs :)') {
                     //  eslint-disable-next-line no-console
