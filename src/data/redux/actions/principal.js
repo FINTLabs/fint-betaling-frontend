@@ -30,13 +30,12 @@ export default function fetchPrincipal(orgId) {
         dispatch({ type: FETCH_PRINCIPALS });
 
         PrincipalRepository.fetchPrincipals(orgId)
-            .then((response) => {
-                if (response.status === 200) {
-                    dispatch({
-                        type: FETCH_PRINCIPALS_FULFILLED,
-                        payload: response.data,
-                    });
-                }
+            .then((data) => {
+                // Assuming data is directly returned without a response wrapper
+                dispatch({
+                    type: FETCH_PRINCIPALS_FULFILLED,
+                    payload: data,
+                });
             })
             .catch((error) => {
                 dispatch({
