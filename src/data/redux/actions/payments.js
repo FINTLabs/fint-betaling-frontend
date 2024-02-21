@@ -22,25 +22,23 @@
 //             });
 //     };
 // }
-import { FETCH_PRINCIPALS, FETCH_PRINCIPALS_FULFILLED, FETCH_PRINCIPALS_REJECTED } from './actions';
+import { FETCH_PAYMENTS, FETCH_PAYMENTS_FULFILLED, FETCH_PAYMENTS_REJECTED } from './actions';
 import ClaimRepository from '../../repository/ClaimRepository';
 
-export default function fetchPrincipal(orgId) {
+export default function fetchPayments(periodSelection, orgIdSelection, status) {
     return (dispatch) => {
-        dispatch({ type: FETCH_PRINCIPALS });
+        dispatch({ type: FETCH_PAYMENTS });
 
-        ClaimRepository.fetchPayments(orgId)
-            .then(([result, json]) => {
-                if (result.status === 200) {
-                    dispatch({
-                        type: FETCH_PRINCIPALS_FULFILLED,
-                        payload: json,
-                    });
-                }
+        ClaimRepository.fetchPayments(periodSelection, orgIdSelection, status)
+            .then((data) => { // Directly use 'data', as it's the array of payments/claims
+                dispatch({
+                    type: FETCH_PAYMENTS_FULFILLED,
+                    payload: data,
+                });
             })
             .catch((error) => {
                 dispatch({
-                    type: FETCH_PRINCIPALS_REJECTED,
+                    type: FETCH_PAYMENTS_REJECTED,
                     payload: error,
                 });
             });
