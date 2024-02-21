@@ -44,19 +44,32 @@ export default function fetchGroup(schoolOrgId) {
         dispatch({ type: FETCH_GROUPS });
 
         const basisGroupsPromise = GroupRepository.fetchAllBasisGroupsBySchool(schoolOrgId)
-            .then(([result, json]) => {
-                if (result.status === 200) {
-                    return json;
+            .then((response) => {
+                // Directly use the response if it's the expected data format
+                if (Array.isArray(response) && response.length > 0) {
+                    return response;
                 }
                 throw new Error('Failed to fetch basis groups');
+            })
+            .catch((error) => {
+                // It's good practice to handle errors for each promise
+                // eslint-disable-next-line no-console
+                console.error('Error fetching basis groups:', error);
+                return []; // Return an empty array to allow Promise.all to resolve
             });
 
         const teachingGroupsPromise = GroupRepository.fetchAllTeachingGroupBySchool(schoolOrgId)
-            .then(([result, json]) => {
-                if (result.status === 200) {
-                    return json;
+            .then((response) => {
+                // Assuming a similar response format as basis groups
+                if (Array.isArray(response) && response.length > 0) {
+                    return response;
                 }
                 throw new Error('Failed to fetch teaching groups');
+            })
+            .catch((error) => {
+                // eslint-disable-next-line no-console
+                console.error('Error fetching teaching groups:', error);
+                return [];
             });
 
         Promise.all([basisGroupsPromise, teachingGroupsPromise])
@@ -68,6 +81,7 @@ export default function fetchGroup(schoolOrgId) {
                 });
             })
             .catch((error) => {
+                // This catch will handle any errors thrown in the Promise.all
                 dispatch({
                     type: FETCH_GROUPS_REJECTED,
                     payload: error,
