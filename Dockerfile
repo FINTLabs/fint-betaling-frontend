@@ -6,7 +6,7 @@ RUN yarn install
 COPY . /src
 RUN yarn build
 
-FROM node:16
+FROM node:18.19.1
 WORKDIR /usr/src/app
 RUN mkdir -p server
 COPY server/package*.json server
