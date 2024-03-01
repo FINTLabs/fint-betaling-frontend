@@ -36,6 +36,7 @@ import {
 } from '../../data/redux/actions/payment';
 import UnsentAlertButton from './unsent-alert-button';
 import ErrorAlertButton from './error-alert-button';
+import NovariLogo from '../../assets/novari-logo.png';
 
 const drawerWidth = 240;
 
@@ -275,11 +276,18 @@ export default function Scaffold() {
                             >
                                 <MenuIcon />
                             </IconButton>
-                            <Box sx={{ pr: 10 }}>
-                                <Link to="/">
-                                    <img src="/novari-logo.png" height="50px" alt="Novari Logo" />
-                                </Link>
-                            </Box>
+                            <Link to="/">
+                                <Box
+                                    component="img"
+                                    sx={{
+                                        height: 35,
+                                        ml: 8,
+                                        pr: 1.5,
+                                    }}
+                                    alt="Vigo Logo"
+                                    src={NovariLogo}
+                                />
+                            </Link>
                             <Typography variant="h6" noWrap>
                                 FINT Elevfakturering
                             </Typography>
