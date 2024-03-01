@@ -28,7 +28,6 @@ import axios from 'axios';
 import { useIdleTimer } from 'react-idle-timer';
 import MuiAppBar from '@mui/material/AppBar';
 import MuiDrawer from '@mui/material/Drawer';
-import VigoLogo from '../../assets/vigo-logo-no-iks.svg';
 import Routes from './routes';
 import OrganisationSelector from './organisation-selector';
 import fetchMe from '../../data/redux/actions/me';
@@ -276,18 +275,11 @@ export default function Scaffold() {
                             >
                                 <MenuIcon />
                             </IconButton>
-                            <Link to="/">
-                                <Box
-                                    component="img"
-                                    sx={{
-                                        height: 35,
-                                        ml: 8,
-                                        pr: 1.5,
-                                    }}
-                                    alt="Vigo Logo"
-                                    src={VigoLogo}
-                                />
-                            </Link>
+                            <Box sx={{ pr: 10 }}>
+                                <Link to="/">
+                                    <img src="/novari-logo.png" height="50px" alt="Novari Logo" />
+                                </Link>
+                            </Box>
                             <Typography variant="h6" noWrap>
                                 FINT Elevfakturering
                             </Typography>
