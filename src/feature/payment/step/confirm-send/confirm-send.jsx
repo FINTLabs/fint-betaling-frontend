@@ -54,7 +54,8 @@ const ConfirmSend = () => {
                 .map((key) => {
                     if (productsX[key].checked) {
                         const orderLine = {
-                            description: description || productsX[key].description || '',
+                            description: description && description[key].description
+                                ? description[key].description : '',
                             itemQuantity: amount[key].amount,
                             itemPrice: price[key].itemPrice,
                             itemCode: key,
