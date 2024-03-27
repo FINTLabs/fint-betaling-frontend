@@ -52,10 +52,12 @@ const RecipientSearch = () => {
             if (suggestion.name.toLowerCase().includes(input.toLowerCase())) {
                 return true;
             }
-            for (let i = 0; i < splitCustomers[suggestion.id].length; i += 1) {
-                if (splitCustomers[suggestion.id][i].slice(0, input.length)
-                    .toLowerCase() === input) {
-                    return true;
+            if (splitCustomers[suggestion.id]) { // Add this check
+                for (let i = 0; i < splitCustomers[suggestion.id].length; i += 1) {
+                    if (splitCustomers[suggestion.id][i].slice(0, input.length)
+                        .toLowerCase() === input) {
+                        return true;
+                    }
                 }
             }
         }
