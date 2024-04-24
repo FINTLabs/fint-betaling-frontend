@@ -14,7 +14,8 @@ const PaymentStatusChip = ({ payment }) => {
 
     function getMessage(message, value) {
         if (message) {
-            return JSON.parse(message).message;
+            // return JSON.parse(message).message;
+            return message;
         }
         if (value === 'STORED') {
             return paymentNotSentFeedback;
@@ -23,6 +24,7 @@ const PaymentStatusChip = ({ payment }) => {
     }
 
     function handleStatusClick(event, errormessage, value) {
+        console.log('handleStatusClick', errormessage, value);
         dispatch(updateOrderStatusContent(getMessage(errormessage, value)));
         dispatch(updateOrderStatusOpen(true));
     }
@@ -46,7 +48,7 @@ const PaymentStatusChip = ({ payment }) => {
                 label={thisStatus.label}
                 variant="outlined"
                 color={thisStatus.color}
-                onClick={(e) => handleStatusClick(e, thisStatus.statusMessage, thisStatus.value)}
+                onClick={(e) => handleStatusClick(e, payment.row.statusMessage, thisStatus.value)}
             />
         </div>
     );
