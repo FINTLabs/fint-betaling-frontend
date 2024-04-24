@@ -77,8 +77,8 @@ const SendToInvoiceContainer = () => {
             orgId,
             Object.keys(selectedOrders)
                 .filter((key) => selectedOrders[key].checked),
-        ).then(([response, data]) => {
-            if (response.status === 201) {
+        ).then(({ status, data }) => { // Destructure the response object
+            if (status === 201) {
                 dispatch(updateSendOrderResponse(data));
                 dispatch(updateOrderSearchValue(1));
                 dispatch(updateRedirectFromExternal(true));
@@ -92,7 +92,7 @@ const SendToInvoiceContainer = () => {
             } else {
                 setShowSnackbar(true);
                 setSnackbarMessage(`En feil oppstod ved sending til økonomisystemet!
-                 (Response status: ${response.status})`);
+                 (Response status: ${status})`);
             }
         })
             .catch((error) => {
