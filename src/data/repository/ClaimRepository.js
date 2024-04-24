@@ -173,7 +173,10 @@ class ClaimRepository {
                 'x-org-id': orgId,
             },
         })
-            .then((response) => response.data)
+            .then((response) => ({
+                status: response.status,
+                data: response.data,
+            }))
             .catch((error) => error);
     }
 
