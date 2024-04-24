@@ -118,7 +118,6 @@ const PaymentsDataGrid = () => {
             field: 'orderNumber',
             headerName: 'Ordrenummer',
             width: 150,
-
         },
         {
             field: 'invoiceNumbers',
