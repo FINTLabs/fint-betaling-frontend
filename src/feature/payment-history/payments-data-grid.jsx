@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import { Send } from '@mui/icons-material';
+import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import CircularProgress from '@mui/material/CircularProgress';
 import Amount from '../payment/utils/amount';
 import noNB from '../../common/translations/noNB';
 import PaymentStatusChip from './payment-status-chip';
@@ -28,6 +30,8 @@ import fetchPaymentsStatusCountUnsent from '../../data/redux/actions/status';
 function CustomToolbar({ selectedItems }) {
     const dispatch = useDispatch();
     const periodSelection = useSelector((state) => state.payment.payments.periodSelection);
+    const schoolSelection = useSelector((state) => state.payment.payments.schoolSelection);
+    const [loading, setLoading] = React.useState(false);
 
     function handleConfirmSendPayments() {
         // TODO We need to get this from the me object
@@ -58,6 +62,23 @@ function CustomToolbar({ selectedItems }) {
             });
     }
 
+    function handleUpdateStatus() {
+        setLoading(true);
+        // Assuming you have a function to make the API call
+        ClaimRepository.updateClaimStatus(periodSelection, schoolSelection)
+            .then(() => {
+                dispatch(fetchPayments(periodSelection, schoolSelection));
+            })
+            .catch((error) => {
+                dispatch(updateInvoiceSnackbarContent(`En feil oppstod ved updating fra økonomisystemet! 
+                (Error: ${error})`));
+                dispatch(updateInvoiceSnackbarOpen(true));
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }
+
     return (
         <GridToolbarContainer>
             <Grid container spacing={2}>
@@ -65,6 +86,17 @@ function CustomToolbar({ selectedItems }) {
                     <PaymentSelect />
                 </Grid>
                 <Grid item xs={2}>
+                    <Button
+                        data-testid="updateButton"
+                        onClick={() => {
+                            handleUpdateStatus();
+                        }}
+                        startIcon={loading ? <CircularProgress size={24} /> : <SyncAltIcon />}
+                        disabled={loading}
+                        sx={{ fontSize: 13 }}
+                    >
+                        Oppdater
+                    </Button>
                     <Button
                         data-testid="resendButton"
                         onClick={() => {
