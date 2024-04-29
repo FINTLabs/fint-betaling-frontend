@@ -217,6 +217,15 @@ class ClaimRepository {
             .then(axios.spread((...responses) => responses.map((response) => response.data)))
             .catch((error) => error);
     }
+
+    static updateClaimStatus(periodSelection, schoolSelection) {
+        return axios.post('/api/claim/update/status', {
+            periodSelection,
+            schoolSelection,
+        })
+            .then((response) => response.data)
+            .catch((error) => error);
+    }
 }
 
 export default ClaimRepository;
