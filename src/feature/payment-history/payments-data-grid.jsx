@@ -81,11 +81,11 @@ function CustomToolbar({ selectedItems }) {
 
     return (
         <GridToolbarContainer>
-            <Grid container spacing={2}>
+            <Grid container spacing={2} justifyContent="space-between">
                 <Grid item xs={8}>
                     <PaymentSelect />
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={3}>
                     <Button
                         data-testid="updateButton"
                         onClick={() => {
@@ -107,15 +107,11 @@ function CustomToolbar({ selectedItems }) {
                     >
                         Resend
                     </Button>
-                </Grid>
-
-                <Grid item xs="auto">
-                    <div>
-                        <GridToolbarExport />
-                    </div>
+                    <GridToolbarExport />
                 </Grid>
             </Grid>
         </GridToolbarContainer>
+
     );
 }
 
