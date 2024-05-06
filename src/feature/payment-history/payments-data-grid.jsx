@@ -42,8 +42,8 @@ function CustomToolbar({ selectedItems }) {
             orgId,
             selectedItems,
         )
-            .then(([response, data]) => {
-                if (response.status === 201) {
+            .then(({ status, data }) => {
+                if (status === 201) {
                     dispatch(updateNeedFetch(true));
                     dispatch(fetchPaymentsStatusCountUnsent('STORED'));
                     dispatch(fetchPayments(periodSelection));
@@ -51,7 +51,7 @@ function CustomToolbar({ selectedItems }) {
                     dispatch(updateInvoiceSnackbarOpen(true));
                 } else {
                     dispatch(updateInvoiceSnackbarContent(`En feil oppstod ved sending til økonomisystemet!
-                    (Response status: ${response.status})`));
+                    (Response status: ${status})`));
                     dispatch(updateInvoiceSnackbarOpen(true));
                 }
             })
