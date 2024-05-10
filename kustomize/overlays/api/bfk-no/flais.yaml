@@ -24,7 +24,7 @@ spec:
   ingress:
     enabled: true
     middlewares:
-      - fint-betaling-auth-forward-sso
+      - fint-betaling-auth-sso
   resources:
     limits:
       memory: "512Mi"
