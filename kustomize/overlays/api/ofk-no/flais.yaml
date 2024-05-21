@@ -13,7 +13,7 @@ metadata:
 spec:
   port: 8000
   imagePullPolicy: Always
-  orgId: ofk.yaml
+  orgId: ofk.no
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
   env:
     - name: BASE_PATH
