@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: fint-betaling-auth-forward-sso
     app.kubernetes.io/instance: fint-betaling-auth-forward-sso
-    app.kubernetes.io/version: sha-309e823
+    app.kubernetes.io/version: latest
     app.kubernetes.io/component: sso
     app.kubernetes.io/part-of: fint-core
     fintlabs.no/team: core
