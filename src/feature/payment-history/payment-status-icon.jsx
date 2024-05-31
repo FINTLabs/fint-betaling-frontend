@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
         height: '35px',
         verticalAlign: 'text-top',
     },
+    creditedIcon: {
+        color: theme.palette.secondary.dark,
+        width: '35px',
+        height: '35px',
+        verticalAlign: 'text-top',
+    },
     waitingPaymentIcon: {
         color: theme.palette.secondary.light,
         width: '35px',
@@ -114,6 +120,10 @@ const PaymentStatusIcon = ({ payment }) => {
     case 'PAID':
         paymentIcon = <CheckCircle className={classes.payedIcon} />;
         statusText = <Typography variant="body2" className={classes.statusText}>Betalt</Typography>;
+        break;
+    case 'CREDITED':
+        paymentIcon = <CheckCircle className={classes.creditedIcon} />;
+        statusText = <Typography variant="body2" className={classes.statusText}>Kreditert</Typography>;
         break;
     case 'ACCEPTED':
         paymentIcon = <PaymentRounded className={classes.waitingPaymentIcon} />;
