@@ -7,6 +7,7 @@ import { Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { useDispatch } from 'react-redux';
 import { updateOrderStatusContent, updateOrderStatusOpen } from '../../data/redux/actions/payment';
+import {Cancel} from "@mui/icons-material/";
 
 const useStyles = makeStyles((theme) => ({
     payedIcon: {
@@ -122,7 +123,7 @@ const PaymentStatusIcon = ({ payment }) => {
         statusText = <Typography variant="body2" className={classes.statusText}>Betalt</Typography>;
         break;
     case 'CREDITED':
-        paymentIcon = <CheckCircle className={classes.creditedIcon} />;
+        paymentIcon = <Cancel className={classes.creditedIcon} />;
         statusText = <Typography variant="body2" className={classes.statusText}>Kreditert</Typography>;
         break;
     case 'ACCEPTED':
