@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-    CheckCircle, ErrorOutline, NotInterested, Payment, Warning,
+    Cancel, CheckCircle, ErrorOutline, NotInterested, Payment, Warning,
 } from '@mui/icons-material/';
 
 export const GROUP = 'group';
@@ -45,6 +45,12 @@ export const FILTER_LIST = [
         value: 'PAID',
         label: 'Betalt',
         icon: <CheckCircle />,
+        color: 'success',
+    },
+    {
+        value: 'CREDITED',
+        label: 'Kreditert',
+        icon: <Cancel />,
         color: 'success',
     },
     {
