@@ -101,7 +101,7 @@ const CardMenu = () => {
                             </Typography>
                             <Box display="flex" flexDirection="column" width={4 / 5}>
                                 <Typography gutterBottom variant="h5" component="h2">
-                                    Ordrehistorikk
+                                    Ordrehistorik
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary" component="p">
                                     Se ordrene som er opprettet og betalingsstatus
