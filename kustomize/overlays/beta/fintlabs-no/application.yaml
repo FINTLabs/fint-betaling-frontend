@@ -15,12 +15,9 @@ spec:
   imagePullPolicy: Always
   orgId: fintlabs.no
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
-  env:
-    - name: BASE_PATH
-      value: /demo
   url:
     hostname: betaling-demo.felleskomponent.no
-    basePath: /demo
+    basePath: /
   ingress:
     enabled: true
     middlewares:
