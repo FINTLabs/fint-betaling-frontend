@@ -15,6 +15,9 @@ spec:
   imagePullPolicy: Always
   orgId: fintlabs.no
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
+  env:
+    - name: BASE_PATH
+      value: /
   url:
     hostname: betaling-demo.felleskomponent.no
     basePath: /
@@ -22,3 +25,11 @@ spec:
     enabled: true
     middlewares:
       - fint-betaling-auth-forward-sso
+  resources:
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+  restartPolicy: Always
