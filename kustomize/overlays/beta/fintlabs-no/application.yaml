@@ -17,7 +17,7 @@ spec:
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
   env:
     - name: BASE_PATH
-      value: /
+      value: /demo
   url:
     hostname: betaling-demo.felleskomponent.no
     basePath: /demo
