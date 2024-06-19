@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: fintlabs-no
 resources:
   - application.yaml
+  - FLAISSso.yaml
 commonLabels:
   app.kubernetes.io/name: fint-betaling-frontend
   app.kubernetes.io/instance: fint-betaling-frontend_fintlabs_no

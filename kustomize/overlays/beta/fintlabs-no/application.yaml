@@ -20,3 +20,5 @@ spec:
     basePath: /
   ingress:
     enabled: true
+    middlewares:
+      - fint-betaling-auth-forward-sso
