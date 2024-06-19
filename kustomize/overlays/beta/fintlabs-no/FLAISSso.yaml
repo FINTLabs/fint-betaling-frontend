@@ -11,6 +11,6 @@ metadata:
     fintlabs.no/team: core
     fintlabs.no/org-id: fintlabs.no
 spec:
-  basePath: /
+  basePath: /demo
   hostname: betaling.felleskomponent.no
   loggingLevel: debug

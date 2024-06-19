@@ -20,7 +20,7 @@ spec:
       value: /
   url:
     hostname: betaling-demo.felleskomponent.no
-    basePath: /
+    basePath: /demo
   ingress:
     enabled: true
     middlewares:
