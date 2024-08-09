@@ -129,15 +129,6 @@ function EnhancedTableToolbar() {
                         <Button
                             variant="contained"
                             color="secondary"
-                            disabled
-                            onClick={() => {}}
-                            className={classes.buttonBackward}
-                        >
-                            Tilbake
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="secondary"
                             disabled={isConfirmButtonDisabled}
                             onClick={handleConfirmButtonClick}
                             className={classes.button}
