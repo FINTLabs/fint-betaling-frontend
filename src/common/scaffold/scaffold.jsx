@@ -280,11 +280,11 @@ export default function Scaffold() {
                                 <Box
                                     component="img"
                                     sx={{
-                                        height: 35,
+                                        height: 50,
                                         ml: 8,
                                         pr: 1.5,
                                     }}
-                                    alt="Vigo Logo"
+                                    alt="Novari Logo"
                                     src={NovariLogo}
                                 />
                             </Link>
