@@ -17,11 +17,8 @@ spec:
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
   url:
     hostname: betaling-demo.felleskomponent.no
-
   ingress:
     enabled: true
-    middlewares:
-      - fint-betaling-auth-forward-sso
   resources:
     limits:
       memory: "512Mi"

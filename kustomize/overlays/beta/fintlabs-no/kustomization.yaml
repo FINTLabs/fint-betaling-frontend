@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: fintlabs-no
 resources:
   - application.yaml
-  - FLAISSso.yaml
 
