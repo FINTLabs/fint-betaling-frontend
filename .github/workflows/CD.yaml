@@ -55,12 +55,12 @@ jobs:
     strategy:
       matrix:
         org:
-          - afk-no
-          - bfk-no
-          - ofk-no
-          - vlfk-no
+          #- afk-no
+          #- bfk-no
+          #- ofk-no
+          #- vlfk-no
         cluster:
-              - aks-api-fint-2022-02-08
+    #          - aks-api-fint-2022-02-08
     #          - aks-alpha-fint-2021-11-18
     #          - aks-beta-fint-2021-11-23
     #          - aks-pwf-fint-2021-10-20
