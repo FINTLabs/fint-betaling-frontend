@@ -181,6 +181,11 @@ const PaymentsDataGrid = () => {
             },
         },
     ];
+    const isInBatch = (currentRow, allRows) => {
+        const currentTimestamp = new Date(currentRow.createdDate).getTime();
+        const matchedRows = allRows.filter((row) => new Date(row.createdDate).getTime() === currentTimestamp);
+        return matchedRows.length > 1;
+    };
 
     return (
         <Box width={1}>
@@ -205,6 +210,10 @@ const PaymentsDataGrid = () => {
                     columns={columns}
                     checkboxSelection
                     getRowId={(row) => row.orderNumber}
+                    getRowClassName={(params) => {
+                        const allRows = rows;
+                        return isInBatch(params.row, allRows) ? 'batch' : '';
+                    }}
                     components={{ Toolbar: CustomToolbar }}
                     componentsProps={
                         {
@@ -216,6 +225,14 @@ const PaymentsDataGrid = () => {
                     localeText={noNB}
                 />
             </div>
+            <style>
+                { `
+                    .batch {
+                        background-color: rgba(0, 128, 0, 0.2) !important;
+                    }
+
+                ` }
+            </style>
         </Box>
     );
 };
