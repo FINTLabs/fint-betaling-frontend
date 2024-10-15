@@ -187,6 +187,10 @@ const PaymentsDataGrid = () => {
         return matchedRows.length > 1;
     };
 
+    const getBatchColorClass = (batchIndex) => (
+        batchIndex % 2 === 0 ? 'yellow' : 'coral'
+    );
+
     return (
         <Box width={1}>
             <PaymentStatusMessageDialog />
@@ -212,26 +216,29 @@ const PaymentsDataGrid = () => {
                     getRowId={(row) => row.orderNumber}
                     getRowClassName={(params) => {
                         const allRows = rows;
-                        return isInBatch(params.row, allRows) ? 'batch' : '';
-                    }}
-                    components={{ Toolbar: CustomToolbar }}
-                    componentsProps={
-                        {
-                            toolbar: {
-                                selectedItems: selectionModel,
-                            },
+                        if (isInBatch(params.row, allRows)) {
+                            const currentTimestamp = new Date(params.row.createdDate).getTime();
+                            const sortedTimestamps = [...new Set(
+                                allRows.map((row) => new Date(row.createdDate).getTime()),
+                            )].sort();
+                            const batchIndex = sortedTimestamps.indexOf(currentTimestamp);
+                            return getBatchColorClass(batchIndex);
                         }
-                    }
+                        return '';
+                    }}
                     localeText={noNB}
                 />
             </div>
             <style>
                 { `
-                    .batch {
-                        background-color: rgba(0, 128, 0, 0.2) !important;
-                    }
+                .yellow {
+                    background-color: rgba(255, 250, 205, 1) !important;
+                }
 
-                ` }
+                .coral {
+                    background-color: rgba(255, 127, 80, 0.2) !important;
+                }
+            ` }
             </style>
         </Box>
     );
