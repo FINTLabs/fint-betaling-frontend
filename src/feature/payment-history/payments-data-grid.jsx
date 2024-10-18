@@ -34,7 +34,6 @@ function CustomToolbar({ selectedItems }) {
     const [loading, setLoading] = React.useState(false);
 
     function handleConfirmSendPayments() {
-        // TODO We need to get this from the me object
         const orgId = 'fintlabs.no';
 
         if (selectedItems.length < 1) return;
@@ -64,7 +63,6 @@ function CustomToolbar({ selectedItems }) {
 
     function handleUpdateStatus() {
         setLoading(true);
-        // Assuming you have a function to make the API call
         ClaimRepository.updateClaimStatus(periodSelection, schoolSelection)
             .then(() => {
                 dispatch(fetchPayments(periodSelection, schoolSelection));
@@ -111,13 +109,11 @@ function CustomToolbar({ selectedItems }) {
                 </Grid>
             </Grid>
         </GridToolbarContainer>
-
     );
 }
 
 const PaymentsDataGrid = () => {
     const [selectionModel, setSelectionModel] = React.useState([]);
-    // const [hideSchoolCol, setHideSchoolCol] = React.useState(false);
     const rows = useSelector((state) => state.payments.payments);
 
     const columns = [
@@ -140,7 +136,6 @@ const PaymentsDataGrid = () => {
             headerName: 'Skole',
             width: 150,
             valueGetter: (params) => params.row.organisationUnit.name,
-            // hide: hideSchoolCol,
         },
         {
             field: 'orderNumber',
@@ -175,9 +170,9 @@ const PaymentsDataGrid = () => {
             valueFormatter: (params) => {
                 const date = new Date(params.value);
                 const day = date.getDate().toString().padStart(2, '0');
-                const month = (date.getMonth() + 1).toString().padStart(2, '0'); // getMonth() is zero-based
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
                 const year = date.getFullYear();
-                return `${day}.${month}.${year}`; // Concatenates the date in dd.mm.yyyy format
+                return `${day}.${month}.${year}`;
             },
         },
     ];
@@ -188,7 +183,7 @@ const PaymentsDataGrid = () => {
     };
 
     const getBatchColorClass = (batchIndex) => (
-        batchIndex % 2 === 0 ? 'yellow' : 'coral'
+        batchIndex % 2 === 0 ? 'gray' : 'light-gray'
     );
 
     return (
@@ -227,16 +222,24 @@ const PaymentsDataGrid = () => {
                         return '';
                     }}
                     localeText={noNB}
+                    components={{
+                        Toolbar: CustomToolbar,
+                    }}
+                    componentsProps={{
+                        toolbar: {
+                            selectedItems: selectionModel,
+                        },
+                    }}
                 />
             </div>
             <style>
                 { `
-                .yellow {
-                    background-color: rgba(255, 250, 205, 1) !important;
+                .gray {
+                    background-color: rgba(211,211,211, 0.5) !important;
                 }
 
-                .coral {
-                    background-color: rgba(255, 127, 80, 0.2) !important;
+                .light-gray {
+                    background-color: rgba(137,137,137, 0.3) !important;
                 }
             ` }
             </style>
