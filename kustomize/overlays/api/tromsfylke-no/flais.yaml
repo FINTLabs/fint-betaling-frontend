@@ -1,0 +1,35 @@
+apiVersion: fintlabs.no/v1alpha1
+kind: Application
+metadata:
+  name: fint-betaling-frontend
+  labels:
+    app.kubernetes.io/name: fint-betaling-frontend
+    app.kubernetes.io/instance: fint-betaling-frontend_tromsfylke_no
+    app.kubernetes.io/version: latest
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: fint-core
+    fintlabs.no/team: core
+    fintlabs.no/org-id: tromsfylke.no
+spec:
+  port: 8000
+  imagePullPolicy: Always
+  orgId: tromsfylke.no
+  image: ghcr.io/fintlabs/fint-betaling-frontend:latest
+  env:
+    - name: BASE_PATH
+      value: /tromsfylke
+  url:
+    hostname: betaling.felleskomponent.no
+    basePath: /tromsfylke
+  ingress:
+    enabled: true
+    middlewares:
+      - fint-betaling-auth-forward-sso
+  resources:
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+  restartPolicy: Always
