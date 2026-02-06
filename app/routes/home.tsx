@@ -1,24 +1,16 @@
-import type { Route } from "./+types/home";
 import { VStack } from "@navikt/ds-react";
 import { PageHeader } from "~/components/PageHeader";
 import {
-  BatchHistory,
   type BatchData,
+  BatchHistory,
 } from "~/components/dashboard/BatchHistory";
 import { DashboardStats } from "~/components/dashboard/DashboardStats";
 import type { LoaderFunctionArgs } from "react-router";
-import { useLoaderData, useNavigate, useOutletContext } from "react-router";
+import { useLoaderData, useOutletContext } from "react-router";
 import type { IOrder } from "~/types/order";
 import type { IOrganisationUnit } from "~/types/user";
 import { selectOrgCookie } from "~/utils/cookie";
 import OrderApi from "~/api/OrderApi";
-
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "FINT Betaling - Dashboard" },
-    { name: "description", content: "Dashboard for FINT Betaling" },
-  ];
-}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");

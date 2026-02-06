@@ -1,5 +1,5 @@
-import { VStack, Box, Stepper } from "@navikt/ds-react";
-import { useState, useEffect, useRef } from "react";
+import { Box, Stepper, VStack } from "@navikt/ds-react";
+import { useEffect, useRef, useState } from "react";
 import {
   type LoaderFunctionArgs,
   useLoaderData,

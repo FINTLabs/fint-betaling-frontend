@@ -1,5 +1,5 @@
-import { Heading, Box, VStack, Button } from "@navikt/ds-react";
-import { useState } from "react";
+import { Box, Button, VStack } from "@navikt/ds-react";
+import React, { useState } from "react";
 import { SelectedRecipientsList } from "./SelectedRecipientsList";
 import { RecipientsTable } from "./RecipientsTable";
 import { StepNavigation } from "../StepNavigation";
@@ -29,10 +29,10 @@ export function SelectRecipientStep({
   const [searchQuery, setSearchQuery] = useState("");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
-  const handleFileSelect = (file: File) => {
+  const handleFileUpload = (file: File) => {
     console.log("File selected:", file.name);
 
-    //FileApi.sendFile(currentSchoolOrgId, file);
+    FileApi.sendFile(currentSchoolOrgId, file);
   };
 
   function handleToggleRecipient(recipient: ICustomer, checked: boolean) {
@@ -93,12 +93,30 @@ export function SelectRecipientStep({
         >
           Last opp fil med mottakere
         </Button>
+        {/*<HStack gap="space-24">*/}
+        {/*  <FileUpload.Dropzone*/}
+        {/*    label="Last opp studentliste"*/}
+        {/*    fileLimit={{ max: 1, current: files.length }}*/}
+        {/*    multiple={false}*/}
+        {/*    onSelect={setFiles}*/}
+        {/*  />*/}
+        {/*  {files.map((file: { file: FileItem }) => (*/}
+        {/*    <FileUpload.Item*/}
+        {/*      key={file.file.name}*/}
+        {/*      file={file.file}*/}
+        {/*      button={{*/}
+        {/*        action: "delete",*/}
+        {/*        onClick: () => setFiles([]),*/}
+        {/*      }}*/}
+        {/*    />*/}
+        {/*  ))}*/}
+        {/*</HStack>*/}
       </Box>
 
       <FileUploadModal
         open={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
-        onFileSelect={handleFileSelect}
+        onFileUpload={handleFileUpload}
       />
 
       {/* Recipients Table Section */}

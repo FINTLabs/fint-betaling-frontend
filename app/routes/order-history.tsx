@@ -1,5 +1,5 @@
-import { VStack, HStack, Spacer } from "@navikt/ds-react";
-import React, { useState, useMemo } from "react";
+import { HStack, Spacer, VStack } from "@navikt/ds-react";
+import React, { useMemo, useState } from "react";
 import type { IOrder } from "~/types/order";
 import { PageHeader } from "~/components/PageHeader";
 import { OrderHistoryFilters } from "~/components/order-history/OrderHistoryFilters";
@@ -9,8 +9,8 @@ import { OrderHistoryPagination } from "~/components/order-history/OrderHistoryP
 import {
   type LoaderFunctionArgs,
   useLoaderData,
-  useSearchParams,
   useRevalidator,
+  useSearchParams,
 } from "react-router";
 import { selectOrgCookie } from "~/utils/cookie";
 import OrderApi from "~/api/OrderApi";
@@ -50,17 +50,72 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       schoolSelection,
     ),
     // Fetch counts for all statuses to display in filter dropdown
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "STORED", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "SENT", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "ACCEPTED", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "ISSUED", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "PAID", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "CREDITED", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "UPDATE_ERROR", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "ACCEPT_ERROR", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "SEND_ERROR", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "CANCELLED", periodSelection === "ALL" ? undefined : periodSelection, schoolSelection),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "STORED",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "SENT",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "ACCEPTED",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "ISSUED",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "PAID",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "CREDITED",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "UPDATE_ERROR",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "ACCEPT_ERROR",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "SEND_ERROR",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "ERROR",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
+    OrderApi.getCountByStatus(
+      selectedOrg.organisationNumber,
+      "CANCELLED",
+      periodSelection === "ALL" ? undefined : periodSelection,
+      schoolSelection,
+    ),
   ]);
 
   // Extract counts from responses

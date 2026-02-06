@@ -1,48 +1,75 @@
 import {
-  Modal,
-  FileUpload,
   Button,
+  type FileObject,
+  // type FilesPartitioned,
+  FileUpload,
+  Modal,
   VStack,
-  Box,
-  Heading,
 } from "@navikt/ds-react";
 import { useState } from "react";
 
 interface FileUploadModalProps {
   open: boolean;
   onClose: () => void;
-  onFileSelect: (file: File) => void;
+  onFileUpload: (file: File) => void;
 }
+
+const ACCEPTED_FILE_TYPES = [".csv", ".xlsx", ".xls"];
+const ACCEPTED_MIME_TYPES = [
+  "text/csv",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  "application/vnd.ms-excel",
+];
+
+// Validator function for FileUpload.Dropzone
+const fileValidator = (file: File): true | string => {
+  const fileName = file.name.toLowerCase();
+  const fileExtension = fileName.substring(fileName.lastIndexOf("."));
+
+  // Check if file extension is in accepted list
+  const isValidExtension = ACCEPTED_FILE_TYPES.some(
+    (type) => type.toLowerCase() === fileExtension,
+  );
+
+  // Also check MIME type as a fallback
+  const isValidMimeType =
+    ACCEPTED_MIME_TYPES.includes(file.type) || file.type === "";
+
+  if (!isValidExtension && !isValidMimeType) {
+    return "Filformatet støttes ikke";
+  }
+
+  return true;
+};
 
 export function FileUploadModal({
   open,
   onClose,
-  onFileSelect,
+  onFileUpload,
 }: FileUploadModalProps) {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [files, setFiles] = useState<FileObject[]>([]);
 
-  const handleFileSelect = (files: any[]) => {
-    // Only take the first file since multiple is false
-    // Extract the actual File object from FileObject
-    if (files.length > 0) {
-      const fileObject = files[0];
-      const file = fileObject.file || fileObject;
-      if (file instanceof File) {
-        setSelectedFile(file);
-      }
-    }
+  const handleFileSelect = (
+    selectedFiles: FileObject[],
+    // partitionedFiles: FilesPartitioned,
+  ) => {
+    setFiles(selectedFiles);
+
+    // If there are accepted files, call the onFileSelect callback
+    // if (partitionedFiles.accepted.length > 0) {
+    //   onFileSelect(partitionedFiles.accepted[0]);
+    // }
   };
 
-  const handleUpload = () => {
-    if (selectedFile) {
-      onFileSelect(selectedFile);
-      setSelectedFile(null);
+  const handleFileUpload = () => {
+    if (files.length > 0) {
+      onFileUpload(files[0].file);
       onClose();
     }
   };
 
   const handleCancel = () => {
-    setSelectedFile(null);
+    setFiles([]);
     onClose();
   };
 
@@ -56,59 +83,26 @@ export function FileUploadModal({
       width="medium"
     >
       <Modal.Body>
-        <VStack gap="6">
-          <Box>
-            <p style={{ margin: 0, marginBottom: "0.5rem" }}>
-              Du kan laste opp en fil med mottakere som skal legges til listen.
-            </p>
-            <p
-              style={{
-                margin: 0,
-                fontSize: "0.875rem",
-                color: "var(--a-text-subtle)",
-              }}
-            >
-              Filen må være i CSV, XLSX eller XLS-format.
-            </p>
-          </Box>
-
+        <VStack gap="space-24">
           <FileUpload.Dropzone
-            label="Dra fil hit eller klikk for å velge"
-            description="Kun CSV, XLSX eller XLS-filer er tillatt."
-            accept=".csv,.xlsx,.xls"
+            label="Last opp fødselsattest"
+            fileLimit={{ max: 1, current: files.length }}
             multiple={false}
             onSelect={handleFileSelect}
+            accept={".csv,.xlsx,.xls"}
+            validator={fileValidator}
           />
-
-          {selectedFile && (
-            <Box
-              padding="4"
-              background="surface-subtle"
-              borderRadius="medium"
-              borderWidth="1"
-              borderColor="border-subtle"
-            >
-              <VStack gap="2">
-                <Heading size="xsmall" level="5" spacing>
-                  Valgt fil
-                </Heading>
-                <Box>
-                  <p style={{ margin: 0, fontWeight: 500 }}>
-                    {selectedFile.name}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0.25rem 0 0 0",
-                      fontSize: "0.875rem",
-                      color: "var(--a-text-subtle)",
-                    }}
-                  >
-                    {(selectedFile.size / 1024).toFixed(2)} KB
-                  </p>
-                </Box>
-              </VStack>
-            </Box>
-          )}
+          {files.map((file) => (
+            <FileUpload.Item
+              key={file.file.name}
+              file={file.file}
+              button={{
+                action: "delete",
+                onClick: () => setFiles([]),
+              }}
+              error={file.error ? file.reasons[0] : undefined}
+            />
+          ))}
         </VStack>
       </Modal.Body>
       <Modal.Footer>
@@ -117,8 +111,8 @@ export function FileUploadModal({
         </Button>
         <Button
           variant="primary"
-          onClick={handleUpload}
-          disabled={!selectedFile}
+          onClick={handleFileUpload}
+          disabled={!files.length}
         >
           Last opp fil
         </Button>
