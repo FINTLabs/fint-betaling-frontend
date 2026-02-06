@@ -9,7 +9,7 @@ export interface ILineItem {
 export interface IProductData {
   code: string;
   description: string;
-  lineitems: ILineItem[];
+  lineItems: ILineItem[];
   uri: string;
   organisation: {
     organisationNumber: string;

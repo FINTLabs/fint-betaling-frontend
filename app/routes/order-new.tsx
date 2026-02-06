@@ -117,7 +117,7 @@ export default function OrderNew() {
       {activeStep === 2 && (
         <SelectProductStep
           selectedRecipients={selectedRecipients}
-          products={principals.lineitems}
+          products={principals.lineItems}
           selectedProducts={selectedProducts}
           setSelectedProducts={setSelectedProducts}
           onNext={() => setActiveStep(3)}

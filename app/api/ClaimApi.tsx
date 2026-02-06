@@ -11,7 +11,7 @@ const apiManager = new NovariApiManager({
   baseUrl: API_URL,
 });
 
-class OrderApi {
+class ClaimApi {
   static async getOrders(
     selectedOrg: string,
     status?: string,
@@ -130,6 +130,55 @@ class OrderApi {
       },
     });
   }
+
+  //TODO: Add this functionality (3)
+  static async setPayment(
+    orgId: string,
+    customers: ICustomer[],
+    orderItems: ISelectedProduct[],
+    organisationUnit: IOrganisationUnit,
+    principal: IClassGroup,
+    createdBy: IUser,
+  ) {
+    console.log(
+      "setPayment",
+      orgId,
+      customers,
+      orderItems,
+      organisationUnit,
+      principal,
+      createdBy,
+    );
+    return { success: true };
+  }
+
+  static async cancelPayments(orderNumbers: string[]) {
+    console.log("cancelPayments", orderNumbers);
+    return { success: true };
+  }
+
+  static async updateClaimStatus(
+    periodSelection: any,
+    schoolSelection: any,
+    selectedOrg: string,
+  ) {
+    console.log("updateClaimStatus", periodSelection, schoolSelection);
+
+    return await apiManager.call<IOrder[]>({
+      method: "POST",
+      endpoint: `/api/claim/update-status`,
+      functionName: "updateClaimStatus",
+      customErrorMessage: "Kunne ikke oppdatere ordrer.",
+      customSuccessMessage: "Ordrer oppdatert.",
+      body: {
+        periodSelection: periodSelection,
+        schoolSelection: schoolSelection,
+      },
+      additionalHeaders: {
+        "x-school-org-id": selectedOrg,
+      },
+    });
+  }
 }
 
-export default OrderApi;
+export default ClaimApi;

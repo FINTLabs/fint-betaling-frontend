@@ -14,7 +14,7 @@ import { formatCurrency } from "~/utils/variousFormats";
 import { type LoaderFunctionArgs, useLoaderData } from "react-router";
 import { selectOrgCookie } from "~/utils/cookie";
 import MeApi from "~/api/MeApi";
-import OrderApi from "~/api/OrderApi";
+import ClaimApi from "~/api/ClaimApi";
 import type { IUser } from "~/types/user";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -23,7 +23,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await MeApi.fetchMe();
 
   const [historyResponse] = await Promise.all([
-    OrderApi.getOrders(selectedOrg.organisationNumber, "STORED"),
+    ClaimApi.getOrders(selectedOrg.organisationNumber, "STORED"),
   ]);
 
   console.log("historyResponse: ", historyResponse?.data?.length);

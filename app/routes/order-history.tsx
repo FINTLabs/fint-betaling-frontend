@@ -13,7 +13,7 @@ import {
   useSearchParams,
 } from "react-router";
 import { selectOrgCookie } from "~/utils/cookie";
-import OrderApi from "~/api/OrderApi";
+import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
 import type { IUser } from "~/types/user";
 
@@ -43,74 +43,74 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   // Fetch orders and status counts in parallel
   const [historyResponse, ...statusCounts] = await Promise.all([
-    OrderApi.getOrders(
+    ClaimApi.getOrders(
       selectedOrg.organisationNumber,
       status,
       periodSelection,
       schoolSelection,
     ),
     // Fetch counts for all statuses to display in filter dropdown
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "STORED",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "SENT",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "ACCEPTED",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "ISSUED",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "PAID",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "CREDITED",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "UPDATE_ERROR",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "ACCEPT_ERROR",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "SEND_ERROR",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "ERROR",
       periodSelection === "ALL" ? undefined : periodSelection,
       schoolSelection,
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "CANCELLED",
       periodSelection === "ALL" ? undefined : periodSelection,

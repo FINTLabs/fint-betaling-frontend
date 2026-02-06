@@ -11,7 +11,7 @@ import { StepNavigation } from "./StepNavigation";
 import type { IClassGroup, ICustomer } from "~/types/group";
 import type { IProductData, ISelectedProduct } from "~/types/product";
 import type { IOrganisationUnit, IUser } from "~/types/user";
-import OrderApi from "~/api/OrderApi";
+import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
 import { formatCurrency } from "~/utils/variousFormats";
 
@@ -93,7 +93,7 @@ export function SaveStep({
         customers: [], // Principal doesn't have customers in this context
       };
 
-      const response = await OrderApi.sendOrders(
+      const response = await ClaimApi.sendOrders(
         selectedRecipients,
         selectedProducts,
         organisationUnit,

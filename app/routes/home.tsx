@@ -10,7 +10,7 @@ import { useLoaderData, useOutletContext } from "react-router";
 import type { IOrder } from "~/types/order";
 import type { IOrganisationUnit } from "~/types/user";
 import { selectOrgCookie } from "~/utils/cookie";
-import OrderApi from "~/api/OrderApi";
+import ClaimApi from "~/api/ClaimApi";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
@@ -25,26 +25,26 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     errorCount,
     ordersResponse,
   ] = await Promise.all([
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "STORED", "14"),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(selectedOrg.organisationNumber, "STORED", "14"),
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "SEND_ERROR",
       // "YEAR",
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "ACCEPT_ERROR",
       // "YEAR",
     ),
-    OrderApi.getCountByStatus(
+    ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "UPDATE_ERROR",
       // "YEAR",
     ),
-    // OrderApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR", "YEAR"),
-    OrderApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR"),
-    // OrderApi.getOrders(selectedOrg.organisationNumber, undefined, "YEAR"),
-    OrderApi.getOrders(selectedOrg.organisationNumber, undefined),
+    // ClaimApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR", "YEAR"),
+    ClaimApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR"),
+    // ClaimApi.getOrders(selectedOrg.organisationNumber, undefined, "YEAR"),
+    ClaimApi.getOrders(selectedOrg.organisationNumber, undefined),
   ]);
 
   const pendingOrders = storedCount.success ? storedCount.data || 0 : 0;
