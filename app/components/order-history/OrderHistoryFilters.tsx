@@ -1,4 +1,5 @@
-import { Box, Select, HStack } from "@navikt/ds-react";
+import { Box, Select, HStack, UNSAFE_Combobox } from "@navikt/ds-react";
+import { useMemo } from "react";
 import { ORDER_STATUS_LIST } from "./OrderStatusConfig";
 
 interface OrderHistoryFiltersProps {
@@ -22,6 +23,47 @@ export function OrderHistoryFilters({
   onStatusFilterChange,
   onSchoolSelectionChange,
 }: OrderHistoryFiltersProps) {
+  // Parse comma-separated status string to array, or empty array if "all" or empty
+  const selectedStatuses = useMemo(() => {
+    if (!statusFilter || statusFilter === "all" || statusFilter === "ALL") {
+      return [];
+    }
+    return statusFilter.split(",").map((s) => s.trim().toUpperCase());
+  }, [statusFilter]);
+
+  // Create options as strings (required for multi-select)
+  const statusOptionValues = useMemo(() => {
+    return ORDER_STATUS_LIST.map((status) => status.value);
+  }, []);
+
+  //TODO: custom option is in nav
+  const handleStatusToggle = (
+    option: string,
+    isSelected: boolean,
+    isCustomOption: boolean,
+  ) => {
+    if (isCustomOption) {
+      // Don't allow custom options for status
+      return;
+    }
+
+    let newStatuses: string[];
+    if (isSelected) {
+      // Add status
+      newStatuses = [...selectedStatuses, option.toUpperCase()];
+    } else {
+      // Remove status
+      newStatuses = selectedStatuses.filter((s) => s !== option.toUpperCase());
+    }
+
+    // Convert array to comma-separated string or "all" if empty
+    if (newStatuses.length === 0) {
+      onStatusFilterChange("all");
+    } else {
+      onStatusFilterChange(newStatuses.join(","));
+    }
+  };
+
   return (
     <HStack gap="4" wrap align="end">
       <Box style={{ minWidth: "200px" }}>
@@ -37,24 +79,7 @@ export function OrderHistoryFilters({
           <option value="YEAR">Dette året</option>
         </Select>
       </Box>
-      <Box style={{ minWidth: "200px" }}>
-        <Select
-          label="Status"
-          size="small"
-          value={statusFilter || "all"}
-          onChange={(e) => onStatusFilterChange(e.target.value)}
-        >
-          <option value="all">Alle</option>
-          {ORDER_STATUS_LIST.map((status) => {
-            const count = statusCounts[status.value] || 0;
-            return (
-              <option key={status.value} value={status.value}>
-                {status.label} {count > 0 ? `(${count})` : ""}
-              </option>
-            );
-          })}
-        </Select>
-      </Box>
+
       {organisationUnits.length > 0 && (
         <Box style={{ minWidth: "200px" }}>
           <Select
@@ -75,6 +100,17 @@ export function OrderHistoryFilters({
           </Select>
         </Box>
       )}
+      <Box style={{ minWidth: "300px" }}>
+        <UNSAFE_Combobox
+          size="small"
+          label="Status"
+          isMultiSelect
+          options={statusOptionValues}
+          selectedOptions={selectedStatuses}
+          onToggleSelected={handleStatusToggle}
+          shouldShowSelectedOptions={true}
+        />
+      </Box>
     </HStack>
   );
 }

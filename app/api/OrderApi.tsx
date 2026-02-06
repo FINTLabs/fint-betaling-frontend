@@ -1,7 +1,12 @@
 import { NovariApiManager, type ApiResponse } from "novari-frontend-components";
 import type { IOrder } from "~/types/order";
+import type { ICustomer } from "~/types/group";
+import type { ISelectedProduct } from "~/types/product";
+import type { IOrganisationUnit, IUser } from "~/types/user";
+import type { IClassGroup } from "~/types/group";
 
-const API_URL = process.env.API_URL || "";
+const API_URL = import.meta.env.VITE_API_URL || "";
+// const API_URL = "http://localhost:8080";
 const apiManager = new NovariApiManager({
   baseUrl: API_URL,
 });
@@ -45,16 +50,51 @@ class OrderApi {
     });
   }
 
-  static async sendOrders(orgId: string, orderList: IOrder[]) {
+  static async sendOrders(
+    customers: ICustomer[],
+    orderItems: ISelectedProduct[],
+    organisationUnit: IOrganisationUnit,
+    principal: IClassGroup,
+    createdBy: IUser,
+  ): Promise<ApiResponse<IOrder[]>> {
+    const functionName = "createOrders";
+
+    // Transform selected products to order items format
+    const transformedOrderItems = orderItems.map((product) => ({
+      itemCode: product.itemCode,
+      description: product.description,
+      itemQuantity: product.quantity,
+      itemPrice:
+        product.customPrice !== undefined
+          ? product.customPrice
+          : product.itemPrice,
+      taxRate: product.taxrate ?? null,
+      freeText: product.freeText,
+      itemUri: product.uri,
+    }));
+
+    const requestBody = {
+      orgId: "fake.fintlabs.no",
+      customers: customers,
+      orderItems: transformedOrderItems,
+      organisationUnit: organisationUnit,
+      principal: principal,
+      createdBy: {
+        name: createdBy.name,
+        employeeNumber: createdBy.employeeNumber,
+        organisation: createdBy.organisation,
+      },
+    };
+
     return await apiManager.call<IOrder[]>({
       method: "POST",
       endpoint: `/api/claim`,
-      functionName: "sendOrders",
-      customErrorMessage: "Kunne ikke sende ordrer.",
-      customSuccessMessage: "Ordrer sendt.",
-      body: orderList,
+      functionName,
+      customErrorMessage: "Kunne ikke opprette ordrer.",
+      customSuccessMessage: "Ordrer opprettet.",
+      body: requestBody,
       additionalHeaders: {
-        "x-org-id": orgId,
+        "x-org-id": "fake.fintlabs.no",
       },
     });
   }

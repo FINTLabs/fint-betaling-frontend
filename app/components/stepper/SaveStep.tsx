@@ -1,19 +1,25 @@
 import {
   Box,
-  VStack,
   Button,
-  HStack,
-  Modal,
   FormSummary,
+  Loader,
+  Modal,
+  VStack,
 } from "@navikt/ds-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StepNavigation } from "./StepNavigation";
-import type { ICustomer } from "~/types/group";
-import type { ISelectedProduct } from "~/types/product";
+import type { IClassGroup, ICustomer } from "~/types/group";
+import type { IProductData, ISelectedProduct } from "~/types/product";
+import type { IOrganisationUnit, IUser } from "~/types/user";
+import OrderApi from "~/api/OrderApi";
+import MeApi from "~/api/MeApi";
+import { formatCurrency } from "~/utils/variousFormats";
 
 interface SaveStepProps {
   selectedRecipients: ICustomer[];
   selectedProducts: ISelectedProduct[];
+  organisationUnit: IOrganisationUnit;
+  principal: IProductData;
   onPrevious?: () => void;
   onSave?: () => void;
   onView?: () => void;
@@ -23,15 +29,17 @@ interface SaveStepProps {
 }
 
 // Format price from øre to kr and øre (e.g., 649 99)
-const formatPrice = (priceInOre: number): string => {
-  const kroner = Math.floor(priceInOre / 100);
-  const ore = priceInOre % 100;
-  return `${kroner} ${ore.toString().padStart(2, "0")}`;
-};
+// const formatPrice = (priceInOre: number): string => {
+//   const kroner = Math.floor(priceInOre / 100);
+//   const ore = priceInOre % 100;
+//   return `${kroner} ${ore.toString().padStart(2, "0")}`;
+// };
 
 export function SaveStep({
   selectedRecipients,
   selectedProducts,
+  organisationUnit,
+  principal,
   onPrevious,
   onSave,
   onView,
@@ -40,6 +48,22 @@ export function SaveStep({
   onEditProducts,
 }: SaveStepProps) {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<IUser | null>(null);
+
+  // Fetch user data on mount
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await MeApi.fetchMe();
+        setUser(userData);
+      } catch (err) {
+        setError("Kunne ikke hente brukerdata");
+      }
+    };
+    fetchUser();
+  }, []);
 
   // Calculate total amount - use customPrice if set, otherwise itemPrice
   const totalAmount = selectedProducts.reduce((sum, product) => {
@@ -50,11 +74,46 @@ export function SaveStep({
     return sum + price * product.quantity;
   }, 0);
 
-  const handleSave = () => {
-    if (onSave) {
-      onSave();
+  const handleSave = async () => {
+    if (!user) {
+      setError("Brukerdata ikke tilgjengelig");
+      return;
     }
-    setIsSuccessModalOpen(true);
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      // Transform principal data to IClassGroup format
+      // The principal from API is IProductData, but we need IClassGroup
+      // Based on the structure, we'll create a minimal IClassGroup
+      const principalData: IClassGroup = {
+        name: principal.code || principal.description || "",
+        description: principal.description || "",
+        customers: [], // Principal doesn't have customers in this context
+      };
+
+      const response = await OrderApi.sendOrders(
+        selectedRecipients,
+        selectedProducts,
+        organisationUnit,
+        principalData,
+        user,
+      );
+
+      if (response.success) {
+        if (onSave) {
+          onSave();
+        }
+        setIsSuccessModalOpen(true);
+      } else {
+        setError("Kunne ikke opprette ordrer");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "En ukjent feil oppstod");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSendToFakturering = () => {
@@ -126,9 +185,10 @@ export function SaveStep({
                           <br />
                           Antall: {product.quantity}
                           <br />
-                          Nettopris: {formatPrice(price)}
+                          Nettopris: {formatCurrency(price)}
                           <br />
-                          Nettototal: <strong>{formatPrice(netTotal)}</strong>
+                          Nettototal:{" "}
+                          <strong>{formatCurrency(netTotal)}</strong>
                         </FormSummary.Value>
                       </FormSummary.Answer>
                     );
@@ -159,7 +219,7 @@ export function SaveStep({
                     Alle beløper er uten mva.
                   </span>
                   <span style={{ fontSize: "1.25rem", fontWeight: 600 }}>
-                    {formatPrice(totalAmount)}
+                    {formatCurrency(totalAmount)}
                   </span>
                 </Box>
               </FormSummary.Value>
@@ -183,16 +243,51 @@ export function SaveStep({
         )}
       </FormSummary>
 
+      {/* Error Message */}
+      {error && (
+        <Box
+          padding="4"
+          background="surface-danger-subtle"
+          borderRadius="medium"
+          borderWidth="1"
+          borderColor="border-danger"
+        >
+          <p style={{ margin: 0, color: "var(--a-text-danger)" }}>{error}</p>
+        </Box>
+      )}
+
       {/* Action Button Section */}
       <StepNavigation
         onNext={handleSave}
         onPrevious={onPrevious}
-        nextButtonText="Lagre betaling"
+        nextButtonText={isLoading ? "Lagrer..." : "Lagre betaling"}
         previousButtonText="Tilbake til produktvalg"
         disabled={
-          selectedRecipients.length === 0 || selectedProducts.length === 0
+          isLoading ||
+          selectedRecipients.length === 0 ||
+          selectedProducts.length === 0
         }
       />
+
+      {/* Loading Overlay */}
+      {isLoading && (
+        <Box
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.3)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 1000,
+          }}
+        >
+          <Loader size="2xlarge" title="Lagrer ordrer..." />
+        </Box>
+      )}
 
       {/* Success Modal */}
       <Modal

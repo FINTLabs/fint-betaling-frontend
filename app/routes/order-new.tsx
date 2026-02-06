@@ -129,12 +129,12 @@ export default function OrderNew() {
         <SaveStep
           selectedRecipients={selectedRecipients}
           selectedProducts={selectedProducts}
-          onPrevious={() => setActiveStep(2)}
-          onSave={() => {
-            // todo: Handle save logic here
-            console.log("Saving with recipients:", selectedRecipients);
-            console.log("Saving with products:", selectedProducts);
+          organisationUnit={{
+            organisationNumber: currentSchoolOrgId,
+            name: school.name || "",
           }}
+          principal={principals}
+          onPrevious={() => setActiveStep(2)}
           onView={() => {
             navigate("/send");
           }}

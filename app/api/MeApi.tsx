@@ -5,7 +5,8 @@ import type { IUser } from "~/types/user";
 // import type { IOrganisation } from "~/types/Organisation";
 // import { HeaderProperties } from "~/utils/headerProperties";
 
-const API_URL = process.env.API_URL || "";
+const API_URL = import.meta.env.VITE_API_URL || "";
+// const API_URL = "http://localhost:8080";
 
 const apiManager = new NovariApiManager({
   baseUrl: API_URL,
