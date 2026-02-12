@@ -11,7 +11,6 @@ import {
 import { selectOrgCookie } from "~/utils/cookie";
 import MeApi from "~/api/MeApi";
 import ClaimApi from "~/api/ClaimApi";
-import type { IUser } from "~/types/user";
 import { ClaimHistoryTable } from "~/components/claim-history/ClaimHistoryTable";
 import {
   NovariConfirmAction,
@@ -31,7 +30,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   if (pendingResponse.success && pendingResponse.data) {
     return {
       pendingClaims: pendingResponse.data,
-      user,
     };
   }
 
@@ -49,9 +47,8 @@ export default function ClaimPending() {
   const actionData = fetcher.data;
   const { alertState } = useAlerts<IClaim>([], actionData, fetcher.state);
 
-  const { pendingClaims, user } = useLoaderData<{
+  const { pendingClaims } = useLoaderData<{
     pendingClaims: IClaim[];
-    user: IUser;
   }>();
 
   const filteredClaims = useMemo(() => {
@@ -216,11 +213,10 @@ export const action: ActionFunction = async ({ request }) => {
       }
       break;
     case "SEND_TO_FACTORING":
-      response = {
-        success: false,
-        message: `${selectedClaimIds.length} ordre sendt til fakturering`,
-        variant: "warning",
-      };
+      response = ClaimApi.sendClaimsToSystem(
+        selectedOrg,
+        inputSelectedClaimIds,
+      );
       break;
     default:
       response = {

@@ -217,7 +217,7 @@ export const action: ActionFunction = async ({ request }) => {
         );
         break;
       case "SEND_TO_FACTORING":
-        response = await ClaimApi.sendClaims(
+        response = await ClaimApi.sendClaimsToSystem(
           selectedRecipients,
           selectedProducts,
           organisationUnit,
