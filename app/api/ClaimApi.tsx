@@ -139,59 +139,6 @@ class ClaimApi {
       },
     });
   }
-
-  // static async cancelClaims(
-  //   selectedOrg: string,
-  //   claimIds: string[],
-  // ): Promise<NovariSnackbarItem[]> {
-  //   const functionName = "cancelPayments";
-  //   const baseEndpoint = `/api/claim/order-number`;
-  //
-  //   const returnValues = [];
-  //
-  //   for (const claimId of claimIds) {
-  //     const endpoint = `${baseEndpoint}/${claimId}`;
-  //     const response = await apiManager.call<IClaim>({
-  //       method: "DELETE",
-  //       endpoint,
-  //       functionName: `${functionName}_${claimId}`,
-  //       customErrorMessage: `Kunne ikke kansellere ordre ${claimId}.`,
-  //       customSuccessMessage: `Ordre ${claimId} kansellert.`,
-  //       additionalHeaders: {
-  //         "x-school-org-id": selectedOrg,
-  //       },
-  //     });
-  //
-  //     returnValues.push(response.status, claimId);
-  //   }
-  //
-  //   return {
-  //     returnValues,
-  //   };
-  // }
-
-  static async updateClaimStatus(
-    periodSelection: any,
-    schoolSelection: any,
-    selectedOrg: string,
-  ) {
-    console.log("updateClaimStatus", periodSelection, schoolSelection);
-
-    return await apiManager.call<IClaim[]>({
-      method: "POST",
-      endpoint: `/api/claim/update-status`,
-      functionName: "updateClaimStatus",
-      customErrorMessage: "Kunne ikke oppdatere ordrer.",
-      customSuccessMessage: "Ordrer oppdatert.",
-      body: {
-        periodSelection: periodSelection,
-        schoolSelection: schoolSelection,
-      },
-      additionalHeaders: {
-        "x-school-org-id": selectedOrg,
-      },
-    });
-  }
 }
 
 export default ClaimApi;

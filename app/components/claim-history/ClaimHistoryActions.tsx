@@ -1,20 +1,14 @@
 import { Button, HStack } from "@navikt/ds-react";
-import {
-  ArrowsCirclepathIcon,
-  TasklistSendIcon,
-  DownloadIcon,
-} from "@navikt/aksel-icons";
+import { DownloadIcon, TasklistSendIcon } from "@navikt/aksel-icons";
 
 interface OrderHistoryActionsProps {
   selectedCount: number;
-  onUpdate: () => void;
   onResend: () => void;
   onExport: () => void;
 }
 
 export function ClaimHistoryActions({
   selectedCount,
-  onUpdate,
   onResend,
   onExport,
 }: OrderHistoryActionsProps) {
@@ -22,14 +16,6 @@ export function ClaimHistoryActions({
 
   return (
     <HStack gap="2">
-      <Button
-        variant="secondary"
-        size="small"
-        onClick={onUpdate}
-        icon={<ArrowsCirclepathIcon />}
-      >
-        OPPDATER
-      </Button>
       <Button
         variant="secondary"
         size="small"
@@ -43,7 +29,6 @@ export function ClaimHistoryActions({
         variant="secondary"
         size="small"
         onClick={onExport}
-        disabled={!hasSelection}
         icon={<DownloadIcon />}
       >
         EKSPORTER

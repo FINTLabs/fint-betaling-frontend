@@ -111,11 +111,6 @@ export default function ClaimHistory() {
     }
   };
 
-  const handleUpdate = () => {
-    console.log("Updating orders:", selectedOrderIds);
-    // Handle update logic here
-  };
-
   const handleResend = () => {
     console.log("Resending orders:", selectedOrderIds);
     // Handle resend logic here
@@ -167,7 +162,6 @@ export default function ClaimHistory() {
         <Spacer />
         <ClaimHistoryActions
           selectedCount={selectedOrderIds.length}
-          onUpdate={handleUpdate}
           onResend={handleResend}
           onExport={handleExport}
         />
