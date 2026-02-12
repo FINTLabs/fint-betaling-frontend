@@ -1,24 +1,22 @@
 import { Box, Select, HStack, UNSAFE_Combobox } from "@navikt/ds-react";
 import { useMemo } from "react";
-import { ORDER_STATUS_LIST } from "./OrderStatusConfig";
+import { ORDER_STATUS_LIST } from "./ClaimStatusConfig";
 
 interface OrderHistoryFiltersProps {
   dateFilter?: string;
   statusFilter?: string;
   schoolSelection?: string;
   organisationUnits?: Array<{ organisationNumber: string; name: string }>;
-  statusCounts?: Record<string, number>;
   onDateFilterChange: (value: string) => void;
   onStatusFilterChange: (value: string) => void;
   onSchoolSelectionChange: (value: string) => void;
 }
 
-export function OrderHistoryFilters({
+export function ClaimHistoryFilters({
   dateFilter,
   statusFilter,
   schoolSelection,
   organisationUnits = [],
-  statusCounts = {},
   onDateFilterChange,
   onStatusFilterChange,
   onSchoolSelectionChange,

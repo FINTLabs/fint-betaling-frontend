@@ -9,7 +9,7 @@ interface OrderHistoryPaginationProps {
   onRowsPerPageChange: (rowsPerPage: number) => void;
 }
 
-export function OrderHistoryPagination({
+export function ClaimHistoryPagination({
   page,
   totalPages,
   rowsPerPage,

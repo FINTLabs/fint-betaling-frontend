@@ -8,14 +8,14 @@ import {
 } from "@navikt/aksel-icons";
 import type { ReactNode } from "react";
 
-export interface OrderStatusConfig {
+export interface ClaimStatusConfig {
   value: string;
   icon: ReactNode;
   label: string;
   color: "info" | "success" | "warning" | "error" | "neutral";
 }
 
-export const ORDER_STATUS_LIST: OrderStatusConfig[] = [
+export const ORDER_STATUS_LIST: ClaimStatusConfig[] = [
   {
     value: "STORED",
     icon: <InformationIcon title="Ikke sendt" fontSize="1rem" />,
@@ -93,7 +93,7 @@ export const ORDER_STATUS_LIST: OrderStatusConfig[] = [
   },
 ];
 
-export const DEFAULT_STATUS_CONFIG: OrderStatusConfig = {
+export const DEFAULT_STATUS_CONFIG: ClaimStatusConfig = {
   value: "",
   icon: <ExclamationmarkTriangleIcon title="Ukjent status" fontSize="1rem" />,
   label: "Klarte ikke finne ordrestatus",
@@ -143,7 +143,7 @@ export function getStatusMessage(
 export function getStatusConfig(
   claimStatus: string,
   statusMessage?: string,
-): OrderStatusConfig {
+): ClaimStatusConfig {
   // First try to find exact match
   const exactMatch = ORDER_STATUS_LIST.find(
     (status) => status.value === claimStatus.toUpperCase(),

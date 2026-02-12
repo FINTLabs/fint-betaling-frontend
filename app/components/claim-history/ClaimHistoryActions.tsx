@@ -12,7 +12,7 @@ interface OrderHistoryActionsProps {
   onExport: () => void;
 }
 
-export function OrderHistoryActions({
+export function ClaimHistoryActions({
   selectedCount,
   onUpdate,
   onResend,

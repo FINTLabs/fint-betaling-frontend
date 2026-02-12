@@ -6,13 +6,11 @@ import {
   Modal,
   VStack,
 } from "@navikt/ds-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StepNavigation } from "./StepNavigation";
-import type { IClassGroup, ICustomer } from "~/types/group";
+import type { ICustomer } from "~/types/group";
 import type { IProductData, ISelectedProduct } from "~/types/product";
-import type { IOrganisationUnit, IUser } from "~/types/user";
-import ClaimApi from "~/api/ClaimApi";
-import MeApi from "~/api/MeApi";
+import type { IOrganisationUnit } from "~/types/user";
 import { formatCurrency } from "~/utils/variousFormats";
 
 interface SaveStepProps {
@@ -23,9 +21,9 @@ interface SaveStepProps {
   onPrevious?: () => void;
   onSave?: () => void;
   onView?: () => void;
-  onSendToFakturering?: () => void;
-  onEditRecipients?: () => void;
-  onEditProducts?: () => void;
+  onSendToFactoring: (formData: FormData) => void;
+  onEditRecipients: () => void;
+  onEditProducts: () => void;
 }
 
 // Format price from øre to kr and øre (e.g., 649 99)
@@ -43,27 +41,12 @@ export function SaveStep({
   onPrevious,
   onSave,
   onView,
-  onSendToFakturering,
+  onSendToFactoring,
   onEditRecipients,
   onEditProducts,
 }: SaveStepProps) {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<IUser | null>(null);
-
-  // Fetch user data on mount
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = await MeApi.fetchMe();
-        setUser(userData);
-      } catch (err) {
-        setError("Kunne ikke hente brukerdata");
-      }
-    };
-    fetchUser();
-  }, []);
 
   // Calculate total amount - use customPrice if set, otherwise itemPrice
   const totalAmount = selectedProducts.reduce((sum, product) => {
@@ -75,62 +58,18 @@ export function SaveStep({
   }, 0);
 
   const handleSave = async () => {
-    if (!user) {
-      setError("Brukerdata ikke tilgjengelig");
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      // Transform principal data to IClassGroup format
-      // The principal from API is IProductData, but we need IClassGroup
-      // Based on the structure, we'll create a minimal IClassGroup
-      const principalData: IClassGroup = {
-        name: principal.code || principal.description || "",
-        description: principal.description || "",
-        customers: [], // Principal doesn't have customers in this context
-      };
-
-      const response = await ClaimApi.sendOrders(
-        selectedRecipients,
-        selectedProducts,
-        organisationUnit,
-        principalData,
-        user,
-      );
-
-      if (response.success) {
-        if (onSave) {
-          onSave();
-        }
-        setIsSuccessModalOpen(true);
-      } else {
-        setError("Kunne ikke opprette ordrer");
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "En ukjent feil oppstod");
-    } finally {
-      setIsLoading(false);
-    }
+    const formData = new FormData();
+    formData.append("actionType", "SAVE_INVOICES");
+    onSendToFactoring(formData);
   };
 
-  const handleSendToFakturering = () => {
-    if (onSendToFakturering) {
-      onSendToFakturering();
-    }
-    setIsSuccessModalOpen(false);
-  };
+  // const handleView = () => {
+  //   if (onView) {
+  //     onView();
+  //   }
+  //   setIsSuccessModalOpen(false);
+  // };
 
-  const handleView = () => {
-    if (onView) {
-      onView();
-    }
-    setIsSuccessModalOpen(false);
-  };
-
-  //TODO: add loader after save button
   return (
     <VStack gap="8">
       <FormSummary>
@@ -227,34 +166,19 @@ export function SaveStep({
           )}
         </FormSummary.Answers>
 
-        {(onEditRecipients || onEditProducts) && (
-          <FormSummary.Footer className="flex gap-4">
-            {onEditRecipients && (
-              <FormSummary.EditLink as="button" onClick={onEditRecipients}>
-                Endre mottakere
-              </FormSummary.EditLink>
-            )}
-            {onEditProducts && (
-              <FormSummary.EditLink as="button" onClick={onEditProducts}>
-                Endre produkter
-              </FormSummary.EditLink>
-            )}
-          </FormSummary.Footer>
-        )}
+        <FormSummary.Footer className="flex gap-4">
+          {onEditRecipients && (
+            <FormSummary.EditLink as="button" onClick={onEditRecipients}>
+              Endre mottakere
+            </FormSummary.EditLink>
+          )}
+          {onEditProducts && (
+            <FormSummary.EditLink as="button" onClick={onEditProducts}>
+              Endre produkter
+            </FormSummary.EditLink>
+          )}
+        </FormSummary.Footer>
       </FormSummary>
-
-      {/* Error Message */}
-      {error && (
-        <Box
-          padding="4"
-          background="surface-danger-subtle"
-          borderRadius="medium"
-          borderWidth="1"
-          borderColor="border-danger"
-        >
-          <p style={{ margin: 0, color: "var(--a-text-danger)" }}>{error}</p>
-        </Box>
-      )}
 
       {/* Action Button Section */}
       <StepNavigation
@@ -269,7 +193,7 @@ export function SaveStep({
         }
       />
 
-      {/* Loading Overlay */}
+      {/* TODO: Loading Overlay */}
       {isLoading && (
         <Box
           style={{
@@ -310,12 +234,8 @@ export function SaveStep({
           <p style={{ margin: 0 }}>Neste steg er å sende de til fakturering.</p>
         </Modal.Body>
         <Modal.Footer>
-          {onView && (
-            <Button variant="secondary" onClick={handleView}>
-              Vis
-            </Button>
-          )}
-          <Button variant="primary" onClick={handleSendToFakturering}>
+          {onView && <Button variant="secondary">Vis</Button>}
+          <Button variant="primary" onClick={handleSave}>
             SEND TIL FAKTURERING
           </Button>
         </Modal.Footer>

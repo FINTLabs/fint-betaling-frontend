@@ -1,6 +1,6 @@
 import { Tag, Popover } from "@navikt/ds-react";
 import { useState, useRef } from "react";
-import { getStatusConfig, getStatusMessage } from "./OrderStatusConfig";
+import { getStatusConfig, getStatusMessage } from "./ClaimStatusConfig";
 
 interface OrderStatusBadgeProps {
   claimStatus: string;
@@ -12,7 +12,7 @@ interface OrderStatusBadgeProps {
   ) => void;
 }
 
-export function OrderStatusBadge({
+export function ClaimStatusBadge({
   claimStatus,
   statusMessage,
   onClick,
@@ -24,18 +24,15 @@ export function OrderStatusBadge({
   const handleClick = (event: React.MouseEvent) => {
     event.stopPropagation();
 
-    // If onClick handler is provided, call it
     if (onClick) {
       onClick(event, statusMessage || "", statusConfig.value);
     }
 
-    // Toggle popover if there's a status message
     if (statusMessage) {
       setPopoverOpen(!popoverOpen);
     }
   };
 
-  // Get popover content - use status message or default message
   const popoverContent = getStatusMessage(statusMessage, statusConfig.value);
 
   const tag = (
@@ -75,7 +72,6 @@ export function OrderStatusBadge({
     </span>
   );
 
-  // Wrap with Popover if there's additional information to show
   if (statusMessage) {
     return (
       <>

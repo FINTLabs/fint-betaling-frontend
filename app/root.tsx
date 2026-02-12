@@ -84,17 +84,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
-        <title>FINT Betaling</title>
+        <title>FINT Elevfakturering</title>
       </head>
       <body data-theme="novari">
         {children}
         <ScrollRestoration />
         <Scripts />
-        <script
-          defer
-          src="http://localhost:3000/script.js"
-          data-website-id="4490525a-96e3-468e-a848-84dc20bc3d43"
-        ></script>
       </body>
     </html>
   );
@@ -134,7 +129,7 @@ export default function App() {
               "https://idp.felleskomponent.no/nidp/app/logout")
           }
           onMenuClick={(action) => navigate(action)}
-          appName={"FINT Betaling"}
+          appName={"FINT Elevfakturering"}
           onLogin={onLogin}
         >
           <OrganisationUnitSelect

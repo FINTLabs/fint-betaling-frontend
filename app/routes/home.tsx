@@ -7,7 +7,7 @@ import {
 import { DashboardStats } from "~/components/dashboard/DashboardStats";
 import type { LoaderFunctionArgs } from "react-router";
 import { useLoaderData, useOutletContext } from "react-router";
-import type { IOrder } from "~/types/order";
+import type { IClaim } from "~/types/claim";
 import type { IOrganisationUnit } from "~/types/user";
 import { selectOrgCookie } from "~/utils/cookie";
 import ClaimApi from "~/api/ClaimApi";
@@ -44,7 +44,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     // ClaimApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR", "YEAR"),
     ClaimApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR"),
     // ClaimApi.getOrders(selectedOrg.organisationNumber, undefined, "YEAR"),
-    ClaimApi.getOrders(selectedOrg.organisationNumber, undefined),
+    ClaimApi.getClaims(selectedOrg.organisationNumber, undefined),
   ]);
 
   const pendingOrders = storedCount.success ? storedCount.data || 0 : 0;
@@ -71,9 +71,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 // Group orders by date and calculate batch statistics
-function processOrdersIntoBatches(orders: IOrder[]) {
+function processOrdersIntoBatches(orders: IClaim[]) {
   // Group orders by date (YYYY-MM-DD)
-  const ordersByDate = new Map<string, IOrder[]>();
+  const ordersByDate = new Map<string, IClaim[]>();
 
   orders.forEach((order) => {
     const date = new Date(order.createdDate).toISOString().split("T")[0];

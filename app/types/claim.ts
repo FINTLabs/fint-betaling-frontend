@@ -1,6 +1,6 @@
 import type { IOrganisationUnit } from "~/types/user";
 
-export interface IOrderType {
+export interface ILineItem {
   id: number;
   description: string;
   itemQuantity: number;
@@ -12,7 +12,7 @@ export interface IOrderType {
   itemUri: string;
 }
 
-export interface IOrder {
+export interface IClaim {
   orgId: string;
   orderNumber: number;
   invoiceNumbersCommaSeperated: string | null;
@@ -30,7 +30,7 @@ export interface IOrder {
   principalCode: string;
   principalUri: string;
   invoiceUri: string | null;
-  orderItems: IOrderType[];
+  orderItems: ILineItem[];
   claimStatus: string;
   statusMessage: string;
   timestamp: number;

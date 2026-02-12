@@ -1,35 +1,35 @@
 import { Box, Table, Checkbox } from "@navikt/ds-react";
 import { useMemo } from "react";
 import React from "react";
-import type { IOrder } from "~/types/order";
-import { OrderStatusBadge } from "./OrderStatusBadge";
+import type { IClaim } from "~/types/claim";
+import { ClaimStatusBadge } from "./ClaimStatusBadge";
 import { formatCurrency, formatDate } from "~/utils/variousFormats";
 
 interface OrderHistoryTableProps {
-  orders: IOrder[];
-  selectedOrderIds: string[];
+  claims: IClaim[];
+  selectedClaimIds: string[];
   onSelectAll: (checked: boolean) => void;
-  onSelectOrder: (orderId: string, checked: boolean) => void;
+  onSelectClaim: (orderId: string, checked: boolean) => void;
   allSelected: boolean;
   someSelected: boolean;
   emptyMessage?: string;
 }
 
-export function OrderHistoryTable({
-  orders,
-  selectedOrderIds,
+export function ClaimHistoryTable({
+  claims,
+  selectedClaimIds,
   onSelectAll,
-  onSelectOrder,
+  onSelectClaim,
   allSelected,
   someSelected,
   emptyMessage = "Ingen ordrer tilgjengelig",
 }: OrderHistoryTableProps) {
   // Group orders by created date (batches)
   const groupedOrders = useMemo(() => {
-    const groups: Array<{ date: string; orders: IOrder[] }> = [];
-    const dateMap = new Map<string, IOrder[]>();
+    const groups: Array<{ date: string; orders: IClaim[] }> = [];
+    const dateMap = new Map<string, IClaim[]>();
 
-    orders.forEach((order) => {
+    claims.forEach((order) => {
       // Extract just the date part (YYYY-MM-DD) from ISO string
       const dateKey = order.createdDate.split("T")[0];
       if (!dateMap.has(dateKey)) {
@@ -44,7 +44,7 @@ export function OrderHistoryTable({
     });
 
     return groups.sort((a, b) => b.date.localeCompare(a.date));
-  }, [orders]);
+  }, [claims]);
 
   return (
     <Box
@@ -78,7 +78,7 @@ export function OrderHistoryTable({
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {orders.length === 0 ? (
+          {claims.length === 0 ? (
             <Table.Row>
               <Table.DataCell colSpan={9} style={{ textAlign: "center" }}>
                 <p
@@ -123,9 +123,9 @@ export function OrderHistoryTable({
                   </Table.Row>
                 )}
                 {/* Orders in this batch */}
-                {batch.orders.map((order, orderIndex) => {
+                {batch.orders.map((order) => {
                   const orderId = order.orderNumber.toString();
-                  const isSelected = selectedOrderIds.includes(orderId);
+                  const isSelected = selectedClaimIds.includes(orderId);
                   const isRowSelectable =
                     order.claimStatus === "SEND_ERROR" ||
                     order.claimStatus === "STORED" ||
@@ -143,7 +143,7 @@ export function OrderHistoryTable({
                       selected={isSelected}
                       onRowClick={
                         isRowSelectable
-                          ? () => onSelectOrder(orderId, !isSelected)
+                          ? () => onSelectClaim(orderId, !isSelected)
                           : undefined
                       }
                       style={{
@@ -156,7 +156,7 @@ export function OrderHistoryTable({
                         <Checkbox
                           checked={isSelected}
                           onChange={(e) =>
-                            onSelectOrder(orderId, e.target.checked)
+                            onSelectClaim(orderId, e.target.checked)
                           }
                           disabled={!isRowSelectable}
                           hideLabel
@@ -166,7 +166,7 @@ export function OrderHistoryTable({
                         </Checkbox>
                       </Table.DataCell>
                       <Table.DataCell>
-                        <OrderStatusBadge
+                        <ClaimStatusBadge
                           claimStatus={order.claimStatus}
                           statusMessage={order.statusMessage}
                         />

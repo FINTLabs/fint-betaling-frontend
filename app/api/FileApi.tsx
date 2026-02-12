@@ -1,5 +1,5 @@
 import { NovariApiManager, type ApiResponse } from "novari-frontend-components";
-import type { IOrder } from "~/types/order";
+import type { IClaim } from "~/types/claim";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 const apiManager = new NovariApiManager({
@@ -10,14 +10,14 @@ class FileApi {
   static async sendFile(
     schoolOrgId: string,
     file: File,
-  ): Promise<ApiResponse<IOrder[]>> {
+  ): Promise<ApiResponse<IClaim[]>> {
     const endpoint = "/api/file";
     const functionName = "sendFile";
 
     const formData = new FormData();
     formData.append("file", file);
 
-    return await apiManager.call<IOrder[]>({
+    return await apiManager.call<IClaim[]>({
       method: "POST",
       endpoint,
       functionName,

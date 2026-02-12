@@ -1,24 +1,22 @@
-import { NovariApiManager, type ApiResponse } from "novari-frontend-components";
-import type { IOrder } from "~/types/order";
-import type { ICustomer } from "~/types/group";
+import { type ApiResponse, NovariApiManager } from "novari-frontend-components";
+import type { IClaim } from "~/types/claim";
+import type { IClassGroup, ICustomer } from "~/types/group";
 import type { ISelectedProduct } from "~/types/product";
 import type { IOrganisationUnit, IUser } from "~/types/user";
-import type { IClassGroup } from "~/types/group";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
-// const API_URL = "http://localhost:8080";
 const apiManager = new NovariApiManager({
   baseUrl: API_URL,
 });
 
 class ClaimApi {
-  static async getOrders(
+  static async getClaims(
     selectedOrg: string,
     status?: string,
     period?: string,
     schoolSelection?: string,
-  ): Promise<ApiResponse<IOrder[]>> {
-    const functionName = "getOrders";
+  ): Promise<ApiResponse<IClaim[]>> {
+    const functionName = "getClaims";
 
     // Build endpoint with optional query parameters
     const params = new URLSearchParams();
@@ -38,65 +36,66 @@ class ClaimApi {
     const queryString = params.toString();
     const endpoint = `/api/claim${queryString ? `?${queryString}` : ""}`;
 
-    return await apiManager.call<IOrder[]>({
+    return await apiManager.call<IClaim[]>({
       method: "GET",
       endpoint,
       functionName,
-      customErrorMessage: "Kunne ikke hente ordrer.",
-      customSuccessMessage: "Ordrer hentet.",
+      customErrorMessage: "Kunne ikke hente claims.",
+      customSuccessMessage: "Claims hentet.",
       additionalHeaders: {
         "x-school-org-id": selectedOrg,
       },
     });
   }
 
-  static async sendOrders(
+  static async sendClaims(
     customers: ICustomer[],
     orderItems: ISelectedProduct[],
     organisationUnit: IOrganisationUnit,
     principal: IClassGroup,
     createdBy: IUser,
-  ): Promise<ApiResponse<IOrder[]>> {
-    const functionName = "createOrders";
+  ): Promise<ApiResponse<IClaim[]>> {
+    const functionName = "sendClaims";
 
+    console.log(
+      "sendClaims",
+      customers,
+      orderItems,
+      organisationUnit,
+      principal,
+      createdBy,
+    );
     // Transform selected products to order items format
-    const transformedOrderItems = orderItems.map((product) => ({
-      itemCode: product.itemCode,
-      description: product.description,
-      itemQuantity: product.quantity,
-      itemPrice:
-        product.customPrice !== undefined
-          ? product.customPrice
-          : product.itemPrice,
-      taxRate: product.taxrate ?? null,
-      freeText: product.freeText,
-      itemUri: product.uri,
-    }));
+    // const requestBody = {
+    //   orgId: "fake.fintlabs.no",
+    //   customers: customers,
+    //   orderItems: transformedOrderItems,
+    //   organisationUnit: organisationUnit,
+    //   principal: principal,
+    //   createdBy: {
+    //     name: createdBy.name,
+    //     employeeNumber: createdBy.employeeNumber,
+    //     organisation: createdBy.organisation,
+    //   },
+    // };
 
-    const requestBody = {
-      orgId: "fake.fintlabs.no",
-      customers: customers,
-      orderItems: transformedOrderItems,
-      organisationUnit: organisationUnit,
-      principal: principal,
-      createdBy: {
-        name: createdBy.name,
-        employeeNumber: createdBy.employeeNumber,
-        organisation: createdBy.organisation,
-      },
+    // return await apiManager.call<IOrder[]>({
+    //   method: "POST",
+    //   endpoint: `/api/claim`,
+    //   functionName,
+    //   customErrorMessage: "Kunne ikke opprette ordrer.",
+    //   customSuccessMessage: "Ordrer opprettet.",
+    //   body: requestBody,
+    //   additionalHeaders: {
+    //     "x-org-id": "fake.fintlabs.no",
+    //   },
+    // });
+    return {
+      success: true,
+      data: [],
+      message: "Ordrer test.",
+      variant: "warning",
     };
-
-    return await apiManager.call<IOrder[]>({
-      method: "POST",
-      endpoint: `/api/claim`,
-      functionName,
-      customErrorMessage: "Kunne ikke opprette ordrer.",
-      customSuccessMessage: "Ordrer opprettet.",
-      body: requestBody,
-      additionalHeaders: {
-        "x-org-id": "fake.fintlabs.no",
-      },
-    });
   }
 
   static async getCountByStatus(
@@ -131,7 +130,6 @@ class ClaimApi {
     });
   }
 
-  //TODO: Add this functionality (3)
   static async setPayment(
     orgId: string,
     customers: ICustomer[],
@@ -139,23 +137,99 @@ class ClaimApi {
     organisationUnit: IOrganisationUnit,
     principal: IClassGroup,
     createdBy: IUser,
-  ) {
-    console.log(
-      "setPayment",
-      orgId,
-      customers,
-      orderItems,
-      organisationUnit,
-      principal,
-      createdBy,
-    );
-    return { success: true };
+  ): Promise<ApiResponse<IClaim[]>> {
+    const functionName = "setPayment";
+    //TODO: what should the selected products vs principal look like?
+
+    // // Transform selected products to order items format matching the old structure
+    // const transformedOrderItems = orderItems.map((product) => ({
+    //   description: product.description,
+    //   itemQuantity: product.quantity,
+    //   itemPrice:
+    //     product.customPrice !== undefined
+    //       ? product.customPrice
+    //       : product.itemPrice,
+    //   itemCode: product.itemCode,
+    //   originalItemPrice: product.itemPrice,
+    //   taxrate: product.taxrate ?? null,
+    //   originalDescription: product.description,
+    //   itemUri: product.uri,
+    //   freeText: product.freeText,
+    // }));
+
+    const requestBody = {
+      orderItems: orderItems,
+      customers: customers,
+      organisationUnit: organisationUnit,
+      principal: principal,
+      createdBy: {
+        name: createdBy.name,
+        employeeNumber: createdBy.employeeNumber,
+        organisation: createdBy.organisation,
+      },
+    };
+
+    console.log("requestBody: ", requestBody);
+    return await apiManager.call<IClaim[]>({
+      method: "POST",
+      endpoint: `/api/claim`,
+      functionName,
+      customErrorMessage: "Kunne ikke sette betaling.",
+      customSuccessMessage: "Betaling satt.",
+      body: requestBody,
+      additionalHeaders: {
+        "x-school-org-id": orgId,
+      },
+    });
   }
 
-  static async cancelPayments(orderNumbers: string[]) {
-    console.log("cancelPayments", orderNumbers);
-    return { success: true };
+  static async cancelClaim(
+    selectedOrg: string,
+    claimId: string,
+  ): Promise<ApiResponse<IClaim>> {
+    const functionName = "cancelClaim";
+    const endpoint = `/api/claim/order-number/${claimId}`;
+    return await apiManager.call<IClaim>({
+      method: "DELETE",
+      endpoint,
+      functionName: `${functionName}_${claimId}`,
+      customErrorMessage: `Kunne ikke kansellere ordre ${claimId}.`,
+      customSuccessMessage: `Ordre ${claimId} kansellert.`,
+      additionalHeaders: {
+        "x-school-org-id": selectedOrg,
+      },
+    });
   }
+
+  // static async cancelClaims(
+  //   selectedOrg: string,
+  //   claimIds: string[],
+  // ): Promise<NovariSnackbarItem[]> {
+  //   const functionName = "cancelPayments";
+  //   const baseEndpoint = `/api/claim/order-number`;
+  //
+  //   const returnValues = [];
+  //
+  //   for (const claimId of claimIds) {
+  //     const endpoint = `${baseEndpoint}/${claimId}`;
+  //     const response = await apiManager.call<IClaim>({
+  //       method: "DELETE",
+  //       endpoint,
+  //       functionName: `${functionName}_${claimId}`,
+  //       customErrorMessage: `Kunne ikke kansellere ordre ${claimId}.`,
+  //       customSuccessMessage: `Ordre ${claimId} kansellert.`,
+  //       additionalHeaders: {
+  //         "x-school-org-id": selectedOrg,
+  //       },
+  //     });
+  //
+  //     returnValues.push(response.status, claimId);
+  //   }
+  //
+  //   return {
+  //     returnValues,
+  //   };
+  // }
 
   static async updateClaimStatus(
     periodSelection: any,
@@ -164,7 +238,7 @@ class ClaimApi {
   ) {
     console.log("updateClaimStatus", periodSelection, schoolSelection);
 
-    return await apiManager.call<IOrder[]>({
+    return await apiManager.call<IClaim[]>({
       method: "POST",
       endpoint: `/api/claim/update-status`,
       functionName: "updateClaimStatus",
