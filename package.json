@@ -18,7 +18,7 @@
     "@mui/system": "^5.4.1",
     "@mui/x-data-grid": "^5.5.1",
     "autosuggest-highlight": "^3.1.1",
-    "axios": "^0.27.2",
+    "axios": "^1.13.5",
     "clsx": "^1.0.4",
     "css-select": "^5.1.0",
     "fetch-retry": "^5.0.3",
