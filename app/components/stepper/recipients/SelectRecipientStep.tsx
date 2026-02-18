@@ -31,7 +31,6 @@ export function SelectRecipientStep({
   const [searchQuery, setSearchQuery] = useState("");
   const [recipientType, setRecipientType] = useState<RecipientType>("gruppe");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
-  const [isSelectedRecipientsModalOpen, setIsSelectedRecipientsModalOpen] = useState(false);
 
   const filteredGroups = useMemo(() => {
     if (!searchQuery) return groupRecipients;

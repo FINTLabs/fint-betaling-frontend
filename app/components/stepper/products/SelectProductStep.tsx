@@ -30,10 +30,6 @@ export function SelectProductStep({
   onPrevious,
 }: SelectProductStepProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isSelectedRecipientsModalOpen, setIsSelectedRecipientsModalOpen] =
-    useState(false);
-  const [isSelectedProductsModalOpen, setIsSelectedProductsModalOpen] =
-    useState(false);
 
   const total = selectedProducts.reduce((sum, product) => {
     const price =

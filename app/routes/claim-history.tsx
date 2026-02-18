@@ -207,7 +207,6 @@ export const action: ActionFunction = async ({ request }) => {
   let selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
   const cookieHeader = request.headers.get("Cookie");
   const selectedOrg = await selectOrgCookie.parse(cookieHeader);
-  let errors: number = 0;
 
   let response;
 

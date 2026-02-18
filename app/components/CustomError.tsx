@@ -32,13 +32,13 @@ const CustomErrorPage: React.FC<CustomErrorPageProps> = ({
 
   const formattedErrorData = formatErrorData(errorData);
   return (
-    <Box paddingBlock="20 8">
+    <Box >
       <HGrid
         columns="minmax(auto,600px)"
         data-aksel-template={`${statusCode}-v2`}
       >
-        <VStack gap="16">
-          <VStack gap="12" align="start">
+        <VStack gap="space-16">
+          <VStack gap="space-16" align="start">
             <div>
               <BodyShort textColor="subtle" size="small">
                 Statuskode {statusCode}

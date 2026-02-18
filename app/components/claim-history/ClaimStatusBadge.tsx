@@ -43,8 +43,8 @@ export function ClaimStatusBadge({
         icon={statusConfig.icon}
         className={
           statusMessage || onClick
-            ? "cursor-pointer !rounded-xl"
-            : "!rounded-xl"
+            ? "cursor-pointer rounded-xl!"
+            : "rounded-xl!"
         }
         style={{ borderRadius: "0.75rem" }}
         onClick={statusMessage || onClick ? handleClick : undefined}
