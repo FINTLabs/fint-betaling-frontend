@@ -48,13 +48,13 @@ export function ClaimHistoryTable({
   }, [claims]);
 
   return (
-      <Box
-          borderColor="brand-magenta-subtle"
-          padding="space-16"
-          borderWidth="2"
-          borderRadius="12"
-          width="100%"
-      >
+    <Box
+      borderColor="brand-magenta-subtle"
+      padding="space-16"
+      borderWidth="2"
+      borderRadius="12"
+      width="100%"
+    >
       <Table>
         <Table.Header>
           <Table.Row>
@@ -82,15 +82,7 @@ export function ClaimHistoryTable({
           {claims.length === 0 ? (
             <Table.Row>
               <Table.DataCell colSpan={9} style={{ textAlign: "center" }}>
-                <p
-                  style={{
-                    color: "var(--a-text-subtle)",
-                    margin: 0,
-                    fontSize: "0.875rem",
-                  }}
-                >
-                  {emptyMessage}
-                </p>
+                {emptyMessage}
               </Table.DataCell>
             </Table.Row>
           ) : (
@@ -107,19 +99,21 @@ export function ClaimHistoryTable({
                           batchIndex > 0
                             ? "2px solid var(--a-border-subtle)"
                             : undefined,
-                        backgroundColor: "var(--a-surface-subtle)",
+                        backgroundColor: "var(--ax-bg-neutral-soft)",
                       }}
                     >
-                      <span
+                      <Box
+                          // background={"bg-neutral-soft"}
                         style={{
                           fontSize: "0.875rem",
                           color: "var(--a-text-default)",
                           fontWeight: 600,
+                          backgroundColor: "var(--ax-bg-neutral-soft)",
                         }}
                       >
                         Batch: {formatDate(batch.date)} ({batch.orders.length}{" "}
                         {batch.orders.length === 1 ? "ordre" : "ordrer"})
-                      </span>
+                      </Box>
                     </Table.DataCell>
                   </Table.Row>
                 )}
@@ -172,9 +166,7 @@ export function ClaimHistoryTable({
                           statusMessage={order.statusMessage}
                         />
                       </Table.DataCell>
-                      <Table.DataCell>
-                        {order.customerName}
-                      </Table.DataCell>
+                      <Table.DataCell>{order.customerName}</Table.DataCell>
                       <Table.DataCell>
                         {order.organisationUnit.name}
                       </Table.DataCell>

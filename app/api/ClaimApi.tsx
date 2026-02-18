@@ -106,11 +106,10 @@ class ClaimApi {
     const functionName = "createClaim";
     orgId = "fake.fintlabs.no";
 
-    //TODO: claim body is a mess, good luck
     console.log("claimBody: ", claimBody);
     return await apiManager.call<IClaim[]>({
       method: "POST",
-      endpoint: `/api/claimXXX`,
+      endpoint: `/api/claim`,
       functionName,
       customErrorMessage: "Kunne ikke lagre ordre.",
       customSuccessMessage: "Ordre lagret.",

@@ -117,7 +117,7 @@ export function ProductsTable({
           </Box>
         ) : (
           <Box>
-            <Table size="small">
+            <Table size="medium" zebraStripes={true}>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>Velg</Table.HeaderCell>

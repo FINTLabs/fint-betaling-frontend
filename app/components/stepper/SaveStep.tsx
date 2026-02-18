@@ -9,34 +9,17 @@ import {formatCurrency, formatPrice} from "~/utils/variousFormats";
 interface SaveStepProps {
   selectedRecipients: ICustomer[];
   selectedProducts: ISelectedProduct[];
-  organisationUnit: IOrganisationUnit;
-  principal: IProductData;
   onPrevious?: () => void;
   onSave?: () => void;
-  onView?: () => void;
   onSendToFactoring: (formData: FormData) => void;
-  onEditRecipients: () => void;
-  onEditProducts: () => void;
 }
-
-// Format price from øre to kr and øre (e.g., 649 99)
-// const formatPrice = (priceInOre: number): string => {
-//   const kroner = Math.floor(priceInOre / 100);
-//   const ore = priceInOre % 100;
-//   return `${kroner} ${ore.toString().padStart(2, "0")}`;
-// };
 
 export function SaveStep({
   selectedRecipients,
   selectedProducts,
-  organisationUnit,
-  principal,
   onPrevious,
-  onSave,
-  onView,
   onSendToFactoring,
-  onEditRecipients,
-  onEditProducts,
+
 }: SaveStepProps) {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -56,12 +39,6 @@ export function SaveStep({
     onSendToFactoring(formData);
   };
 
-  // const handleView = () => {
-  //   if (onView) {
-  //     onView();
-  //   }
-  //   setIsSuccessModalOpen(false);
-  // };
 
   return (
     <VStack gap="space-8">
@@ -218,7 +195,6 @@ export function SaveStep({
           <p style={{ margin: 0 }}>Neste steg er å sende de til fakturering.</p>
         </Modal.Body>
         <Modal.Footer>
-          {onView && <Button variant="secondary">Vis</Button>}
           <Button variant="primary" onClick={handleSave}>
             SEND TIL FAKTURERING
           </Button>

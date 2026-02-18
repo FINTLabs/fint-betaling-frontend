@@ -14,7 +14,7 @@ export function PersonRecipientsTable({
 }: PersonRecipientsTableProps) {
   return (
     <Box>
-      <Table size="small">
+      <Table size="small" zebraStripes={true}>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Velg</Table.HeaderCell>
@@ -27,7 +27,7 @@ export function PersonRecipientsTable({
               (r) => r.id === customer.id,
             );
             return (
-              <Table.Row key={customer.id}>
+              <Table.Row key={customer.id} selected={isSelected}>
                 <Table.DataCell>
                   <Checkbox
                     checked={isSelected}

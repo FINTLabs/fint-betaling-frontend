@@ -1,20 +1,16 @@
-import { HStack, Spacer, VStack } from "@navikt/ds-react";
-import React, { useMemo, useState } from "react";
-import type { IClaim } from "~/types/claim";
-import { PageHeader } from "~/components/PageHeader";
-import { ClaimHistoryFilters } from "~/components/claim-history/ClaimHistoryFilters";
-import { ClaimHistoryActions } from "~/components/claim-history/ClaimHistoryActions";
-import { ClaimHistoryTable } from "~/components/claim-history/ClaimHistoryTable";
-import { ClaimHistoryPagination } from "~/components/claim-history/ClaimHistoryPagination";
-import {
-  type LoaderFunctionArgs,
-  useLoaderData,
-  useSearchParams,
-} from "react-router";
-import { selectOrgCookie } from "~/utils/cookie";
+import {HStack, Spacer, VStack} from "@navikt/ds-react";
+import React, {useMemo, useState} from "react";
+import type {IClaim} from "~/types/claim";
+import {PageHeader} from "~/components/PageHeader";
+import {ClaimHistoryFilters} from "~/components/claim-history/ClaimHistoryFilters";
+import {ClaimHistoryActions} from "~/components/claim-history/ClaimHistoryActions";
+import {ClaimHistoryTable} from "~/components/claim-history/ClaimHistoryTable";
+import {ClaimHistoryPagination} from "~/components/claim-history/ClaimHistoryPagination";
+import {type ActionFunction, type LoaderFunctionArgs, useFetcher, useLoaderData, useSearchParams,} from "react-router";
+import {selectOrgCookie} from "~/utils/cookie";
 import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
-import type { IUser } from "~/types/user";
+import type {IUser} from "~/types/user";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
@@ -64,6 +60,7 @@ export default function ClaimHistory() {
   }>();
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const fetcher = useFetcher();
 
   const [selectedOrderIds, setSelectedOrderIds] = useState<string[]>([]);
   const [page, setPage] = useState(1);
@@ -113,12 +110,13 @@ export default function ClaimHistory() {
 
   const handleResend = () => {
     console.log("Resending orders:", selectedOrderIds);
-    // Handle resend logic here
-  };
-
-  const handleExport = () => {
-    console.log("Exporting orders:", selectedOrderIds);
-    // Handle export logic here
+    const formData = new FormData();
+    formData.append("actionType", "SEND_TO_FACTORING");
+    formData.append("selectedClaims", JSON.stringify(selectedOrderIds));
+    fetcher.submit(formData, {
+      method: "post",
+    });
+    setSelectedOrderIds([]);
   };
 
   const handleDateFilterChange = (value: string) => {
@@ -134,7 +132,6 @@ export default function ClaimHistory() {
         prev.delete("status");
         return prev;
       });
-      console.log("searchParams: ", searchParams);
       return;
     }
     setSearchParams((prev) => {
@@ -171,7 +168,7 @@ export default function ClaimHistory() {
         <ClaimHistoryActions
           selectedCount={selectedOrderIds.length}
           onResend={handleResend}
-          onExport={handleExport}
+          claims={selectableOrders}
         />
       </HStack>
 
@@ -202,3 +199,41 @@ export default function ClaimHistory() {
     </VStack>
   );
 }
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const actionType = formData.get("actionType") as string;
+  const inputSelectedClaimIds = formData.get("selectedClaims") as string;
+  let selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
+  const cookieHeader = request.headers.get("Cookie");
+  const selectedOrg = await selectOrgCookie.parse(cookieHeader);
+  let errors: number = 0;
+
+  let response;
+
+  switch (actionType) {
+    case "DOWNLOAD_SELECTED":
+
+        response = {
+          success: true,
+          message: `${selectedClaimIds.length} ordre slettet`,
+          variant: "success",
+        };
+
+      break;
+    case "SEND_TO_FACTORING":
+      response = ClaimApi.sendClaimsToSystem(
+          selectedOrg,
+          inputSelectedClaimIds,
+      );
+      break;
+    default:
+      response = {
+        success: false,
+        message: `Ukjent handlingstype: '${actionType}'`,
+        variant: "error",
+      };
+  }
+
+  return response;
+};

@@ -1,4 +1,4 @@
-import type { IOrganisationUnit } from "~/types/user";
+import type {IOrganisationUnit} from "~/types/user";
 
 export interface ILineItem {
   id: number;
@@ -8,21 +8,9 @@ export interface ILineItem {
   itemCode: string;
   originalItemPrice: number; // Price in øre
   taxRate: number | null;
-  taxrate: number | null;
   originalDescription: string;
   itemUri: string;
 }
-
-// export interface IOrderItem {
-//   description: string;
-//   itemQuantity: number;
-//   itemPrice: number;
-//   itemCode: string;
-//   originalItemPrice: number;
-//   taxrate: number | null;
-//   originalDescription: string;
-//   itemUri: string;
-// }
 
 export interface IClaim {
   orgId: string;
@@ -48,3 +36,4 @@ export interface IClaim {
   timestamp: number;
   invoiceNumbers: string[];
 }
+

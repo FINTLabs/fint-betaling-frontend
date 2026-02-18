@@ -1,4 +1,4 @@
-import { Box, HStack, Radio, RadioGroup, TextField } from "@navikt/ds-react";
+import {Box, HStack, Radio, RadioGroup, Search} from "@navikt/ds-react";
 
 export type RecipientType = "gruppe" | "person";
 
@@ -38,21 +38,24 @@ export function RecipientTypeSelector({
         </Box>
 
         <Box style={{ flex: "1 1 auto", minWidth: "250px" }}>
-          <TextField
-            label={
-              recipientType === "gruppe"
-                ? "Søk på gruppenavn"
-                : "Søk på navn"
-            }
-            size="small"
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder={
-              recipientType === "gruppe"
-                ? "Søk på gruppenavn"
-                : "Søk på etternavn, fornavn mellomnavn"
-            }
-          />
+
+            <Search
+                label={
+                    recipientType === "gruppe"
+                        ? "Søk på gruppenavn"
+                        : "Søk på navn"
+                }
+                size="small"
+                value={searchQuery}
+                onChange={onSearchChange}
+                placeholder={
+                    recipientType === "gruppe"
+                        ? "Søk på gruppenavn"
+                        : "Søk på etternavn, fornavn mellomnavn"
+                }
+                hideLabel={false}
+            />
+
         </Box>
       </>
     // </Box>

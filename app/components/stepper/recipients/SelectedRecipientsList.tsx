@@ -6,20 +6,22 @@ interface SelectedRecipientsListProps {
   selectedRecipients: ICustomer[];
   onRemoveRecipient: (customer: ICustomer) => void;
   useExpansionCard?: boolean;
+  showRemoveButton?: boolean;
 }
 
 export function SelectedRecipientsList({
   selectedRecipients,
   onRemoveRecipient,
   useExpansionCard,
+                                           showRemoveButton
 }: SelectedRecipientsListProps) {
     const elementsList = (
         <List as="ul">
             {selectedRecipients.map((person: ICustomer) => (
                 <List.Item
                     key={person.id} // or other unique key
-                    icon={!useExpansionCard ? <TrashIcon aria-hidden /> : undefined}
-                    onClick={!useExpansionCard ? () => onRemoveRecipient(person) : undefined}
+                    icon={showRemoveButton ? <TrashIcon aria-hidden /> : undefined}
+                    onClick={showRemoveButton ? () => onRemoveRecipient(person) : undefined}
                 >
                     {person.name}
                 </List.Item>

@@ -35,4 +35,20 @@
     .novari-footer {
         background: #6B133D;
     }
+    /* theme.css */
+    .rounded-box {
+        border: 2px solid var(--ax-border-brand-magenta-subtle);
+        border-radius: 12px;
+        padding: var(--ax-space-16);
+        height: 20rem;
+        overflow: auto;
+    }
+    .border-box {
+        border-top: 2px solid var(--ax-border-brand-magenta-subtle);
+        /*border-radius: 12px;*/
+        padding: var(--ax-space-16);
+        height: 20rem;
+        overflow: auto;
+    }
+
 }

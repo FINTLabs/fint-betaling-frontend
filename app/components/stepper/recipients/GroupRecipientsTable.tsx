@@ -35,9 +35,9 @@ export function GroupRecipientsTable({
 
   return (
     <Box>
-      <Table>
+      <Table size="small" zebraStripes={true}>
         <Table.Header>
-          <Table.Row>
+          <Table.Row >
             <Table.HeaderCell />
             <Table.HeaderCell style={{ width: "60px" }}>
               Velg
@@ -55,10 +55,11 @@ export function GroupRecipientsTable({
 
             return (
               <Table.ExpandableRow
+                  selected={checkboxState.checked}
                 key={group.name}
                 content={
                   group.customers && group.customers.length > 0 ? (
-                    <Box padding="4">
+                    <Box padding="space-4">
                       <CheckboxGroup
                         legend={`Kunder (${group.customers.length})`}
                         value={group.customers
@@ -91,7 +92,7 @@ export function GroupRecipientsTable({
                       </CheckboxGroup>
                     </Box>
                   ) : (
-                    <Box padding="4">
+                    <Box padding="space-4">
                       <p
                         style={{
                           margin: 0,

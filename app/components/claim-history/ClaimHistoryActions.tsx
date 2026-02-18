@@ -1,16 +1,18 @@
 import { Button, HStack } from "@navikt/ds-react";
 import { DownloadIcon, TasklistSendIcon } from "@navikt/aksel-icons";
+import {exportClaimsToCsv} from "~/utils/exportClaimsToCsv";
+import type {IClaim} from "~/types/claim";
 
 interface OrderHistoryActionsProps {
   selectedCount: number;
   onResend: () => void;
-  onExport: () => void;
+  claims: IClaim[];
 }
 
 export function ClaimHistoryActions({
   selectedCount,
   onResend,
-  onExport,
+    claims,
 }: OrderHistoryActionsProps) {
   const hasSelection = selectedCount > 0;
 
@@ -28,7 +30,7 @@ export function ClaimHistoryActions({
       <Button
         variant="secondary"
         size="small"
-        onClick={onExport}
+        onClick={() => exportClaimsToCsv(claims)}
         icon={<DownloadIcon />}
       >
         EKSPORTER

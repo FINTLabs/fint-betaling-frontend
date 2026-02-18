@@ -1,6 +1,6 @@
 import {Stepper, VStack} from "@navikt/ds-react";
-import {useEffect, useRef, useState} from "react";
-import {type ActionFunction, type LoaderFunctionArgs, useFetcher, useLoaderData, useNavigate,} from "react-router";
+import React, {useEffect, useRef, useState} from "react";
+import {type ActionFunction, type LoaderFunctionArgs, redirect, useFetcher, useLoaderData,} from "react-router";
 import {SelectRecipientStep} from "~/components/stepper/recipients/SelectRecipientStep";
 import {SelectProductStep} from "~/components/stepper/products/SelectProductStep";
 import {SaveStep} from "~/components/stepper/SaveStep";
@@ -13,6 +13,8 @@ import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
 import type {IUser} from "~/types/user";
 import type {INewClaim} from "~/types/newClaim";
+import {NovariSnackbar, useAlerts} from "novari-frontend-components";
+import type {IClaim} from "~/types/claim";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
@@ -47,7 +49,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export default function ClaimNew() {
-  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(1);
   const [selectedRecipients, setSelectedRecipients] = useState<ICustomer[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<ISelectedProduct[]>(
@@ -71,6 +72,8 @@ export default function ClaimNew() {
   }>();
 
   const fetcher = useFetcher();
+  const actionData = fetcher.data;
+  const { alertState } = useAlerts<IClaim>([], actionData, fetcher.state);
 
   // Track the organization and clear state when it changes
   const previousOrgRef = useRef<string>(currentSchoolOrgId);
@@ -84,14 +87,48 @@ export default function ClaimNew() {
     }
   }, [currentSchoolOrgId]);
 
-  async function onSaveInvoices(formData: FormData) {
-    formData.append("actionType", "SAVE_INVOICES");
+ function onSaveInvoices(formData: FormData) {
 
-    //TODO: Make a new IClaimNew from selectedRecipients and selectedProducts
-    const newClaim: INewClaim = {} as INewClaim;
+    const orderItems = selectedProducts.map((product) => {
+      return {
+        description: product.description,
+        itemQuantity: product.quantity,
+        itemPrice: product.customPrice || product.itemPrice,
+        itemCode: product.itemCode,
+        originalItemPrice: product.itemPrice,
+        taxrate: product.taxrate,
+        originalDescription: product.description,
+        itemUri: product.uri,
+      };
+    });
 
-    newClaim.createdBy = user;
+    const customers = selectedRecipients.map((customer) => {
+      return {
+        id: customer.id,
+        name: customer.name,
+      };
+    });
 
+
+    const newClaim: INewClaim = {
+      orderItems: orderItems,
+      customers: customers,
+      organisationUnit: {
+        name: school.name,
+        organisationNumber: currentSchoolOrgId,
+      },
+      principal: principals,
+      createdBy: {
+        name: user.name,
+        employeeNumber: user.employeeNumber,
+        organisation: user.organisation,
+        organisationUnits: user.organisationUnits,
+        idleTime: 0,
+        admin: user.admin,
+      },
+    }
+
+    formData.append("selectedOrg", currentSchoolOrgId);
     formData.append("newClaim", JSON.stringify(newClaim));
 
     fetcher.submit(formData, {
@@ -101,6 +138,13 @@ export default function ClaimNew() {
 
   return (
     <VStack gap="space-6">
+
+      <NovariSnackbar
+          items={alertState}
+          position={"top-right"}
+          // onCloseItem={handleCloseItem}
+      />
+
 
         <Stepper
           activeStep={activeStep}
@@ -153,37 +197,28 @@ export default function ClaimNew() {
         <SaveStep
           selectedRecipients={selectedRecipients}
           selectedProducts={selectedProducts}
-          organisationUnit={{
-            organisationNumber: currentSchoolOrgId,
-            name: school.name || "",
-          }}
-          principal={principals}
           onPrevious={() => setActiveStep(2)}
-          onView={() => {
-            navigate("/send");
-          }}
           onSendToFactoring={onSaveInvoices}
-          onEditRecipients={() => setActiveStep(1)}
-          onEditProducts={() => setActiveStep(2)}
         />
       )}
     </VStack>
   );
 }
 
-//TODO: clean up json responses
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const actionType = formData.get("actionType") as string;
   const selectedOrg = formData.get("selectedOrg") as string;
-  const newClaim = formData.get("newClaim") as string;
+  const claimBody = formData.get("newClaim") as string;
 
   let response;
-
-  try {
     switch (actionType) {
       case "SAVE_INVOICES":
-        response = ClaimApi.createClaim(selectedOrg, newClaim);
+        console.log("SAVE_INVOICES", claimBody);
+        response = ClaimApi.createClaim(selectedOrg, claimBody);
+        if((await response).success){
+          return redirect(`/send`);
+        }
         break;
       case "SEND_TO_FACTORING":
         response = {
@@ -193,31 +228,13 @@ export const action: ActionFunction = async ({ request }) => {
         };
         break;
       default:
-        return new Response(
-          JSON.stringify({
-            success: false,
-            error: `Ukjent handlingstype: '${actionType}'`,
-          }),
-          {
-            status: 400,
-            headers: { "Content-Type": "application/json" },
-          },
-        );
+        return {
+          success: false,
+          message: `Ukjent handlingstype: '${actionType}'`,
+          variant: "error",
+        };
     }
 
-    return new Response(JSON.stringify(response), {
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (error) {
-    return new Response(
-      JSON.stringify({
-        success: false,
-        error: "Kunne ikke parse form data.",
-      }),
-      {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      },
-    );
-  }
+    return response;
+
 };
