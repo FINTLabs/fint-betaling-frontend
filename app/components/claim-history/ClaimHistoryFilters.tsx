@@ -63,7 +63,7 @@ export function ClaimHistoryFilters({
   };
 
   return (
-    <HStack gap="4" wrap align="end">
+    <HStack gap="space-8" wrap align="end">
       <Box style={{ minWidth: "200px" }}>
         <Select
           label="Dato"

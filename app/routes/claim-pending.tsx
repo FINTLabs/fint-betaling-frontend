@@ -33,7 +33,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     };
   }
 
-  //TODO: return an error for toaster?
   return {
     pendingClaims: [],
     user,
@@ -110,7 +109,7 @@ export default function ClaimPending() {
   };
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-20">
       {/*{actionData && (*/}
       {/*  <NovariSnackbar*/}
       {/*    items={[actionData]}*/}
@@ -130,7 +129,7 @@ export default function ClaimPending() {
         }
       />
 
-      <HStack gap="4" wrap align="end">
+      <HStack gap="space-4" wrap align="end">
         <Box style={{ flex: 1, minWidth: "250px" }}>
           <TextField
             label="Søk etter ordrenummer"

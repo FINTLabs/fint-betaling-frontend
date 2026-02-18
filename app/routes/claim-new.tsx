@@ -1,23 +1,18 @@
-import { Box, Stepper, VStack } from "@navikt/ds-react";
-import { useEffect, useRef, useState } from "react";
-import {
-  type ActionFunction,
-  type LoaderFunctionArgs,
-  useFetcher,
-  useLoaderData,
-  useNavigate,
-} from "react-router";
-import { SelectRecipientStep } from "~/components/stepper/recipients/SelectRecipientStep";
-import { SelectProductStep } from "~/components/stepper/products/SelectProductStep";
-import { SaveStep } from "~/components/stepper/SaveStep";
-import type { IClassGroup, ICustomer, ISchool } from "~/types/group";
-import type { IProductData, ISelectedProduct } from "~/types/product";
-import { selectOrgCookie } from "~/utils/cookie";
+import {Stepper, VStack} from "@navikt/ds-react";
+import {useEffect, useRef, useState} from "react";
+import {type ActionFunction, type LoaderFunctionArgs, useFetcher, useLoaderData, useNavigate,} from "react-router";
+import {SelectRecipientStep} from "~/components/stepper/recipients/SelectRecipientStep";
+import {SelectProductStep} from "~/components/stepper/products/SelectProductStep";
+import {SaveStep} from "~/components/stepper/SaveStep";
+import type {IClassGroup, ICustomer, ISchool} from "~/types/group";
+import type {IProductData, ISelectedProduct} from "~/types/product";
+import {selectOrgCookie} from "~/utils/cookie";
 import SchoolGroupApi from "~/api/SchoolGroupApi";
 import PrincipalApi from "~/api/PrincipalApi";
 import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
-import type { IUser } from "~/types/user";
+import type {IUser} from "~/types/user";
+import type {INewClaim} from "~/types/newClaim";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
@@ -82,7 +77,6 @@ export default function ClaimNew() {
 
   useEffect(() => {
     if (previousOrgRef.current !== currentSchoolOrgId) {
-      // Organization has changed, clear the selections and reset to step 1
       setSelectedRecipients([]);
       setSelectedProducts([]);
       setActiveStep(1);
@@ -93,19 +87,12 @@ export default function ClaimNew() {
   async function onSaveInvoices(formData: FormData) {
     formData.append("actionType", "SAVE_INVOICES");
 
-    formData.append("selectedRecipients", JSON.stringify(selectedRecipients));
-    formData.append("selectedProducts", JSON.stringify(selectedProducts));
-    formData.append(
-      "organisationUnit",
-      JSON.stringify({
-        organisationNumber: currentSchoolOrgId,
-        name: school.name || "",
-      }),
-    );
-    formData.append("principal", JSON.stringify(principals));
-    formData.append("user", JSON.stringify(user));
+    //TODO: Make a new IClaimNew from selectedRecipients and selectedProducts
+    const newClaim: INewClaim = {} as INewClaim;
 
-    formData.append("selectedOrg", currentSchoolOrgId);
+    newClaim.createdBy = user;
+
+    formData.append("newClaim", JSON.stringify(newClaim));
 
     fetcher.submit(formData, {
       method: "post",
@@ -113,32 +100,32 @@ export default function ClaimNew() {
   }
 
   return (
-    <VStack gap="8">
-      <Box>
+    <VStack gap="space-6">
+
         <Stepper
           activeStep={activeStep}
           onStepChange={setActiveStep}
           orientation="horizontal"
         >
           <Stepper.Step
-            as="button"
             onClick={() => setActiveStep(1)}
-            completed={activeStep > 1}
+            completed={selectedRecipients.length > 0}
           >
             Velg mottaker
           </Stepper.Step>
           <Stepper.Step
-            as="button"
             onClick={() => setActiveStep(2)}
-            completed={activeStep > 2}
+            completed={selectedProducts.length > 0}
+            interactive={selectedRecipients.length > 0}
           >
             Velg produkt
           </Stepper.Step>
-          <Stepper.Step as="button" onClick={() => setActiveStep(3)}>
+          <Stepper.Step onClick={() => setActiveStep(3)} interactive={selectedProducts.length > 0 && selectedRecipients.length > 0}
+          >
             Lagre
           </Stepper.Step>
         </Stepper>
-      </Box>
+
 
       {activeStep === 1 && (
         <SelectRecipientStep
@@ -184,46 +171,26 @@ export default function ClaimNew() {
   );
 }
 
+//TODO: clean up json responses
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const actionType = formData.get("actionType") as string;
   const selectedOrg = formData.get("selectedOrg") as string;
-
-  // TODO: use string values in send
-  const selectedRecipientsStr = formData.get("selectedRecipients") as string;
-  const selectedProductsStr = formData.get("selectedProducts") as string;
-  const organisationUnitStr = formData.get("organisationUnit") as string;
-  const principalStr = formData.get("principal") as string;
-  const userStr = formData.get("user") as string;
+  const newClaim = formData.get("newClaim") as string;
 
   let response;
 
   try {
-    const selectedRecipients = JSON.parse(selectedRecipientsStr || "[]");
-    const selectedProducts = JSON.parse(selectedProductsStr || "[]");
-    const organisationUnit = JSON.parse(organisationUnitStr || "{}");
-    const principal = JSON.parse(principalStr || "{}");
-    const user = JSON.parse(userStr || "{}");
-
     switch (actionType) {
       case "SAVE_INVOICES":
-        response = await ClaimApi.setPayment(
-          selectedOrg,
-          selectedRecipients,
-          selectedProducts,
-          organisationUnit,
-          principal,
-          user,
-        );
+        response = ClaimApi.createClaim(selectedOrg, newClaim);
         break;
       case "SEND_TO_FACTORING":
-        response = await ClaimApi.sendClaimsToSystem(
-          selectedRecipients,
-          selectedProducts,
-          organisationUnit,
-          principal,
-          user,
-        );
+        response = {
+          success: true,
+          message: "TESTING SEND_TO_FACTORING",
+          variant: "warning",
+        };
         break;
       default:
         return new Response(

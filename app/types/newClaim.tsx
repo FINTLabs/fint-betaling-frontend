@@ -1,12 +1,14 @@
+import type { IUser } from "~/types/user";
+
 export interface INewClaim {
-  orderItems: INewOrderItem[];
-  customers: INewClaimCustomer[];
-  organisationUnit: NewClaimOrganisationUnit;
-  // principal: Principal;
-  // createdBy: CreatedBy;
+  orderItems: IOrderItem[];
+  customers: ICustomer[];
+  organisationUnit: IOrganisationUnit;
+  principal: [];
+  createdBy: IUser;
 }
 
-export interface INewOrderItem {
+export interface IOrderItem {
   description: string;
   itemQuantity: number;
   itemPrice: number;
@@ -17,42 +19,28 @@ export interface INewOrderItem {
   itemUri: string;
 }
 
-export interface INewClaimCustomer {
+export interface ICustomer {
   id: string;
   name: string;
 }
 
-export interface NewClaimOrganisationUnit {
+export interface IOrganisationUnit {
   name: string;
   organisationNumber: string;
 }
 
-// export interface NewClaimPrincipal {
+// export interface IPrincipal {
 //   code: string;
 //   description: string;
-//   lineitems: LineItem[];
+//   lineitems: IPrincipalLineItem[];
 //   uri: string;
-//   organisation: Organisation;
+//   organisation: IOrganisation;
 // }
 //
-// export interface NewClaimLineItem {
+// export interface IPrincipalLineItem {
 //   itemCode: string;
 //   itemPrice: number;
 //   taxrate: number | null;
 //   description: string;
 //   uri: string;
-// }
-//
-// export interface NewClaimOrganisation {
-//   organisationNumber: string;
-//   name: string;
-// }
-//
-// export interface CreatedBy {
-//   name: string;
-//   employeeNumber: string;
-//   organisation: Organisation;
-//   organisationUnits: OrganisationUnit[];
-//   idleTime: number;
-//   admin: boolean;
 // }

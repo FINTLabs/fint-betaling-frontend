@@ -135,7 +135,7 @@ export default function Home() {
   }>();
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       <PageHeader
         title={`Dashboard - ${selectedOrg.name}`}
         description="Oversikt over ordrer og aktivitet"

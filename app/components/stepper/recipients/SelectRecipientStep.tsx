@@ -1,7 +1,9 @@
-import { Box, Button, VStack } from "@navikt/ds-react";
-import React, { useState } from "react";
+import {Box, Button, Detail, Heading, HStack, VStack} from "@navikt/ds-react";
+import React, { useMemo, useState } from "react";
 import { SelectedRecipientsList } from "./SelectedRecipientsList";
-import { RecipientsTable } from "./RecipientsTable";
+import { RecipientTypeSelector, type RecipientType } from "./RecipientTypeSelector";
+import { GroupRecipientsTable } from "./GroupRecipientsTable";
+import { PersonRecipientsTable } from "./PersonRecipientsTable";
 import { StepNavigation } from "../StepNavigation";
 import { FileUploadModal } from "./FileUploadModal";
 import type { IClassGroup, ICustomer } from "~/types/group";
@@ -27,7 +29,31 @@ export function SelectRecipientStep({
   currentSchoolOrgId,
 }: SelectRecipientStepProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [recipientType, setRecipientType] = useState<RecipientType>("gruppe");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+
+  const filteredGroups = useMemo(() => {
+    if (!searchQuery) return groupRecipients;
+    const query = searchQuery.toLowerCase();
+    return groupRecipients.filter(
+      (group) =>
+        group.name.toLowerCase().includes(query) ||
+        group.description.toLowerCase().includes(query),
+    );
+  }, [groupRecipients, searchQuery]);
+
+  const filteredCustomers = useMemo(() => {
+    if (!searchQuery) return personRecipients;
+    const query = searchQuery.toLowerCase();
+    return personRecipients.filter((customer) =>
+      customer.name.toLowerCase().includes(query),
+    );
+  }, [personRecipients, searchQuery]);
+
+  const hasResults =
+    recipientType === "person"
+      ? filteredCustomers.length > 0
+      : filteredGroups.length > 0;
 
   const handleFileUpload = (file: File) => {
     console.log("File selected:", file.name);
@@ -77,22 +103,24 @@ export function SelectRecipientStep({
   }
 
   return (
-    <VStack gap="6">
-      {/* Selected Recipients Section */}
-      <SelectedRecipientsList
-        selectedRecipients={selectedRecipients}
-        onRemoveRecipient={(customer) => handleToggleRecipient(customer, false)}
-      />
+      <VStack gap="space-16" >
+
+      {/*<Box padding="space-16" background="brand-beige-soft">*/}
+        {/*    Denne boksen har background=&quot;brand-beige-soft&quot;*/}
+        {/*</Box>*/}
+
 
       {/* File Upload Button */}
-      <Box>
-        <Button
-          variant="secondary"
-          size="small"
-          onClick={() => setIsUploadModalOpen(true)}
-        >
-          Last opp fil med mottakere
-        </Button>
+      {/*<VStack gap="space-4">*/}
+        {/*<Button*/}
+        {/*  variant="secondary"*/}
+        {/*  size="small"*/}
+        {/*  onClick={() => setIsUploadModalOpen(true)}*/}
+        {/*>*/}
+        {/*  Last opp fil med mottakere*/}
+        {/*</Button>*/}
+
+
         {/*<HStack gap="space-24">*/}
         {/*  <FileUpload.Dropzone*/}
         {/*    label="Last opp studentliste"*/}
@@ -111,7 +139,7 @@ export function SelectRecipientStep({
         {/*    />*/}
         {/*  ))}*/}
         {/*</HStack>*/}
-      </Box>
+      {/*</VStack>*/}
 
       <FileUploadModal
         open={isUploadModalOpen}
@@ -119,30 +147,91 @@ export function SelectRecipientStep({
         onFileUpload={handleFileUpload}
       />
 
-      {/* Recipients Table Section */}
-      <RecipientsTable
-        personRecipients={personRecipients}
-        groupRecipients={groupRecipients}
-        selectedRecipients={selectedRecipients}
-        onToggleGroup={handleToggleGroup}
-        onToggleRecipient={handleToggleRecipient}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-      />
-      <p
-        style={{
-          margin: 0,
-          color: "var(--a-text-subtle)",
-          fontSize: "0.875rem",
-        }}
-      >
+        <SelectedRecipientsList
+            selectedRecipients={selectedRecipients}
+            onRemoveRecipient={(customer) => handleToggleRecipient(customer, false)}
+        />
+
+      {/*<Box*/}
+      {/*  padding="space-6"*/}
+      {/*  background="surface-default"*/}
+      {/*  borderRadius="large"*/}
+      {/*  borderWidth="1"*/}
+      {/*  borderColor="border-subtle"*/}
+      {/*>*/}
+        <VStack gap="space-6">
+          {/*<Box>*/}
+            <Heading size="small" level="4" spacing>
+              Tilgjengelige mottakere (
+              {recipientType === "person"
+                ? filteredCustomers.length
+                : filteredGroups.length}
+              )
+            </Heading>
+          {/*</Box>*/}
+
+          <HStack gap="space-6" align="end" wrap>
+          <RecipientTypeSelector
+            recipientType={recipientType}
+            onRecipientTypeChange={setRecipientType}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+          />
+            <Button
+              variant="secondary"
+              size="small"
+              onClick={() => setIsUploadModalOpen(true)}
+            >
+              Last opp fil med mottakere
+            </Button>
+          </HStack>
+
+          {!hasResults ? (
+            // <Box
+            //   paddingBlock="8"
+            //   paddingInline="4"
+            //   style={{ textAlign: "center" }}
+            // >
+              <Detail>
+                {searchQuery
+                  ? "Ingen resultater funnet for søket ditt"
+                  : "Ingen mottakere tilgjengelig"}
+              </Detail>
+            // </Box>
+          ) : recipientType === "person" ? (
+            <PersonRecipientsTable
+              customers={filteredCustomers}
+              selectedRecipients={selectedRecipients}
+              onToggleRecipient={handleToggleRecipient}
+            />
+          ) : (
+            <GroupRecipientsTable
+              groups={filteredGroups}
+              selectedRecipients={selectedRecipients}
+              onToggleRecipient={handleToggleRecipient}
+              onToggleGroup={handleToggleGroup}
+            />
+          )}
+        </VStack>
+      {/*</Box>*/}
+
+        {/* Selected Recipients Section */}
+
+      {/*<p*/}
+      {/*  style={{*/}
+      {/*    margin: 0,*/}
+      {/*    color: "var(--a-text-subtle)",*/}
+      {/*    fontSize: "0.875rem",*/}
+      {/*  }}*/}
+      {/*>*/}
+        <Box>
         {selectedRecipients.length > 0 && (
           <span>
             {selectedRecipients.length} mottaker
             {selectedRecipients.length !== 1 ? "e" : ""} valgt
           </span>
-        )}
-      </p>
+        )}</Box>
+      {/*</p>*/}
       {/* Action Button Section */}
       <StepNavigation
         onNext={onNext}

@@ -1,11 +1,12 @@
-import { Heading, Box, VStack } from "@navikt/ds-react";
-import { useState } from "react";
-import { SelectedRecipientsList } from "../recipients/SelectedRecipientsList";
-import { SelectedProductsList } from "./SelectedProductsList";
-import { ProductsTable } from "./ProductsTable";
-import { StepNavigation } from "../StepNavigation";
-import type { ICustomer } from "~/types/group";
-import type { ILineItem, ISelectedProduct } from "~/types/product";
+import {Heading, HStack, VStack} from "@navikt/ds-react";
+import {useState} from "react";
+import {SelectedRecipientsList} from "../recipients/SelectedRecipientsList";
+import {SelectedProductsList} from "./SelectedProductsList";
+import {ProductsTable} from "./ProductsTable";
+import {StepNavigation} from "../StepNavigation";
+import type {ICustomer} from "~/types/group";
+import type {ILineItem, ISelectedProduct} from "~/types/product";
+import {formatPrice} from "~/utils/variousFormats";
 
 interface SelectProductStepProps {
   selectedRecipients: ICustomer[];
@@ -29,6 +30,14 @@ export function SelectProductStep({
   onPrevious,
 }: SelectProductStepProps) {
   const [searchQuery, setSearchQuery] = useState("");
+
+  const total = selectedProducts.reduce((sum, product) => {
+    const price =
+      product.customPrice !== undefined
+        ? product.customPrice
+        : product.itemPrice;
+    return sum + price * product.quantity;
+  }, 0);
 
   const handleToggleProduct = (product: ILineItem, checked: boolean) => {
     if (!checked) {
@@ -75,7 +84,7 @@ export function SelectProductStep({
   };
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-24">
       {/*<Box>*/}
       {/*    <Heading size="large" level="2" spacing>*/}
       {/*        Velg produkt*/}
@@ -96,6 +105,19 @@ export function SelectProductStep({
         selectedProducts={selectedProducts}
         onRemoveProduct={handleRemoveProduct}
       />
+
+      {/*{selectedProducts.length > 0 && (*/}
+
+          <HStack justify="end" align="center" gap="space-6">
+            <Heading size="small" level="4" spacing={false}>
+              Totalt:
+            </Heading>
+            <Heading size="small" level="4" spacing={false}>
+              {formatPrice(total)}
+            </Heading>
+          </HStack>
+
+      {/*)}*/}
 
       {/* Products Table Section */}
       <ProductsTable

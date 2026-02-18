@@ -15,7 +15,7 @@ export function ClaimHistoryActions({
   const hasSelection = selectedCount > 0;
 
   return (
-    <HStack gap="2">
+    <HStack gap="space-4">
       <Button
         variant="secondary"
         size="small"

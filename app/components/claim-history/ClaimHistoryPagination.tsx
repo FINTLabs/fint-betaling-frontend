@@ -20,6 +20,7 @@ export function ClaimHistoryPagination({
   const startIndex = (page - 1) * rowsPerPage + 1;
   const endIndex = Math.min(page * rowsPerPage, totalOrders);
 
+  //TODO: check all boxes
   return (
     <Box
       style={{
@@ -29,7 +30,7 @@ export function ClaimHistoryPagination({
         width: "100%",
       }}
     >
-      <HStack gap="2" align="center">
+      <HStack gap="space-2" align="center">
         <span style={{ fontSize: "0.875rem" }}>Rows per page:</span>
         <Select
           label="Rows per page"
@@ -38,15 +39,16 @@ export function ClaimHistoryPagination({
             onRowsPerPageChange(Number(e.target.value));
             onPageChange(1);
           }}
-          style={{ width: "80px" }}
+          // style={{ width: "80px" }}
           hideLabel
+          size="small"
         >
           <option value="25">25</option>
           <option value="50">50</option>
           <option value="100">100</option>
         </Select>
       </HStack>
-      <HStack gap="2" align="center">
+      <HStack gap="space-2" align="center">
         <span style={{ fontSize: "0.875rem" }}>
           {startIndex}-{endIndex} of {totalOrders}
         </span>

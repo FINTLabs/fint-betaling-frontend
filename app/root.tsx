@@ -13,8 +13,8 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import "./app.css";
-import { Box, Page } from "@navikt/ds-react";
+// import "./app.css";
+import {Box, Page, Theme} from "@navikt/ds-react";
 import { NovariFooter, NovariHeader } from "novari-frontend-components";
 import { footerLinks, novariMenu } from "~/components/MenuConfig";
 import themeHref from "./styles/novari-theme.css?url";
@@ -78,7 +78,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+      <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -86,12 +86,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
         <title>FINT Elevfakturering</title>
       </head>
-      <body data-theme="novari">
-        {children}
-        <ScrollRestoration />
-        <Scripts />
+      <body>
+      {children}
+      <ScrollRestoration />
+      <Scripts />
       </body>
-    </html>
+      </html>
   );
 }
 
@@ -107,18 +107,21 @@ export default function App() {
   function onLogin(): void {
     throw new Error("Function not implemented.");
   }
+  const theme: "light" | "dark" = "light";
+  const color: "brand-magenta" | "brand-beige" = "brand-magenta"; // TODO: read from cookie/localStorage
 
   return (
+      <Theme theme={theme} data-color={color}>
     <Page
       footer={
-        <Box padding="1" as="footer" className={"novari-footer"}>
+        <Box padding="space-2" as="footer" className={"novari-footer"}>
           <Page.Block gutters width="2xl">
             <NovariFooter links={footerLinks} />
           </Page.Block>
         </Box>
       }
     >
-      <Box background={"bg-default"} as="nav" data-cy="novari-header">
+      <Box className={"novari-header"} as="nav" data-cy="novari-header">
         <NovariHeader
           isLoggedIn={true}
           menu={novariMenu}
@@ -139,12 +142,13 @@ export default function App() {
         </NovariHeader>
       </Box>
 
-      <Box padding="8" paddingBlock="2" as="main">
+      <Box padding="space-6" paddingBlock="space-2" as="main">
         <Page.Block gutters width="2xl">
           <Outlet context={selectedOrganization} />
         </Page.Block>
       </Box>
     </Page>
+      </Theme>
   );
 }
 
@@ -154,7 +158,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
+    // message = error.status === 404 ? "404" : "Error";
     details =
       error.status === 404
         ? "The requested page could not be found."

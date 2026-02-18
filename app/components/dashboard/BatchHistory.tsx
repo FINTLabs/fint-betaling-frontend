@@ -16,19 +16,24 @@ interface BatchHistoryProps {
 
 export function BatchHistory({ batches }: BatchHistoryProps) {
   return (
-    <Box
-      padding="6"
-      background="surface-default"
-      borderRadius="large"
-      borderWidth="1"
-      borderColor="border-subtle"
-    >
-      <VStack gap="4" align="start">
+      <VStack gap="space-4" align="start">
         <Heading size="medium" level="3" spacing>
           Batch historikk
         </Heading>
+    <Box
+        // background="var(--ax-bg-warning-moderate)"
+        borderColor="brand-magenta-subtle"
+        padding="space-16"
+        borderWidth="2"
+        borderRadius="12"
+        width="100%"
+        // style={{
+        //   border: "1px solid #6B133D",
+        // }}
+    >
+
         {batches.length === 0 ? (
-          <Box paddingBlock="4">
+          <Box paddingBlock="space-4">
             <p
               style={{
                 margin: 0,
@@ -40,7 +45,7 @@ export function BatchHistory({ batches }: BatchHistoryProps) {
             </p>
           </Box>
         ) : (
-          <Table size="small">
+          <Table size="small" zebraStripes={true}>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Batch Dato</Table.HeaderCell>
@@ -79,7 +84,8 @@ export function BatchHistory({ batches }: BatchHistoryProps) {
             </Table.Body>
           </Table>
         )}
-      </VStack>
     </Box>
+      </VStack>
+
   );
 }

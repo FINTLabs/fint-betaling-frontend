@@ -50,14 +50,14 @@ export function DashboardStats({
   ];
 
   return (
-    <HStack gap="6" wrap justify="space-around">
+    <HStack gap="space-6" wrap justify="space-between">
       {stats.map((stat) => (
         <LinkCard key={stat.title}>
           <Box
             asChild
             borderRadius="12"
             padding="space-8"
-            background="surface-default"
+            // background="surface-default"
           >
             <LinkCard.Icon>{stat.icon}</LinkCard.Icon>
           </Box>

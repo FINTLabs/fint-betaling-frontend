@@ -129,6 +129,14 @@ export default function ClaimHistory() {
   };
 
   const handleStatusFilterChange = (value: string) => {
+    if (value === "all") {
+      setSearchParams((prev) => {
+        prev.delete("status");
+        return prev;
+      });
+      console.log("searchParams: ", searchParams);
+      return;
+    }
     setSearchParams((prev) => {
       prev.set("status", value);
       return prev;
@@ -143,13 +151,13 @@ export default function ClaimHistory() {
   };
 
   return (
-    <VStack gap="6">
+    <VStack gap="space-6">
       <PageHeader
         title="Ordre historikk"
         description="Filtrer på dato, status eller skole i feltene under. Du kan også sortere ved å klikke på overskriftene."
       />
 
-      <HStack gap="4" wrap align="end">
+      <HStack gap="space-4" wrap align="end">
         <ClaimHistoryFilters
           dateFilter={periodSelection}
           statusFilter={statusSelection}

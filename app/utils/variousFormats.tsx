@@ -8,7 +8,20 @@ export const formatDate = (dateString: string): string => {
 };
 
 // Format price as currency (e.g., 649,-)
+export const formatPrice = (priceInOre: number): string => {
+  return (priceInOre / 100).toLocaleString("nb-NO", {
+    style: "currency",
+    currency: "NOK",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+};
+
 export const formatCurrency = (priceInOre: number): string => {
-  const kroner = Math.floor(priceInOre / 100);
-  return `${kroner.toLocaleString("nb-NO")},-`;
+  const kroner = priceInOre / 100;
+
+  return kroner.toLocaleString("nb-NO", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 };

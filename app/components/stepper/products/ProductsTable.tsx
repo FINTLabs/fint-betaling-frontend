@@ -1,14 +1,7 @@
-import {
-  Box,
-  Heading,
-  VStack,
-  Table,
-  Checkbox,
-  TextField,
-  HStack,
-} from "@navikt/ds-react";
-import { useMemo, useState } from "react";
-import type { ILineItem, ISelectedProduct } from "~/types/product";
+import {Box, Checkbox, Heading, HStack, Search, Table, TextField, VStack,} from "@navikt/ds-react";
+import {useMemo} from "react";
+import type {ILineItem, ISelectedProduct} from "~/types/product";
+import {formatCurrency} from "~/utils/variousFormats";
 
 interface ProductsTableProps {
   products: ILineItem[];
@@ -21,14 +14,6 @@ interface ProductsTableProps {
   onSearchChange: (query: string) => void;
 }
 
-// Format price from øre to kr
-const formatPrice = (priceInOre: number): string => {
-  const kroner = Math.floor(priceInOre / 100);
-  const ore = priceInOre % 100;
-  return `${kroner} ${ore.toString().padStart(2, "0")}`;
-};
-
-
 export function ProductsTable({
   products,
   selectedProducts,
@@ -39,7 +24,7 @@ export function ProductsTable({
   searchQuery,
   onSearchChange,
 }: ProductsTableProps) {
-  // Filter products based on search query
+
   const filteredProducts = useMemo(() => {
     if (!searchQuery) return products;
 
@@ -79,14 +64,14 @@ export function ProductsTable({
 
   // TODO: change to aksel search
   return (
-    <Box
-      padding="6"
-      background="surface-default"
-      borderRadius="large"
-      borderWidth="1"
-      borderColor="border-subtle"
-    >
-      <VStack gap="6">
+    // <Box
+    //   padding="space-6"
+    //   // background="surface-default"
+    //   borderRadius="12"
+    //   borderWidth="1"
+    //   // borderColor="border-subtle"
+    // >
+      <VStack gap="space-6">
         <Box>
           <Heading size="small" level="4" spacing>
             Tilgjengelige produkter ({filteredProducts.length})
@@ -95,24 +80,27 @@ export function ProductsTable({
 
         {/* Search Section */}
         <Box
-          padding="4"
-          background="surface-subtle"
-          borderRadius="medium"
-          borderWidth="1"
-          borderColor="border-subtle"
+          // padding="space-4"
+          // // background="surface-subtle"
+          // borderRadius="12"
+          // borderWidth="1"
+          // borderColor="brand-magenta-subtle"
         >
-          <TextField
-            label="Søk på produktnavn eller produktkode"
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Søk på produktnavn eller produktkode"
-          />
+          <Search label="Søk på produktnavn eller produktkode" variant="secondary" size="small" onChange={(value) => onSearchChange(value)}/>
+
+          {/*<TextField*/}
+          {/*    size="small"*/}
+          {/*  label="Søk på produktnavn eller produktkode"*/}
+          {/*  value={searchQuery}*/}
+          {/*  onChange={(e) => onSearchChange(e.target.value)}*/}
+          {/*  placeholder="Søk "*/}
+          {/*/>*/}
         </Box>
 
         {filteredProducts.length === 0 ? (
           <Box
-            paddingBlock="8"
-            paddingInline="4"
+            paddingBlock="space-8"
+            paddingInline="space-4"
             style={{ textAlign: "center" }}
           >
             <p
@@ -189,7 +177,7 @@ export function ProductsTable({
                         style={{ whiteSpace: "nowrap" }}
                       >
                         {isSelected ? (
-                          <HStack gap="2" align="center">
+                          <HStack gap="space-2" align="center">
                             <TextField
                               label="Kroner"
                               type="number"
@@ -239,7 +227,7 @@ export function ProductsTable({
                             />
                           </HStack>
                         ) : (
-                          formatPrice(product.itemPrice)
+                          formatCurrency(product.itemPrice)
                         )}
                       </Table.DataCell>
                       <Table.DataCell style={{ whiteSpace: "nowrap" }}>
@@ -265,7 +253,7 @@ export function ProductsTable({
                         )}
                       </Table.DataCell>
                       <Table.DataCell style={{ whiteSpace: "nowrap" }}>
-                        {formatPrice(netSum)}
+                        {formatCurrency(netSum)}
                       </Table.DataCell>
                     </Table.Row>
                   );
@@ -275,6 +263,6 @@ export function ProductsTable({
           </Box>
         )}
       </VStack>
-    </Box>
+    // </Box>
   );
 }

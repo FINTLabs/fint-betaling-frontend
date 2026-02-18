@@ -1,17 +1,10 @@
-import {
-  Box,
-  Button,
-  FormSummary,
-  Loader,
-  Modal,
-  VStack,
-} from "@navikt/ds-react";
-import { useState } from "react";
-import { StepNavigation } from "./StepNavigation";
-import type { ICustomer } from "~/types/group";
-import type { IProductData, ISelectedProduct } from "~/types/product";
-import type { IOrganisationUnit } from "~/types/user";
-import { formatCurrency } from "~/utils/variousFormats";
+import {Box, Button, FormSummary, Loader, Modal, VStack,} from "@navikt/ds-react";
+import {useState} from "react";
+import {StepNavigation} from "./StepNavigation";
+import type {ICustomer} from "~/types/group";
+import type {IProductData, ISelectedProduct} from "~/types/product";
+import type {IOrganisationUnit} from "~/types/user";
+import {formatCurrency, formatPrice} from "~/utils/variousFormats";
 
 interface SaveStepProps {
   selectedRecipients: ICustomer[];
@@ -71,7 +64,7 @@ export function SaveStep({
   // };
 
   return (
-    <VStack gap="8">
+    <VStack gap="space-8">
       <FormSummary>
         <FormSummary.Header>
           <FormSummary.Heading level="2">Lagre betaling</FormSummary.Heading>
@@ -158,7 +151,7 @@ export function SaveStep({
                     Alle beløper er uten mva.
                   </span>
                   <span style={{ fontSize: "1.25rem", fontWeight: 600 }}>
-                    {formatCurrency(totalAmount)}
+                    {formatPrice(totalAmount)}
                   </span>
                 </Box>
               </FormSummary.Value>
@@ -166,32 +159,23 @@ export function SaveStep({
           )}
         </FormSummary.Answers>
 
-        <FormSummary.Footer className="flex gap-4">
-          {onEditRecipients && (
-            <FormSummary.EditLink as="button" onClick={onEditRecipients}>
-              Endre mottakere
-            </FormSummary.EditLink>
-          )}
-          {onEditProducts && (
-            <FormSummary.EditLink as="button" onClick={onEditProducts}>
-              Endre produkter
-            </FormSummary.EditLink>
-          )}
+        <FormSummary.Footer className="flex w-full gap-4">
+          <Box style={{ width: "100%" }}>
+            <StepNavigation
+              onNext={handleSave}
+              onPrevious={onPrevious}
+              nextButtonText={isLoading ? "Lagrer..." : "Lagre betaling"}
+              previousButtonText="Tilbake til produktvalg"
+              disabled={
+                  isLoading ||
+                  selectedRecipients.length === 0 ||
+                  selectedProducts.length === 0
+              }
+            />
+          </Box>
         </FormSummary.Footer>
       </FormSummary>
 
-      {/* Action Button Section */}
-      <StepNavigation
-        onNext={handleSave}
-        onPrevious={onPrevious}
-        nextButtonText={isLoading ? "Lagrer..." : "Lagre betaling"}
-        previousButtonText="Tilbake til produktvalg"
-        disabled={
-          isLoading ||
-          selectedRecipients.length === 0 ||
-          selectedProducts.length === 0
-        }
-      />
 
       {/* TODO: Loading Overlay */}
       {isLoading && (

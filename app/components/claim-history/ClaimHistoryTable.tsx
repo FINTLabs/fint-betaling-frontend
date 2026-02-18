@@ -4,6 +4,7 @@ import React from "react";
 import type { IClaim } from "~/types/claim";
 import { ClaimStatusBadge } from "./ClaimStatusBadge";
 import { formatCurrency, formatDate } from "~/utils/variousFormats";
+import "@navikt/ds-css";
 
 interface OrderHistoryTableProps {
   claims: IClaim[];
@@ -47,13 +48,13 @@ export function ClaimHistoryTable({
   }, [claims]);
 
   return (
-    <Box
-      padding="6"
-      background="surface-default"
-      borderRadius="large"
-      borderWidth="1"
-      borderColor="border-subtle"
-    >
+      <Box
+          borderColor="brand-magenta-subtle"
+          padding="space-16"
+          borderWidth="2"
+          borderRadius="12"
+          width="100%"
+      >
       <Table>
         <Table.Header>
           <Table.Row>
@@ -171,7 +172,9 @@ export function ClaimHistoryTable({
                           statusMessage={order.statusMessage}
                         />
                       </Table.DataCell>
-                      <Table.DataCell>{order.customerName}</Table.DataCell>
+                      <Table.DataCell>
+                        {order.customerName}
+                      </Table.DataCell>
                       <Table.DataCell>
                         {order.organisationUnit.name}
                       </Table.DataCell>

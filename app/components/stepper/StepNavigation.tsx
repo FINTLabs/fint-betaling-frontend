@@ -16,8 +16,8 @@ export function StepNavigation({
   disabled,
 }: StepNavigationProps) {
   return (
-    <Box paddingBlock={"4"}>
-      <HStack gap="4" justify="space-between" align="center">
+    <Box paddingBlock="space-4">
+      <HStack gap="space-4" justify="space-between" align="center">
         <Box>
           {onPrevious && (
             <Button variant="secondary" size={"small"} onClick={onPrevious}>
