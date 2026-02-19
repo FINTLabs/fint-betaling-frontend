@@ -15,7 +15,6 @@ class ClaimApi {
   ): Promise<ApiResponse<IClaim[]>> {
     const functionName = "getClaims";
 
-    // Build endpoint with optional query parameters
     const params = new URLSearchParams();
 
     if (status) {

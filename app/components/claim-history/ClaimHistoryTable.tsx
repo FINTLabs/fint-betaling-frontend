@@ -25,7 +25,6 @@ export function ClaimHistoryTable({
   someSelected,
   emptyMessage = "Ingen ordrer tilgjengelig",
 }: OrderHistoryTableProps) {
-  // Group orders by created date (batches)
   const groupedOrders = useMemo(() => {
     const groups: Array<{ date: string; orders: IClaim[] }> = [];
     const dateMap = new Map<string, IClaim[]>();

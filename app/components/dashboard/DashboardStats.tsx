@@ -1,10 +1,6 @@
-import { Box, HStack, LinkCard } from "@navikt/ds-react";
-import {
-  ClockIcon,
-  ExclamationmarkTriangleIcon,
-  FileIcon,
-} from "@navikt/aksel-icons";
-import type { ReactNode } from "react";
+import {Detail, Heading, HGrid, HStack, InfoCard,} from "@navikt/ds-react";
+import {ClockIcon, ExclamationmarkTriangleIcon, FileIcon,} from "@navikt/aksel-icons";
+import type {ReactNode} from "react";
 
 interface StatConfig {
   icon: ReactNode;
@@ -50,45 +46,34 @@ export function DashboardStats({
   ];
 
   return (
-    <HStack gap="space-6" wrap justify="space-between">
+    <HGrid gap="space-128" columns={3}>
       {stats.map((stat) => (
-        <LinkCard key={stat.title}>
-          <Box
-            asChild
-            borderRadius="12"
-            padding="space-8"
-            // background="surface-default"
-          >
-            <LinkCard.Icon>{stat.icon}</LinkCard.Icon>
-          </Box>
-          <LinkCard.Title as="span">
-            <LinkCard.Anchor href={stat.href}>{stat.title}</LinkCard.Anchor>
-          </LinkCard.Title>
-          <LinkCard.Description>
-            <span
-              style={{
-                fontSize: "2rem",
-                fontWeight: 700,
-                color: "#222",
-                display: "block",
-                marginTop: "0.5rem",
-              }}
-            >
+        // <LinkCard key={stat.title}>
+        //   <LinkCard.Icon>{stat.icon}</LinkCard.Icon>
+        //   <LinkCard.Title as="span">
+        //     <LinkCard.Anchor href={stat.href}>{stat.title}</LinkCard.Anchor>
+        //   </LinkCard.Title>
+        //   <LinkCard.Description>
+        //     <Heading size="large" level="3" spacing align="center">
+        //       {stat.value}
+        //     </Heading>
+        //     <Detail>{stat.description}</Detail>
+        //   </LinkCard.Description>
+        // </LinkCard>
+        <InfoCard data-color="brand-magenta">
+          <InfoCard.Header icon={stat.icon}>
+            <InfoCard.Title>{stat.title}</InfoCard.Title>
+          </InfoCard.Header>
+
+          <InfoCard.Content>
+            <Heading size="large" level="3" spacing align="center">
               {stat.value}
-            </span>
-            <span
-              style={{
-                fontSize: "0.875rem",
-                color: "#666",
-                display: "block",
-                marginTop: "0.25rem",
-              }}
-            >
-              {stat.description}
-            </span>
-          </LinkCard.Description>
-        </LinkCard>
+            </Heading>
+            <Detail>{stat.description}</Detail>
+            <HStack justify="end" align="center"></HStack>
+          </InfoCard.Content>
+        </InfoCard>
       ))}
-    </HStack>
+    </HGrid>
   );
 }

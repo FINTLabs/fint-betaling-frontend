@@ -21,7 +21,6 @@ export function ClaimHistoryFilters({
   onStatusFilterChange,
   onSchoolSelectionChange,
 }: OrderHistoryFiltersProps) {
-  // Parse comma-separated status string to array, or empty array if "all" or empty
   const selectedStatuses = useMemo(() => {
     if (!statusFilter || statusFilter === "all" || statusFilter === "ALL") {
       return [];

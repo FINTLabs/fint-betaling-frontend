@@ -2,7 +2,6 @@ import { NovariApiManager, type ApiResponse } from "novari-frontend-components";
 import type { IClassGroup } from "~/types/group";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
-// const API_URL = "http://localhost:8080";
 const logManager = new NovariApiManager({
   baseUrl: API_URL,
 });
