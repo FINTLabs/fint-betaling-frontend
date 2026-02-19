@@ -30,7 +30,6 @@ import { getContentSecurityPolicy } from "~/utils/csp";
 
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: akselHref, as: "style" }, // Aksel first
-  // Tailwind is imported in app.css, so no need to preload separately
   { rel: "stylesheet", href: themeHref, as: "style" }, // novari-theme.css
 ];
 
@@ -108,10 +107,9 @@ export default function App() {
     throw new Error("Function not implemented.");
   }
   const theme: "light" | "dark" = "light";
-  const color: "brand-magenta" | "brand-beige" = "brand-magenta"; // TODO: read from cookie/localStorage
 
   return (
-      <Theme theme={theme} data-color={color}>
+      <Theme theme={theme} data-color={"brand-magenta"}>
     <Page
       footer={
         <Box padding="space-2" as="footer" className={"novari-footer"}>

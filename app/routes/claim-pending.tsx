@@ -110,22 +110,14 @@ export default function ClaimPending() {
 
   return (
     <VStack gap="space-20">
-      {/*{actionData && (*/}
-      {/*  <NovariSnackbar*/}
-      {/*    items={[actionData]}*/}
-      {/*    position={"top-right"}*/}
-      {/*    // onCloseItem={handleCloseItem}*/}
-      {/*  />*/}
-      {/*)}*/}
       <NovariSnackbar
         items={alertState}
         position={"top-right"}
-        // onCloseItem={handleCloseItem}
       />
       <PageHeader
         title="Ordre som ikke er sendt til fakturering"
         description={
-          "Søk på ordrenummer i feltet under. Oversikten viser kun ordrer du har opprettet"
+          "Søk på ordrenummer i feltet under. Oversikten viser kun ordrer du har opprettet."
         }
       />
 

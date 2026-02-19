@@ -1,4 +1,4 @@
-import { Select } from "@navikt/ds-react";
+import {Box, Select} from "@navikt/ds-react";
 import type { IOrganisationUnit } from "~/types/user";
 import type { ChangeEvent } from "react";
 import { useSubmit } from "react-router";
@@ -30,6 +30,7 @@ export function OrganisationUnitSelect({
   };
 
   return (
+      <Box margin={"space-6"}>
     <Select
       label={"Velg organisasjonsenhet"}
       value={value?.organisationNumber || ""}
@@ -45,5 +46,6 @@ export function OrganisationUnitSelect({
         </option>
       ))}
     </Select>
+        </Box>
   );
 }

@@ -1,54 +1,51 @@
-.light {
-    /*--ac-bg-default: #FEFCFA;*/
-    /*--ac-bg-subtle: #FCF5ED;*/
+/*.light {*/
+/*    !* NOVARI Footer and header *!*/
+/*    .novari-header {*/
+/*        background: #FCF5ED; color: #6B133D;*/
+/*    }*/
 
-    /*--ac-surface-action: var(--ac-surface-alt-3-strong);*/
-    /*--ac-surface-action-hover: #5149CA;*/
-    /*--ac-surface-action-active: var(--ac-surface-alt-3-strong);*/
-    /*--ac-surface-action-selected: var(--ac-surface-alt-3-strong);*/
-    /*--ac-surface-action-subtle-hover: var(--ac-surface-alt-3-subtle);*/
-    /*--ac-surface-action-selected-hover: #5149CA;*/
-    /*--ac-surface-default: var(--ac-bg-default);*/
-    /*--ac-surface-hover: #E5E4FA;*/
+/*    .novari-footer {*/
+/*        background: #6B133D;*/
+/*    }*/
+/*    !* theme.css *!*/
+/*    .rounded-box {*/
+/*        border: 2px solid var(--ax-border-brand-magenta-subtle);*/
+/*        border-radius: 12px;*/
+/*        padding: var(--ax-space-16);*/
+/*        height: 20rem;*/
+/*        overflow: auto;*/
+/*    }*/
+/*    .border-box {*/
+/*        border-top: 2px solid var(--ax-border-brand-magenta-subtle);*/
+/*        !*border-radius: 12px;*!*/
+/*        padding: var(--ax-space-16);*/
+/*        height: 20rem;*/
+/*        overflow: auto;*/
+/*    }*/
 
-    /*--ac-text-action-selected: var(--ac-surface-alt-3-strong);*/
-    /*--ac-text-on-action: #ffffff;*/
-    /*--ac-text-action: var(--ac-surface-alt-3-strong);*/
-    /*--ac-text-action-hover: var(--ac-surface-alt-3-strong);*/
-    /*--ac-text-action-on-action-subtle: var(--ac-surface-alt-3-strong);*/
+/*}*/
+/* Default (light) */
+:root {
+    --novari-chrome-bg: #FCF5ED;   /* header */
+    --novari-chrome-fg: #6B133D;
+    --novari-footer-bg: #6B133D;
+    --novari-footer-fg: #FFFFFF;
+}
 
-    /*--ac-border-action: var(--ac-surface-alt-3-strong);*/
-    /*--ac-border-action-hover: var(--ac-surface-alt-3-strong);*/
-    /*--ac-border-action-selected: var(--ac-surface-alt-3-strong);*/
-    /*--ac-border-focus: var(--ac-surface-alt-3-strong);*/
+/* When Aksel Theme is dark */
+[data-theme="dark"] {
+    --novari-chrome-bg: #1E1E1E;   /* or a darker warm-ish surface */
+    --novari-chrome-fg: #F3E7EC;   /* light text with slight warmth */
+    --novari-footer-bg: #4E0F2B;   /* deep burgundy */
+    --novari-footer-fg: #FFFFFF;
+}
 
-    /*--ac-surface-alt-3-strong: #5A51E1;*/
-    /*--ac-surface-alt-3-subtle: #E5E4FA;*/
-    /*--ac-surface-alt-3-moderate: #6B133D;*/
+.novari-header {
+    background: var(--novari-chrome-bg);
+    color: var(--novari-chrome-fg);
+}
 
-
-    /* NOVARI Footer and header */
-    .novari-header {
-        background: #FCF5ED; color: #6B133D;
-    }
-
-    .novari-footer {
-        background: #6B133D;
-    }
-    /* theme.css */
-    .rounded-box {
-        border: 2px solid var(--ax-border-brand-magenta-subtle);
-        border-radius: 12px;
-        padding: var(--ax-space-16);
-        height: 20rem;
-        overflow: auto;
-    }
-    .border-box {
-        border-top: 2px solid var(--ax-border-brand-magenta-subtle);
-        /*border-radius: 12px;*/
-        padding: var(--ax-space-16);
-        height: 20rem;
-        overflow: auto;
-    }
-
+.novari-footer {
+    background: var(--novari-footer-bg);
+    color: var(--novari-footer-fg);
 }
