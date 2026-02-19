@@ -54,8 +54,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     (updateErrorCount.success ? updateErrorCount.data || 0 : 0) +
     (errorCount.success ? errorCount.data || 0 : 0);
 
-  // TODO: For total orders, you might want to fetch all statuses or use a different endpoint
-  // For now, we'll sum the counts we have (you may need to add more statuses)
   const totalOrders = pendingOrders + errorOrders;
 
   // Process orders into batches by date
