@@ -1,4 +1,4 @@
-import {Stepper, VStack} from "@navikt/ds-react";
+import {Box, Stepper, VStack} from "@navikt/ds-react";
 import React, {useEffect, useRef, useState} from "react";
 import {type ActionFunction, type LoaderFunctionArgs, redirect, useFetcher, useLoaderData,} from "react-router";
 import {SelectRecipientStep} from "~/components/stepper/recipients/SelectRecipientStep";
@@ -145,6 +145,7 @@ export default function ClaimNew() {
           // onCloseItem={handleCloseItem}
       />
 
+      <Box padding={"space-16"}>
 
         <Stepper
           activeStep={activeStep}
@@ -169,7 +170,7 @@ export default function ClaimNew() {
             Lagre
           </Stepper.Step>
         </Stepper>
-
+      </Box>
 
       {activeStep === 1 && (
         <SelectRecipientStep
