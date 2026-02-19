@@ -17,6 +17,7 @@ spec:
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
   url:
     hostname: betaling-demo.felleskomponent.no
+    basePath: /api
   ingress:
     enabled: true
   resources:
