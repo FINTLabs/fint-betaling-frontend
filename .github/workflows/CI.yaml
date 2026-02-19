@@ -28,13 +28,13 @@ jobs:
             ${{ runner.OS }}-node-
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm install
 
       #      - name: Run tests
       #        run: yarn test
 
       - name: Build project
-        run: yarn build
+        run: npm build
 
       - name: Trigger CD
         if: github.ref == 'refs/heads/main'
