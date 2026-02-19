@@ -26,7 +26,7 @@ import { selectOrgCookie } from "~/utils/cookie";
 import type { IOrganisationUnit, IUser } from "~/types/user";
 import { CustomErrorLayout } from "~/components/CustomErrorLayout";
 import CustomError from "~/components/CustomError";
-import { getContentSecurityPolicy } from "~/utils/csp";
+// import { getContentSecurityPolicy } from "~/utils/csp";
 
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: akselHref, as: "style" }, // Aksel first
@@ -50,7 +50,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   HeaderProperties.setSchoolOrgId(selectedOrganization.organisationNumber);
   console.log("using school id: ", HeaderProperties.getSchoolOrgId());
 
-  const cspHeader = getContentSecurityPolicy();
+  // const cspHeader = getContentSecurityPolicy();
 
   if (!cookieValue) {
     const newCookieHeader = await selectOrgCookie.serialize(
@@ -61,7 +61,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       {
         headers: {
           "Set-Cookie": newCookieHeader,
-          "Content-Security-Policy": cspHeader,
+          // "Content-Security-Policy": cspHeader,
         },
       },
     );
@@ -70,7 +70,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return new Response(JSON.stringify({ user, selectedOrganization }), {
     headers: {
       "Content-Type": "application/json",
-      "Content-Security-Policy": cspHeader,
+      // "Content-Security-Policy": cspHeader,
     },
   });
 };
@@ -190,7 +190,7 @@ export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const actionType = formData.get("actionType") as string;
 
-  const cspHeader = getContentSecurityPolicy();
+  // const cspHeader = getContentSecurityPolicy();
 
   if (actionType === "UPDATE_SELECTED_ORGANIZATION") {
     const selectedOrganization = formData.get("selectedOrganization") as string;
@@ -202,7 +202,7 @@ export async function action({ request }: ActionFunctionArgs) {
       {
         headers: {
           "Set-Cookie": newCookieHeader,
-          "Content-Security-Policy": cspHeader,
+          // "Content-Security-Policy": cspHeader,
         },
       },
     );
@@ -211,7 +211,7 @@ export async function action({ request }: ActionFunctionArgs) {
   return new Response(JSON.stringify({ ok: true }), {
     headers: {
       "Content-Type": "application/json",
-      "Content-Security-Policy": cspHeader,
+      // "Content-Security-Policy": cspHeader,
     },
   });
 }
