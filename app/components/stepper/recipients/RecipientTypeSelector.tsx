@@ -1,4 +1,4 @@
-import {Box, HStack, Radio, RadioGroup, Search} from "@navikt/ds-react";
+import {Box, HStack, Radio, RadioGroup, Search, Stack, VStack} from "@navikt/ds-react";
 
 export type RecipientType = "gruppe" | "person";
 
@@ -23,40 +23,47 @@ export function RecipientTypeSelector({
     //   borderColor="border-subtle"
     // >
       <>
+          <Box style={{ flex: "1 1 auto", minWidth: "250px" }}>
+
+              <Search
+                  label={
+                      recipientType === "gruppe"
+                          ? "Søk på gruppenavn"
+                          : "Søk på navn"
+                  }
+                  size="small"
+                  value={searchQuery}
+                  onChange={onSearchChange}
+                  placeholder={
+                      recipientType === "gruppe"
+                          ? "Søk på gruppenavn"
+                          : "Søk på etternavn, fornavn mellomnavn"
+                  }
+                  hideLabel={false}
+              />
+
+          </Box>
         <Box style={{ minWidth: "200px", flex: "0 0 auto" }}>
           <RadioGroup
             legend="Mottakertype"
             value={recipientType}
             onChange={(value) => onRecipientTypeChange(value as RecipientType)}
             size="small"
+            hideLegend
           >
-            <HStack gap="space-24">
+              <Stack
+                  gap="space-0 space-24"
+                  direction={{ xs: "column", sm: "row" }}
+                  wrap={false}
+              >
               <Radio value="gruppe">Gruppe</Radio>
               <Radio value="person">Person</Radio>
-            </HStack>
+            </Stack>
           </RadioGroup>
-        </Box>
-
-        <Box style={{ flex: "1 1 auto", minWidth: "250px" }}>
-
-            <Search
-                label={
-                    recipientType === "gruppe"
-                        ? "Søk på gruppenavn"
-                        : "Søk på navn"
-                }
-                size="small"
-                value={searchQuery}
-                onChange={onSearchChange}
-                placeholder={
-                    recipientType === "gruppe"
-                        ? "Søk på gruppenavn"
-                        : "Søk på etternavn, fornavn mellomnavn"
-                }
-                hideLabel={false}
-            />
 
         </Box>
+
+
       </>
     // </Box>
   );

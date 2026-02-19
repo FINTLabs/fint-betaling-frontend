@@ -1,6 +1,7 @@
 import {Box, Detail, Heading, HStack, VStack} from "@navikt/ds-react";
-import React, {useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {ProductsTable} from "./ProductsTable";
+import {SelectAndPaging} from "~/components/SelectAndPaging";
 import {StepNavigation} from "../StepNavigation";
 import type {ICustomer} from "~/types/group";
 import type {ILineItem, ISelectedProduct} from "~/types/product";
@@ -30,6 +31,28 @@ export function SelectProductStep({
   onPrevious,
 }: SelectProductStepProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
+
+  const filteredProducts = useMemo(() => {
+    if (!searchQuery) return products;
+    const query = searchQuery.toLowerCase();
+    return products.filter(
+      (product) =>
+        product.description.toLowerCase().includes(query) ||
+        product.itemCode.toLowerCase().includes(query),
+    );
+  }, [products, searchQuery]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / rowsPerPage));
+  const paginatedProducts = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    return filteredProducts.slice(start, start + rowsPerPage);
+  }, [filteredProducts, page, rowsPerPage]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery]);
 
   const total = selectedProducts.reduce((sum, product) => {
     const price =
@@ -156,8 +179,10 @@ export function SelectProductStep({
       {/*)}*/}
 
       {/* Products Table Section */}
+
       <ProductsTable
-        products={products}
+        products={paginatedProducts}
+        totalCount={filteredProducts.length}
         selectedProducts={selectedProducts}
         onToggleProduct={handleToggleProduct}
         onQuantityChange={handleQuantityChange}
@@ -166,6 +191,17 @@ export function SelectProductStep({
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
       />
+
+      {filteredProducts.length > 25 && (
+          <SelectAndPaging
+              page={page}
+              totalPages={totalPages}
+              rowsPerPage={rowsPerPage}
+              totalOrders={filteredProducts.length}
+              onPageChange={setPage}
+              onRowsPerPageChange={setRowsPerPage}
+          />
+      )}
 
       <StepNavigation
         onNext={onNext}

@@ -1,16 +1,16 @@
-import {HStack, Spacer, VStack} from "@navikt/ds-react";
+import {HStack, Pagination, Spacer, VStack} from "@navikt/ds-react";
 import React, {useMemo, useState} from "react";
 import type {IClaim} from "~/types/claim";
 import {PageHeader} from "~/components/PageHeader";
 import {ClaimHistoryFilters} from "~/components/claim-history/ClaimHistoryFilters";
 import {ClaimHistoryActions} from "~/components/claim-history/ClaimHistoryActions";
 import {ClaimHistoryTable} from "~/components/claim-history/ClaimHistoryTable";
-import {ClaimHistoryPagination} from "~/components/claim-history/ClaimHistoryPagination";
 import {type ActionFunction, type LoaderFunctionArgs, useFetcher, useLoaderData, useSearchParams,} from "react-router";
 import {selectOrgCookie} from "~/utils/cookie";
 import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
 import type {IUser} from "~/types/user";
+import {SelectAndPaging} from "~/components/SelectAndPaging";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
@@ -66,7 +66,7 @@ export default function ClaimHistory() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(50);
 
-  // Pagination
+  // SelectAndPaging
   const totalPages = Math.ceil(claimHistory.length / rowsPerPage);
   const paginatedOrders = useMemo(() => {
     const startIndex = (page - 1) * rowsPerPage;
@@ -187,7 +187,7 @@ export default function ClaimHistory() {
       />
 
       {claimHistory.length > 0 && (
-        <ClaimHistoryPagination
+        <SelectAndPaging
           page={page}
           totalPages={totalPages}
           rowsPerPage={rowsPerPage}

@@ -16,7 +16,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
   const selectedOrg = await selectOrgCookie.parse(cookieHeader);
 
-  // TODO: Change to this year after testing?
+  // TODO: Change to this this year after testing?
   const [
     storedCount,
     sendErrorCount,
@@ -54,7 +54,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     (updateErrorCount.success ? updateErrorCount.data || 0 : 0) +
     (errorCount.success ? errorCount.data || 0 : 0);
 
-  // For total orders, you might want to fetch all statuses or use a different endpoint
+  // TODO: For total orders, you might want to fetch all statuses or use a different endpoint
   // For now, we'll sum the counts we have (you may need to add more statuses)
   const totalOrders = pendingOrders + errorOrders;
 
@@ -122,8 +122,6 @@ function processOrdersIntoBatches(orders: IClaim[]) {
     .sort((a, b) => b.date.localeCompare(a.date)) // Sort by date descending (newest first)
     .slice(0, 14);
 }
-
-//TODO: add toaster from novari components
 
 export default function Home() {
   const selectedOrg = useOutletContext<IOrganisationUnit>();

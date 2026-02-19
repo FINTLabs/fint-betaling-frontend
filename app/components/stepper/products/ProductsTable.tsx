@@ -1,10 +1,10 @@
 import {Box, Checkbox, Heading, HStack, Search, Table, TextField, VStack,} from "@navikt/ds-react";
-import {useMemo} from "react";
 import type {ILineItem, ISelectedProduct} from "~/types/product";
 import {formatCurrency} from "~/utils/variousFormats";
 
 interface ProductsTableProps {
   products: ILineItem[];
+  totalCount?: number;
   selectedProducts: ISelectedProduct[];
   onToggleProduct: (product: ILineItem, checked: boolean) => void;
   onQuantityChange: (product: ILineItem, quantity: number) => void;
@@ -16,6 +16,7 @@ interface ProductsTableProps {
 
 export function ProductsTable({
   products,
+  totalCount = products.length,
   selectedProducts,
   onToggleProduct,
   onQuantityChange,
@@ -24,18 +25,6 @@ export function ProductsTable({
   searchQuery,
   onSearchChange,
 }: ProductsTableProps) {
-
-  const filteredProducts = useMemo(() => {
-    if (!searchQuery) return products;
-
-    const query = searchQuery.toLowerCase();
-    return products.filter(
-      (product) =>
-        product.description.toLowerCase().includes(query) ||
-        product.itemCode.toLowerCase().includes(query),
-    );
-  }, [products, searchQuery]);
-
   const getSelectedProduct = (
     itemCode: string,
   ): ISelectedProduct | undefined => {
@@ -74,7 +63,7 @@ export function ProductsTable({
       <VStack gap="space-6">
         <Box>
           <Heading size="small" level="4" spacing>
-            Tilgjengelige produkter ({filteredProducts.length})
+            Tilgjengelige produkter ({totalCount})
           </Heading>
         </Box>
 
@@ -97,7 +86,7 @@ export function ProductsTable({
           {/*/>*/}
         </Box>
 
-        {filteredProducts.length === 0 ? (
+        {products.length === 0 ? (
           <Box
             paddingBlock="space-8"
             paddingInline="space-4"
@@ -117,7 +106,7 @@ export function ProductsTable({
           </Box>
         ) : (
           <Box>
-            <Table size="medium" zebraStripes={true}>
+            <Table size="small" zebraStripes={true}>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>Velg</Table.HeaderCell>
@@ -127,11 +116,11 @@ export function ProductsTable({
                   <Table.HeaderCell>Mva</Table.HeaderCell>
                   <Table.HeaderCell>Netto pris pr. enhet</Table.HeaderCell>
                   <Table.HeaderCell>Antall</Table.HeaderCell>
-                  <Table.HeaderCell>Netto sum</Table.HeaderCell>
+                  <Table.HeaderCell style={{ width: "120px" }}>Netto sum</Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {filteredProducts.map((product) => {
+                {products.map((product) => {
                   const isSelected = selectedProducts.some(
                     (p) => p.itemCode === product.itemCode,
                   );

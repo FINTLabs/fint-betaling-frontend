@@ -1,6 +1,6 @@
-import { Box, Select, HStack, Pagination } from "@navikt/ds-react";
+import {Box, Select, HStack, Pagination, Detail} from "@navikt/ds-react";
 
-interface OrderHistoryPaginationProps {
+interface SelectAndPagingProps {
   page: number;
   totalPages: number;
   rowsPerPage: number;
@@ -9,29 +9,21 @@ interface OrderHistoryPaginationProps {
   onRowsPerPageChange: (rowsPerPage: number) => void;
 }
 
-export function ClaimHistoryPagination({
+export function SelectAndPaging({
   page,
   totalPages,
   rowsPerPage,
   totalOrders,
   onPageChange,
   onRowsPerPageChange,
-}: OrderHistoryPaginationProps) {
+}: SelectAndPagingProps) {
   const startIndex = (page - 1) * rowsPerPage + 1;
   const endIndex = Math.min(page * rowsPerPage, totalOrders);
 
-  //TODO: check all boxes
   return (
-    <Box
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        width: "100%",
-      }}
-    >
+    <HStack gap="space-4" justify="space-between" align="center">
       <HStack gap="space-2" align="center">
-        <span style={{ fontSize: "0.875rem" }}>Rows per page:</span>
+        <Detail style={{ fontSize: "0.875rem" }}>Rows per page:</Detail>
         <Select
           label="Rows per page"
           value={rowsPerPage.toString()}
@@ -48,17 +40,17 @@ export function ClaimHistoryPagination({
           <option value="100">100</option>
         </Select>
       </HStack>
-      <HStack gap="space-2" align="center">
-        <span style={{ fontSize: "0.875rem" }}>
-          {startIndex}-{endIndex} of {totalOrders}
-        </span>
-        <Pagination
+      <Pagination
           page={page}
           onPageChange={onPageChange}
           count={totalPages}
           size="small"
-        />
-      </HStack>
-    </Box>
+      />
+        <span style={{ fontSize: "0.875rem" }}>
+          {startIndex}-{endIndex} of {totalOrders}
+        </span>
+
+
+    </HStack>
   );
 }

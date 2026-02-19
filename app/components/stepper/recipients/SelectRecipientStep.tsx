@@ -1,13 +1,17 @@
-import {Box, Detail, Heading, HStack, VStack} from "@navikt/ds-react";
-import React, {useMemo, useState} from "react";
-import {type RecipientType, RecipientTypeSelector,} from "./RecipientTypeSelector";
-import {GroupRecipientsTable} from "./GroupRecipientsTable";
-import {PersonRecipientsTable} from "./PersonRecipientsTable";
-import {StepNavigation} from "../StepNavigation";
-import {FileUploadModal} from "./FileUploadModal";
-import type {IClassGroup, ICustomer} from "~/types/group";
+import { Box, Detail, Heading, HStack, VStack } from "@navikt/ds-react";
+import React, { useEffect, useMemo, useState } from "react";
+import {
+  type RecipientType,
+  RecipientTypeSelector,
+} from "./RecipientTypeSelector";
+import { GroupRecipientsTable } from "./GroupRecipientsTable";
+import { PersonRecipientsTable } from "./PersonRecipientsTable";
+import { StepNavigation } from "../StepNavigation";
+import { FileUploadModal } from "./FileUploadModal";
+import type { IClassGroup, ICustomer } from "~/types/group";
 import FileApi from "~/api/FileApi";
 import SelectedRecipientsModal from "~/components/stepper/recipients/SelectedRecipientsModal";
+import { SelectAndPaging } from "~/components/SelectAndPaging";
 
 interface SelectRecipientStepProps {
   groupRecipients: IClassGroup[];
@@ -31,6 +35,8 @@ export function SelectRecipientStep({
   const [searchQuery, setSearchQuery] = useState("");
   const [recipientType, setRecipientType] = useState<RecipientType>("gruppe");
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
 
   const filteredGroups = useMemo(() => {
     if (!searchQuery) return groupRecipients;
@@ -54,6 +60,24 @@ export function SelectRecipientStep({
     recipientType === "person"
       ? filteredCustomers.length > 0
       : filteredGroups.length > 0;
+
+  const currentTotal =
+    recipientType === "person"
+      ? filteredCustomers.length
+      : filteredGroups.length;
+  const totalPages = Math.max(1, Math.ceil(currentTotal / rowsPerPage));
+  const paginatedGroups = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    return filteredGroups.slice(start, start + rowsPerPage);
+  }, [filteredGroups, page, rowsPerPage]);
+  const paginatedCustomers = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    return filteredCustomers.slice(start, start + rowsPerPage);
+  }, [filteredCustomers, page, rowsPerPage]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchQuery, recipientType]);
 
   const handleFileUpload = (file: File) => {
     console.log("File selected:", file.name);
@@ -98,13 +122,12 @@ export function SelectRecipientStep({
     }
   }
 
-
   return (
     <VStack gap="space-16">
       <FileUploadModal
-          open={isUploadModalOpen}
-          onClose={() => setIsUploadModalOpen(false)}
-          onFileUpload={handleFileUpload}
+        open={isUploadModalOpen}
+        onClose={() => setIsUploadModalOpen(false)}
+        onFileUpload={handleFileUpload}
       />
 
       <Box
@@ -126,10 +149,9 @@ export function SelectRecipientStep({
             </Detail>
           </VStack>
           <SelectedRecipientsModal
-              selectedRecipients={selectedRecipients}
-              showRemoveButton={false}
+            selectedRecipients={selectedRecipients}
+            showRemoveButton={false}
           />
-
         </HStack>
       </Box>
 
@@ -161,30 +183,42 @@ export function SelectRecipientStep({
           {/*</Button>*/}
         </HStack>
 
-
         {!hasResults ? (
           <Detail>
             {searchQuery
               ? "Ingen resultater funnet for søket ditt"
               : "Ingen mottakere tilgjengelig"}
           </Detail>
-        ) :
-        recipientType === "person" ? (
-          <PersonRecipientsTable
-            customers={filteredCustomers}
-            selectedRecipients={selectedRecipients}
-            onToggleRecipient={handleToggleRecipient}
-          />
         ) : (
-          <GroupRecipientsTable
-            groups={filteredGroups}
-            selectedRecipients={selectedRecipients}
-            onToggleRecipient={handleToggleRecipient}
-            onToggleGroup={handleToggleGroup}
-          />
+          <>
+            {recipientType === "person" ? (
+              <PersonRecipientsTable
+                customers={paginatedCustomers}
+                selectedRecipients={selectedRecipients}
+                onToggleRecipient={handleToggleRecipient}
+              />
+            ) : (
+              <GroupRecipientsTable
+                groups={paginatedGroups}
+                selectedRecipients={selectedRecipients}
+                onToggleRecipient={handleToggleRecipient}
+                onToggleGroup={handleToggleGroup}
+              />
+            )}
+          </>
         )}
       </VStack>
 
+      {currentTotal && currentTotal > 25 && (
+        <SelectAndPaging
+          page={page}
+          totalPages={totalPages}
+          rowsPerPage={rowsPerPage}
+          totalOrders={currentTotal}
+          onPageChange={setPage}
+          onRowsPerPageChange={setRowsPerPage}
+        />
+      )}
       <StepNavigation
         onNext={onNext}
         nextButtonText="Videre til produktvalg"
