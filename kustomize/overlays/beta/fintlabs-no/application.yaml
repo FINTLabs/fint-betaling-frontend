@@ -14,7 +14,7 @@ spec:
   env:
     - name: VITE_API_URL
       value: https://betaling-demo.felleskomponent.no
-  port: 3000
+  port: 8000
   imagePullPolicy: Always
   orgId: fintlabs.no
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
