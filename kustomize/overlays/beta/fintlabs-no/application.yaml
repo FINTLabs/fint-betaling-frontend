@@ -11,6 +11,9 @@ metadata:
     fintlabs.no/team: core
     fintlabs.no/org-id: fintlabs.no
 spec:
+  env:
+    - name: VITE_API_URL
+      value: https://betaling-demo.felleskomponent.no
   port: 3000
   imagePullPolicy: Always
   orgId: fintlabs.no
