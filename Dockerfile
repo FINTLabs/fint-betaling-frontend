@@ -19,4 +19,6 @@ COPY ./package.json package-lock.json /app/
 COPY --from=production-dependencies-env /app/node_modules /app/node_modules
 COPY --from=build-env /app/build /app/build
 WORKDIR /app
+ENV PORT=8000
+EXPOSE 8000
 CMD ["npm", "run", "start"]

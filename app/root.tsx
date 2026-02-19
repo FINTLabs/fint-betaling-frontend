@@ -67,12 +67,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     );
   }
 
-  return new Response(JSON.stringify({ user, selectedOrganization }), {
-    headers: {
-      "Content-Type": "application/json",
-      // "Content-Security-Policy": cspHeader,
-    },
-  });
+  return {
+    user,
+    selectedOrganization,
+  };
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
