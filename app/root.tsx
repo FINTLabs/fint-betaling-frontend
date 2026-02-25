@@ -1,4 +1,6 @@
 import {
+  type ActionFunctionArgs,
+  data,
   isRouteErrorResponse,
   Links,
   type LoaderFunctionArgs,
@@ -8,26 +10,24 @@ import {
   ScrollRestoration,
   useLoaderData,
   useNavigate,
-  data,
-  type ActionFunctionArgs,
 } from "react-router";
 
-import type { Route } from "./+types/root";
+import type {Route} from "./+types/root";
 // import "./app.css";
 import {Box, Page, Theme} from "@navikt/ds-react";
-import { NovariFooter, NovariHeader } from "novari-frontend-components";
-import { footerLinks, novariMenu } from "~/components/MenuConfig";
+import {NovariFooter, NovariHeader} from "novari-frontend-components";
+import {footerLinks, novariMenu} from "~/components/MenuConfig";
 import themeHref from "./styles/novari-theme.css?url";
 import akselHref from "@navikt/ds-css?url";
 import MeApi from "~/api/MeApi";
-import { OrganisationUnitSelect } from "~/components/OrganisationUnitSelect";
-import { HeaderProperties } from "~/utils/headerProperties";
-import { selectOrgCookie } from "~/utils/cookie";
-import type { IOrganisationUnit, IUser } from "~/types/user";
-import { CustomErrorLayout } from "~/components/CustomErrorLayout";
+import {OrganisationUnitSelect} from "~/components/OrganisationUnitSelect";
+import {HeaderProperties} from "~/utils/headerProperties";
+import {selectOrgCookie} from "~/utils/cookie";
+import type {IOrganisationUnit, IUser} from "~/types/user";
+import {CustomErrorLayout} from "~/components/CustomErrorLayout";
 import CustomError from "~/components/CustomError";
-import {pageLoadsTotal} from "~/metrics.server";
-import {appFromPath, normalizeRoute} from "~/utils/rumLabels";
+import {dailyPageVisits, getCurrentDate, pageVisits} from "~/routes/metrics";
+import {normalizePathname} from "~/utils/metricsPath";
 // import { getContentSecurityPolicy } from "~/utils/csp";
 
 export const links: Route.LinksFunction = () => [
@@ -54,11 +54,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   // const cspHeader = getContentSecurityPolicy();
 
-  const url = new URL(request.url);
-  pageLoadsTotal.inc({
-    app_page: appFromPath(url.pathname),
-    route: normalizeRoute(url.pathname)
-  });
+  const { pathname } = new URL(request.url);
+
+  // Normalize  for Prometheus labels
+  const normalized = normalizePathname(pathname);
+  const currentDate = getCurrentDate();
+
+  // Track total visits (cumulative)
+  pageVisits.inc({ path: normalized });
+
+  // Track daily visits (resets each day via date label)
+  dailyPageVisits.inc({ path: normalized, date: currentDate });
 
   if (!cookieValue) {
     const newCookieHeader = await selectOrgCookie.serialize(
