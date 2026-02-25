@@ -3,7 +3,7 @@ import { Counter, Histogram, Registry, collectDefaultMetrics } from "prom-client
 export const register = new Registry();
 collectDefaultMetrics({ register });
 
-const LABELS = ["app", "route"] as const;
+const LABELS = ["app_page", "route"] as const;
 
 export const pageLoadsTotal = new Counter({
     name: "frontend_page_load_total",

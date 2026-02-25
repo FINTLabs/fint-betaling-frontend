@@ -56,7 +56,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const url = new URL(request.url);
   pageLoadsTotal.inc({
-    app: appFromPath(url.pathname),
+    app_page: appFromPath(url.pathname),
     route: normalizeRoute(url.pathname)
   });
 
