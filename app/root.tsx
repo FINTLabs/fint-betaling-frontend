@@ -122,7 +122,7 @@ export default function App() {
           isLoggedIn={true}
           menu={novariMenu}
           showLogoWithTitle={true}
-          displayName={user.name || "Logged In"}
+          displayName={`${user.name || "Logged In"}${user.admin ? " [Admin]" : ""}`}
           onLogout={() =>
             (window.location.href =
               "https://idp.felleskomponent.no/nidp/app/logout")
