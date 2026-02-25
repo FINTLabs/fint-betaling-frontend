@@ -26,6 +26,8 @@ import { selectOrgCookie } from "~/utils/cookie";
 import type { IOrganisationUnit, IUser } from "~/types/user";
 import { CustomErrorLayout } from "~/components/CustomErrorLayout";
 import CustomError from "~/components/CustomError";
+import {pageLoadsTotal} from "~/metrics.server";
+import {appFromPath, normalizeRoute} from "~/utils/rumLabels";
 // import { getContentSecurityPolicy } from "~/utils/csp";
 
 export const links: Route.LinksFunction = () => [
@@ -51,6 +53,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   console.log("using school id: ", HeaderProperties.getSchoolOrgId());
 
   // const cspHeader = getContentSecurityPolicy();
+
+  const url = new URL(request.url);
+  pageLoadsTotal.inc({
+    app: appFromPath(url.pathname),
+    route: normalizeRoute(url.pathname)
+  });
 
   if (!cookieValue) {
     const newCookieHeader = await selectOrgCookie.serialize(

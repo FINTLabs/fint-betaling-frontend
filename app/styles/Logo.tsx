@@ -9,7 +9,7 @@ export const Logo = ({ width = 150 }: LogoProps) => (
     <img
       src="/logo_new.png"
       width={width}
-      height={width * (50 / 150)} // Maintain the aspect ratio based on the width
+      // height={width * (50 / 150)} // Maintain the aspect ratio based on the width
       alt="Novari Logo"
     />
   </NavLink>

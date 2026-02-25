@@ -32,7 +32,7 @@ const CustomErrorPage: React.FC<CustomErrorPageProps> = ({
 
   const formattedErrorData = formatErrorData(errorData);
   return (
-    <Box >
+    <Box marginBlock={"space-24"}>
       <HGrid
         columns="minmax(auto,600px)"
         data-aksel-template={`${statusCode}-v2`}

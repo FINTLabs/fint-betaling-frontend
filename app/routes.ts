@@ -5,4 +5,5 @@ export default [
   route("send", "routes/claim-pending.tsx"),
   route("ny", "routes/claim-new.tsx"),
   route("historikk", "routes/claim-history.tsx"),
+  route("metrics", "routes/metrics.ts"),
 ] satisfies RouteConfig;
