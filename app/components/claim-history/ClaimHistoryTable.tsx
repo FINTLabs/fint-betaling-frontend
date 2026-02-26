@@ -48,11 +48,12 @@ export function ClaimHistoryTable({
 
   return (
     <Box
-      borderColor="brand-magenta-subtle"
+      borderColor="neutral-subtle"
       padding="space-16"
       borderWidth="2"
       borderRadius="12"
       width="100%"
+      shadow="dialog"
     >
       <Table>
         <Table.Header>

@@ -110,10 +110,7 @@ export default function ClaimPending() {
 
   return (
     <VStack gap="space-20">
-      <NovariSnackbar
-        items={alertState}
-        position={"top-right"}
-      />
+      <NovariSnackbar items={alertState} position={"top-right"} />
       <PageHeader
         title="Ordre som ikke er sendt til fakturering"
         description={

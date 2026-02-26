@@ -29,21 +29,19 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "SEND_ERROR",
-      // "YEAR",
+        // TODO: "YEAR",
     ),
     ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "ACCEPT_ERROR",
-      // "YEAR",
+        // TODO: "YEAR",
     ),
     ClaimApi.getCountByStatus(
       selectedOrg.organisationNumber,
       "UPDATE_ERROR",
-      // "YEAR",
+      // TODO: "YEAR",
     ),
-    // ClaimApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR", "YEAR"),
     ClaimApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR"),
-    // ClaimApi.getOrders(selectedOrg.organisationNumber, undefined, "YEAR"),
     ClaimApi.getClaims(selectedOrg.organisationNumber, undefined),
   ]);
 
@@ -56,7 +54,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
   const totalOrders = pendingOrders + errorOrders;
 
-  // Process orders into batches by date
   const orders = ordersResponse.success ? ordersResponse.data || [] : [];
   const batches = processOrdersIntoBatches(orders);
 
@@ -68,9 +65,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   };
 };
 
-// Group orders by date and calculate batch statistics
 function processOrdersIntoBatches(orders: IClaim[]) {
-  // Group orders by date (YYYY-MM-DD)
   const ordersByDate = new Map<string, IClaim[]>();
 
   orders.forEach((order) => {
@@ -81,8 +76,6 @@ function processOrdersIntoBatches(orders: IClaim[]) {
     ordersByDate.get(date)!.push(order);
   });
 
-  // Convert to batch statistics
-  // Last 14 days
   return Array.from(ordersByDate.entries())
     .map(([date, dateOrders]) => {
       const totalRecords = dateOrders.length;
@@ -137,14 +130,12 @@ export default function Home() {
         description="Oversikt over ordrer og aktivitet"
       />
 
-      {/* Stats Cards */}
       <DashboardStats
         totalOrders={totalOrders}
         pendingOrders={pendingOrders}
         errorOrders={errorOrders}
       />
 
-      {/* Batch History Box */}
       <BatchHistory batches={batches} />
     </VStack>
   );

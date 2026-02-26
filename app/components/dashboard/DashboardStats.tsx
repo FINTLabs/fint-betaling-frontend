@@ -8,6 +8,7 @@ interface StatConfig {
   href: string;
   value: number;
   description: string;
+  color: "success" | "info" | "danger";
 }
 
 interface DashboardStatsProps {
@@ -28,6 +29,7 @@ export function DashboardStats({
       href: "/historikk",
       value: totalOrders,
       description: "Total antall ordrer siste 14 dager",
+      color: "success",
     },
     {
       icon: <ClockIcon title="Klokke" fontSize="1.5rem" />,
@@ -35,6 +37,7 @@ export function DashboardStats({
       href: "/send",
       value: pendingOrders,
       description: "Ikke sendt til fakturering siste 14 dager",
+      color: "info",
     },
     {
       icon: <ExclamationmarkTriangleIcon title="Advarsel" fontSize="1.5rem" />,
@@ -42,6 +45,7 @@ export function DashboardStats({
       href: "/historikk?status=ACCEPT_ERROR,SEND_ERROR,ERROR",
       value: errorOrders,
       description: "Kansellerte eller feilede ordrer siste 14 dager",
+      color: "danger",
     },
   ];
 
@@ -60,7 +64,7 @@ export function DashboardStats({
         //     <Detail>{stat.description}</Detail>
         //   </LinkCard.Description>
         // </LinkCard>
-        <InfoCard data-color="brand-magenta">
+        <InfoCard data-color={stat.color}>
           <InfoCard.Header icon={stat.icon}>
             <InfoCard.Title>{stat.title}</InfoCard.Title>
           </InfoCard.Header>

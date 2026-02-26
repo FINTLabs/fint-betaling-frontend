@@ -13,7 +13,6 @@ import {
 } from "react-router";
 
 import type {Route} from "./+types/root";
-// import "./app.css";
 import {Box, Page, Theme} from "@navikt/ds-react";
 import {NovariFooter, NovariHeader} from "novari-frontend-components";
 import {footerLinks, novariMenu} from "~/components/MenuConfig";
@@ -26,9 +25,7 @@ import {selectOrgCookie} from "~/utils/cookie";
 import type {IOrganisationUnit, IUser} from "~/types/user";
 import {CustomErrorLayout} from "~/components/CustomErrorLayout";
 import CustomError from "~/components/CustomError";
-import {dailyPageVisits, getCurrentDate, pageVisits} from "~/routes/metrics";
-import {normalizePathname} from "~/utils/metricsPath";
-// import { getContentSecurityPolicy } from "~/utils/csp";
+// TODO: import { getContentSecurityPolicy } from "~/utils/csp";
 
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: akselHref, as: "style" }, // Aksel first
@@ -52,19 +49,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   HeaderProperties.setSchoolOrgId(selectedOrganization.organisationNumber);
   console.log("using school id: ", HeaderProperties.getSchoolOrgId());
 
-  // const cspHeader = getContentSecurityPolicy();
-
-  const { pathname } = new URL(request.url);
-
-  // Normalize  for Prometheus labels
-  const normalized = normalizePathname(pathname);
-  const currentDate = getCurrentDate();
-
-  // Track total visits (cumulative)
-  pageVisits.inc({ path: normalized });
-
-  // Track daily visits (resets each day via date label)
-  dailyPageVisits.inc({ path: normalized, date: currentDate });
+  // TODO: const cspHeader = getContentSecurityPolicy();
 
   if (!cookieValue) {
     const newCookieHeader = await selectOrgCookie.serialize(
@@ -75,7 +60,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       {
         headers: {
           "Set-Cookie": newCookieHeader,
-          // "Content-Security-Policy": cspHeader,
+          // TODO: "Content-Security-Policy": cspHeader,
         },
       },
     );
@@ -121,7 +106,7 @@ export default function App() {
   const theme: "light" | "dark" = "light";
 
   return (
-      <Theme theme={theme} data-color={"brand-magenta"}>
+      <Theme theme={theme} >
     <Page
       footer={
         <Box padding="space-2" as="footer" className={"novari-footer"}>
