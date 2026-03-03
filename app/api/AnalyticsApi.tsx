@@ -23,6 +23,7 @@ class AnalyticsApi {
             meta: params.meta ?? null,
         };
 
+        console.log("trackEventURL", ANALYTICS_URL);
         const res = await apiManager.call({
             method: "POST",
             endpoint: `/api/events`,
