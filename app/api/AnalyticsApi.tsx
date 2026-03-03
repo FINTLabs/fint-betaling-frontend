@@ -1,7 +1,7 @@
 import {NovariApiManager} from "novari-frontend-components";
 
 // const ANALYTICS_URL = process.env.ANALYTICS_URL ?? "";
-const ANALYTICS_URL = import.meta.env.VITE_ANALYTICS_URL || process.env.VITE_ANALYTICS_URL || "";
+const ANALYTICS_URL = "http://fint-analytics-frontend:3000";
 
 if (!ANALYTICS_URL) {
     console.warn("ANALYTICS_URL is not set");
