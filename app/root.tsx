@@ -25,8 +25,12 @@ import {selectOrgCookie} from "~/utils/cookie";
 import type {IOrganisationUnit, IUser} from "~/types/user";
 import {CustomErrorLayout} from "~/components/CustomErrorLayout";
 import CustomError from "~/components/CustomError";
+import {useTrackAnalyticsPageViews} from "~/hooks/useTrackAnalyticsPageViews";
+import AnalyticsApi from "~/api/AnalyticsApi";
+import {useEffect} from "react";
 // TODO: import { getContentSecurityPolicy } from "~/utils/csp";
 
+//TODO: Clean up console.log lines
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: akselHref, as: "style" }, // Aksel first
   { rel: "stylesheet", href: themeHref, as: "style" }, // novari-theme.css
@@ -97,6 +101,8 @@ export default function App() {
     selectedOrganization: IOrganisationUnit;
   }>();
 
+  useTrackAnalyticsPageViews(user?.organisation?.name || "unknown");
+
   console.log("selectedOrganization - root", selectedOrganization);
   const navigate = useNavigate();
 
@@ -152,6 +158,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   let details = "An unexpected error occurred.";
   // let stack: string | undefined;
 
+
   if (isRouteErrorResponse(error)) {
     // message = error.status === 404 ? "404" : "Error";
     details =
@@ -162,6 +169,14 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     details = error.message;
     // stack = error.stack;
   }
+
+  useEffect(() => {
+    void AnalyticsApi.trackError({
+      path: location.pathname,
+      message: details,
+      statusCode: 500,
+    });
+  }, []);
 
   return (
     <CustomErrorLayout>

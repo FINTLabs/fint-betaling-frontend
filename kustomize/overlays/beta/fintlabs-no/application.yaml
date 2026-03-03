@@ -14,6 +14,8 @@ spec:
   env:
     - name: VITE_API_URL
       value: https://betaling-demo.felleskomponent.no
+    - name: VITE_ANALYTICS_URL
+      value: http://fint-analytics-frontend:3000
   port: 8000
   imagePullPolicy: Always
   orgId: fintlabs.no
