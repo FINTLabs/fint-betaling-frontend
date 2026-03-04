@@ -3,7 +3,7 @@ import type { ActionFunctionArgs } from "react-router";
 
 const ANALYTICS_INTERNAL_URL =
     process.env.ANALYTICS_URL ??
-    "http://fint-analytics-frontend.fint-core.svc.cluster.local:3000";
+    "http://fint-analytics-frontend:3000";
 
 export async function action({ request }: ActionFunctionArgs) {
     if (request.method !== "POST") return new Response("Method Not Allowed", { status: 405 });
