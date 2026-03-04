@@ -1,13 +1,12 @@
 import {NovariApiManager} from "novari-frontend-components";
 
 // const ANALYTICS_URL = process.env.ANALYTICS_URL ?? "";
-const ANALYTICS_URL = import.meta.env.VITE_ANALYTICS_URL || process.env.VITE_ANALYTICS_URL || "";
-
-if (!ANALYTICS_URL) {
-    console.warn("ANALYTICS_URL is not set");
-}
+// const ANALYTICS_URL = import.meta.env.VITE_ANALYTICS_URL || process.env.VITE_ANALYTICS_URL || "";
+// if (!ANALYTICS_URL) {
+//     console.warn("ANALYTICS_URL is not set");
+// }
 const apiManager = new NovariApiManager({
-    baseUrl: ANALYTICS_URL,
+    baseUrl: "",
 });
 
 class AnalyticsApi {
@@ -28,7 +27,6 @@ class AnalyticsApi {
             meta: params.meta ?? null,
         };
 
-        console.log("trackEventURL", ANALYTICS_URL);
         const res = await apiManager.call({
             method: "POST",
             endpoint: `/api/events`,

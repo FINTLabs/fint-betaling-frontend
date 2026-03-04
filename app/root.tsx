@@ -8,7 +8,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
+  useLoaderData, useLocation,
   useNavigate,
 } from "react-router";
 
@@ -170,13 +170,15 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     // stack = error.stack;
   }
 
+  //TODO: POC tracking
+  const location = useLocation();
   useEffect(() => {
     void AnalyticsApi.trackError({
       path: location.pathname,
       message: details,
       statusCode: 500,
     });
-  }, []);
+  }, [details, location.pathname]);
 
   return (
     <CustomErrorLayout>
