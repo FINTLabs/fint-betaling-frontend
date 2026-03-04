@@ -3,6 +3,7 @@ import {StepNavigation} from "./StepNavigation";
 import type {ICustomer} from "~/types/group";
 import type {ISelectedProduct} from "~/types/product";
 import {formatCurrency, formatPrice} from "~/utils/variousFormats";
+import AnalyticsApi from "~/api/AnalyticsApi";
 
 interface SaveStepProps {
   selectedRecipients: ICustomer[];
@@ -30,6 +31,12 @@ export function SaveStep({
   }, 0);
 
   const handleSave = async () => {
+    void AnalyticsApi.trackButtonClick(
+        "save-invoice-button",
+        location.pathname,
+        "unknown",
+    );
+
     const formData = new FormData();
     formData.append("actionType", "SAVE_INVOICES");
     onSendToFactoring(formData);
