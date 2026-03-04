@@ -29,7 +29,7 @@ class AnalyticsApi {
 
         const res = await apiManager.call({
             method: "POST",
-            endpoint: `/api/events`,
+            endpoint: `/_analytics/events`,
             functionName: "trackEvent",
             body,
             additionalHeaders: {
