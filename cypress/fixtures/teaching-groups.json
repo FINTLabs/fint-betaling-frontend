@@ -1,0 +1,9 @@
+[
+  {
+    "name": "Math 101",
+    "description": "Mathematics class",
+    "customers": [
+      { "id": "student-3", "name": "Student Three" }
+    ]
+  }
+]

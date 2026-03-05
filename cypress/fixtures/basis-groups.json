@@ -1,0 +1,10 @@
+[
+  {
+    "name": "1A",
+    "description": "Basis group 1A",
+    "customers": [
+      { "id": "student-1", "name": "Student One" },
+      { "id": "student-2", "name": "Student Two" }
+    ]
+  }
+]

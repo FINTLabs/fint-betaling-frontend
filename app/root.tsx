@@ -28,6 +28,7 @@ import CustomError from "~/components/CustomError";
 import {useTrackAnalyticsPageViews} from "~/hooks/useTrackAnalyticsPageViews";
 import AnalyticsApi from "~/api/AnalyticsApi";
 import {useEffect} from "react";
+
 // TODO: import { getContentSecurityPolicy } from "~/utils/csp";
 
 //TODO: Clean up console.log lines
@@ -35,6 +36,26 @@ export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: akselHref, as: "style" }, // Aksel first
   { rel: "stylesheet", href: themeHref, as: "style" }, // novari-theme.css
 ];
+
+// For client-side mocking for tests
+let server: any;
+if (import.meta.env.DEV && import.meta.env.VITE_MOCK_CYPRESS === 'true') {
+  console.log('RUNNING WITH MOCK ENVIRONMENT');
+  if (typeof window !== 'undefined') {
+    console.log('RUNNING WITH MOCK ENVIRONMENT IN BROWSER');
+    // Browser environment
+    const { worker } = await import('../cypress/mocks/browser');
+    await worker.start();
+    // tell Cypress that MSW is ready
+    (window as any).__mswReady = true;
+  } else {
+    console.log('RUNNING WITH MOCK ENVIRONMENT IN NODE');
+    // Node.js environment (server-side)
+    const { server: nodeServer } = await import('../cypress/mocks/server');
+    server = nodeServer;
+    server.listen();
+  }
+}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await MeApi.fetchMe();

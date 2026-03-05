@@ -11,10 +11,20 @@ import type { IClaim } from "~/types/claim";
 import type { IOrganisationUnit } from "~/types/user";
 import { selectOrgCookie } from "~/utils/cookie";
 import ClaimApi from "~/api/ClaimApi";
+import MeApi from "~/api/MeApi";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
-  const selectedOrg = await selectOrgCookie.parse(cookieHeader);
+  const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
+
+  // When no cookie (e.g. first visit), use first org from user
+  const organisationNumber =
+    cookieOrgNumber ??
+    (await MeApi.fetchMe()).organisationUnits[0]?.organisationNumber;
+
+  if (!organisationNumber) {
+    throw new Response("Ingen organisasjon funnet", { status: 400 });
+  }
 
   // TODO: Change to this this year after testing?
   const [
@@ -25,24 +35,24 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     errorCount,
     ordersResponse,
   ] = await Promise.all([
-    ClaimApi.getCountByStatus(selectedOrg.organisationNumber, "STORED", "14"),
+    ClaimApi.getCountByStatus(organisationNumber, "STORED", "14"),
     ClaimApi.getCountByStatus(
-      selectedOrg.organisationNumber,
+      organisationNumber,
       "SEND_ERROR",
         // TODO: "YEAR",
     ),
     ClaimApi.getCountByStatus(
-      selectedOrg.organisationNumber,
+      organisationNumber,
       "ACCEPT_ERROR",
         // TODO: "YEAR",
     ),
     ClaimApi.getCountByStatus(
-      selectedOrg.organisationNumber,
+      organisationNumber,
       "UPDATE_ERROR",
       // TODO: "YEAR",
     ),
-    ClaimApi.getCountByStatus(selectedOrg.organisationNumber, "ERROR"),
-    ClaimApi.getClaims(selectedOrg.organisationNumber, undefined),
+    ClaimApi.getCountByStatus(organisationNumber, "ERROR"),
+    ClaimApi.getClaims(organisationNumber, undefined),
   ]);
 
   const pendingOrders = storedCount.success ? storedCount.data || 0 : 0;

@@ -1,4 +1,4 @@
-import {Detail, Heading, HGrid, HStack, InfoCard,} from "@navikt/ds-react";
+import {Detail, Heading, HGrid, InfoCard,} from "@navikt/ds-react";
 import {ClockIcon, ExclamationmarkTriangleIcon, FileIcon,} from "@navikt/aksel-icons";
 import type {ReactNode} from "react";
 
@@ -74,7 +74,7 @@ export function DashboardStats({
               {stat.value}
             </Heading>
             <Detail>{stat.description}</Detail>
-            <HStack justify="end" align="center"></HStack>
+
           </InfoCard.Content>
         </InfoCard>
       ))}

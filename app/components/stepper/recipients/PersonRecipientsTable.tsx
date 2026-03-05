@@ -30,6 +30,7 @@ export function PersonRecipientsTable({
               <Table.Row key={customer.id} selected={isSelected}>
                 <Table.DataCell>
                   <Checkbox
+                      data-cy={`person-checkbox-${customer.name}`}
                     checked={isSelected}
                     onChange={() =>
                       onToggleRecipient(customer, !isSelected)

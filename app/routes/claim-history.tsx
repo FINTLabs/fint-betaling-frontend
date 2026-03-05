@@ -1,4 +1,4 @@
-import {HStack, Pagination, Spacer, VStack} from "@navikt/ds-react";
+import {HStack, Spacer, VStack} from "@navikt/ds-react";
 import React, {useMemo, useState} from "react";
 import type {IClaim} from "~/types/claim";
 import {PageHeader} from "~/components/PageHeader";
@@ -14,18 +14,30 @@ import {SelectAndPaging} from "~/components/SelectAndPaging";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
-  const selectedOrg = await selectOrgCookie.parse(cookieHeader);
+  const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
   const user = await MeApi.fetchMe();
+
+  const organisationNumber =
+    cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
+  if (!organisationNumber) {
+    return {
+      claimHistory: [],
+      user,
+      periodSelection: "WEEK",
+      schoolSelection: "",
+      statusSelection: "",
+    };
+  }
 
   // Parse query string parameters from URL
   const url = new URL(request.url);
   const periodSelection = url.searchParams.get("periodSelection") || "WEEK";
   const schoolSelection =
-    url.searchParams.get("schoolSelection") || selectedOrg.organisationNumber;
+    url.searchParams.get("schoolSelection") || organisationNumber;
   const statusSelection = url.searchParams.get("status") || "";
 
   const claimHistoryResponse = await ClaimApi.getClaims(
-    selectedOrg.organisationNumber,
+    organisationNumber,
     statusSelection,
     periodSelection,
     schoolSelection,
@@ -206,7 +218,18 @@ export const action: ActionFunction = async ({ request }) => {
   const inputSelectedClaimIds = formData.get("selectedClaims") as string;
   let selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
   const cookieHeader = request.headers.get("Cookie");
-  const selectedOrg = await selectOrgCookie.parse(cookieHeader);
+  const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
+  const user = await MeApi.fetchMe();
+  const selectedOrg =
+    cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
+
+  if (!selectedOrg) {
+    return {
+      success: false,
+      message: "Ingen organisasjon valgt",
+      variant: "error",
+    };
+  }
 
   let response;
 

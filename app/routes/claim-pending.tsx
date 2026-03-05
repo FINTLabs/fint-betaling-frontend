@@ -20,11 +20,17 @@ import {
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
-  const selectedOrg = await selectOrgCookie.parse(cookieHeader);
+  const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
   const user = await MeApi.fetchMe();
 
+  const organisationNumber =
+    cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
+  if (!organisationNumber) {
+    return { pendingClaims: [], user };
+  }
+
   const [pendingResponse] = await Promise.all([
-    ClaimApi.getClaims(selectedOrg.organisationNumber, "STORED"),
+    ClaimApi.getClaims(organisationNumber, "STORED"),
   ]);
 
   if (pendingResponse.success && pendingResponse.data) {
@@ -173,9 +179,20 @@ export const action: ActionFunction = async ({ request }) => {
   const inputSelectedClaimIds = formData.get("selectedClaims") as string;
   let selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
   const cookieHeader = request.headers.get("Cookie");
-  const selectedOrg = await selectOrgCookie.parse(cookieHeader);
-  let errors: number = 0;
+  const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
+  const user = await MeApi.fetchMe();
+  const selectedOrg =
+    cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
 
+  if (!selectedOrg) {
+    return {
+      success: false,
+      message: "Ingen organisasjon valgt",
+      variant: "error",
+    };
+  }
+
+  let errors: number = 0;
   let response;
 
   switch (actionType) {

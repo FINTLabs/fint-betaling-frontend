@@ -19,31 +19,39 @@ import type {IClaim} from "~/types/claim";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
   const cookieValue = await selectOrgCookie.parse(cookieHeader);
+  const meResponse = await MeApi.fetchMe();
+  const currentSchoolOrgId =
+    cookieValue ?? meResponse.organisationUnits[0]?.organisationNumber;
+
+  if (!currentSchoolOrgId) {
+    return {
+      schoolGroups: [],
+      teachingGroups: [],
+      school: [],
+      principals: [],
+      currentSchoolOrgId: "",
+      user: meResponse,
+    };
+  }
 
   const [
     schoolGroupsResponse,
     teachingGroupsResponse,
     schoolResponse,
     principalsResponse,
-    meResponse,
   ] = await Promise.all([
-    SchoolGroupApi.getBasisGroups(cookieValue),
-    SchoolGroupApi.getTeachingGroups(cookieValue),
-    SchoolGroupApi.getSchool(cookieValue),
-    PrincipalApi.getPrincipals(cookieValue),
-    MeApi.fetchMe(),
+    SchoolGroupApi.getBasisGroups(currentSchoolOrgId),
+    SchoolGroupApi.getTeachingGroups(currentSchoolOrgId),
+    SchoolGroupApi.getSchool(currentSchoolOrgId),
+    PrincipalApi.getPrincipals(currentSchoolOrgId),
   ]);
 
-  // console.log("schoolGroupsResponse: ", schoolResponse.data);
-  // console.log("teachingGroupsResponse: ", teachingGroupsResponse.data);
-  // console.log("schoolResponse: ", schoolResponse.data);
-  // console.log("principalsResponse: ", principalsResponse.data);
   return {
     schoolGroups: schoolGroupsResponse.data || [],
     teachingGroups: teachingGroupsResponse.data || [],
     school: schoolResponse.data || [],
     principals: principalsResponse.data || [],
-    currentSchoolOrgId: cookieValue,
+    currentSchoolOrgId,
     user: meResponse,
   };
 };

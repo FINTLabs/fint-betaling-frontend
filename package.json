@@ -7,7 +7,13 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "mock-api": "node scripts/mock-api-server.mjs",
+    "dev:e2e": "VITE_API_URL=http://localhost:3099 ANALYTICS_URL=http://localhost:3099 react-router dev",
+    "cypress": "cypress run",
+    "cypress:open": "cypress open",
+    "test:e2e": "start-server-and-test mock-api http://localhost:3099/api/me 'start-server-and-test dev:e2e http://localhost:3001 \"cypress run\"'",
+    "test:e2e:open": "start-server-and-test mock-api http://localhost:3099/api/me 'start-server-and-test dev:e2e http://localhost:3001 \"cypress open\"'"
   },
   "dependencies": {
     "@navikt/ds-css": "^8.5.0",
@@ -27,9 +33,18 @@
     "@types/node": "^22",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "cypress": "^15.11.0",
+    "msw": "^2.12.10",
+    "start-server-and-test": "^2.1.5",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
     "vite": "^7.1.7",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "wait-on": "^9.0.4"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

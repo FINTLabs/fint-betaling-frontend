@@ -1,0 +1,29 @@
+[
+  {
+    "orgId": "fintlabs.no",
+    "orderNumber": 1001,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2025-02-20T10:00:00.000Z",
+    "lastModifiedDate": "2025-02-20T10:00:00.000Z",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 50000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "cust-1",
+    "customerName": "Test Customer",
+    "createdByEmployeeNumber": "12345",
+    "organisationUnit": {
+      "organisationNumber": "123456789",
+      "name": "Test School"
+    },
+    "principalCode": "PRINCIPAL1",
+    "principalUri": "/principal/1",
+    "invoiceUri": null,
+    "orderItems": [],
+    "claimStatus": "SENT",
+    "statusMessage": "",
+    "timestamp": 1708430400000,
+    "invoiceNumbers": []
+  }
+]

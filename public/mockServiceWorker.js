@@ -116,7 +116,11 @@ addEventListener('fetch', function (event) {
   event.respondWith(handleRequest(event, requestId, requestInterceptedAt))
 })
 
-
+/**
+ * @param {FetchEvent} event
+ * @param {string} requestId
+ * @param {number} requestInterceptedAt
+ */
 async function handleRequest(event, requestId, requestInterceptedAt) {
   const client = await resolveMainClient(event)
   const requestCloneForEvents = event.request.clone()
@@ -162,7 +166,14 @@ async function handleRequest(event, requestId, requestInterceptedAt) {
   return response
 }
 
-
+/**
+ * Resolve the main client for the given event.
+ * Client that issues a request doesn't necessarily equal the client
+ * that registered the worker. It's with the latter the worker should
+ * communicate with during the response resolving phase.
+ * @param {FetchEvent} event
+ * @returns {Promise<Client | undefined>}
+ */
 async function resolveMainClient(event) {
   const client = await self.clients.get(event.clientId)
 
@@ -190,7 +201,13 @@ async function resolveMainClient(event) {
     })
 }
 
-
+/**
+ * @param {FetchEvent} event
+ * @param {Client | undefined} client
+ * @param {string} requestId
+ * @param {number} requestInterceptedAt
+ * @returns {Promise<Response>}
+ */
 async function getResponse(event, client, requestId, requestInterceptedAt) {
   // Clone the request because it might've been already used
   // (i.e. its body has been read and sent to the client).

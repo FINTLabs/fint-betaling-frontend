@@ -1,0 +1,16 @@
+{
+  "name": "Test User",
+  "employeeNumber": "12345",
+  "organisation": {
+    "organisationNumber": "123456789",
+    "name": "Test School"
+  },
+  "organisationUnits": [
+    {
+      "organisationNumber": "123456789",
+      "name": "Test School"
+    }
+  ],
+  "idleTime": 300000,
+  "admin": false
+}

@@ -61,6 +61,7 @@ export function GroupRecipientsTable({
                   group.customers && group.customers.length > 0 ? (
                     <Box padding="space-4">
                       <CheckboxGroup
+
                         legend={`Kunder (${group.customers.length})`}
                         value={group.customers
                           .filter((c) => selectedCustomerIds.includes(c.id))
@@ -82,6 +83,7 @@ export function GroupRecipientsTable({
                       >
                         {group.customers.map((customer) => (
                           <Checkbox
+                              data-cy={`group-checkbox-${group.name}`}
                             key={customer.id}
                             value={customer.id}
                             style={{ marginBottom: "0.25rem" }}

@@ -1,0 +1,18 @@
+{
+  "code": "PRINCIPAL1",
+  "description": "Test Principal",
+  "lineitems": [
+    {
+      "itemCode": "ITEM001",
+      "itemPrice": 64900,
+      "taxrate": 25,
+      "description": "Test product",
+      "uri": "/product/1"
+    }
+  ],
+  "uri": "/principal/1",
+  "organisation": {
+    "organisationNumber": "123456789",
+    "name": "Test School"
+  }
+}
