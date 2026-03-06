@@ -13,7 +13,6 @@ export function useTrackAnalyticsPageViews(tenant?: string) {
         lastSent.current = key;
 
         void AnalyticsApi.trackEvent({
-            app: "fint-betaling-frontend",
             type: "page_view",
             path: location.pathname,
             ...(tenant && { tenant }),

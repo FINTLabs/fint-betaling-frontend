@@ -9,9 +9,10 @@ const apiManager = new NovariApiManager({
     baseUrl: "",
 });
 
+let APP_NAME = 'betaling';
+
 class AnalyticsApi {
     static async trackEvent(params: {
-        app: string;
         type: "page_view" | "button_click" | "search" | "error";
         path?: string;
         element?: string;
@@ -19,7 +20,7 @@ class AnalyticsApi {
         meta?: any;
     }) {
         const body = {
-            app: params.app,
+            app: APP_NAME,
             type: params.type,
             path: params.path ?? null,
             element: params.element ?? null,
@@ -42,7 +43,6 @@ class AnalyticsApi {
 
     static async trackView(path: string, tenant?: string) {
         return this.trackEvent({
-            app: "fint-betaling-frontend",
             type: "page_view",
             path,
             tenant: tenant || "",
@@ -52,7 +52,6 @@ class AnalyticsApi {
     static async trackButtonClick(element: string, path: string, tenant?: string,
     ) {
         return this.trackEvent({
-            app: "fint-betaling-frontend",
             type: "button_click",
             path,
             element,
@@ -64,7 +63,6 @@ class AnalyticsApi {
         tenant?: string,
     ) {
         return this.trackEvent({
-            app: "fint-betaling-frontend",
             type: "search",
             path,
             tenant: tenant || "",
@@ -78,7 +76,6 @@ class AnalyticsApi {
         statusCode?: number;
     }) {
         return this.trackEvent({
-            app: "fint-betaling-frontend",
             type: "error",
             path: params.path,
             meta: {
