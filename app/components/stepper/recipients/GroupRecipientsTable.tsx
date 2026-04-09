@@ -62,7 +62,7 @@ export function GroupRecipientsTable({
                     <Box padding="space-4">
                       <CheckboxGroup
 
-                        legend={`Kunder (${group.customers.length})`}
+                        legend={`Elev:(${group.customers.length})`}
                         value={group.customers
                           .filter((c) => selectedCustomerIds.includes(c.id))
                           .map((c) => c.id)}
@@ -101,7 +101,7 @@ export function GroupRecipientsTable({
                           color: "var(--a-text-subtle)",
                         }}
                       >
-                        Ingen kunder tilgjengelig
+                        Ingen elever tilgjengelig
                       </p>
                     </Box>
                   )
