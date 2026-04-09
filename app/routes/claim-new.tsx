@@ -13,7 +13,7 @@ import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
 import type {IUser} from "~/types/user";
 import type {INewClaim} from "~/types/newClaim";
-import {NovariSnackbar, useAlerts} from "novari-frontend-components";
+import {NovariToaster, useAlerts} from "novari-frontend-components";
 import type {IClaim} from "~/types/claim";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
@@ -147,7 +147,7 @@ export default function ClaimNew() {
   return (
     <VStack gap="space-6">
 
-      <NovariSnackbar
+      <NovariToaster
           items={alertState}
           position={"top-right"}
           // onCloseItem={handleCloseItem}

@@ -15,6 +15,7 @@ export function PageHeader({ title, description }: PageHeaderProps) {
       style={{
         borderBottom: "1px solid #e0e0e0",
         marginBottom: "1.5rem",
+          marginTop: "1rem",
       }}
     >
       <VStack gap="space-2" align="start">

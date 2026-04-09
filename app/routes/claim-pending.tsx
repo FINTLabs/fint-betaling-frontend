@@ -14,7 +14,7 @@ import ClaimApi from "~/api/ClaimApi";
 import { ClaimHistoryTable } from "~/components/claim-history/ClaimHistoryTable";
 import {
   NovariConfirmAction,
-  NovariSnackbar,
+ NovariToaster,
   useAlerts,
 } from "novari-frontend-components";
 
@@ -116,7 +116,7 @@ export default function ClaimPending() {
 
   return (
     <VStack gap="space-20">
-      <NovariSnackbar items={alertState} position={"top-right"} />
+      <NovariToaster items={alertState} position={"top-right"} />
       <PageHeader
         title="Ordre som ikke er sendt til fakturering"
         description={
