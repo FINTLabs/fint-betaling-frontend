@@ -49,3 +49,16 @@
     background: var(--novari-footer-bg);
     color: var(--novari-footer-fg);
 }
+
+.no-spinner input[type="number"]::-webkit-outer-spin-button,
+.no-spinner input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.no-spinner input[type="number"] {
+    -webkit-appearance: none;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+

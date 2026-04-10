@@ -170,6 +170,7 @@ export function ProductsTable({
                             <TextField
                               label="Kroner"
                               type="number"
+                              className="no-spinner"
                               min={0}
                               value={Math.floor(
                                 getPrice(product) / 100,
@@ -194,6 +195,7 @@ export function ProductsTable({
                             <TextField
                               label="Øre"
                               type="number"
+                              className="no-spinner"
                               min={0}
                               max={99}
                               value={(getPrice(product) % 100)
