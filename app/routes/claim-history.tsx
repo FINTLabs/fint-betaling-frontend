@@ -180,7 +180,7 @@ export default function ClaimHistory() {
         <ClaimHistoryActions
           selectedCount={selectedOrderIds.length}
           onResend={handleResend}
-          claims={selectableOrders}
+          claims={claimHistory}
         />
       </HStack>
 
