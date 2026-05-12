@@ -76,7 +76,7 @@ export function ClaimHistoryTable({
             <Table.HeaderCell>Faktura</Table.HeaderCell>
             <Table.HeaderCell align="right">Netto totalpris</Table.HeaderCell>
             <Table.HeaderCell align="right">Å betale</Table.HeaderCell>
-            <Table.HeaderCell>Opprettet</Table.HeaderCell>
+            {/*<Table.HeaderCell>Opprettet</Table.HeaderCell>*/}
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -89,35 +89,33 @@ export function ClaimHistoryTable({
           ) : (
             groupedOrders.map((batch, batchIndex) => (
               <React.Fragment key={batch.date}>
-                {/* Batch header row - show for batches with multiple orders */}
-                {batch.orders.length > 1 && (
-                  <Table.Row>
-                    <Table.DataCell
-                      colSpan={10}
+                {/* Batch header row */}
+                <Table.Row>
+                  <Table.DataCell
+                    colSpan={9}
+                    style={{
+                      padding: "0.75rem 1rem",
+                      borderTop:
+                        batchIndex > 0
+                          ? "2px solid var(--a-border-subtle)"
+                          : undefined,
+                      backgroundColor: "var(--ax-bg-neutral-soft)",
+                    }}
+                  >
+                    <Box
+                      // background={"bg-neutral-soft"}
                       style={{
-                        padding: "0.75rem 1rem",
-                        borderTop:
-                          batchIndex > 0
-                            ? "2px solid var(--a-border-subtle)"
-                            : undefined,
+                        fontSize: "0.875rem",
+                        color: "var(--a-text-default)",
+                        fontWeight: 600,
                         backgroundColor: "var(--ax-bg-neutral-soft)",
                       }}
                     >
-                      <Box
-                        // background={"bg-neutral-soft"}
-                        style={{
-                          fontSize: "0.875rem",
-                          color: "var(--a-text-default)",
-                          fontWeight: 600,
-                          backgroundColor: "var(--ax-bg-neutral-soft)",
-                        }}
-                      >
-                        Batch: {formatDate(batch.date)} ({batch.orders.length}{" "}
-                        {batch.orders.length === 1 ? "ordre" : "ordrer"})
-                      </Box>
-                    </Table.DataCell>
-                  </Table.Row>
-                )}
+                      Batch: {formatDate(batch.date)} ({batch.orders.length}{" "}
+                      {batch.orders.length === 1 ? "ordre" : "ordrer"})
+                    </Box>
+                  </Table.DataCell>
+                </Table.Row>
                 {/* Orders in this batch */}
                 {batch.orders.map((order) => {
                   const orderId = order.orderNumber.toString();
@@ -186,9 +184,9 @@ export function ClaimHistoryTable({
                       <Table.DataCell align="right">
                         {amountDue !== null ? formatCurrency(amountDue) : "-"}
                       </Table.DataCell>
-                      <Table.DataCell>
-                        {formatDate(order.createdDate)}
-                      </Table.DataCell>
+                      {/*<Table.DataCell>*/}
+                      {/*  {formatDate(order.createdDate)}*/}
+                      {/*</Table.DataCell>*/}
                     </Table.Row>
                   );
                 })}

@@ -8,26 +8,27 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useLoaderData, useLocation,
+  useLoaderData,
+  useLocation,
   useNavigate,
 } from "react-router";
 
-import type {Route} from "./+types/root";
-import {Box, Page, Theme} from "@navikt/ds-react";
-import {NovariFooter, NovariHeader} from "novari-frontend-components";
-import {footerLinks, novariMenu} from "~/components/MenuConfig";
+import type { Route } from "./+types/root";
+import { Box, Page, Theme } from "@navikt/ds-react";
+import { NovariFooter, NovariHeader } from "novari-frontend-components";
+import { footerLinks, novariMenu } from "~/components/MenuConfig";
 import themeHref from "./styles/novari-theme.css?url";
 import akselHref from "@navikt/ds-css?url";
 import MeApi from "~/api/MeApi";
-import {OrganisationUnitSelect} from "~/components/OrganisationUnitSelect";
-import {HeaderProperties} from "~/utils/headerProperties";
-import {selectOrgCookie} from "~/utils/cookie";
-import type {IOrganisationUnit, IUser} from "~/types/user";
-import {CustomErrorLayout} from "~/components/CustomErrorLayout";
+import { OrganisationUnitSelect } from "~/components/OrganisationUnitSelect";
+import { HeaderProperties } from "~/utils/headerProperties";
+import { selectOrgCookie } from "~/utils/cookie";
+import type { IOrganisationUnit, IUser } from "~/types/user";
+import { CustomErrorLayout } from "~/components/CustomErrorLayout";
 import CustomError from "~/components/CustomError";
-import {useTrackAnalyticsPageViews} from "~/hooks/useTrackAnalyticsPageViews";
+import { useTrackAnalyticsPageViews } from "~/hooks/useTrackAnalyticsPageViews";
 import AnalyticsApi from "~/api/AnalyticsApi";
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 // TODO: import { getContentSecurityPolicy } from "~/utils/csp";
 
@@ -39,19 +40,19 @@ export const links: Route.LinksFunction = () => [
 
 // For client-side mocking for tests
 let server: any;
-if (import.meta.env.DEV && import.meta.env.VITE_MOCK_CYPRESS === 'true') {
-  console.log('RUNNING WITH MOCK ENVIRONMENT');
-  if (typeof window !== 'undefined') {
-    console.log('RUNNING WITH MOCK ENVIRONMENT IN BROWSER');
+if (import.meta.env.DEV && import.meta.env.VITE_MOCK_CYPRESS === "true") {
+  console.log("RUNNING WITH MOCK ENVIRONMENT");
+  if (typeof window !== "undefined") {
+    console.log("RUNNING WITH MOCK ENVIRONMENT IN BROWSER");
     // Browser environment
-    const { worker } = await import('../cypress/mocks/browser');
+    const { worker } = await import("../cypress/mocks/browser");
     await worker.start();
     // tell Cypress that MSW is ready
     (window as any).__mswReady = true;
   } else {
-    console.log('RUNNING WITH MOCK ENVIRONMENT IN NODE');
+    console.log("RUNNING WITH MOCK ENVIRONMENT IN NODE");
     // Node.js environment (server-side)
-    const { server: nodeServer } = await import('../cypress/mocks/server');
+    const { server: nodeServer } = await import("../cypress/mocks/server");
     server = nodeServer;
     server.listen();
   }
@@ -99,7 +100,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-      <html lang="en">
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -108,11 +109,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <title>FINT Elevfakturering</title>
       </head>
       <body>
-      {children}
-      <ScrollRestoration />
-      <Scripts />
+        {children}
+        <ScrollRestoration />
+        <Scripts />
       </body>
-      </html>
+    </html>
   );
 }
 
@@ -133,44 +134,49 @@ export default function App() {
   const theme: "light" | "dark" = "light";
 
   return (
-      <Theme theme={theme} >
-    <Page
-      footer={
-        <Box padding="space-2" as="footer" className={"novari-footer"}>
+    <Theme theme={theme}>
+      <Page
+        footer={
+          <Box padding="space-2" as="footer" className={"novari-footer"}>
+            <Page.Block gutters width="2xl">
+              <NovariFooter links={footerLinks} />
+            </Page.Block>
+          </Box>
+        }
+      >
+        <Box
+          className={"novari-header"}
+          as="nav"
+          data-cy="novari-header"
+          shadow="dialog"
+        >
+          <NovariHeader
+            isLoggedIn={true}
+            menu={novariMenu}
+            showLogoWithTitle={true}
+            displayName={`${user.name || "Logged In"}${user.admin ? " [Admin]" : ""}`}
+            onLogout={() =>
+              (window.location.href =
+                "https://idp.felleskomponent.no/nidp/app/logout")
+            }
+            onMenuClick={(action) => navigate(action)}
+            appName={"FINT Elevfakturering"}
+            onLogin={onLogin}
+          >
+            <OrganisationUnitSelect
+              organisationUnits={user.organisationUnits}
+              value={selectedOrganization}
+            />
+          </NovariHeader>
+        </Box>
+
+        <Box padding="space-6" paddingBlock="space-2" as="main">
           <Page.Block gutters width="2xl">
-            <NovariFooter links={footerLinks} />
+            <Outlet context={selectedOrganization} />
           </Page.Block>
         </Box>
-      }
-    >
-      <Box className={"novari-header"} as="nav" data-cy="novari-header" shadow="dialog">
-        <NovariHeader
-          isLoggedIn={true}
-          menu={novariMenu}
-          showLogoWithTitle={true}
-          displayName={`${user.name || "Logged In"}${user.admin ? " [Admin]" : ""}`}
-          onLogout={() =>
-            (window.location.href =
-              "https://idp.felleskomponent.no/nidp/app/logout")
-          }
-          onMenuClick={(action) => navigate(action)}
-          appName={"FINT Elevfakturering"}
-          onLogin={onLogin}
-        >
-          <OrganisationUnitSelect
-            organisationUnits={user.organisationUnits}
-            value={selectedOrganization}
-          />
-        </NovariHeader>
-      </Box>
-
-      <Box padding="space-6" paddingBlock="space-2" as="main">
-        <Page.Block gutters width="2xl">
-          <Outlet context={selectedOrganization} />
-        </Page.Block>
-      </Box>
-    </Page>
-      </Theme>
+      </Page>
+    </Theme>
   );
 }
 
@@ -178,7 +184,6 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   // let message = "Oops!";
   let details = "An unexpected error occurred.";
   // let stack: string | undefined;
-
 
   if (isRouteErrorResponse(error)) {
     // message = error.status === 404 ? "404" : "Error";
