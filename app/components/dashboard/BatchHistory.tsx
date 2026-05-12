@@ -1,5 +1,5 @@
 import { Box, Heading, Table, VStack } from "@navikt/ds-react";
-import { formatDate } from "~/utils/variousFormats";
+import {formatDate} from "~/utils/variousFormats";
 
 export interface BatchData {
   date: string;
@@ -56,7 +56,7 @@ export function BatchHistory({ batches }: BatchHistoryProps) {
               {batches.map((batch) => (
                 <Table.Row key={batch.date}>
                   <Table.DataCell>
-                    {formatDate(batch.date + "T00:00:00")}
+                    {formatDate(batch.date)}
                   </Table.DataCell>
                   <Table.DataCell align="right">
                     <strong>{batch.totalRecords}</strong>

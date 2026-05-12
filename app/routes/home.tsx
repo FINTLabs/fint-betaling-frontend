@@ -76,17 +76,17 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 function processOrdersIntoBatches(orders: IClaim[]) {
-  const ordersByDate = new Map<string, IClaim[]>();
+  const ordersByTimestamp = new Map<string, IClaim[]>();
 
   orders.forEach((order) => {
-    const date = new Date(order.createdDate).toISOString().split("T")[0];
-    if (!ordersByDate.has(date)) {
-      ordersByDate.set(date, []);
+    const timestamp = order.createdDate;
+    if (!ordersByTimestamp.has(timestamp)) {
+      ordersByTimestamp.set(timestamp, []);
     }
-    ordersByDate.get(date)!.push(order);
+    ordersByTimestamp.get(timestamp)!.push(order);
   });
 
-  return Array.from(ordersByDate.entries())
+  return Array.from(ordersByTimestamp.entries())
     .map(([date, dateOrders]) => {
       const totalRecords = dateOrders.length;
       const sent = dateOrders.filter(
