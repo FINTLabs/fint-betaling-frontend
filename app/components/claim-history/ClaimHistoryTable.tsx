@@ -6,6 +6,7 @@ import { ClaimStatusBadge } from "./ClaimStatusBadge";
 import { formatCurrency, formatDate } from "~/utils/variousFormats";
 import "@navikt/ds-css";
 
+//TODO: Install and run eslint
 interface OrderHistoryTableProps {
   claims: IClaim[];
   selectedClaimIds: string[];
@@ -30,7 +31,6 @@ export function ClaimHistoryTable({
     const dateMap = new Map<string, IClaim[]>();
 
     claims.forEach((order) => {
-      // Group by full timestamp so each batch reflects exact createdDate
       const timestampKey = order.createdDate;
       if (!dateMap.has(timestampKey)) {
         dateMap.set(timestampKey, []);
@@ -140,11 +140,11 @@ export function ClaimHistoryTable({
                           ? () => onSelectClaim(orderId, !isSelected)
                           : undefined
                       }
-                      style={{
-                        ...(!isRowSelectable
-                          ? { opacity: 0.6, cursor: "not-allowed" }
-                          : {}),
-                      }}
+                      // style={{
+                      //   ...(!isRowSelectable
+                      //     ? { opacity: 0.6, cursor: "not-allowed" }
+                      //     : {}),
+                      // }}
                     >
                       <Table.DataCell>
                         <Checkbox
@@ -159,13 +159,13 @@ export function ClaimHistoryTable({
                           Velg {order.orderNumber}
                         </Checkbox>
                       </Table.DataCell>
-                      <Table.DataCell>
+                      <Table.DataCell >
                         <ClaimStatusBadge
                           claimStatus={order.claimStatus}
                           statusMessage={order.statusMessage}
                         />
                       </Table.DataCell>
-                      <Table.DataCell>{order.customerName}</Table.DataCell>
+                      <Table.DataCell >{order.customerName}</Table.DataCell>
 
                       <Table.DataCell>
                         {order.organisationUnit.name}
