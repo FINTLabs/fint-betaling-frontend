@@ -30,12 +30,12 @@ export function ClaimHistoryTable({
     const dateMap = new Map<string, IClaim[]>();
 
     claims.forEach((order) => {
-      // Extract just the date part (YYYY-MM-DD) from ISO string
-      const dateKey = order.createdDate.split("T")[0];
-      if (!dateMap.has(dateKey)) {
-        dateMap.set(dateKey, []);
+      // Group by full timestamp so each batch reflects exact createdDate
+      const timestampKey = order.createdDate;
+      if (!dateMap.has(timestampKey)) {
+        dateMap.set(timestampKey, []);
       }
-      dateMap.get(dateKey)!.push(order);
+      dateMap.get(timestampKey)!.push(order);
     });
 
     // Convert to array and sort by date (newest first)
