@@ -1,4 +1,4 @@
-import {Box, Select, HStack, Pagination, Detail} from "@navikt/ds-react";
+import {Detail, HStack, Pagination, Select} from "@navikt/ds-react";
 
 interface SelectAndPagingProps {
   page: number;

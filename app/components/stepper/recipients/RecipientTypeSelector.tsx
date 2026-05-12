@@ -1,4 +1,4 @@
-import {Box, HStack, Radio, RadioGroup, Search, Stack, VStack} from "@navikt/ds-react";
+import {Box, Radio, RadioGroup, Search, Stack} from "@navikt/ds-react";
 
 export type RecipientType = "gruppe" | "person";
 

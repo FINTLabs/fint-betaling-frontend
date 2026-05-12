@@ -38,7 +38,7 @@ export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: themeHref, as: "style" }, // novari-theme.css
 ];
 
-// For client-side mocking for tests
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let server: any;
 if (import.meta.env.DEV && import.meta.env.VITE_MOCK_CYPRESS === "true") {
   console.log("RUNNING WITH MOCK ENVIRONMENT");
@@ -47,7 +47,7 @@ if (import.meta.env.DEV && import.meta.env.VITE_MOCK_CYPRESS === "true") {
     // Browser environment
     const { worker } = await import("../cypress/mocks/browser");
     await worker.start();
-    // tell Cypress that MSW is ready
+    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as any).__mswReady = true;
   } else {
     console.log("RUNNING WITH MOCK ENVIRONMENT IN NODE");

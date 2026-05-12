@@ -53,7 +53,7 @@ export function ClaimStatusBadge({
             ? (e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  handleClick(e as any);
+                  handleClick(e as never);
                 }
               }
             : undefined

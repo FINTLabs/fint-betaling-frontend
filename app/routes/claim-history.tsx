@@ -71,6 +71,7 @@ export default function ClaimHistory() {
     statusSelection: string;
   }>();
 
+  //eslint-disable-next-line
   const [searchParams, setSearchParams] = useSearchParams();
   const fetcher = useFetcher();
 
@@ -249,7 +250,7 @@ export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
   const actionType = formData.get("actionType") as string;
   const inputSelectedClaimIds = formData.get("selectedClaims") as string;
-  let selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
+  const selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
   const user = await MeApi.fetchMe();

@@ -9,7 +9,6 @@ const apiManager = new NovariApiManager({
     baseUrl: "",
 });
 
-let APP_NAME = 'betaling';
 
 class AnalyticsApi {
     static async trackEvent(params: {
@@ -17,10 +16,11 @@ class AnalyticsApi {
         path?: string;
         element?: string;
         tenant?: string;
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
         meta?: any;
     }) {
         const body = {
-            app: APP_NAME,
+            app: 'betaling',
             type: params.type,
             path: params.path ?? null,
             element: params.element ?? null,
