@@ -1,5 +1,6 @@
 import { http, HttpResponse } from "msw";
-
+//TODO: !!! Fix handlers, separate into files and use fixtures
+//TODO: mock data uses school id 313131313
 // Use path-only matching so handlers work with any baseUrl
 export const handlers = [
   http.get("*/api/me", () => {

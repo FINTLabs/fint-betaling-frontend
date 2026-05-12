@@ -1,6 +1,6 @@
-import { Box, Select, HStack, UNSAFE_Combobox } from "@navikt/ds-react";
-import { useMemo } from "react";
-import { ORDER_STATUS_LIST } from "./ClaimStatusConfig";
+import {Box, HStack, Select, UNSAFE_Combobox} from "@navikt/ds-react";
+import React, {useMemo} from "react";
+import {ORDER_STATUS_LIST} from "./ClaimStatusConfig";
 
 interface OrderHistoryFiltersProps {
   dateFilter?: string;
@@ -40,20 +40,16 @@ export function ClaimHistoryFilters({
     isCustomOption: boolean,
   ) => {
     if (isCustomOption) {
-      // Don't allow custom options for status
       return;
     }
 
     let newStatuses: string[];
     if (isSelected) {
-      // Add status
       newStatuses = [...selectedStatuses, option.toUpperCase()];
     } else {
-      // Remove status
       newStatuses = selectedStatuses.filter((s) => s !== option.toUpperCase());
     }
 
-    // Convert array to comma-separated string or "all" if empty
     if (newStatuses.length === 0) {
       onStatusFilterChange("all");
     } else {

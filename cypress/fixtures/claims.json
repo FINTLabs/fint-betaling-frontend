@@ -1,29 +1,4733 @@
 [
   {
-    "orgId": "fintlabs.no",
-    "orderNumber": 1001,
+    "orgId": "pwf.no",
+    "orderNumber": 10310,
     "invoiceNumbersCommaSeperated": null,
-    "createdDate": "2025-02-20T10:00:00.000Z",
-    "lastModifiedDate": "2025-02-20T10:00:00.000Z",
+    "createdDate": "2026-04-10T12:11:52.79026",
+    "lastModifiedDate": "2026-04-10T12:11:52.79026",
     "invoiceDate": null,
     "paymentDueDate": null,
     "amountDue": null,
-    "originalAmountDue": 50000,
+    "originalAmountDue": 14986800,
     "requestedNumberOfDaysToPaymentDeadline": null,
-    "customerId": "cust-1",
-    "customerName": "Test Customer",
-    "createdByEmployeeNumber": "12345",
+    "customerId": "1ziec3",
+    "customerName": "Halvorsen, Marius",
+    "createdByEmployeeNumber": "100006",
     "organisationUnit": {
-      "organisationNumber": "123456789",
-      "name": "Test School"
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
     },
-    "principalCode": "PRINCIPAL1",
-    "principalUri": "/principal/1",
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
     "invoiceUri": null,
-    "orderItems": [],
-    "claimStatus": "SENT",
-    "statusMessage": "",
-    "timestamp": 1708430400000,
+    "orderItems": [
+      {
+        "id": 356,
+        "description": "Apple MacBook Air 13.3\" Dual Core i5 1.8GHz, 8GB RAM, 256GB Flash Storage",
+        "itemQuantity": 15,
+        "itemPrice": 999120,
+        "itemCode": "925006",
+        "originalItemPrice": 999120,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook Air 13.3\" Dual Core i5 1.8GHz, 8GB RAM, 256GB Flash Storage",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925006"
+      }
+    ],
+    "claimStatus": "STORED",
+    "statusMessage": "Ikke oversendt",
+    "timestamp": 1775815912886,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10309,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2026-04-10T12:11:52.79026",
+    "lastModifiedDate": "2026-04-10T12:11:52.79026",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 14986800,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Ryan, Eirik",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 355,
+        "description": "Apple MacBook Air 13.3\" Dual Core i5 1.8GHz, 8GB RAM, 256GB Flash Storage",
+        "itemQuantity": 15,
+        "itemPrice": 999120,
+        "itemCode": "925006",
+        "originalItemPrice": 999120,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook Air 13.3\" Dual Core i5 1.8GHz, 8GB RAM, 256GB Flash Storage",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925006"
+      }
+    ],
+    "claimStatus": "STORED",
+    "statusMessage": "Ikke oversendt",
+    "timestamp": 1775815912874,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10308,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2026-04-10T12:11:52.79026",
+    "lastModifiedDate": "2026-04-10T12:11:52.79026",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 14986800,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "2bf2fn",
+    "customerName": "Torp, Even",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 354,
+        "description": "Apple MacBook Air 13.3\" Dual Core i5 1.8GHz, 8GB RAM, 256GB Flash Storage",
+        "itemQuantity": 15,
+        "itemPrice": 999120,
+        "itemCode": "925006",
+        "originalItemPrice": 999120,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook Air 13.3\" Dual Core i5 1.8GHz, 8GB RAM, 256GB Flash Storage",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925006"
+      }
+    ],
+    "claimStatus": "STORED",
+    "statusMessage": "Ikke oversendt",
+    "timestamp": 1775815912860,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10307,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2026-04-10T12:11:52.79026",
+    "lastModifiedDate": "2026-04-10T12:11:52.79026",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 14986800,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Martinsen, Karoline",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 353,
+        "description": "Apple MacBook Air 13.3\" Dual Core i5 1.8GHz, 8GB RAM, 256GB Flash Storage",
+        "itemQuantity": 15,
+        "itemPrice": 999120,
+        "itemCode": "925006",
+        "originalItemPrice": 999120,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook Air 13.3\" Dual Core i5 1.8GHz, 8GB RAM, 256GB Flash Storage",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925006"
+      }
+    ],
+    "claimStatus": "STORED",
+    "statusMessage": "Ikke oversendt",
+    "timestamp": 1775815912841,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10306,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2026-04-10T12:03:21.810903",
+    "lastModifiedDate": "2026-04-10T12:03:21.810903",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 100000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Martinsen, Karoline",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10306",
+    "orderItems": [
+      {
+        "id": 352,
+        "description": "Kjip PC",
+        "itemQuantity": 1,
+        "itemPrice": 100000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1775818081402,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10305,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2026-04-10T12:03:21.810903",
+    "lastModifiedDate": "2026-04-10T12:03:21.810903",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 100000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Halvorsen, Marius",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10305",
+    "orderItems": [
+      {
+        "id": 351,
+        "description": "Kjip PC",
+        "itemQuantity": 1,
+        "itemPrice": 100000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1775818082423,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10304,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2026-04-10T12:03:21.810903",
+    "lastModifiedDate": "2026-04-10T12:03:21.810903",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 100000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Ryan, Eirik",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10304",
+    "orderItems": [
+      {
+        "id": 350,
+        "description": "Kjip PC",
+        "itemQuantity": 1,
+        "itemPrice": 100000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1775818082423,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10303,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2026-04-10T08:49:45.748379",
+    "lastModifiedDate": "2026-04-10T08:49:45.748379",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 64900,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Halvorsen, Marius",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10303",
+    "orderItems": [
+      {
+        "id": 349,
+        "description": "Kontorutstyr Pakke Grafisk Bachelor",
+        "itemQuantity": 1,
+        "itemPrice": 64900,
+        "itemCode": "10001",
+        "originalItemPrice": 64900,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Grafisk Bachelor",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10001"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1775818081396,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10302,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2026-04-10T08:49:45.748379",
+    "lastModifiedDate": "2026-04-10T08:49:45.748379",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 64900,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Ryan, Eirik",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 348,
+        "description": "Kontorutstyr Pakke Grafisk Bachelor",
+        "itemQuantity": 1,
+        "itemPrice": 64900,
+        "itemCode": "10001",
+        "originalItemPrice": 64900,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Grafisk Bachelor",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10001"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1775815412992,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10301,
+    "invoiceNumbersCommaSeperated": "301",
+    "createdDate": "2026-04-10T08:47:32.876275",
+    "lastModifiedDate": "2026-04-10T08:47:32.876275",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120023,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Ryan, Eirik",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10301",
+    "orderItems": [
+      {
+        "id": 347,
+        "description": "Kjip PC",
+        "itemQuantity": 1,
+        "itemPrice": 120023,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": "Fakturert, betalt eller kreditert",
+    "timestamp": 1775803682220,
+    "invoiceNumbers": [
+      "301"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10300,
+    "invoiceNumbersCommaSeperated": "300",
+    "createdDate": "2026-04-09T14:22:37.112271",
+    "lastModifiedDate": "2026-04-09T14:22:37.112271",
+    "invoiceDate": null,
+    "paymentDueDate": "2026-05-18",
+    "amountDue": 500,
+    "originalAmountDue": 1279200,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Martinsen, Karoline",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10300",
+    "orderItems": [
+      {
+        "id": 346,
+        "description": "Apple MacBook 12\" Retina Silver Dual-Core i5 1.3GHz, 8GB, 512GB Flash Storage",
+        "itemQuantity": 1,
+        "itemPrice": 1279200,
+        "itemCode": "925002",
+        "originalItemPrice": 1279200,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook 12\" Retina Silver Dual-Core i5 1.3GHz, 8GB, 512GB Flash Storage",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925002"
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": "Faktura utstedt",
+    "timestamp": 1778250604336,
+    "invoiceNumbers": [
+      "300"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10299,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2026-04-09T14:22:37.112271",
+    "lastModifiedDate": "2026-04-09T14:22:37.112271",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 1279200,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Ryan, Eirik",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 345,
+        "description": "Apple MacBook 12\" Retina Silver Dual-Core i5 1.3GHz, 8GB, 512GB Flash Storage",
+        "itemQuantity": 1,
+        "itemPrice": 1279200,
+        "itemCode": "925002",
+        "originalItemPrice": 1279200,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook 12\" Retina Silver Dual-Core i5 1.3GHz, 8GB, 512GB Flash Storage",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925002"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "Event expired",
+    "timestamp": 1775804626500,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10298,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2026-04-09T13:18:31.243986",
+    "lastModifiedDate": "2026-04-09T13:18:31.243986",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 1399200,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Halvorsen, Marius",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 343,
+        "description": "Kjip PC",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      },
+      {
+        "id": 344,
+        "description": "Apple MacBook 12\" Retina Silver Dual-Core i5 1.3GHz, 8GB, 512GB Flash Storage",
+        "itemQuantity": 1,
+        "itemPrice": 1279200,
+        "itemCode": "925002",
+        "originalItemPrice": 1279200,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook 12\" Retina Silver Dual-Core i5 1.3GHz, 8GB, 512GB Flash Storage",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925002"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "Invalid data (simulert feil)",
+    "timestamp": 1775733885966,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10297,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2026-04-09T13:18:31.243986",
+    "lastModifiedDate": "2026-04-09T13:18:31.243986",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 1399200,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Ryan, Eirik",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 341,
+        "description": "Kjip PC",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      },
+      {
+        "id": 342,
+        "description": "Apple MacBook 12\" Retina Silver Dual-Core i5 1.3GHz, 8GB, 512GB Flash Storage",
+        "itemQuantity": 1,
+        "itemPrice": 1279200,
+        "itemCode": "925002",
+        "originalItemPrice": 1279200,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook 12\" Retina Silver Dual-Core i5 1.3GHz, 8GB, 512GB Flash Storage",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925002"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "Feil i adapter (simulert feil)",
+    "timestamp": 1775733578879,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10292,
+    "invoiceNumbersCommaSeperated": "292",
+    "createdDate": "2026-02-27T12:10:21.188282",
+    "lastModifiedDate": "2026-02-27T12:10:21.188282",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Andersen, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10292",
+    "orderItems": [
+      {
+        "id": 336,
+        "description": "Doble fustasjeopphengsforkoblinger",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "CREDITED",
+    "statusMessage": "Kreditert",
+    "timestamp": 1772192886429,
+    "invoiceNumbers": [
+      "292"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10291,
+    "invoiceNumbersCommaSeperated": "291",
+    "createdDate": "2026-02-27T10:05:16.066014",
+    "lastModifiedDate": "2026-02-27T10:05:16.066014",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Andersen, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10291",
+    "orderItems": [
+      {
+        "id": 335,
+        "description": "Doble fustasjeopphengsforkoblinger",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": "Fakturert, betalt eller kreditert",
+    "timestamp": 1772624891594,
+    "invoiceNumbers": [
+      "291"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10290,
+    "invoiceNumbersCommaSeperated": "290",
+    "createdDate": "2026-02-27T10:04:28.275807",
+    "lastModifiedDate": "2026-02-27T10:04:28.275807",
+    "invoiceDate": null,
+    "paymentDueDate": "2026-05-18",
+    "amountDue": 500,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Andersen, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10290",
+    "orderItems": [
+      {
+        "id": 334,
+        "description": "Doble fustasjeopphengsforkoblinger",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": "Faktura utstedt",
+    "timestamp": 1778250603299,
+    "invoiceNumbers": [
+      "290"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10289,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2026-02-26T15:24:05.634066",
+    "lastModifiedDate": "2026-02-26T15:24:05.634066",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Andersen, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 333,
+        "description": "Doble fustasjeopphengsforkoblinger",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "Event expired",
+    "timestamp": 1773924864070,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10288,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2026-02-20T09:35:35.956795",
+    "lastModifiedDate": "2026-02-20T09:35:35.956795",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 360000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Andersen, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 332,
+        "description": "Kjip PC",
+        "itemQuantity": 3,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "Invalid data (simulert feil)",
+    "timestamp": 1773923963229,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10114,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-06-20T15:34:12.307025",
+    "lastModifiedDate": "2024-06-20T15:34:12.307029",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10114",
+    "orderItems": [
+      {
+        "id": 127,
+        "description": "Dette er en test",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1718891283309,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10113,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-06-20T15:34:11.872609",
+    "lastModifiedDate": "2024-06-20T15:34:11.87261",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10113",
+    "orderItems": [
+      {
+        "id": 126,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1718891285373,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10112,
+    "invoiceNumbersCommaSeperated": "112",
+    "createdDate": "2024-06-20T15:34:11.872411",
+    "lastModifiedDate": "2024-06-20T15:34:11.872412",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "2bf2fn",
+    "customerName": "Duck, Hetti",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10112",
+    "orderItems": [
+      {
+        "id": 125,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CREDITED",
+    "statusMessage": "Kreditert",
+    "timestamp": 1718891286391,
+    "invoiceNumbers": [
+      "112"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10111,
+    "invoiceNumbersCommaSeperated": "111",
+    "createdDate": "2024-06-20T15:34:11.872206",
+    "lastModifiedDate": "2024-06-20T15:34:11.872207",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10111",
+    "orderItems": [
+      {
+        "id": 124,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": "Fakturert, betalt eller kreditert",
+    "timestamp": 1718891287406,
+    "invoiceNumbers": [
+      "111"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10110,
+    "invoiceNumbersCommaSeperated": "110",
+    "createdDate": "2024-06-20T15:34:11.871926",
+    "lastModifiedDate": "2024-06-20T15:34:11.87193",
+    "invoiceDate": null,
+    "paymentDueDate": "2026-02-26",
+    "amountDue": 500,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10110",
+    "orderItems": [
+      {
+        "id": 123,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": "Faktura utstedt",
+    "timestamp": 1771254347558,
+    "invoiceNumbers": [
+      "110"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10109,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-06-20T15:04:30.245699",
+    "lastModifiedDate": "2024-06-20T15:04:30.245704",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 1328200,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 121,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 89000,
+        "itemCode": "10002",
+        "originalItemPrice": 89000,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Interiør",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10002"
+      },
+      {
+        "id": 122,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 1239200,
+        "itemCode": "925023",
+        "originalItemPrice": 1239200,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook Pro 13\" Retina Space Gray Dual-core i5 2.3GHz, 8GB RAM, 256GB PCIe SSD, Intel Iris Graphics",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925023"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/fa4c63e7-c274-4bfa-9f9d-5a7a91e5e592",
+    "timestamp": 1718889588505,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10108,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-06-19T09:45:12.031496",
+    "lastModifiedDate": "2024-06-19T09:45:12.031502",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 1239200,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 120,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 1239200,
+        "itemCode": "925023",
+        "originalItemPrice": 1239200,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook Pro 13\" Retina Space Gray Dual-core i5 2.3GHz, 8GB RAM, 256GB PCIe SSD, Intel Iris Graphics",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925023"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/a748c093-b0be-4e58-a749-47ca7ecdde97",
+    "timestamp": 1718957634578,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10107,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-06-18T17:09:43.813541",
+    "lastModifiedDate": "2024-06-18T17:09:43.813545",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 119,
+        "description": "Jeg trenger en badeand",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/6c5f5645-f6c4-43c2-b729-35144a6e9233",
+    "timestamp": 1718783329366,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10106,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-06-18T17:07:14.167198",
+    "lastModifiedDate": "2024-06-18T17:07:14.167207",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10106",
+    "orderItems": [
+      {
+        "id": 118,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1718723294992,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10105,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-06-18T16:52:06.665466",
+    "lastModifiedDate": "2024-06-18T16:52:06.665471",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 89000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10105",
+    "orderItems": [
+      {
+        "id": 117,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 89000,
+        "itemCode": "10002",
+        "originalItemPrice": 89000,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Interiør",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10002"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1718722344703,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10104,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-06-18T15:17:01.497188",
+    "lastModifiedDate": "2024-06-18T15:17:01.497193",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 1599200,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10104",
+    "orderItems": [
+      {
+        "id": 116,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 1599200,
+        "itemCode": "1068534",
+        "originalItemPrice": 1599200,
+        "taxRate": null,
+        "originalDescription": "Lenovo ThinkPad X1 Carbon gen. 6 14.0\", Core i7-8550U, 8GB RAM, 256GB SSD",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1068534"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1718716675184,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10103,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-06-18T15:12:39.27837",
+    "lastModifiedDate": "2024-06-18T15:12:39.278376",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10103",
+    "orderItems": [
+      {
+        "id": 115,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1718716549515,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10102,
+    "invoiceNumbersCommaSeperated": "102",
+    "createdDate": "2024-06-18T14:58:15.275088",
+    "lastModifiedDate": "2024-06-18T14:58:15.275092",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 999120,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10102",
+    "orderItems": [
+      {
+        "id": 114,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 999120,
+        "itemCode": "925006",
+        "originalItemPrice": 999120,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook Air 13.3\" Dual Core i5 1.8GHz, 8GB RAM, 256GB Flash Storage",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925006"
+      }
+    ],
+    "claimStatus": "CREDITED",
+    "statusMessage": "Kreditert",
+    "timestamp": 1718716078795,
+    "invoiceNumbers": [
+      "102"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10101,
+    "invoiceNumbersCommaSeperated": "101",
+    "createdDate": "2024-06-18T14:15:56.89078",
+    "lastModifiedDate": "2024-06-18T14:15:56.890784",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 53200,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10101",
+    "orderItems": [
+      {
+        "id": 113,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 53200,
+        "itemCode": "1181",
+        "originalItemPrice": 53200,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook A1181 13.3\" Laptop (Early 2009) - 2.00GHz, 4GB RAM, 750GB HDD",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1181"
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": "Fakturert, betalt eller kreditert",
+    "timestamp": 1718714882237,
+    "invoiceNumbers": [
+      "101"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10100,
+    "invoiceNumbersCommaSeperated": "100",
+    "createdDate": "2024-06-18T13:44:25.633378",
+    "lastModifiedDate": "2024-06-18T13:44:25.633382",
+    "invoiceDate": null,
+    "paymentDueDate": "2026-02-26",
+    "amountDue": 500,
+    "originalAmountDue": 89000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10100",
+    "orderItems": [
+      {
+        "id": 112,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 89000,
+        "itemCode": "10002",
+        "originalItemPrice": 89000,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Interiør",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10002"
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": "Faktura utstedt",
+    "timestamp": 1771254368019,
+    "invoiceNumbers": [
+      "100"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10099,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-06-18T13:38:14.847407",
+    "lastModifiedDate": "2024-06-18T13:38:14.847413",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 111,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "Overføring via FINT har feilet",
+    "timestamp": 1718712174768,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10098,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-06-18T12:43:39.821883",
+    "lastModifiedDate": "2024-06-18T12:43:39.821888",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 110,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/6906f170-5bc0-4b55-9248-dde04c4b1328",
+    "timestamp": 1718707427467,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10097,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-06-14T15:11:08.60541",
+    "lastModifiedDate": "2024-06-14T15:11:08.605415",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "2bf2fn",
+    "customerName": "Duck, Hetti",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 109,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/9194fd35-a40a-4d3e-a5b3-8391796a4906",
+    "timestamp": 1718370770677,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10096,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-06-14T15:09:51.897069",
+    "lastModifiedDate": "2024-06-14T15:09:51.897077",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10096",
+    "orderItems": [
+      {
+        "id": 108,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1718370719905,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10095,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-06-13T20:50:54.409974",
+    "lastModifiedDate": "2024-06-13T20:50:54.409977",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 107,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1718370605558,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10094,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-06-13T20:50:42.53813",
+    "lastModifiedDate": "2024-06-13T20:50:42.538133",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 106,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target",
+    "timestamp": 1718304664040,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10093,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-06-13T15:15:38.922041",
+    "lastModifiedDate": "2024-06-13T15:15:38.922044",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10093",
+    "orderItems": [
+      {
+        "id": 105,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1718351281312,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10092,
+    "invoiceNumbersCommaSeperated": "92",
+    "createdDate": "2024-05-08T12:57:04.009895",
+    "lastModifiedDate": "2024-05-08T12:57:04.009898",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10092",
+    "orderItems": [
+      {
+        "id": 104,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CREDITED",
+    "statusMessage": "Kreditert",
+    "timestamp": 1717142728153,
+    "invoiceNumbers": [
+      "92"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10091,
+    "invoiceNumbersCommaSeperated": "91",
+    "createdDate": "2024-05-08T12:45:39.725831",
+    "lastModifiedDate": "2024-05-08T12:45:39.725833",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10091",
+    "orderItems": [
+      {
+        "id": 103,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": "Fakturert, betalt eller kreditert",
+    "timestamp": 1715165305266,
+    "invoiceNumbers": [
+      "91"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10090,
+    "invoiceNumbersCommaSeperated": "90",
+    "createdDate": "2024-05-08T12:45:39.725528",
+    "lastModifiedDate": "2024-05-08T12:45:39.725533",
+    "invoiceDate": null,
+    "paymentDueDate": "2026-02-26",
+    "amountDue": 500,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10090",
+    "orderItems": [
+      {
+        "id": 102,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": "Faktura utstedt",
+    "timestamp": 1771254369136,
+    "invoiceNumbers": [
+      "90"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10089,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-05-08T12:41:39.327663",
+    "lastModifiedDate": "2024-05-08T12:41:39.327664",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "2bf2fn",
+    "customerName": "Duck, Hetti",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 101,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/9a8ef119-4358-428c-8086-37b11ad7da38",
+    "timestamp": 1715166005299,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10088,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-05-08T12:41:39.327462",
+    "lastModifiedDate": "2024-05-08T12:41:39.327463",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 100,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/68516646-cf6e-4ab0-aafc-76802a6f6a76",
+    "timestamp": 1715165102226,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10087,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-05-08T12:41:39.327245",
+    "lastModifiedDate": "2024-05-08T12:41:39.327247",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 99,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/fee31e38-d236-4b60-8a48-7fc604a06040",
+    "timestamp": 1715165100243,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10086,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-05-08T12:41:39.326971",
+    "lastModifiedDate": "2024-05-08T12:41:39.326974",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10086",
+    "orderItems": [
+      {
+        "id": 98,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142719961,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10085,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-05-08T12:41:19.497697",
+    "lastModifiedDate": "2024-05-08T12:41:19.497698",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "2bf2fn",
+    "customerName": "Duck, Hetti",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10085",
+    "orderItems": [
+      {
+        "id": 97,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142713838,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10084,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-05-08T12:41:19.497402",
+    "lastModifiedDate": "2024-05-08T12:41:19.497403",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10084",
+    "orderItems": [
+      {
+        "id": 96,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142717923,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10083,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-05-08T12:41:19.497088",
+    "lastModifiedDate": "2024-05-08T12:41:19.497091",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10083",
+    "orderItems": [
+      {
+        "id": 95,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142724053,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10082,
+    "invoiceNumbersCommaSeperated": "82",
+    "createdDate": "2024-05-08T12:41:19.495969",
+    "lastModifiedDate": "2024-05-08T12:41:19.495976",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10082",
+    "orderItems": [
+      {
+        "id": 94,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CREDITED",
+    "statusMessage": "Kreditert",
+    "timestamp": 1717142730193,
+    "invoiceNumbers": [
+      "82"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10081,
+    "invoiceNumbersCommaSeperated": "81",
+    "createdDate": "2024-05-03T13:05:25.891809",
+    "lastModifiedDate": "2024-05-03T13:05:25.891814",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10081",
+    "orderItems": [
+      {
+        "id": 93,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": "Fakturert, betalt eller kreditert",
+    "timestamp": 1714735514822,
+    "invoiceNumbers": [
+      "81"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10080,
+    "invoiceNumbersCommaSeperated": "80",
+    "createdDate": "2024-05-03T08:33:15.131719",
+    "lastModifiedDate": "2024-05-03T08:33:15.13172",
+    "invoiceDate": null,
+    "paymentDueDate": "2026-02-26",
+    "amountDue": 500,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "2bf2fn",
+    "customerName": "Duck, Hetti",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10080",
+    "orderItems": [
+      {
+        "id": 92,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": "Faktura utstedt",
+    "timestamp": 1771254371108,
+    "invoiceNumbers": [
+      "80"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10079,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-05-03T08:33:15.131563",
+    "lastModifiedDate": "2024-05-03T08:33:15.131564",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 91,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/cc9b035f-9d3f-450e-94af-e411a2793f83",
+    "timestamp": 1715065558833,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10078,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-05-03T08:33:15.131376",
+    "lastModifiedDate": "2024-05-03T08:33:15.131377",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 90,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/a5a8d42b-2afe-4a4a-a300-4f0e68db63ab",
+    "timestamp": 1714997394012,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10077,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-05-03T08:33:15.13115",
+    "lastModifiedDate": "2024-05-03T08:33:15.131153",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 89,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/b1e855f5-742c-4424-bf56-0f14228b5d8e",
+    "timestamp": 1714996818250,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10076,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-05-03T08:32:45.102842",
+    "lastModifiedDate": "2024-05-03T08:32:45.102845",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "2bf2fn",
+    "customerName": "Duck, Hetti",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10076",
+    "orderItems": [
+      {
+        "id": 88,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142725078,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10075,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-05-03T08:32:45.102505",
+    "lastModifiedDate": "2024-05-03T08:32:45.102507",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10075",
+    "orderItems": [
+      {
+        "id": 87,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142712798,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10074,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-05-03T08:32:45.10214",
+    "lastModifiedDate": "2024-05-03T08:32:45.102144",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10074",
+    "orderItems": [
+      {
+        "id": 86,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142714845,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10073,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-05-03T08:32:16.903611",
+    "lastModifiedDate": "2024-05-03T08:32:16.903616",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10073",
+    "orderItems": [
+      {
+        "id": 85,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142717936,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10072,
+    "invoiceNumbersCommaSeperated": "72",
+    "createdDate": "2024-04-29T13:05:50.549139",
+    "lastModifiedDate": "2024-04-29T13:05:50.549143",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10072",
+    "orderItems": [
+      {
+        "id": 84,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CREDITED",
+    "statusMessage": "Kreditert",
+    "timestamp": 1717142732241,
+    "invoiceNumbers": [
+      "72"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10071,
+    "invoiceNumbersCommaSeperated": "71",
+    "createdDate": "2024-04-29T13:03:37.951198",
+    "lastModifiedDate": "2024-04-29T13:03:37.951203",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10071",
+    "orderItems": [
+      {
+        "id": 83,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": "Fakturert, betalt eller kreditert",
+    "timestamp": 1714717900147,
+    "invoiceNumbers": [
+      "71"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10070,
+    "invoiceNumbersCommaSeperated": "70",
+    "createdDate": "2024-04-24T12:45:43.195462",
+    "lastModifiedDate": "2024-04-24T12:45:43.195463",
+    "invoiceDate": null,
+    "paymentDueDate": "2025-08-15",
+    "amountDue": 500,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10070",
+    "orderItems": [
+      {
+        "id": 82,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": "Faktura utstedt",
+    "timestamp": 1754404483244,
+    "invoiceNumbers": [
+      "70"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10069,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-24T12:45:43.195295",
+    "lastModifiedDate": "2024-04-24T12:45:43.195298",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 81,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/e87bfcd1-387d-4d96-ab57-beee540543cf",
+    "timestamp": 1714389542703,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10068,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-24T10:20:39.947834",
+    "lastModifiedDate": "2024-04-24T10:20:39.947835",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 80,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/3e60cfbc-8eb5-4d8d-8953-ea769cdd7e16",
+    "timestamp": 1713946846261,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10067,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-24T10:20:39.947617",
+    "lastModifiedDate": "2024-04-24T10:20:39.947622",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 79,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/c589c5c6-dfea-4993-b598-128579eebe9b",
+    "timestamp": 1713955158512,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10066,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-04-24T10:15:23.279181",
+    "lastModifiedDate": "2024-04-24T10:15:23.279182",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10066",
+    "orderItems": [
+      {
+        "id": 78,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142716904,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10065,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-04-24T10:15:23.278997",
+    "lastModifiedDate": "2024-04-24T10:15:23.279001",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10065",
+    "orderItems": [
+      {
+        "id": 77,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142723034,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10064,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-24T10:05:24.292241",
+    "lastModifiedDate": "2024-04-24T10:05:24.292243",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 76,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/623393b8-4dd3-439d-9bb4-96423c00e167",
+    "timestamp": 1713946070605,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10063,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-04-24T10:05:24.291908",
+    "lastModifiedDate": "2024-04-24T10:05:24.291913",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10063",
+    "orderItems": [
+      {
+        "id": 75,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142718942,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10062,
+    "invoiceNumbersCommaSeperated": "62",
+    "createdDate": "2024-04-24T09:57:17.214253",
+    "lastModifiedDate": "2024-04-24T09:57:17.214257",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10062",
+    "orderItems": [
+      {
+        "id": 74,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CREDITED",
+    "statusMessage": "Kreditert",
+    "timestamp": 1717142729173,
+    "invoiceNumbers": [
+      "62"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10061,
+    "invoiceNumbersCommaSeperated": "61",
+    "createdDate": "2024-04-24T09:53:15.309081",
+    "lastModifiedDate": "2024-04-24T09:53:15.309086",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10061",
+    "orderItems": [
+      {
+        "id": 73,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": "Fakturert, betalt eller kreditert",
+    "timestamp": 1714717902189,
+    "invoiceNumbers": [
+      "61"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10060,
+    "invoiceNumbersCommaSeperated": "60",
+    "createdDate": "2024-04-24T09:35:33.043433",
+    "lastModifiedDate": "2024-04-24T09:35:33.043441",
+    "invoiceDate": null,
+    "paymentDueDate": "2025-08-15",
+    "amountDue": 500,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10060",
+    "orderItems": [
+      {
+        "id": 72,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": "Faktura utstedt",
+    "timestamp": 1754404488366,
+    "invoiceNumbers": [
+      "60"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10059,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-23T13:50:39.566492",
+    "lastModifiedDate": "2024-04-23T13:50:39.566495",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 71,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/4a6ac461-827e-4c91-a165-0c16c72909de",
+    "timestamp": 1713873954987,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10058,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-23T13:49:52.451331",
+    "lastModifiedDate": "2024-04-23T13:49:52.451333",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 70,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/8f8aa0f7-c8e1-4c25-b7bb-a689afe81d6d",
+    "timestamp": 1713873006642,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10057,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-23T13:49:01.478433",
+    "lastModifiedDate": "2024-04-23T13:49:01.478437",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 69,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "500 Internal Server Error from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/396b40b5-a3ac-4b5e-9146-334e109e544e",
+    "timestamp": 1713872956407,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10056,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-04-23T13:48:04.979381",
+    "lastModifiedDate": "2024-04-23T13:48:04.979382",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10056",
+    "orderItems": [
+      {
+        "id": 68,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142715870,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10055,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-04-23T13:48:04.979245",
+    "lastModifiedDate": "2024-04-23T13:48:04.979248",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10055",
+    "orderItems": [
+      {
+        "id": 67,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142713823,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10054,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-04-23T13:47:27.66848",
+    "lastModifiedDate": "2024-04-23T13:47:27.668483",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10054",
+    "orderItems": [
+      {
+        "id": 66,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142722007,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10053,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-04-23T13:46:49.950806",
+    "lastModifiedDate": "2024-04-23T13:46:49.950819",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10053",
+    "orderItems": [
+      {
+        "id": 65,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142724066,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10052,
+    "invoiceNumbersCommaSeperated": "52",
+    "createdDate": "2024-04-23T13:46:11.752558",
+    "lastModifiedDate": "2024-04-23T13:46:11.75256",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10052",
+    "orderItems": [
+      {
+        "id": 64,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CREDITED",
+    "statusMessage": "Kreditert",
+    "timestamp": 1717142733262,
+    "invoiceNumbers": [
+      "52"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10051,
+    "invoiceNumbersCommaSeperated": "51",
+    "createdDate": "2024-04-23T13:36:54.907043",
+    "lastModifiedDate": "2024-04-23T13:36:54.907046",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": 0,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10051",
+    "orderItems": [
+      {
+        "id": 63,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "PAID",
+    "statusMessage": "Fakturert, betalt eller kreditert",
+    "timestamp": 1714717904227,
+    "invoiceNumbers": [
+      "51"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10050,
+    "invoiceNumbersCommaSeperated": "50",
+    "createdDate": "2024-04-23T12:57:08.848809",
+    "lastModifiedDate": "2024-04-23T12:57:08.848812",
+    "invoiceDate": null,
+    "paymentDueDate": "2025-08-15",
+    "amountDue": 500,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10050",
+    "orderItems": [
+      {
+        "id": 62,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ISSUED",
+    "statusMessage": "Faktura utstedt",
+    "timestamp": 1754404490017,
+    "invoiceNumbers": [
+      "50"
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10049,
+    "invoiceNumbersCommaSeperated": "",
+    "createdDate": "2024-04-23T12:40:51.974785",
+    "lastModifiedDate": "2024-04-23T12:40:51.97479",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/ordrenummer/10049",
+    "orderItems": [
+      {
+        "id": 61,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPTED",
+    "statusMessage": "Overført til økonomisystem",
+    "timestamp": 1717142723046,
+    "invoiceNumbers": [
+      ""
+    ]
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10048,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T13:24:01.964978",
+    "lastModifiedDate": "2024-04-19T13:24:01.964981",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 60,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "Overføring via FINT har feilet",
+    "timestamp": 1713527337065,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10047,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T12:48:38.112461",
+    "lastModifiedDate": "2024-04-19T12:48:38.112472",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 59,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "SEND_ERROR",
+    "statusMessage": "Overføring via FINT har feilet",
+    "timestamp": 1713525565658,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10046,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T12:17:54.215446",
+    "lastModifiedDate": "2024-04-19T12:17:54.215451",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/8935dba8-49b0-40bc-85d3-5b7db4b4c41c",
+    "orderItems": [
+      {
+        "id": 58,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/8935dba8-49b0-40bc-85d3-5b7db4b4c41c",
+    "timestamp": 1713521902098,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10045,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T12:13:33.301267",
+    "lastModifiedDate": "2024-04-19T12:13:33.30127",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/e910f09e-a379-4416-979b-7b36c88e180a",
+    "orderItems": [
+      {
+        "id": 57,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/e910f09e-a379-4416-979b-7b36c88e180a",
+    "timestamp": 1713521662063,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10044,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T11:55:00.392685",
+    "lastModifiedDate": "2024-04-19T11:55:00.39269",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/fd89cdb5-7f30-4957-8443-cbddecbed6ec",
+    "orderItems": [
+      {
+        "id": 56,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/fd89cdb5-7f30-4957-8443-cbddecbed6ec",
+    "timestamp": 1713520522102,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10043,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T11:54:02.841326",
+    "lastModifiedDate": "2024-04-19T11:54:02.841334",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/66e0cb42-7905-4efd-b504-32449200e7ef",
+    "orderItems": [
+      {
+        "id": 55,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/66e0cb42-7905-4efd-b504-32449200e7ef",
+    "timestamp": 1713520462063,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10042,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T10:16:06.970798",
+    "lastModifiedDate": "2024-04-19T10:16:06.9708",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/e6aaa201-bc20-47ae-ad8a-a5211ea5a68c",
+    "orderItems": [
+      {
+        "id": 54,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/e6aaa201-bc20-47ae-ad8a-a5211ea5a68c",
+    "timestamp": 1713515662256,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10041,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T06:30:16.057397",
+    "lastModifiedDate": "2024-04-19T06:30:16.0574",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/90254a7c-83ce-4d82-b536-04f4adfbd1c8",
+    "orderItems": [
+      {
+        "id": 53,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/90254a7c-83ce-4d82-b536-04f4adfbd1c8",
+    "timestamp": 1713501447616,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10040,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T06:14:30.583631",
+    "lastModifiedDate": "2024-04-19T06:14:30.583635",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/495de39e-ffd5-4efb-9c78-b77c7001d4e7",
+    "orderItems": [
+      {
+        "id": 52,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/495de39e-ffd5-4efb-9c78-b77c7001d4e7",
+    "timestamp": 1713501447614,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10039,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T06:08:28.029407",
+    "lastModifiedDate": "2024-04-19T06:08:28.029411",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/1aac313c-9cee-444a-a787-d412e67252c9",
+    "orderItems": [
+      {
+        "id": 51,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/1aac313c-9cee-444a-a787-d412e67252c9",
+    "timestamp": 1713501447580,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10038,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-19T06:04:43.800076",
+    "lastModifiedDate": "2024-04-19T06:04:43.800079",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/37f529b4-faae-4f54-864d-50b775637944",
+    "orderItems": [
+      {
+        "id": 50,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/37f529b4-faae-4f54-864d-50b775637944",
+    "timestamp": 1713501447587,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10036,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-18T14:36:15.247256",
+    "lastModifiedDate": "2024-04-18T14:36:15.247259",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/91617e0e-04ca-42b4-8108-4e342e21adaa",
+    "orderItems": [
+      {
+        "id": 48,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/91617e0e-04ca-42b4-8108-4e342e21adaa",
+    "timestamp": 1713443847754,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10035,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-18T14:24:14.546611",
+    "lastModifiedDate": "2024-04-18T14:24:14.546615",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/5d86e20d-4306-4061-8d07-2751787a4236",
+    "orderItems": [
+      {
+        "id": 47,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/5d86e20d-4306-4061-8d07-2751787a4236",
+    "timestamp": 1713443847753,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10034,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-18T14:19:51.980609",
+    "lastModifiedDate": "2024-04-18T14:19:51.980612",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/74ed591d-1cee-4ab4-8729-89dd69b19632",
+    "orderItems": [
+      {
+        "id": 46,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/74ed591d-1cee-4ab4-8729-89dd69b19632",
+    "timestamp": 1713443847763,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10033,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-18T14:18:34.659833",
+    "lastModifiedDate": "2024-04-18T14:18:34.659837",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/435a5b30-9bd3-4d68-a760-744f37cbdd96",
+    "orderItems": [
+      {
+        "id": 45,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/435a5b30-9bd3-4d68-a760-744f37cbdd96",
+    "timestamp": 1713443847752,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10032,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-18T14:17:13.614128",
+    "lastModifiedDate": "2024-04-18T14:17:13.614133",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/b549b1b6-7be5-4d4a-a4ec-9888cfd986d3",
+    "orderItems": [
+      {
+        "id": 44,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/b549b1b6-7be5-4d4a-a4ec-9888cfd986d3",
+    "timestamp": 1713443847690,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10031,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-18T14:15:53.146638",
+    "lastModifiedDate": "2024-04-18T14:15:53.146641",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/5d925538-e664-423a-b036-582f0a2a89ac",
+    "orderItems": [
+      {
+        "id": 43,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/5d925538-e664-423a-b036-582f0a2a89ac",
+    "timestamp": 1713443847679,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10030,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-04-18T13:59:26.277111",
+    "lastModifiedDate": "2024-04-18T13:59:26.277117",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/ab557696-170c-4fb5-9493-fc23ddd3a3b1",
+    "orderItems": [
+      {
+        "id": 42,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/ab557696-170c-4fb5-9493-fc23ddd3a3b1",
+    "timestamp": 1713443847693,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10018,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-28T13:50:05.021377",
+    "lastModifiedDate": "2024-02-28T13:50:05.021381",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/519ffc61-96fd-451e-9144-6bfb2d153e44",
+    "orderItems": [
+      {
+        "id": 27,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/519ffc61-96fd-451e-9144-6bfb2d153e44",
+    "timestamp": 1709127845666,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10017,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-28T13:49:34.657573",
+    "lastModifiedDate": "2024-02-28T13:49:34.657578",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 120000,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/6839c8fd-f634-4315-84c8-a84e03751a00",
+    "orderItems": [
+      {
+        "id": 26,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 120000,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/6839c8fd-f634-4315-84c8-a84e03751a00",
+    "timestamp": 1709127845675,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10016,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-21T10:14:34.619631",
+    "lastModifiedDate": "2024-02-21T10:14:34.619635",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 1239200,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 25,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 1239200,
+        "itemCode": "925023",
+        "originalItemPrice": 1239200,
+        "taxRate": null,
+        "originalDescription": "Apple MacBook Pro 13\" Retina Space Gray Dual-core i5 2.3GHz, 8GB RAM, 256GB PCIe SSD, Intel Iris Graphics",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/925023"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1713442614622,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10015,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-21T10:03:37.111858",
+    "lastModifiedDate": "2024-02-21T10:03:37.111864",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 389997,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 24,
+        "description": "test",
+        "itemQuantity": 3,
+        "itemPrice": 129999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1713442614611,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10014,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-21T10:02:35.607676",
+    "lastModifiedDate": "2024-02-21T10:02:35.607679",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 23,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1713442614604,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10013,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-21T10:02:35.606713",
+    "lastModifiedDate": "2024-02-21T10:02:35.606721",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 12999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 22,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 12999,
+        "itemCode": "1234566",
+        "originalItemPrice": 12999,
+        "taxRate": null,
+        "originalDescription": "Doble fustasjeopphengsforkoblinger",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/1234566"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1713442614602,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10010,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-13T09:53:03.590518",
+    "lastModifiedDate": "2024-02-13T09:53:03.590519",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 129999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 19,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 129999,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1713442614592,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10009,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-13T09:53:03.590386",
+    "lastModifiedDate": "2024-02-13T09:53:03.590389",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 129999,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 18,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 129999,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1713442614580,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10008,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-13T09:45:07.743414",
+    "lastModifiedDate": "2024-02-13T09:45:07.743415",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 749995,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 17,
+        "description": "Super PC",
+        "itemQuantity": 5,
+        "itemPrice": 149999,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1713442614590,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10007,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-13T09:45:07.743228",
+    "lastModifiedDate": "2024-02-13T09:45:07.743231",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 749995,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 16,
+        "description": "Super PC",
+        "itemQuantity": 5,
+        "itemPrice": 149999,
+        "itemCode": "007",
+        "originalItemPrice": 120000,
+        "taxRate": null,
+        "originalDescription": "Kjip PC",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/007"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1713442614580,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10006,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-13T09:41:38.79813",
+    "lastModifiedDate": "2024-02-13T09:41:38.79813",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 237900,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "25gqdv",
+    "customerName": "Duck, Doffen",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": null,
+    "orderItems": [
+      {
+        "id": 13,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 89000,
+        "itemCode": "10002",
+        "originalItemPrice": 89000,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Interiør",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10002"
+      },
+      {
+        "id": 14,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 89000,
+        "itemCode": "10003",
+        "originalItemPrice": 89000,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Illustrasjon",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10003"
+      },
+      {
+        "id": 15,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 59900,
+        "itemCode": "10004",
+        "originalItemPrice": 59900,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke ESMOD",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10004"
+      }
+    ],
+    "claimStatus": "CANCELLED",
+    "statusMessage": "Slettet av bruker",
+    "timestamp": 1713442619371,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10005,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-13T09:41:38.797772",
+    "lastModifiedDate": "2024-02-13T09:41:38.797773",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 237900,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1ziec3",
+    "customerName": "Duck, Dole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/eb8303e3-3a6c-46c5-bdc0-a1b9442f81e9",
+    "orderItems": [
+      {
+        "id": 10,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 89000,
+        "itemCode": "10002",
+        "originalItemPrice": 89000,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Interiør",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10002"
+      },
+      {
+        "id": 11,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 89000,
+        "itemCode": "10003",
+        "originalItemPrice": 89000,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Illustrasjon",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10003"
+      },
+      {
+        "id": 12,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 59900,
+        "itemCode": "10004",
+        "originalItemPrice": 59900,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke ESMOD",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10004"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/eb8303e3-3a6c-46c5-bdc0-a1b9442f81e9",
+    "timestamp": 1707813698824,
+    "invoiceNumbers": []
+  },
+  {
+    "orgId": "pwf.no",
+    "orderNumber": 10004,
+    "invoiceNumbersCommaSeperated": null,
+    "createdDate": "2024-02-13T09:41:38.797367",
+    "lastModifiedDate": "2024-02-13T09:41:38.797371",
+    "invoiceDate": null,
+    "paymentDueDate": null,
+    "amountDue": null,
+    "originalAmountDue": 237900,
+    "requestedNumberOfDaysToPaymentDeadline": null,
+    "customerId": "1tk2ab",
+    "customerName": "Duck, Ole",
+    "createdByEmployeeNumber": "100006",
+    "organisationUnit": {
+      "organisationNumber": "313131313",
+      "name": "Andeby videregående skole"
+    },
+    "principalCode": "11",
+    "principalUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturautsteder/systemid/11",
+    "invoiceUri": "https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/f2cbbaea-7e44-40b2-8a97-49df14e24d97",
+    "orderItems": [
+      {
+        "id": 7,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 89000,
+        "itemCode": "10002",
+        "originalItemPrice": 89000,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Interiør",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10002"
+      },
+      {
+        "id": 8,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 89000,
+        "itemCode": "10003",
+        "originalItemPrice": 89000,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke Illustrasjon",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10003"
+      },
+      {
+        "id": 9,
+        "description": "",
+        "itemQuantity": 1,
+        "itemPrice": 59900,
+        "itemCode": "10004",
+        "originalItemPrice": 59900,
+        "taxRate": null,
+        "originalDescription": "Kontorutstyr Pakke ESMOD",
+        "itemUri": "https://play-with-fint.felleskomponent.no/okonomi/kodeverk/vare/systemid/10004"
+      }
+    ],
+    "claimStatus": "ACCEPT_ERROR",
+    "statusMessage": "400 Bad Request from GET https://play-with-fint.felleskomponent.no/okonomi/faktura/fakturagrunnlag/status/f2cbbaea-7e44-40b2-8a97-49df14e24d97",
+    "timestamp": 1707813698807,
     "invoiceNumbers": []
   }
 ]

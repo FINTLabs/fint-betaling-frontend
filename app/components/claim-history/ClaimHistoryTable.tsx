@@ -71,8 +71,9 @@ export function ClaimHistoryTable({
             <Table.HeaderCell>Status</Table.HeaderCell>
             <Table.HeaderCell>Navn</Table.HeaderCell>
             <Table.HeaderCell>Skole</Table.HeaderCell>
+            <Table.HeaderCell>Ansatt</Table.HeaderCell>
             <Table.HeaderCell>Ordrenummer</Table.HeaderCell>
-            <Table.HeaderCell>Fakturanummer</Table.HeaderCell>
+            <Table.HeaderCell>Faktura</Table.HeaderCell>
             <Table.HeaderCell align="right">Netto totalpris</Table.HeaderCell>
             <Table.HeaderCell align="right">Å betale</Table.HeaderCell>
             <Table.HeaderCell>Opprettet</Table.HeaderCell>
@@ -81,7 +82,7 @@ export function ClaimHistoryTable({
         <Table.Body>
           {claims.length === 0 ? (
             <Table.Row>
-              <Table.DataCell colSpan={9} style={{ textAlign: "center" }}>
+              <Table.DataCell colSpan={10} style={{ textAlign: "center" }}>
                 {emptyMessage}
               </Table.DataCell>
             </Table.Row>
@@ -92,7 +93,7 @@ export function ClaimHistoryTable({
                 {batch.orders.length > 1 && (
                   <Table.Row>
                     <Table.DataCell
-                      colSpan={9}
+                      colSpan={10}
                       style={{
                         padding: "0.75rem 1rem",
                         borderTop:
@@ -103,7 +104,7 @@ export function ClaimHistoryTable({
                       }}
                     >
                       <Box
-                          // background={"bg-neutral-soft"}
+                        // background={"bg-neutral-soft"}
                         style={{
                           fontSize: "0.875rem",
                           color: "var(--a-text-default)",
@@ -130,7 +131,7 @@ export function ClaimHistoryTable({
                   const invoiceNumbers =
                     order.invoiceNumbers.length > 0
                       ? order.invoiceNumbers.join(", ")
-                      : order.invoiceNumbersCommaSeperated || "";
+                      : "";
 
                   return (
                     <Table.Row
@@ -167,12 +168,17 @@ export function ClaimHistoryTable({
                         />
                       </Table.DataCell>
                       <Table.DataCell>{order.customerName}</Table.DataCell>
+
                       <Table.DataCell>
                         {order.organisationUnit.name}
                       </Table.DataCell>
                       <Table.DataCell>
+                        {order.createdByEmployee || "-"}
+                      </Table.DataCell>
+                      <Table.DataCell>
                         <strong>{order.orderNumber}</strong>
                       </Table.DataCell>
+
                       <Table.DataCell>{invoiceNumbers || "-"}</Table.DataCell>
                       <Table.DataCell align="right">
                         <strong>{formatCurrency(netTotalPrice)}</strong>

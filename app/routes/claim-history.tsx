@@ -1,5 +1,5 @@
-import {HStack, Spacer, VStack} from "@navikt/ds-react";
-import React, {useMemo, useState} from "react";
+import {Box, HStack, Search, Spacer, VStack} from "@navikt/ds-react";
+import React, {useEffect, useMemo, useState} from "react";
 import type {IClaim} from "~/types/claim";
 import {PageHeader} from "~/components/PageHeader";
 import {ClaimHistoryFilters} from "~/components/claim-history/ClaimHistoryFilters";
@@ -77,13 +77,30 @@ export default function ClaimHistory() {
   const [selectedOrderIds, setSelectedOrderIds] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(50);
+  const [orderIdSearch, setOrderIdSearch] = useState("");
+
+  const filteredClaimHistory = useMemo(() => {
+    const query = orderIdSearch.trim();
+    if (!query) {
+      return claimHistory;
+    }
+
+    return claimHistory.filter((order) =>
+      order.orderNumber.toString().includes(query),
+    );
+  }, [claimHistory, orderIdSearch]);
+
+  useEffect(() => {
+    setPage(1);
+    setSelectedOrderIds([]);
+  }, [orderIdSearch, claimHistory]);
 
   // SelectAndPaging
-  const totalPages = Math.ceil(claimHistory.length / rowsPerPage);
+  const totalPages = Math.ceil(filteredClaimHistory.length / rowsPerPage);
   const paginatedOrders = useMemo(() => {
     const startIndex = (page - 1) * rowsPerPage;
-    return claimHistory.slice(startIndex, startIndex + rowsPerPage);
-  }, [claimHistory, page, rowsPerPage]);
+    return filteredClaimHistory.slice(startIndex, startIndex + rowsPerPage);
+  }, [filteredClaimHistory, page, rowsPerPage]);
 
   // Get selectable orders (only SEND_ERROR, STORED, ACCEPT_ERROR)
   const selectableOrders = useMemo(() => {
@@ -163,7 +180,7 @@ export default function ClaimHistory() {
     <VStack gap="space-6">
       <PageHeader
         title="Ordre historikk"
-        description="Filtrer på dato, status eller skole i feltene under. Du kan også sortere ved å klikke på overskriftene."
+        description="Filtrer på dato, status eller skole i feltene under. "
       />
 
       <HStack gap="space-4" wrap align="end">
@@ -180,9 +197,23 @@ export default function ClaimHistory() {
         <ClaimHistoryActions
           selectedCount={selectedOrderIds.length}
           onResend={handleResend}
-          claims={claimHistory}
+          claims={filteredClaimHistory}
         />
       </HStack>
+
+      <Box padding={"space-16"}>
+        <form role="search" onSubmit={(e) => e.preventDefault()}>
+          <Search
+            label="Søk på ordrenummer"
+            variant="secondary"
+            size="small"
+            value={orderIdSearch}
+            onChange={setOrderIdSearch}
+            placeholder="Søk på ordrenummer"
+            // htmlSize={20}
+          />
+        </form>
+      </Box>
 
       <ClaimHistoryTable
         claims={paginatedOrders}
@@ -194,16 +225,18 @@ export default function ClaimHistory() {
         emptyMessage={
           claimHistory.length === 0
             ? "Ingen ordrer funnet"
+            : orderIdSearch.trim()
+              ? "Ingen ordrer matcher ordrenummeret"
             : "Ingen ordrer tilgjengelig"
         }
       />
 
-      {claimHistory.length > 0 && (
+      {filteredClaimHistory.length > 0 && (
         <SelectAndPaging
           page={page}
           totalPages={totalPages}
           rowsPerPage={rowsPerPage}
-          totalOrders={claimHistory.length}
+          totalOrders={filteredClaimHistory.length}
           onPageChange={setPage}
           onRowsPerPageChange={setRowsPerPage}
         />

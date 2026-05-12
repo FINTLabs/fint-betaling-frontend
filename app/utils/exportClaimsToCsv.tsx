@@ -52,7 +52,7 @@ export const exportClaimsToCsv = (claims: IClaim[]) => {
         const invoiceNumbers =
             order.invoiceNumbers.length > 0
                 ? order.invoiceNumbers.join(", ")
-                : order.invoiceNumbersCommaSeperated || "-";
+                : "-";
 
         const netTotalPrice = formatCurrency(order.originalAmountDue);
 
