@@ -1,5 +1,5 @@
 import { setupWorker } from "msw/browser";
-import { handlers } from "./handlers";
+import { handlers } from "./all-handlers";
 
 /**
  * MSW worker for browser (component tests, dev with mocked API).

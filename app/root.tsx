@@ -61,8 +61,8 @@ if (import.meta.env.DEV && import.meta.env.VITE_MOCK_CYPRESS === "true") {
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await MeApi.fetchMe();
 
-  const cookieHeader = request.headers.get("Cookie");
-  let cookieValue = await selectOrgCookie.parse(cookieHeader);
+  HeaderProperties.setProperties(request);
+  let cookieValue = await selectOrgCookie.parse(HeaderProperties.getCookie());
 
   let selectedOrganization = user.organisationUnits.find(
     (org) => org.organisationNumber === cookieValue,

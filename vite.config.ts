@@ -1,8 +1,8 @@
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import type { PluginOption } from "vite";
-import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   plugins: [
@@ -16,13 +16,17 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "html", "lcov"],
-      all: true,
       include: ["app/**/*.{ts,tsx}"],
       exclude: [
         "**/*.test.*",
         "**/*.spec.*",
         "**/*.d.ts",
         "**/node_modules/**",
+        "app/types/**",
+        "app/routes.ts",
+        "app/utils/cookie.ts",
+        "app/utils/csp.ts",
+        "app/utils/headerProperties.ts",
       ],
     },
   },

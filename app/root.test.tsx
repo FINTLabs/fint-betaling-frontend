@@ -7,6 +7,8 @@ const mocks = vi.hoisted(() => ({
   parseCookie: vi.fn(),
   serializeCookie: vi.fn(),
   fetchMe: vi.fn(),
+  setProperties: vi.fn(),
+  getCookie: vi.fn(),
   setSchoolOrgId: vi.fn(),
   getSchoolOrgId: vi.fn(),
   trackError: vi.fn(),
@@ -33,6 +35,8 @@ vi.mock("~/api/MeApi", () => ({
 
 vi.mock("~/utils/headerProperties", () => ({
   HeaderProperties: {
+    setProperties: mocks.setProperties,
+    getCookie: mocks.getCookie,
     setSchoolOrgId: mocks.setSchoolOrgId,
     getSchoolOrgId: mocks.getSchoolOrgId,
   },
@@ -74,6 +78,7 @@ vi.mock("../cypress/mocks/server", () => ({
 describe("root route module", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mocks.getCookie.mockReturnValue("");
     mocks.getSchoolOrgId.mockReturnValue("school-1");
   });
 
@@ -94,6 +99,8 @@ describe("root route module", () => {
 
     expect(result.selectedOrganization.organisationNumber).toBe("school-1");
     expect(mocks.serializeCookie).not.toHaveBeenCalled();
+    expect(mocks.setProperties).toHaveBeenCalled();
+    expect(mocks.getCookie).toHaveBeenCalled();
     expect(mocks.setSchoolOrgId).toHaveBeenCalledWith("school-1");
   });
 

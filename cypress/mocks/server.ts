@@ -1,5 +1,5 @@
 import { setupServer } from "msw/node";
-import { handlers } from "./handlers";
+import { handlers } from "./all-handlers";
 
 /**
  * MSW server for Node.js (unit tests, integration tests).

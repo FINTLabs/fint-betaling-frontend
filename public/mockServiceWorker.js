@@ -7,7 +7,7 @@
  * - Please do NOT modify this file.
  */
 
-const PACKAGE_VERSION = '2.13.2'
+const PACKAGE_VERSION = '2.14.6'
 const INTEGRITY_CHECKSUM = '4db4a41e972cec1b64cc569c66952d82'
 const IS_MOCKED_RESPONSE = Symbol('isMockedResponse')
 const activeClientIds = new Set()
@@ -117,7 +117,7 @@ addEventListener('fetch', function (event) {
 })
 
 /**
- * @param {event} event
+ * @param {FetchEvent} event
  * @param {string} requestId
  * @param {number} requestInterceptedAt
  */
@@ -171,7 +171,7 @@ async function handleRequest(event, requestId, requestInterceptedAt) {
  * Client that issues a request doesn't necessarily equal the client
  * that registered the worker. It's with the latter the worker should
  * communicate with during the response resolving phase.
- * @param {event} event
+ * @param {FetchEvent} event
  * @returns {Promise<Client | undefined>}
  */
 async function resolveMainClient(event) {
@@ -202,7 +202,7 @@ async function resolveMainClient(event) {
 }
 
 /**
- * @param {event} event
+ * @param {FetchEvent} event
  * @param {Client | undefined} client
  * @param {string} requestId
  * @param {number} requestInterceptedAt

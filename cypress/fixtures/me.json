@@ -2,12 +2,12 @@
   "name": "Test User",
   "employeeNumber": "12345",
   "organisation": {
-    "organisationNumber": "123456789",
+    "organisationNumber": "313131313",
     "name": "Test School"
   },
   "organisationUnits": [
     {
-      "organisationNumber": "123456789",
+      "organisationNumber": "313131313",
       "name": "Test School"
     }
   ],
