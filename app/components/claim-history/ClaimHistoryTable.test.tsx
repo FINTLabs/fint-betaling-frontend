@@ -141,10 +141,10 @@ describe("ClaimHistoryTable", () => {
     );
 
     expect(
-      screen.getByText("Batch: formatted-2024-01-11T10:00:00Z (1 ordre)"),
+      screen.getByText("Faktureringskjøring: formatted-2024-01-11T10:00:00Z (1 ordre)"),
     ).toBeTruthy();
     expect(
-      screen.getByText("Batch: formatted-2024-01-10T10:00:00Z (2 ordrer)"),
+      screen.getByText("Faktureringskjøring: formatted-2024-01-10T10:00:00Z (2 ordrer)"),
     ).toBeTruthy();
     expect(screen.getAllByText("currency-2000").length).toBeGreaterThan(0);
     expect(screen.getAllByText("currency-1000").length).toBeGreaterThan(0);
