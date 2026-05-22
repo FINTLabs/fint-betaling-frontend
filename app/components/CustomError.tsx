@@ -1,0 +1,117 @@
+import {
+  BodyShort,
+  Box,
+  Button,
+  Heading,
+  HGrid,
+  Link,
+  List,
+  VStack,
+} from "@navikt/ds-react";
+import React from "react";
+
+interface CustomErrorPageProps {
+  statusCode?: number;
+  statusTitle?: string;
+  errorData?: string;
+}
+
+const CustomErrorPage: React.FC<CustomErrorPageProps> = ({
+  statusCode = 500,
+  statusTitle = "Beklager, noe gikk galt.",
+  errorData = "unknown",
+}) => {
+  const formatErrorData = (data: string): string => {
+    try {
+      const parsed = JSON.parse(data);
+      return JSON.stringify(parsed, null, 2);
+    } catch {
+      return data;
+    }
+  };
+
+  const formattedErrorData = formatErrorData(errorData);
+  return (
+    <Box marginBlock={"space-24"}>
+      <HGrid
+        columns="minmax(auto,600px)"
+        data-aksel-template={`${statusCode}-v2`}
+      >
+        <VStack gap="space-16">
+          <VStack gap="space-16" align="start">
+            <div>
+              <BodyShort textColor="subtle" size="small">
+                Statuskode {statusCode}
+              </BodyShort>
+              <Heading level="1" size="large" spacing>
+                {statusTitle}
+              </Heading>
+
+              <BodyShort spacing>
+                En teknisk feil på våre servere gjør at siden er utilgjengelig.
+              </BodyShort>
+              <BodyShort>Du kan prøve å</BodyShort>
+              <List>
+                <List.Item>
+                  vente noen minutter og{" "}
+                  <Link href="#" onClick={() => location.reload()}>
+                    laste siden på nytt
+                  </Link>
+                </List.Item>
+                <List.Item>
+                  <Link href="#" onClick={() => history.back()}>
+                    gå tilbake til forrige side
+                  </Link>
+                </List.Item>
+                <List.Item>
+                  <Link href="https://novari.no/driftsmeldinger/">
+                    sjekk driftsmeldingssiden
+                  </Link>
+                </List.Item>
+              </List>
+              <BodyShort>
+                Hvis problemet vedvarer, kan du{" "}
+                <Link href="https://support.novari.no/" target="_blank">
+                  kontakte oss (åpnes i ny fane)
+                </Link>
+                .
+              </BodyShort>
+              <Link href="/" className="navds-link">
+                <Button>Gå til Dashboard</Button>
+              </Link>
+            </div>
+
+            {statusCode != 403 && (
+              <BodyShort
+                size="small"
+                textColor="subtle"
+                style={{ whiteSpace: "pre-wrap" }}
+              >
+                Feil-data: {statusCode} - {formattedErrorData}
+              </BodyShort>
+            )}
+          </VStack>
+
+          {/* DO WE WANT ENGLISH?? */}
+          {/*<div>*/}
+          {/*    <Heading level="1" size="large" spacing>*/}
+          {/*        Something went wrong*/}
+          {/*    </Heading>*/}
+          {/*    <BodyShort spacing>*/}
+          {/*        This was caused by a technical fault on our servers. Please refresh this*/}
+          {/*        page or try again in a few minutes.*/}
+          {/*    </BodyShort>*/}
+          {/*    <BodyShort>*/}
+          {/*        <Link target="_blank" href="https://support.novari.no/">*/}
+          {/*            Contact us (opens in new tab)*/}
+          {/*        </Link>{' '}*/}
+          {/*        if the problem persists.*/}
+          {/*    </BodyShort>*/}
+          {/*</div>*/}
+        </VStack>
+      </HGrid>
+    </Box>
+  );
+};
+
+export default CustomErrorPage;

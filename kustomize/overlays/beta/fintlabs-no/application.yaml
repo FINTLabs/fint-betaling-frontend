@@ -11,12 +11,18 @@ metadata:
     fintlabs.no/team: core
     fintlabs.no/org-id: fintlabs.no
 spec:
+  env:
+    - name: VITE_API_URL
+      value: https://betaling-demo.felleskomponent.no
+    - name: ANALYTICS_URL
+      value: http://fint-analytics-frontend:3000
   port: 8000
   imagePullPolicy: Always
   orgId: fintlabs.no
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest
   url:
     hostname: betaling-demo.felleskomponent.no
+    basePath: /
   ingress:
     enabled: true
   resources:

@@ -1,18 +1,16 @@
 {
-  "name": "Test Testesen",
+  "name": "Test User",
+  "employeeNumber": "12345",
   "organisation": {
-    "name": "Viken fylkeskommune",
-    "organisationNumber": "921693230"
+    "organisationNumber": "313131313",
+    "name": "Test School"
   },
   "organisationUnits": [
     {
-      "name": "Fagskolen i Østfold",
-      "organisationNumber": "974544520"
-    },
-    {
-      "name": "Testskolen videregående skole",
-      "organisationNumber": "999999999"
+      "organisationNumber": "313131313",
+      "name": "Test School"
     }
   ],
+  "idleTime": 300000,
   "admin": false
 }

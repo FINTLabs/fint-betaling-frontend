@@ -1,0 +1,64 @@
+/*.light {*/
+/*    !* NOVARI Footer and header *!*/
+/*    .novari-header {*/
+/*        background: #FCF5ED; color: #6B133D;*/
+/*    }*/
+
+/*    .novari-footer {*/
+/*        background: #6B133D;*/
+/*    }*/
+/*    !* theme.css *!*/
+/*    .rounded-box {*/
+/*        border: 2px solid var(--ax-border-brand-magenta-subtle);*/
+/*        border-radius: 12px;*/
+/*        padding: var(--ax-space-16);*/
+/*        height: 20rem;*/
+/*        overflow: auto;*/
+/*    }*/
+/*    .border-box {*/
+/*        border-top: 2px solid var(--ax-border-brand-magenta-subtle);*/
+/*        !*border-radius: 12px;*!*/
+/*        padding: var(--ax-space-16);*/
+/*        height: 20rem;*/
+/*        overflow: auto;*/
+/*    }*/
+
+/*}*/
+/* Default (light) */
+:root {
+    --novari-chrome-bg: #FCF5ED;   /* header */
+    --novari-chrome-fg: #6B133D;
+    --novari-footer-bg: #6B133D;
+    --novari-footer-fg: #FFFFFF;
+}
+
+/* When Aksel Theme is dark */
+[data-theme="dark"] {
+    --novari-chrome-bg: #1E1E1E;   /* or a darker warm-ish surface */
+    --novari-chrome-fg: #F3E7EC;   /* light text with slight warmth */
+    --novari-footer-bg: #4E0F2B;   /* deep burgundy */
+    --novari-footer-fg: #FFFFFF;
+}
+
+.novari-header {
+    background: var(--novari-chrome-bg);
+    color: var(--novari-chrome-fg);
+}
+
+.novari-footer {
+    background: var(--novari-footer-bg);
+    color: var(--novari-footer-fg);
+}
+
+.no-spinner input[type="number"]::-webkit-outer-spin-button,
+.no-spinner input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.no-spinner input[type="number"] {
+    -webkit-appearance: none;
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+

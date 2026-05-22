@@ -1,12 +1,14 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
-  projectId: 'ft2keg',
-  viewportWidth: 1000,
-  viewportHeight: 1200,
   e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
+    baseUrl: "http://localhost:3001",
+    allowCypressEnv: false,
+    viewportWidth: 1920,
+    viewportHeight: 1080,
+    specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
+    supportFile: "cypress/support/e2e.ts",
+    video: false,
+    screenshotOnRunFailure: true,
   },
 });

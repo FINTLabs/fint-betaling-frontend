@@ -1,0 +1,7 @@
+{
+  "name": "Test School",
+  "description": "Test School",
+  "customers": [
+    { "id": "313131313", "name": "Test Customer" }
+  ]
+}

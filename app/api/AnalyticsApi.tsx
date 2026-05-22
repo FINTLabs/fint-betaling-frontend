@@ -1,0 +1,86 @@
+import {NovariApiManager} from "novari-frontend-components";
+
+// const ANALYTICS_URL = process.env.ANALYTICS_URL ?? "";
+// const ANALYTICS_URL = import.meta.env.VITE_ANALYTICS_URL || process.env.VITE_ANALYTICS_URL || "";
+// if (!ANALYTICS_URL) {
+//     console.warn("ANALYTICS_URL is not set");
+// }
+const apiManager = new NovariApiManager({
+    baseUrl: "",
+});
+
+
+class AnalyticsApi {
+    static async trackEvent(params: {
+        type: "page_view" | "button_click" | "search" | "error";
+        path?: string;
+        element?: string;
+        tenant?: string;
+        //eslint-disable-next-line @typescript-eslint/no-explicit-any
+        meta?: any;
+    }) {
+        const body = {
+            app: 'betaling',
+            type: params.type,
+            path: params.path ?? null,
+            element: params.element ?? null,
+            tenant: params.tenant ?? null,
+            meta: params.meta ?? null,
+        };
+
+        return await apiManager.call({
+            method: "POST",
+            endpoint: `/_analytics/events`,
+            functionName: "trackEvent",
+            body,
+            additionalHeaders: {
+                "x-analytics-token": "change-me",
+            },
+        });
+    }
+
+    static async trackView(path: string, tenant?: string) {
+        return this.trackEvent({
+            type: "page_view",
+            path,
+            tenant: tenant || "",
+        });
+    }
+
+    static async trackButtonClick(element: string, path: string, tenant?: string,
+    ) {
+        return this.trackEvent({
+            type: "button_click",
+            path,
+            element,
+            tenant: tenant || "",
+        });
+    }
+
+    static async trackSearch(path: string, meta: Record<string, unknown>,
+        tenant?: string,
+    ) {
+        return this.trackEvent({
+            type: "search",
+            path,
+            tenant: tenant || "",
+            meta
+        });
+    }
+
+    static async trackError(params: {
+        path: string;
+        message: string;
+        statusCode?: number;
+    }) {
+        return this.trackEvent({
+            type: "error",
+            path: params.path,
+            meta: {
+                message: params.message,
+                statusCode: params.statusCode ?? null,
+            },
+        });
+    }
+}
+export default AnalyticsApi;
