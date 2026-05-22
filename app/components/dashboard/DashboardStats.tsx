@@ -64,7 +64,7 @@ export function DashboardStats({
         //     <Detail>{stat.description}</Detail>
         //   </LinkCard.Description>
         // </LinkCard>
-        <InfoCard data-color={stat.color}>
+        <InfoCard key={stat.title} data-color={stat.color}>
           <InfoCard.Header icon={stat.icon}>
             <InfoCard.Title>{stat.title}</InfoCard.Title>
           </InfoCard.Header>

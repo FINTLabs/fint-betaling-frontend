@@ -5,7 +5,8 @@ export const analyticsHandlers = [
   http.post(`${API_URL}/api/events`, () => {
     return HttpResponse.json({ ok: true }, { status: 200 });
   }),
-  http.post(`${API_URL}/_analytics/events`, () => {
+  // AnalyticsApi posts to the React Router proxy on the app origin, not the backend API.
+  http.post("/_analytics/events", () => {
     return HttpResponse.json({ ok: true }, { status: 200 });
   }),
 ];

@@ -29,14 +29,19 @@ import CustomError from "~/components/CustomError";
 import { useTrackAnalyticsPageViews } from "~/hooks/useTrackAnalyticsPageViews";
 import AnalyticsApi from "~/api/AnalyticsApi";
 import { useEffect } from "react";
-
-// TODO: import { getContentSecurityPolicy } from "~/utils/csp";
+import { cspReportOnly } from "~/utils/csp";
 
 //TODO: Clean up console.log lines
 export const links: Route.LinksFunction = () => [
   { rel: "stylesheet", href: akselHref, as: "style" }, // Aksel first
   { rel: "stylesheet", href: themeHref, as: "style" }, // novari-theme.css
 ];
+
+export function headers() {
+  return {
+    "Content-Security-Policy-Report-Only": cspReportOnly,
+  };
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let server: any;
@@ -75,8 +80,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   HeaderProperties.setSchoolOrgId(selectedOrganization.organisationNumber);
   console.log("using school id: ", HeaderProperties.getSchoolOrgId());
 
-  // TODO: const cspHeader = getContentSecurityPolicy();
-
   if (!cookieValue) {
     const newCookieHeader = await selectOrgCookie.serialize(
       selectedOrganization.organisationNumber,
@@ -86,16 +89,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       {
         headers: {
           "Set-Cookie": newCookieHeader,
-          // TODO: "Content-Security-Policy": cspHeader,
         },
       },
     );
   }
 
-  return {
-    user,
-    selectedOrganization,
-  };
+  return { user, selectedOrganization };
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
