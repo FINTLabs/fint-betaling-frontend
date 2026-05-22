@@ -9,6 +9,7 @@ export default tseslint.config(
       "node_modules/**",
       ".react-router/**",
       "public/mockServiceWorker.js",
+        "coverage/**",
     ],
   },
   js.configs.recommended,
