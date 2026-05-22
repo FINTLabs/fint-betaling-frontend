@@ -1,87 +1,60 @@
-# Welcome to React Router!
+# FINT Betaling – frontend
 
-A modern, production-ready template for building full-stack React applications using React Router.
+Web app for creating and managing payment orders in FINT Betaling.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Requirements
 
-## Features
+- Node.js 22+
+- npm
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
-
-## Getting Started
-
-### Installation
-
-Install the dependencies:
+## Get started
 
 ```bash
 npm install
-```
-
-### Development
-
-Start the development server with HMR:
-
-```bash
 npm run dev
 ```
 
-Your application will be available at `http://localhost:5173`.
+Open [http://localhost:3001](http://localhost:3001).
 
-## Building for Production
+The app talks to a backend API. Set the API URL if needed:
 
-Create a production build:
+```bash
+VITE_API_URL=https://your-api-url npm run dev
+```
+
+## Production
 
 ```bash
 npm run build
+npm run start
 ```
 
-## Deployment
+The server listens on port **8000** by default (see `Dockerfile`).
 
-### Docker Deployment
-
-To build and run using Docker:
+## Docker
 
 ```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
+docker build -t fint-betaling-frontend .
+docker run -p 8000:8000 fint-betaling-frontend
 ```
 
-The containerized application can be deployed to any platform that supports Docker, including:
+## Useful commands
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build |
+| `npm run start` | Run production server |
+| `npm run test` | Unit tests |
+| `npm run cypress` | End-to-end tests |
+| `npm run lint` | Lint code |
+| `npm run typecheck` | TypeScript check |
 
-### DIY Deployment
+## Main pages
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+| Path | Purpose |
+|------|---------|
+| `/` | Dashboard |
+| `/ny` | Create new order |
+| `/send` | Pending orders |
+| `/historikk` | Order history |
