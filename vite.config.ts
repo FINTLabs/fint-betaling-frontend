@@ -28,6 +28,12 @@ export default defineConfig({
         "app/utils/csp.ts",
         "app/utils/headerProperties.ts",
       ],
+      thresholds: {
+        lines: 70,
+        statements: 70,
+        functions: 70,
+        branches: 60,
+      },
     },
   },
   server: {
