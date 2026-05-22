@@ -9,13 +9,20 @@ vi.mock("@navikt/ds-react", () => {
     children,
     checked,
     onChange,
+    readOnly,
   }: {
     children: React.ReactNode;
     checked?: boolean;
     onChange?: () => void;
+    readOnly?: boolean;
   }) => (
     <label>
-      <input type="checkbox" checked={Boolean(checked)} onChange={onChange} />
+      <input
+        type="checkbox"
+        checked={Boolean(checked)}
+        onChange={onChange ?? (() => {})}
+        readOnly={readOnly}
+      />
       {children}
     </label>
   );

@@ -51,8 +51,6 @@ class ClaimApi {
     const functionName = "sendClaimsToSystem";
     orgId = "fintlabs.no";
 
-    console.log("sendClaims", orgId, claims);
-
     return await apiManager.call<IClaim[]>({
       method: "POST",
       endpoint: `/api/claim/send`,
@@ -105,7 +103,6 @@ class ClaimApi {
     const functionName = "createClaim";
     orgId = "fake.fintlabs.no";
 
-    console.log("claimBody: ", claimBody);
     return await apiManager.call<IClaim[]>({
       method: "POST",
       endpoint: `/api/claim`,

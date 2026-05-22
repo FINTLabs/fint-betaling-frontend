@@ -114,8 +114,11 @@ export function GroupRecipientsTable({
                   <Checkbox
                     checked={checkboxState.checked}
                     indeterminate={checkboxState.indeterminate}
-                    onChange={() => {
-                      onToggleGroup(group, !checkboxState.checked);
+                    onChange={(event) => {
+                      onToggleGroup(
+                        group,
+                        event.target.checked || checkboxState.indeterminate,
+                      );
                     }}
                     hideLabel
                   >

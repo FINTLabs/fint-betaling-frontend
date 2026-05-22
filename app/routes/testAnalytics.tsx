@@ -5,8 +5,7 @@ import MeApi from "~/api/MeApi";
 
 //TODO: REMOVE BEFORE DEPLOY to API
 export default function TestAnalytics() {
-    function trackView(s: string) {
-        console.log("trackView", s);
+    function handleTestClick() {
         void AnalyticsApi.trackButtonClick(
             "test-analytics-button",
             location.pathname,
@@ -16,7 +15,7 @@ export default function TestAnalytics() {
 
     return (<>
           <div>TestAnalytics</div>
-          <Button variant="primary" size="medium" onClick={() => trackView("/testAnalytics")}>
+          <Button variant="primary" size="medium" onClick={handleTestClick}>
               Klikk meg
           </Button></>
   );

@@ -139,7 +139,6 @@ export default function ClaimHistory() {
   };
 
   const handleResend = () => {
-    console.log("Resending orders:", selectedOrderIds);
     const formData = new FormData();
     formData.append("actionType", "SEND_TO_FACTORING");
     formData.append("selectedClaims", JSON.stringify(selectedOrderIds));

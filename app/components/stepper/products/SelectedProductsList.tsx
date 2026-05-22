@@ -37,7 +37,7 @@ export function SelectedProductsList({
             Ingen produkter valgt ennå. Velg produkter fra listen under.
           </Detail>
         ) : (
-          <VStack gap="space-2">
+          <List as="ul">
             {selectedProducts.map((product) => {
               const price =
                 product.customPrice !== undefined
@@ -46,59 +46,20 @@ export function SelectedProductsList({
               const productTotal = price * product.quantity;
 
               return (
-                // <Box
-                //   key={product.itemCode}
-                //   padding="3"
-                //   background="surface-default"
-                //   borderRadius="medium"
-                //   borderWidth="1"
-                //   borderColor="border-subtle"
-                //   style={{
-                //     display: "flex",
-                //     alignItems: "center",
-                //     justifyContent: "space-between",
-                //     gap: "1rem",
-                //   }}
-                // >
-                // <Box>
-                //   <Box
-                //     style={{
-                //       display: "flex",
-                //       alignItems: "center",
-                //       gap: "0.75rem",
-                //       flex: 1,
-                //     }}
-                //   >
-                //     <span style={{ fontSize: "0.875rem", fontWeight: 400 }}>
-                //       {product.description} ({product.itemCode})
-                //       {product.freeText && ` - Fritekst: ${product.freeText}`}
-                //       {" - Pris pr. enhet: "}
-                //       {formatPrice(price)} - Antall: {product.quantity} - Sum:{" "}
-                //       {formatPrice(productTotal)}
-                //     </span>
-                //   </Box>
-                //   <Button
-                //     icon={<TrashIcon title="Fjern" />}
-                //     onClick={() => onRemoveProduct(product)}
-                //     variant="tertiary"
-                //     size="small"
-                //   />
-                // </Box>
-                <List as="ul">
-                  <List.Item
-                    icon={<TrashIcon aria-hidden />}
-                    title={`${product.description} (${product.itemCode})`}
-                    onClick={() => onRemoveProduct(product)}
-                  >
-                    {product.freeText && ` - Fritekst: ${product.freeText}`}
-                    {" - Pris pr. enhet: "}
-                    {formatPrice(price)} - Antall: {product.quantity} - Sum:{" "}
-                    {formatPrice(productTotal)}
-                  </List.Item>
-                </List>
+                <List.Item
+                  key={product.itemCode}
+                  icon={<TrashIcon aria-hidden />}
+                  title={`${product.description} (${product.itemCode})`}
+                  onClick={() => onRemoveProduct(product)}
+                >
+                  {product.freeText && ` - Fritekst: ${product.freeText}`}
+                  {" - Pris pr. enhet: "}
+                  {formatPrice(price)} - Antall: {product.quantity} - Sum:{" "}
+                  {formatPrice(productTotal)}
+                </List.Item>
               );
             })}
-          </VStack>
+          </List>
         )}
       </VStack>
     </Box>

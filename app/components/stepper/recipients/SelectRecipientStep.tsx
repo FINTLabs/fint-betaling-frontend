@@ -80,8 +80,6 @@ export function SelectRecipientStep({
   }, [searchQuery, recipientType]);
 
   const handleFileUpload = (file: File) => {
-    console.log("File selected:", file.name);
-
     FileApi.sendFile(currentSchoolOrgId, file);
   };
 

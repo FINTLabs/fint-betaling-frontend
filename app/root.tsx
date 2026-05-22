@@ -78,7 +78,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   HeaderProperties.setSchoolOrgId(selectedOrganization.organisationNumber);
-  console.log("using school id: ", HeaderProperties.getSchoolOrgId());
 
   if (!cookieValue) {
     const newCookieHeader = await selectOrgCookie.serialize(
@@ -124,7 +123,6 @@ export default function App() {
 
   useTrackAnalyticsPageViews(user?.organisation?.name || "unknown");
 
-  console.log("selectedOrganization - root", selectedOrganization);
   const navigate = useNavigate();
 
   function onLogin(): void {

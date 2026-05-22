@@ -149,10 +149,12 @@ export function ClaimHistoryTable({
                       <Table.DataCell>
                         <Checkbox
                           checked={isSelected}
-                          onChange={(e) =>
-                            onSelectClaim(orderId, e.target.checked)
-                          }
-                          disabled={!isRowSelectable}
+                          readOnly={!isRowSelectable}
+                          onChange={(e) => {
+                            if (isRowSelectable) {
+                              onSelectClaim(orderId, e.target.checked);
+                            }
+                          }}
                           hideLabel
                           onClick={(e) => e.stopPropagation()}
                         >

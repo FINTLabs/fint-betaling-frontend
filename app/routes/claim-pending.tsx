@@ -93,7 +93,6 @@ export default function ClaimPending() {
   };
 
   const handleSendToFactoring = () => {
-    console.log("Sending claims to fakturering:", selectedClaimIds);
     const formData = new FormData();
     formData.append("actionType", "SEND_TO_FACTORING");
     formData.append("selectedClaims", JSON.stringify(selectedClaimIds));
@@ -104,7 +103,6 @@ export default function ClaimPending() {
   };
 
   const handleDeleteSelected = async () => {
-    console.log("Deleting claims:", selectedClaimIds);
     const formData = new FormData();
     formData.append("actionType", "DELETE_CLAIMS");
     formData.append("selectedClaims", JSON.stringify(selectedClaimIds));

@@ -223,7 +223,6 @@ export const action: ActionFunction = async ({ request }) => {
   let response;
     switch (actionType) {
       case "SAVE_INVOICES":
-        console.log("SAVE_INVOICES", claimBody);
         response = ClaimApi.createClaim(selectedOrg, claimBody);
         if((await response).success){
           return redirect(`/send`);

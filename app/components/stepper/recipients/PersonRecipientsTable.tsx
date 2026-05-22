@@ -32,8 +32,8 @@ export function PersonRecipientsTable({
                   <Checkbox
                       data-cy={`person-checkbox-${customer.name}`}
                     checked={isSelected}
-                    onChange={() =>
-                      onToggleRecipient(customer, !isSelected)
+                    onChange={(event) =>
+                      onToggleRecipient(customer, event.target.checked)
                     }
                     hideLabel
                   >

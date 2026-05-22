@@ -37,7 +37,11 @@ vi.mock("./RecipientTypeSelector", () => ({
 
 vi.mock("./GroupRecipientsTable", () => ({
   GroupRecipientsTable: (props: {
-    onToggleGroup: (group: { name: string; customers: Array<{ id: string; name: string }> }, checked: boolean) => void;
+    onToggleGroup: (group: {
+      name: string;
+      description: string;
+      customers: { id: string; name: string }[]
+    }, checked: boolean) => void;
   }) => (
     <button
       type="button"

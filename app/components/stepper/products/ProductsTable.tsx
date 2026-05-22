@@ -132,7 +132,9 @@ export function ProductsTable({
                       <Table.DataCell>
                         <Checkbox
                           checked={isSelected}
-                          onChange={() => onToggleProduct(product, !isSelected)}
+                          onChange={(event) =>
+                            onToggleProduct(product, event.target.checked)
+                          }
                           hideLabel
                         >
                           Velg {product.description}

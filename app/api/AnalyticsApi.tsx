@@ -28,7 +28,7 @@ class AnalyticsApi {
             meta: params.meta ?? null,
         };
 
-        const res = await apiManager.call({
+        return await apiManager.call({
             method: "POST",
             endpoint: `/_analytics/events`,
             functionName: "trackEvent",
@@ -37,8 +37,6 @@ class AnalyticsApi {
                 "x-analytics-token": "change-me",
             },
         });
-        console.log("trackEvent", res);
-        return res;
     }
 
     static async trackView(path: string, tenant?: string) {

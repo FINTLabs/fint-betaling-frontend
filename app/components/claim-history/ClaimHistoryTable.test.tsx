@@ -22,21 +22,24 @@ vi.mock("@navikt/ds-react", () => {
     onChange,
     onClick,
     disabled,
+    readOnly,
     children,
   }: {
     checked?: boolean;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     onClick?: React.MouseEventHandler<HTMLInputElement>;
     disabled?: boolean;
+    readOnly?: boolean;
     children?: React.ReactNode;
   }) => (
     <label>
       <input
         type="checkbox"
         checked={Boolean(checked)}
-        onChange={onChange}
+        onChange={onChange ?? (() => {})}
         onClick={onClick}
         disabled={disabled}
+        readOnly={readOnly}
         aria-label={typeof children === "string" ? children : undefined}
       />
       {children}
