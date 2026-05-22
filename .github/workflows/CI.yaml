@@ -31,7 +31,7 @@ jobs:
         run: npm install
 
       #      - name: Run tests
-      #        run: yarn test
+      #        run: vitest run --pool=forks --maxWorkers=1
 
       - name: Build project
         run: npm run build

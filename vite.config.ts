@@ -1,14 +1,15 @@
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import type { PluginOption } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
 export default defineConfig({
+  resolve: {
+    tsconfigPaths: true,
+  },
   plugins: [
     tailwindcss(),
     !process.env.VITEST ? reactRouter() : null,
-    tsconfigPaths(),
   ].filter(Boolean) as PluginOption[],
   test: {
     environment: "jsdom",
