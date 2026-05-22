@@ -111,7 +111,7 @@ export function ClaimHistoryTable({
                         backgroundColor: "var(--ax-bg-neutral-soft)",
                       }}
                     >
-                      Batch: {formatDate(batch.date)} ({batch.orders.length}{" "}
+                      Faktureringskjøring: {formatDate(batch.date)} ({batch.orders.length}{" "}
                       {batch.orders.length === 1 ? "ordre" : "ordrer"})
                     </Box>
                   </Table.DataCell>
