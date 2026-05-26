@@ -12,7 +12,7 @@ vi.mock("@navikt/ds-react", () => {
     "data-color": dataColor,
   }: {
     children: React.ReactNode;
-    "data-color"?: string;
+    "data-color"?: "success" | "info" | "danger";
   }) => <section data-color={dataColor}>{children}</section>;
 
   InfoCard.Header = ({ children }: { children: React.ReactNode }) => (

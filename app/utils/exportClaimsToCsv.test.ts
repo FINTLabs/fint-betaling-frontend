@@ -39,13 +39,9 @@ describe("exportClaimsToCsv", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-05-20T12:00:00.000Z"));
 
-    let capturedBlob: Blob | null = null;
     const createObjectURLMock = vi
       .spyOn(URL, "createObjectURL")
-      .mockImplementation((blob: Blob) => {
-        capturedBlob = blob;
-        return "blob:mock-url";
-      });
+      .mockImplementation(() => "blob:mock-url");
     const revokeObjectURLMock = vi
       .spyOn(URL, "revokeObjectURL")
       .mockImplementation(() => {});
@@ -65,9 +61,8 @@ describe("exportClaimsToCsv", () => {
     const downloadLink = createObjectURLMock.mock.calls[0]?.[0];
     expect(downloadLink).toBeInstanceOf(Blob);
 
-    const csvContent = await capturedBlob?.text();
-    expect(csvContent).toBeDefined();
-    expect(csvContent?.startsWith("Status,Navn,Skole,Ordrenummer")).toBe(true);
+    const csvContent = await (downloadLink as Blob).text();
+    expect(csvContent.startsWith("Status,Navn,Skole,Ordrenummer")).toBe(true);
     expect(csvContent).toContain(
       "Status,Navn,Skole,Ordrenummer,Fakturanummer,Netto totalpris,Å betale,Opprettet",
     );
@@ -77,11 +72,9 @@ describe("exportClaimsToCsv", () => {
   });
 
   it("uses fallback values for missing invoice numbers and amount due", async () => {
-    let capturedBlob: Blob | null = null;
-    vi.spyOn(URL, "createObjectURL").mockImplementation((blob: Blob) => {
-      capturedBlob = blob;
-      return "blob:mock-url";
-    });
+    const createObjectURLMock = vi
+      .spyOn(URL, "createObjectURL")
+      .mockImplementation(() => "blob:mock-url");
     vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => {});
     vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
 
@@ -93,7 +86,9 @@ describe("exportClaimsToCsv", () => {
       }),
     ]);
 
-    const csvContent = await capturedBlob?.text();
+    const downloadLink = createObjectURLMock.mock.calls[0]?.[0];
+    expect(downloadLink).toBeInstanceOf(Blob);
+    const csvContent = await (downloadLink as Blob).text();
     expect(csvContent).toContain(
       "STORED,Ola Nordmann,Skole 1,101,-,NOK(1200),-,DATE(2024-01-01T10:00:00Z)",
     );

@@ -75,6 +75,10 @@ vi.mock("../cypress/mocks/server", () => ({
   server: { listen: vi.fn() },
 }));
 
+function getLoaderData(result: Awaited<ReturnType<typeof loader>>) {
+  return "data" in result ? result.data : result;
+}
+
 describe("root route module", () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -97,7 +101,7 @@ describe("root route module", () => {
       context: {},
     } as never);
 
-    expect(result.selectedOrganization.organisationNumber).toBe("school-1");
+    expect(getLoaderData(result).selectedOrganization.organisationNumber).toBe("school-1");
     expect(mocks.serializeCookie).not.toHaveBeenCalled();
     expect(mocks.setProperties).toHaveBeenCalled();
     expect(mocks.getCookie).toHaveBeenCalled();
@@ -118,7 +122,7 @@ describe("root route module", () => {
     } as never);
 
     expect(mocks.serializeCookie).toHaveBeenCalledWith("school-1");
-    expect((result as { data: { selectedOrganization: { organisationNumber: string } } }).data.selectedOrganization.organisationNumber).toBe(
+    expect(getLoaderData(result).selectedOrganization.organisationNumber).toBe(
       "school-1",
     );
   });
@@ -142,7 +146,7 @@ describe("root route module", () => {
   });
 
   it("error boundary tracks unexpected errors", () => {
-    render(<ErrorBoundary error={new Error("boom")} />);
+    render(<ErrorBoundary params={{}} error={new Error("boom")} />);
 
     expect(screen.getByText("Noe gikk galt")).toBeTruthy();
     expect(screen.getByText("boom")).toBeTruthy();
