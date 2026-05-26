@@ -1,9 +1,19 @@
 {
   "include": [
-    "**/*",
-    "**/.server/**/*",
-    "**/.client/**/*",
+    "app/**/*",
+    "cypress/**/*",
+    "test/**/*",
+    "vite.config.ts",
+    "react-router.config.ts",
+    "cypress.config.ts",
     ".react-router/types/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    "coverage",
+    "src"
   ],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
