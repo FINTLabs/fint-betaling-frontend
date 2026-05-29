@@ -9,6 +9,8 @@ WORKDIR /app
 RUN npm ci --omit=dev
 
 FROM node:26-alpine AS build-env
+ARG BASE_PATH=/
+ENV BASE_PATH=$BASE_PATH
 COPY . /app/
 COPY --from=development-dependencies-env /app/node_modules /app/node_modules
 WORKDIR /app
