@@ -109,10 +109,17 @@ jobs:
           renderEngine: kustomize
           kustomizationPath: kustomize/overlays/${{ steps.environment.outputs.result }}/${{ matrix.org }}
 
-      - name: Login to Azure
+      - name: Login to Azure (dev)
+        if: steps.environment.outputs.result == 'dev'
         uses: azure/login@v3
         with:
-          creds: ${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}
+          creds: ${{ secrets.AKS_DEV_FINT_GITHUB }}
+
+      - name: Login to Azure (prod)
+        if: steps.environment.outputs.result == 'prod'
+        uses: azure/login@v3
+        with:
+          creds: ${{ secrets.AKS_PROD_FINT_GITHUB }}
 
       - name: Use kubelogin
         uses: azure/use-kubelogin@v1.3
