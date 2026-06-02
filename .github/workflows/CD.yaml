@@ -92,7 +92,18 @@ jobs:
         uses: actions/github-script@v9
         id: environment
         with:
-          script: return '${{ inputs.cluster }}'.split('-')[1]
+          script: |
+            const cluster = '${{ inputs.cluster }}'
+            
+            if (cluster === 'aks-api-fint-2022-02-08') {
+              return 'API'
+            }
+            
+            if (cluster === 'aks-beta-fint-2021-11-23') {
+              return 'BETA'
+            }
+            
+            throw new Error(`Unknown cluster: ${cluster}`)
           result-encoding: string
 
       - name: Get resource group name
