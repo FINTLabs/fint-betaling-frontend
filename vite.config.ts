@@ -5,7 +5,7 @@ import { defineConfig } from "vitest/config";
 
 // BASE_PATH is injected at build time so static assets are emitted under the
 // org's sub-path (e.g. /afk/assets/...). Must keep a trailing slash for Vite.
-const rawBasePath = process.env.BASE_PATH ?? "/";
+const rawBasePath = process.env.BASE_PATH?.trim() || "/";
 const base =
   rawBasePath === "/" ? "/" : `/${rawBasePath.replace(/^\/+|\/+$/g, "")}/`;
 
