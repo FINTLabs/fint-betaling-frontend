@@ -134,7 +134,7 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v3
         with:
-          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.secret-suffix.outputs.result)] }}"
+          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
 
       - uses: azure/use-kubelogin@v1.3
         with:

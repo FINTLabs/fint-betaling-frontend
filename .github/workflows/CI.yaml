@@ -41,4 +41,3 @@ jobs:
     uses: ./.github/workflows/CD.yaml
     with:
       cluster: aks-api-fint-2022-02-08
-    secrets: inherit
