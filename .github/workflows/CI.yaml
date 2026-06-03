@@ -6,9 +6,11 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+  contents: read
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -30,16 +32,19 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      #      - name: Run tests
-      #        run: vitest run --pool=forks --maxWorkers=1
+      # - name: Run tests
+      #   run: vitest run --pool=forks --maxWorkers=1
 
       - name: Build project
         run: npm run build
 
-      - name: Trigger CD
-        if: github.ref == 'refs/heads/main'
-        uses: peter-evans/repository-dispatch@v4.0.1
-        with:
-          token: ${{ secrets.GITHUBACTION_TOKEN }}
-          repository: ${{ github.repository }}
-          event-type: trigger-cd
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    permissions:
+      contents: read
+      packages: write
+    secrets: inherit
+    uses: ./.github/workflows/CD.yaml
+    with:
+      cluster: aks-api-fint-2022-02-08
