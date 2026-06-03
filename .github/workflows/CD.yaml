@@ -42,7 +42,11 @@ jobs:
             exit 1
           fi
 
-          echo "targets=$targets" >> "$GITHUB_OUTPUT"
+          {
+            echo 'targets<<EOF'
+            echo "$targets"
+            echo 'EOF'
+          } >> "$GITHUB_OUTPUT"
           echo "Computed targets for $cluster: $targets"
 
   build-and-deploy:
