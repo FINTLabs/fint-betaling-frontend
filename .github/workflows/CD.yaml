@@ -92,9 +92,12 @@ jobs:
         uses: actions/github-script@v9
         id: secret-suffix
         with:
-          script: return '${{ steps.environment.outputs.result }}'.toUpperCase()
+          script: |
+            const env = '${{ steps.environment.outputs.result }}';
+            if (env === 'api') return 'PROD';
+            if (env === 'beta') return 'DEV';
+            throw new Error(`Unknown environment: ${env}`);
           result-encoding: string
-
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v4
         with:
