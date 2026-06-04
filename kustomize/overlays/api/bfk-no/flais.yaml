@@ -14,7 +14,7 @@ spec:
   port: 8000
   imagePullPolicy: Always
   orgId: bfk.no
-  image: ghcr.io/fintlabs/fint-betaling-frontend:latest
+  image: ghcr.io/fintlabs/fint-betaling-frontend:latest-bfk-no
   env:
     - name: BASE_PATH
       value: /bfk
