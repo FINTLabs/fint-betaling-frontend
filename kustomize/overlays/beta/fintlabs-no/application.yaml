@@ -19,7 +19,7 @@ spec:
   port: 8000
   imagePullPolicy: Always
   orgId: fintlabs.no
-  image: ghcr.io/fintlabs/fint-betaling-frontend:latest
+  image: ghcr.io/fintlabs/fint-betaling-frontend:latest-fintlabs-no
   url:
     hostname: betaling-demo.felleskomponent.no
     basePath: /

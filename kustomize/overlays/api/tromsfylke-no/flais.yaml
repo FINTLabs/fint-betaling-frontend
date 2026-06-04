@@ -14,7 +14,7 @@ spec:
   port: 8000
   imagePullPolicy: Always
   orgId: tromsfylke.no
-  image: ghcr.io/fintlabs/fint-betaling-frontend:latest
+  image: ghcr.io/fintlabs/fint-betaling-frontend:latest-tromsfylke-no
   env:
     - name: BASE_PATH
       value: /tromsfylke
