@@ -31,7 +31,8 @@ jobs:
               {"org":"bfk-no","basePath":"/bfk"},
               {"org":"ofk-no","basePath":"/ofk"},
               {"org":"vlfk-no","basePath":"/vlfk"},
-              {"org":"tromsfylke-no","basePath":"/tromsfylke"}
+              {"org":"tromsfylke-no","basePath":"/tromsfylke"},
+              {"org":"mrfylke-no","basePath":"/mrfylke"}
             ]'
           elif [[ "$cluster" == "aks-beta-fint-2021-11-23" ]]; then
             targets='[
