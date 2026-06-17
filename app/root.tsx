@@ -30,6 +30,7 @@ import { useTrackAnalyticsPageViews } from "~/hooks/useTrackAnalyticsPageViews";
 import AnalyticsApi from "~/api/AnalyticsApi";
 import { useEffect } from "react";
 import { cspReportOnly } from "~/utils/csp";
+import { setApiBaseUrlFromRequest } from "~/api/apiBaseUrl";
 
 //TODO: Clean up console.log lines
 export const links: Route.LinksFunction = () => [
@@ -64,6 +65,7 @@ if (import.meta.env.DEV && import.meta.env.VITE_MOCK_CYPRESS === "true") {
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  setApiBaseUrlFromRequest(request);
   const user = await MeApi.fetchMe();
 
   HeaderProperties.setProperties(request);

@@ -17,8 +17,10 @@ import {
  NovariToaster,
   useAlerts,
 } from "novari-frontend-components";
+import { setApiBaseUrlFromRequest } from "~/api/apiBaseUrl";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  setApiBaseUrlFromRequest(request);
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
   const user = await MeApi.fetchMe();
@@ -172,6 +174,7 @@ export default function ClaimPending() {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  setApiBaseUrlFromRequest(request);
   const formData = await request.formData();
   const actionType = formData.get("actionType") as string;
   const inputSelectedClaimIds = formData.get("selectedClaims") as string;

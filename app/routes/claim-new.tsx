@@ -15,8 +15,10 @@ import type {IUser} from "~/types/user";
 import type {INewClaim} from "~/types/newClaim";
 import {NovariToaster, useAlerts} from "novari-frontend-components";
 import type {IClaim} from "~/types/claim";
+import { setApiBaseUrlFromRequest } from "~/api/apiBaseUrl";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  setApiBaseUrlFromRequest(request);
   const cookieHeader = request.headers.get("Cookie");
   const cookieValue = await selectOrgCookie.parse(cookieHeader);
   const meResponse = await MeApi.fetchMe();
@@ -215,6 +217,7 @@ export default function ClaimNew() {
 }
 
 export const action: ActionFunction = async ({ request }) => {
+  setApiBaseUrlFromRequest(request);
   const formData = await request.formData();
   const actionType = formData.get("actionType") as string;
   const selectedOrg = formData.get("selectedOrg") as string;

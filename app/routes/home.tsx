@@ -12,8 +12,10 @@ import type { IOrganisationUnit } from "~/types/user";
 import { selectOrgCookie } from "~/utils/cookie";
 import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
+import { setApiBaseUrlFromRequest } from "~/api/apiBaseUrl";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
+  setApiBaseUrlFromRequest(request);
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
 
