@@ -5,10 +5,11 @@ import { createApiManager } from "~/api/apiBaseUrl";
 class SchoolGroupApi {
   static async getBasisGroups(
     selectedOrg: string,
+    request?: Request,
   ): Promise<ApiResponse<IClassGroup[]>> {
     const functionName = "getSchoolGroups";
 
-    return await createApiManager().call<IClassGroup[]>({
+    return await createApiManager(request).call<IClassGroup[]>({
       method: "GET",
       endpoint: `/api/group/basis-group`,
       functionName,
@@ -22,10 +23,11 @@ class SchoolGroupApi {
 
   static async getTeachingGroups(
     selectedOrg: string,
+    request?: Request,
   ): Promise<ApiResponse<IClassGroup[]>> {
     const functionName = "getSchoolGroups";
 
-    return await createApiManager().call<IClassGroup[]>({
+    return await createApiManager(request).call<IClassGroup[]>({
       method: "GET",
       endpoint: `/api/group/teaching-group`,
       functionName,
@@ -39,10 +41,11 @@ class SchoolGroupApi {
 
   static async getSchool(
     selectedOrg: string,
+    request?: Request,
   ): Promise<ApiResponse<IClassGroup[]>> {
     const functionName = "getSchoolGroups";
 
-    return await createApiManager().call<IClassGroup[]>({
+    return await createApiManager(request).call<IClassGroup[]>({
       method: "GET",
       endpoint: `/api/group/school`,
       functionName,

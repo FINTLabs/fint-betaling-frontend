@@ -1,29 +1,16 @@
 import { NovariApiManager } from "novari-frontend-components";
 
-let runtimeApiBaseUrl =
+const envApiBaseUrl =
   import.meta.env.VITE_API_URL || process.env.VITE_API_URL || "";
 
-let apiManager: NovariApiManager | null = null;
-
-export function setApiBaseUrlFromRequest(request: Request) {
-  if (runtimeApiBaseUrl) {
-    return;
+export function createApiManager(request?: Request) {
+  let baseUrl = envApiBaseUrl;
+  if (!baseUrl && request) {
+    try {
+      baseUrl = new URL(request.url).origin;
+    } catch {
+      baseUrl = "";
+    }
   }
-
-  try {
-    runtimeApiBaseUrl = new URL(request.url).origin;
-  } catch {
-    runtimeApiBaseUrl = "";
-  } finally {
-    apiManager = null;
-  }
-}
-
-export function createApiManager() {
-  if (!apiManager) {
-    apiManager = new NovariApiManager({
-      baseUrl: runtimeApiBaseUrl,
-    });
-  }
-  return apiManager;
+  return new NovariApiManager({ baseUrl });
 }

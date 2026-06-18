@@ -15,13 +15,11 @@ import type {IUser} from "~/types/user";
 import type {INewClaim} from "~/types/newClaim";
 import {NovariToaster, useAlerts} from "novari-frontend-components";
 import type {IClaim} from "~/types/claim";
-import { setApiBaseUrlFromRequest } from "~/api/apiBaseUrl";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  setApiBaseUrlFromRequest(request);
   const cookieHeader = request.headers.get("Cookie");
   const cookieValue = await selectOrgCookie.parse(cookieHeader);
-  const meResponse = await MeApi.fetchMe();
+  const meResponse = await MeApi.fetchMe(request);
   const currentSchoolOrgId =
     cookieValue ?? meResponse.organisationUnits[0]?.organisationNumber;
 
@@ -42,10 +40,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     schoolResponse,
     principalsResponse,
   ] = await Promise.all([
-    SchoolGroupApi.getBasisGroups(currentSchoolOrgId),
-    SchoolGroupApi.getTeachingGroups(currentSchoolOrgId),
-    SchoolGroupApi.getSchool(currentSchoolOrgId),
-    PrincipalApi.getPrincipals(currentSchoolOrgId),
+    SchoolGroupApi.getBasisGroups(currentSchoolOrgId, request),
+    SchoolGroupApi.getTeachingGroups(currentSchoolOrgId, request),
+    SchoolGroupApi.getSchool(currentSchoolOrgId, request),
+    PrincipalApi.getPrincipals(currentSchoolOrgId, request),
   ]);
 
   return {
@@ -217,7 +215,6 @@ export default function ClaimNew() {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  setApiBaseUrlFromRequest(request);
   const formData = await request.formData();
   const actionType = formData.get("actionType") as string;
   const selectedOrg = formData.get("selectedOrg") as string;
@@ -226,7 +223,7 @@ export const action: ActionFunction = async ({ request }) => {
   let response;
     switch (actionType) {
       case "SAVE_INVOICES":
-        response = ClaimApi.createClaim(selectedOrg, claimBody);
+        response = ClaimApi.createClaim(selectedOrg, claimBody, request);
         if((await response).success){
           return redirect(`/send`);
         }

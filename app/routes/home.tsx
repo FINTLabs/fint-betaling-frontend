@@ -12,17 +12,15 @@ import type { IOrganisationUnit } from "~/types/user";
 import { selectOrgCookie } from "~/utils/cookie";
 import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
-import { setApiBaseUrlFromRequest } from "~/api/apiBaseUrl";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  setApiBaseUrlFromRequest(request);
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
 
   // When no cookie (e.g. first visit), use first org from user
   const organisationNumber =
     cookieOrgNumber ??
-    (await MeApi.fetchMe()).organisationUnits[0]?.organisationNumber;
+    (await MeApi.fetchMe(request)).organisationUnits[0]?.organisationNumber;
 
   if (!organisationNumber) {
     throw new Response("Ingen organisasjon funnet", { status: 400 });
@@ -37,24 +35,33 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     errorCount,
     ordersResponse,
   ] = await Promise.all([
-    ClaimApi.getCountByStatus(organisationNumber, "STORED", "14"),
+    ClaimApi.getCountByStatus(organisationNumber, "STORED", "14", undefined, request),
     ClaimApi.getCountByStatus(
       organisationNumber,
       "SEND_ERROR",
         // TODO: "YEAR",
+      undefined,
+      undefined,
+      request,
     ),
     ClaimApi.getCountByStatus(
       organisationNumber,
       "ACCEPT_ERROR",
         // TODO: "YEAR",
+      undefined,
+      undefined,
+      request,
     ),
     ClaimApi.getCountByStatus(
       organisationNumber,
       "UPDATE_ERROR",
       // TODO: "YEAR",
+      undefined,
+      undefined,
+      request,
     ),
-    ClaimApi.getCountByStatus(organisationNumber, "ERROR"),
-    ClaimApi.getClaims(organisationNumber, undefined),
+    ClaimApi.getCountByStatus(organisationNumber, "ERROR", undefined, undefined, request),
+    ClaimApi.getClaims(organisationNumber, undefined, undefined, undefined, request),
   ]);
 
   const pendingOrders = storedCount.success ? storedCount.data || 0 : 0;

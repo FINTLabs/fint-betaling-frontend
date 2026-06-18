@@ -5,9 +5,10 @@ import { createApiManager } from "~/api/apiBaseUrl";
 class PrincipalApi {
   static async getPrincipals(
     selectedOrg: string,
+    request?: Request,
   ): Promise<ApiResponse<IClassGroup[]>> {
     const functionName = "getPrincipals";
-    return await createApiManager().call<IClassGroup[]>({
+    return await createApiManager(request).call<IClassGroup[]>({
       method: "GET",
       endpoint: `/api/principal`,
       functionName,

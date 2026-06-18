@@ -11,13 +11,11 @@ import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
 import type {IUser} from "~/types/user";
 import {SelectAndPaging} from "~/components/SelectAndPaging";
-import { setApiBaseUrlFromRequest } from "~/api/apiBaseUrl";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  setApiBaseUrlFromRequest(request);
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
-  const user = await MeApi.fetchMe();
+  const user = await MeApi.fetchMe(request);
 
   const organisationNumber =
     cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
@@ -43,6 +41,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     statusSelection,
     periodSelection,
     schoolSelection,
+    request,
   );
 
   const claimHistory = claimHistoryResponse.success
@@ -248,14 +247,13 @@ export default function ClaimHistory() {
 }
 
 export const action: ActionFunction = async ({ request }) => {
-  setApiBaseUrlFromRequest(request);
   const formData = await request.formData();
   const actionType = formData.get("actionType") as string;
   const inputSelectedClaimIds = formData.get("selectedClaims") as string;
   const selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
-  const user = await MeApi.fetchMe();
+  const user = await MeApi.fetchMe(request);
   const selectedOrg =
     cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
 
@@ -283,6 +281,7 @@ export const action: ActionFunction = async ({ request }) => {
       response = ClaimApi.sendClaimsToSystem(
           selectedOrg,
           inputSelectedClaimIds,
+          request,
       );
       break;
     default:

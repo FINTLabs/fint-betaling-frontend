@@ -8,6 +8,7 @@ class ClaimApi {
     status?: string,
     period?: string,
     schoolSelection?: string,
+    request?: Request,
   ): Promise<ApiResponse<IClaim[]>> {
     const functionName = "getClaims";
 
@@ -28,7 +29,7 @@ class ClaimApi {
     const queryString = params.toString();
     const endpoint = `/api/claim${queryString ? `?${queryString}` : ""}`;
 
-    return await createApiManager().call<IClaim[]>({
+    return await createApiManager(request).call<IClaim[]>({
       method: "GET",
       endpoint,
       functionName,
@@ -43,11 +44,12 @@ class ClaimApi {
   static async sendClaimsToSystem(
     orgId: string,
     claims: string,
+    request?: Request,
   ): Promise<ApiResponse<IClaim[]>> {
     const functionName = "sendClaimsToSystem";
     orgId = "fintlabs.no";
 
-    return await createApiManager().call<IClaim[]>({
+    return await createApiManager(request).call<IClaim[]>({
       method: "POST",
       endpoint: `/api/claim/send`,
       functionName,
@@ -65,6 +67,7 @@ class ClaimApi {
     status: string,
     period?: string,
     schoolSelection?: string,
+    request?: Request,
   ): Promise<ApiResponse<number>> {
     const functionName = "getCountByStatus";
 
@@ -80,7 +83,7 @@ class ClaimApi {
     const queryString = params.toString();
     const endpoint = `/api/claim/count/by-status/${status}${queryString ? `?${queryString}` : ""}`;
 
-    return await createApiManager().call<number>({
+    return await createApiManager(request).call<number>({
       method: "GET",
       endpoint,
       functionName,
@@ -95,11 +98,12 @@ class ClaimApi {
   static async createClaim(
     orgId: string,
     claimBody: string,
+    request?: Request,
   ): Promise<ApiResponse<IClaim[]>> {
     const functionName = "createClaim";
     orgId = "fake.fintlabs.no";
 
-    return await createApiManager().call<IClaim[]>({
+    return await createApiManager(request).call<IClaim[]>({
       method: "POST",
       endpoint: `/api/claim`,
       functionName,
@@ -115,10 +119,11 @@ class ClaimApi {
   static async cancelClaim(
     selectedOrg: string,
     claimId: string,
+    request?: Request,
   ): Promise<ApiResponse<IClaim>> {
     const functionName = "cancelClaim";
     const endpoint = `/api/claim/order-number/${claimId}`;
-    return await createApiManager().call<IClaim>({
+    return await createApiManager(request).call<IClaim>({
       method: "DELETE",
       endpoint,
       functionName: `${functionName}_${claimId}`,
