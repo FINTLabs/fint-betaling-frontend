@@ -164,7 +164,7 @@ describe("claim-pending loader", () => {
       context: {},
     } as never);
 
-    expect(mocks.getClaims).toHaveBeenCalledWith("school.org", "STORED");
+    expect(mocks.getClaims).toHaveBeenCalledWith("school.org", "STORED", undefined, undefined, expect.any(Request));
     expect(result.pendingClaims).toEqual([{ orderNumber: 10 }]);
   });
 });

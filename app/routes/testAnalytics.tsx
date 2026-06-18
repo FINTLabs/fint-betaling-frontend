@@ -26,7 +26,7 @@ export const action: ActionFunction = async ({ request }) => {
     const formData = await request.formData();
     const actionType = formData.get("actionType") as string;
     const path = formData.get("path") as string;
-    const user = await MeApi.fetchMe();
+    const user = await MeApi.fetchMe(request);
     if (actionType === "TRACK_VIEW") {
         await AnalyticsApi.trackView(path, user?.organisation?.name || "unknown");
     }
