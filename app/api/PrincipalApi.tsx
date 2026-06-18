@@ -1,17 +1,14 @@
-import { NovariApiManager, type ApiResponse } from "novari-frontend-components";
+import { type ApiResponse } from "novari-frontend-components";
 import type { IClassGroup } from "~/types/group";
-
-const API_URL = import.meta.env.VITE_API_URL || process.env.VITE_API_URL || "";
-const logManager = new NovariApiManager({
-  baseUrl: API_URL,
-});
+import { createApiManager } from "~/api/apiBaseUrl";
 
 class PrincipalApi {
   static async getPrincipals(
     selectedOrg: string,
+    request?: Request,
   ): Promise<ApiResponse<IClassGroup[]>> {
     const functionName = "getPrincipals";
-    return await logManager.call<IClassGroup[]>({
+    return await createApiManager(request).call<IClassGroup[]>({
       method: "GET",
       endpoint: `/api/principal`,
       functionName,

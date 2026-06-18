@@ -19,7 +19,7 @@ import type {IClaim} from "~/types/claim";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
   const cookieValue = await selectOrgCookie.parse(cookieHeader);
-  const meResponse = await MeApi.fetchMe();
+  const meResponse = await MeApi.fetchMe(request);
   const currentSchoolOrgId =
     cookieValue ?? meResponse.organisationUnits[0]?.organisationNumber;
 
@@ -40,10 +40,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     schoolResponse,
     principalsResponse,
   ] = await Promise.all([
-    SchoolGroupApi.getBasisGroups(currentSchoolOrgId),
-    SchoolGroupApi.getTeachingGroups(currentSchoolOrgId),
-    SchoolGroupApi.getSchool(currentSchoolOrgId),
-    PrincipalApi.getPrincipals(currentSchoolOrgId),
+    SchoolGroupApi.getBasisGroups(currentSchoolOrgId, request),
+    SchoolGroupApi.getTeachingGroups(currentSchoolOrgId, request),
+    SchoolGroupApi.getSchool(currentSchoolOrgId, request),
+    PrincipalApi.getPrincipals(currentSchoolOrgId, request),
   ]);
 
   return {
@@ -223,7 +223,7 @@ export const action: ActionFunction = async ({ request }) => {
   let response;
     switch (actionType) {
       case "SAVE_INVOICES":
-        response = ClaimApi.createClaim(selectedOrg, claimBody);
+        response = ClaimApi.createClaim(selectedOrg, claimBody, request);
         if((await response).success){
           return redirect(`/send`);
         }
