@@ -1,8 +1,9 @@
 import type { IUser } from "~/types/user";
 import {NovariApiManager} from "novari-frontend-components";
 
-const VITE_API_URL = process.env.VITE_API_URL || '';
-const apiManager = new NovariApiManager({ baseUrl: VITE_API_URL });
+const apiManager = new NovariApiManager({
+  baseUrl: import.meta.env.VITE_API_URL ?? "",
+});
 
 class MeApi {
   static async fetchMe(): Promise<IUser> {

@@ -19,7 +19,7 @@ spec:
     - name: BASE_PATH
       value: /vlfk
     - name: VITE_API_URL
-      value: https://betaling.felleskomponent.no
+      value: https://betaling.felleskomponent.no/vlfk
     - name: VITE_ANALYTICS_URL
       value: http://fint-analytics-frontend:3000
   url:
