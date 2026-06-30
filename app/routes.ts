@@ -5,6 +5,5 @@ export default [
   route("send", "routes/claim-pending.tsx"),
   route("ny", "routes/claim-new.tsx"),
   route("historikk", "routes/claim-history.tsx"),
-  route("test", "routes/testAnalytics.tsx"),
   route("_analytics/events", "routes/api.events.tsx"),
 ] satisfies RouteConfig;
