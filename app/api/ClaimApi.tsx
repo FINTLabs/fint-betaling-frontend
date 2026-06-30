@@ -1,8 +1,10 @@
 import {type ApiResponse, NovariApiManager} from "novari-frontend-components";
 import type { IClaim } from "~/types/claim";
 
-const VITE_API_URL = process.env.VITE_API_URL || '';
-const apiManager = new NovariApiManager({ baseUrl: VITE_API_URL });
+const apiManager = new NovariApiManager({
+  baseUrl: import.meta.env.VITE_API_URL ?? "",
+});
+
 
 
 class ClaimApi {
