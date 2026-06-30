@@ -15,7 +15,7 @@ import {SelectAndPaging} from "~/components/SelectAndPaging";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
-  const user = await MeApi.fetchMe(request);
+  const user = await MeApi.fetchMe();
 
   const organisationNumber =
     cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
@@ -41,7 +41,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     statusSelection,
     periodSelection,
     schoolSelection,
-    request,
   );
 
   const claimHistory = claimHistoryResponse.success
@@ -253,7 +252,7 @@ export const action: ActionFunction = async ({ request }) => {
   const selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
-  const user = await MeApi.fetchMe(request);
+  const user = await MeApi.fetchMe();
   const selectedOrg =
     cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
 
@@ -281,7 +280,6 @@ export const action: ActionFunction = async ({ request }) => {
       response = ClaimApi.sendClaimsToSystem(
           selectedOrg,
           inputSelectedClaimIds,
-          request,
       );
       break;
     default:

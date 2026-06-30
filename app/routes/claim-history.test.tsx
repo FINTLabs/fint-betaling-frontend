@@ -202,7 +202,6 @@ describe("claim-history loader", () => {
       "STORED",
       "MONTH",
       "123",
-      expect.any(Request),
     );
     expect(result.claimHistory).toEqual([{ orderNumber: 1 }]);
     expect(result.periodSelection).toBe("MONTH");
@@ -226,7 +225,6 @@ describe("claim-history loader", () => {
       "",
       "WEEK",
       "school.org",
-      expect.any(Request),
     );
   });
 
@@ -246,7 +244,6 @@ describe("claim-history loader", () => {
       "",
       "WEEK",
       "fallback-org",
-      expect.any(Request),
     );
   });
 
@@ -349,7 +346,7 @@ describe("claim-history action", () => {
 
     const result = await action(actionRequest(formData));
 
-    expect(mocks.sendClaimsToSystem).toHaveBeenCalledWith("school.org", '["1"]', expect.any(Request));
+    expect(mocks.sendClaimsToSystem).toHaveBeenCalledWith("school.org", '["1"]');
     expect(result).toEqual({ success: true });
   });
 

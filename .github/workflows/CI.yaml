@@ -39,12 +39,18 @@ jobs:
         run: npm run build
 
   deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: build
-    permissions:
-      contents: read
-      packages: write
-    secrets: inherit
-    uses: ./.github/workflows/CD.yaml
-    with:
-      cluster: aks-api-fint-2022-02-08
+      if: github.ref == 'refs/heads/main'
+      needs: build
+      permissions:
+        contents: read
+        packages: write
+      strategy:
+        fail-fast: false
+        matrix:
+          cluster:
+            - aks-beta-fint-2021-11-23
+#            - aks-api-fint-2022-02-08
+      secrets: inherit
+      uses: ./.github/workflows/CD.yaml
+      with:
+        cluster: ${{ matrix.cluster }}

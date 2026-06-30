@@ -36,7 +36,7 @@ jobs:
             ]'
           elif [[ "$cluster" == "aks-beta-fint-2021-11-23" ]]; then
             targets='[
-              {"org":"fintlabs-no","basePath":"/"}
+              {"org":"fintlabs-no","basePath":"/novari"}
             ]'
           else
             echo "Unknown cluster: $cluster" >&2
