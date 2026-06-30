@@ -49,7 +49,7 @@ jobs:
         matrix:
           cluster:
             - aks-beta-fint-2021-11-23
-#            - aks-api-fint-2022-02-08
+            - aks-api-fint-2022-02-08
       secrets: inherit
       uses: ./.github/workflows/CD.yaml
       with:
