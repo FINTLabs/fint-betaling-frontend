@@ -17,9 +17,9 @@ class MeApi {
       customErrorMessage: "Kunne ikke hente brukerdata",
       customSuccessMessage: "Brukerdata hentet",
     });
-
+    console.log("from backend", res);
     if (res.success && res.data) {
-      console.log(res.data);
+      console.log("from backend data", res.data);
       return res.data;
     }
 
