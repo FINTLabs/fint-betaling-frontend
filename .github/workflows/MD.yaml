@@ -17,6 +17,10 @@ on:
         type: choice
         options:
           - mrfylke-no
+          - afk-no
+          - bfk-no
+          - ofk-no
+          - tromsfylke-no
 
 env:
   REGISTRY: ghcr.io
