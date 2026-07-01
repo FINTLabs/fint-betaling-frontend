@@ -1,0 +1,125 @@
+name: MD
+
+on:
+  workflow_dispatch:
+    inputs:
+      cluster:
+        description: 'Select environment'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - aks-api-fint-2022-02-08
+      org:
+        description: 'Select organisation'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - mrfylke-no
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  CLUSTER_NAME: ${{ inputs.cluster }}
+  ORG: ${{ inputs.org }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/github-script@v8
+        name: Get resource group name
+        id: rg
+        with:
+          script: |
+            const a = '${{ inputs.cluster }}'.split('-')
+            return `rg-${a[0]}-${a[1]}`
+          result-encoding: string
+
+      - uses: actions/github-script@v8
+        name: Get environment
+        id: environment
+        with:
+          script: |
+            const a = '${{ inputs.cluster }}'.split('-')
+            return `${a[1]}`
+          result-encoding: string
+
+      - uses: actions/github-script@v8
+        name: Get auth
+        id: auth
+        with:
+          script: |
+            const e = '${{ steps.environment.outputs.result }}'.toUpperCase()
+            return `secrets.AKS_${e}_FINT_GITHUB`
+          result-encoding: string
+
+      - run: |
+          echo "Cluster: $CLUSTER_NAME"
+          echo "Resource group: ${{ steps.rg.outputs.result }}"
+          echo "Environment: ${{ steps.environment.outputs.result }}"
+          echo "OrgId: $ORG"
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+          tags: |
+            type=sha,enable=true,priority=100,prefix=sha-,suffix=,format=short
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            BASE_PATH=/${{ steps.environment.outputs.result }}/${{ env.ORG }}/v2
+
+      - name: Bake manifests with Kustomize
+        uses: azure/k8s-bake@v3
+        with:
+          renderEngine: 'kustomize'
+          kustomizationPath: 'kustomize/overlays/${{ steps.environment.outputs.result }}/${{ env.ORG }}'
+        id: bake
+
+      - uses: azure/login@v2
+        with:
+          creds: "${{ secrets[format('AKS_{0}_FINT_GITHUB', steps.environment.outputs.result)] }}"
+
+      - uses: azure/use-kubelogin@v1
+        with:
+          kubelogin-version: 'v0.0.32'
+
+      - name: Set the target cluster
+        uses: azure/aks-set-context@v4
+        with:
+          cluster-name: ${{ env.CLUSTER_NAME }}
+          resource-group: ${{ steps.rg.outputs.result }}
+          admin: 'true'
+          use-kubelogin: 'true'
+
+      - name: Deploy to ${{ env.CLUSTER_NAME }}
+        uses: azure/k8s-deploy@v5.0.3
+        with:
+          manifests: ${{ steps.bake.outputs.manifestsBundle }}
+          images: |
+            ${{ steps.meta.outputs.tags }}
+          namespace: ${{ env.ORG }}
+          action: deploy
