@@ -36,14 +36,14 @@
 import type { IUser } from "~/types/user";
 
 // const baseUrl = import.meta.env.VITE_API_URL ?? "";
-const baseUrl = "http://localhost:8080";
+// const baseUrl = "http://localhost:8080";
 
 class MeApi {
   static async fetchMe(): Promise<IUser> {
     console.log("Fetching me");
-    console.log("URL:", `${baseUrl}/api/me`);
+    console.log("URL:", `/api/me`);
 
-    const response = await fetch(`${baseUrl}/api/me`, {
+    const response = await fetch(`/api/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
