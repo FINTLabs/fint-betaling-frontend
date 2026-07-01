@@ -19,6 +19,7 @@ class MeApi {
     });
 
     if (res.success && res.data) {
+      console.log(res.data);
       return res.data;
     }
 
