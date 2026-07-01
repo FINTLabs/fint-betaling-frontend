@@ -1,6 +1,9 @@
 import type { IUser } from "~/types/user";
 import {NovariApiManager} from "novari-frontend-components";
 
+const baseUrl = import.meta.env.VITE_API_URL;
+console.log("Base URL: ", baseUrl)
+
 const apiManager = new NovariApiManager({
   baseUrl: import.meta.env.VITE_API_URL ?? "",
 });
