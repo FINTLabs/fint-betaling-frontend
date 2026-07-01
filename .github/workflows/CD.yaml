@@ -27,16 +27,16 @@ jobs:
 
           if [[ "$cluster" == "aks-api-fint-2022-02-08" ]]; then
             targets='[
-              {"org":"afk-no","basePath":"/afk","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/afk"},
-              {"org":"bfk-no","basePath":"/bfk","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/bfk"},
-              {"org":"ofk-no","basePath":"/ofk","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/ofk"},
-              {"org":"vlfk-no","basePath":"/vlfk","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/vlfk"},
-              {"org":"tromsfylke-no","basePath":"/tromsfylke","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/tromsfylke"},
-              {"org":"mrfylke-no","basePath":"/mrfylke","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/mrfylke"}
+              {"org":"afk-no","basePath":"/afk","apiUrl":"https://betaling.felleskomponent.no/afk","analyticsUrl":"http://fint-analytics-frontend:3000"},
+              {"org":"bfk-no","basePath":"/bfk","apiUrl":"https://betaling.felleskomponent.no/bfk","analyticsUrl":"http://fint-analytics-frontend:3000"},
+              {"org":"ofk-no","basePath":"/ofk","apiUrl":"https://betaling.felleskomponent.no/ofk","analyticsUrl":"http://fint-analytics-frontend:3000"},
+              {"org":"vlfk-no","basePath":"/vlfk","apiUrl":"https://betaling.felleskomponent.no/vlfk","analyticsUrl":"http://fint-analytics-frontend:3000"},
+              {"org":"tromsfylke-no","basePath":"/tromsfylke","apiUrl":"https://betaling.felleskomponent.no/tromsfylke","analyticsUrl":"http://fint-analytics-frontend:3000"},
+              {"org":"mrfylke-no","basePath":"/mrfylke","apiUrl":"https://betaling.felleskomponent.no/mrfylke","analyticsUrl":"http://fint-analytics-frontend:3000"}
             ]'
           elif [[ "$cluster" == "aks-beta-fint-2021-11-23" ]]; then
             targets='[
-              {"org":"fintlabs-no","basePath":"/","apiUrl":"https://betaling-demo.felleskomponent.no","analyticsUrl":"https://betaling-demo.felleskomponent.no"}
+              {"org":"fintlabs-no","basePath":"/","analyticsUrl":"http://fint-analytics-frontend:3000"}
             ]'
           else
             echo "Unknown cluster: $cluster" >&2
