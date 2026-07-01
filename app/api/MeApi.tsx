@@ -10,6 +10,7 @@ const apiManager = new NovariApiManager({
 
 class MeApi {
   static async fetchMe(): Promise<IUser> {
+    console.log("Fetching me");
     const res = await apiManager.call<IUser>({
       method: "GET",
       endpoint: "/api/me",
