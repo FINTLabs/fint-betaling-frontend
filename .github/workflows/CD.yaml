@@ -60,6 +60,7 @@ jobs:
           - ofk-no
           - vlfk-no
           - tromsfylke-no
+          - mrfylke-no
 #          - fintlabs-no
         cluster:
               - aks-api-fint-2022-02-08
