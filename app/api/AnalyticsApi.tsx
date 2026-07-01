@@ -1,7 +1,7 @@
 import {NovariApiManager} from "novari-frontend-components";
 
 const apiManager = new NovariApiManager({
-    baseUrl: import.meta.env.ANALYTICS_URL ?? "",
+    baseUrl: import.meta.env.VITE_ANALYTICS_URL ?? "",
 });
 
 

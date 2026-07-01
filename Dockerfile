@@ -10,7 +10,11 @@ RUN npm ci --omit=dev
 
 FROM node:26-alpine AS build-env
 ARG BASE_PATH=/
+ARG VITE_API_URL
+ARG VITE_ANALYTICS_URL
 ENV BASE_PATH=${BASE_PATH}
+ENV VITE_API_URL=${VITE_API_URL}
+ENV VITE_ANALYTICS_URL=${VITE_ANALYTICS_URL}
 COPY . /app/
 COPY --from=development-dependencies-env /app/node_modules /app/node_modules
 WORKDIR /app

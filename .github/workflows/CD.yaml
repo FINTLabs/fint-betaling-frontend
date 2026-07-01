@@ -27,16 +27,16 @@ jobs:
 
           if [[ "$cluster" == "aks-api-fint-2022-02-08" ]]; then
             targets='[
-              {"org":"afk-no","basePath":"/afk"},
-              {"org":"bfk-no","basePath":"/bfk"},
-              {"org":"ofk-no","basePath":"/ofk"},
-              {"org":"vlfk-no","basePath":"/vlfk"},
-              {"org":"tromsfylke-no","basePath":"/tromsfylke"},
-              {"org":"mrfylke-no","basePath":"/mrfylke"}
+              {"org":"afk-no","basePath":"/afk","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/afk"},
+              {"org":"bfk-no","basePath":"/bfk","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/bfk"},
+              {"org":"ofk-no","basePath":"/ofk","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/ofk"},
+              {"org":"vlfk-no","basePath":"/vlfk","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/vlfk"},
+              {"org":"tromsfylke-no","basePath":"/tromsfylke","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/tromsfylke"},
+              {"org":"mrfylke-no","basePath":"/mrfylke","apiUrl":"https://betaling.felleskomponent.no","analyticsUrl":"https://betaling.felleskomponent.no/mrfylke"}
             ]'
           elif [[ "$cluster" == "aks-beta-fint-2021-11-23" ]]; then
             targets='[
-              {"org":"fintlabs-no","basePath":"/novari"}
+              {"org":"fintlabs-no","basePath":"/","apiUrl":"https://betaling-demo.felleskomponent.no","analyticsUrl":"https://betaling-demo.felleskomponent.no"}
             ]'
           else
             echo "Unknown cluster: $cluster" >&2
@@ -122,6 +122,8 @@ jobs:
           push: true
           build-args: |
             BASE_PATH=${{ matrix.basePath }}
+            VITE_API_URL=${{ matrix.apiUrl }}
+            VITE_ANALYTICS_URL=${{ matrix.analyticsUrl }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
