@@ -35,7 +35,8 @@
 // export default MeApi;
 import type { IUser } from "~/types/user";
 
-const baseUrl = import.meta.env.VITE_API_URL ?? "";
+// const baseUrl = import.meta.env.VITE_API_URL ?? "";
+const baseUrl = "http://localhost:8080";
 
 class MeApi {
   static async fetchMe(): Promise<IUser> {
