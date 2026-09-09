@@ -18,7 +18,7 @@ import PaymentStatusChip from './payment-status-chip';
 import { FILTER_LIST } from '../payment/constants';
 import PaymentStatusMessageDialog from './payment-status-message-dialog';
 import PaymentSelect from './payment-select';
-import ClaimRepository from '../../data/repository/ClaimRepository';
+import ClaimRepository, { SEND_ORDERS_BATCH_SIZE } from '../../data/repository/ClaimRepository';
 import {
     updateInvoiceSnackbarContent,
     updateInvoiceSnackbarOpen, updateNeedFetch,
@@ -26,27 +26,53 @@ import {
 import PaymentSnackbar from './payment-snackbar';
 import fetchPayments from '../../data/redux/actions/payments';
 import fetchPaymentsStatusCountUnsent from '../../data/redux/actions/status';
+import SendingOrdersDialog from '../../common/sending-orders-dialog';
 
 function CustomToolbar({ selectedItems }) {
     const dispatch = useDispatch();
     const periodSelection = useSelector((state) => state.payment.payments.periodSelection);
     const schoolSelection = useSelector((state) => state.payment.payments.schoolSelection);
     const [loading, setLoading] = React.useState(false);
+    const [sending, setSending] = React.useState(false);
+    const [sendProgress, setSendProgress] = React.useState({
+        currentBatch: 1,
+        totalBatches: 1,
+        sentCount: 0,
+        totalCount: 0,
+        batchSize: 0,
+    });
 
     function handleConfirmSendPayments() {
         const orgId = 'fintlabs.no';
 
         if (selectedItems.length < 1) return;
+
+        setSendProgress({
+            currentBatch: 1,
+            totalBatches: Math.ceil(selectedItems.length / SEND_ORDERS_BATCH_SIZE) || 1,
+            sentCount: 0,
+            totalCount: selectedItems.length,
+            batchSize: Math.min(SEND_ORDERS_BATCH_SIZE, selectedItems.length),
+        });
+        setSending(true);
         ClaimRepository.sendOrders(
             orgId,
             selectedItems,
+            setSendProgress,
         )
-            .then(({ status, data }) => {
+            .then(({ status, data, sentCount }) => {
                 if (status === 201) {
                     dispatch(updateNeedFetch(true));
                     dispatch(fetchPaymentsStatusCountUnsent('STORED'));
                     dispatch(fetchPayments(periodSelection));
-                    dispatch(updateInvoiceSnackbarContent(`${data.length} ordre er sendt til økonomisystemet!`));
+                    dispatch(updateInvoiceSnackbarContent(`${sentCount} ordre er sendt til økonomisystemet!`));
+                    dispatch(updateInvoiceSnackbarOpen(true));
+                } else if (sentCount > 0) {
+                    dispatch(updateNeedFetch(true));
+                    dispatch(fetchPaymentsStatusCountUnsent('STORED'));
+                    dispatch(fetchPayments(periodSelection));
+                    dispatch(updateInvoiceSnackbarContent(`${sentCount} ordre ble sendt, men sendingen fikk en feil
+                    (Response status: ${status}). Resterende ordre kan sendes på nytt.`));
                     dispatch(updateInvoiceSnackbarOpen(true));
                 } else {
                     dispatch(updateInvoiceSnackbarContent(`En feil oppstod ved sending til økonomisystemet!
@@ -58,6 +84,9 @@ function CustomToolbar({ selectedItems }) {
                 dispatch(updateInvoiceSnackbarContent(`En feil oppstod ved sending til økonomisystemet! 
                 (Error: ${error})`));
                 dispatch(updateInvoiceSnackbarOpen(true));
+            })
+            .finally(() => {
+                setSending(false);
             });
     }
 
@@ -79,6 +108,14 @@ function CustomToolbar({ selectedItems }) {
 
     return (
         <GridToolbarContainer>
+            <SendingOrdersDialog
+                open={sending}
+                currentBatch={sendProgress.currentBatch}
+                totalBatches={sendProgress.totalBatches}
+                sentCount={sendProgress.sentCount}
+                totalCount={sendProgress.totalCount}
+                batchSize={sendProgress.batchSize}
+            />
             <Grid container spacing={2} justifyContent="space-between">
                 <Grid item xs={8}>
                     <PaymentSelect />
@@ -90,7 +127,7 @@ function CustomToolbar({ selectedItems }) {
                             handleUpdateStatus();
                         }}
                         startIcon={loading ? <CircularProgress size={24} /> : <SyncAltIcon />}
-                        disabled={loading}
+                        disabled={loading || sending}
                         sx={{ fontSize: 13 }}
                     >
                         Oppdater
@@ -100,7 +137,8 @@ function CustomToolbar({ selectedItems }) {
                         onClick={() => {
                             handleConfirmSendPayments();
                         }}
-                        startIcon={<Send />}
+                        startIcon={sending ? <CircularProgress size={24} /> : <Send />}
+                        disabled={sending}
                         sx={{ fontSize: 13 }}
                     >
                         Resend

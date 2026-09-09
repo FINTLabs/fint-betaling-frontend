@@ -121,6 +121,8 @@
 // export default ClaimRepository;
 import axios from 'axios';
 
+export const SEND_ORDERS_BATCH_SIZE = 10;
+
 class ClaimRepository {
     static fetchPaymentsStatusCount(statusToGet, days) {
         const stopFetch = 15;
@@ -166,8 +168,31 @@ class ClaimRepository {
             .catch((error) => error);
     }
 
-    static sendOrders(orgId, orderList) {
-        return axios.post('/api/claim/send', orderList, {
+    static sendOrders(orgId, orderList, onProgress) {
+        const batchSize = SEND_ORDERS_BATCH_SIZE;
+        const orders = Array.isArray(orderList) ? orderList : [];
+        const totalCount = orders.length;
+        const batches = [];
+
+        for (let i = 0; i < totalCount; i += batchSize) {
+            batches.push(orders.slice(i, i + batchSize));
+        }
+
+        const totalBatches = batches.length || 1;
+
+        const notifyProgress = (index, sentCount, currentBatchSize) => {
+            if (typeof onProgress === 'function') {
+                onProgress({
+                    currentBatch: index + 1,
+                    totalBatches,
+                    sentCount,
+                    totalCount,
+                    batchSize: currentBatchSize,
+                });
+            }
+        };
+
+        const sendBatch = (batch) => axios.post('/api/claim/send', batch, {
             headers: {
                 'Content-Type': 'application/json',
                 'x-org-id': orgId,
@@ -177,7 +202,59 @@ class ClaimRepository {
                 status: response.status,
                 data: response.data,
             }))
-            .catch((error) => error);
+            .catch((error) => ({
+                status: error.response && error.response.status,
+                data: [],
+                error,
+            }));
+
+        const toArray = (payload) => {
+            if (Array.isArray(payload)) {
+                return payload;
+            }
+            if (payload == null) {
+                return [];
+            }
+            return [payload];
+        };
+
+        if (batches.length === 0) {
+            return Promise.resolve({ status: 201, data: [], sentCount: 0 });
+        }
+
+        return batches.reduce(
+            (promise, batch, index) => promise.then((accumulated) => {
+                notifyProgress(index, accumulated.sentCount, batch.length);
+
+                return sendBatch(batch).then((result) => {
+                    if (result.status === 201) {
+                        return {
+                            status: accumulated.failed ? accumulated.status : 201,
+                            data: accumulated.data.concat(toArray(result.data)),
+                            sentCount: accumulated.sentCount + batch.length,
+                            failed: accumulated.failed,
+                        };
+                    }
+
+                    return {
+                        status: accumulated.failed ? accumulated.status : result.status,
+                        data: accumulated.data,
+                        sentCount: accumulated.sentCount,
+                        failed: true,
+                    };
+                });
+            }),
+            Promise.resolve({
+                status: 201,
+                data: [],
+                sentCount: 0,
+                failed: false,
+            }),
+        ).then((result) => ({
+            status: result.status,
+            data: result.data,
+            sentCount: result.sentCount,
+        }));
     }
 
     static setPayment(orgId, customers, orderItems, organisationUnit, principal, createdBy) {
