@@ -1,14 +1,18 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import ClaimHistory, { action, loader } from "./claim-history";
+import ClaimHistory, { action } from "./claim-history";
+import { loader } from "./api.claim-history";
 
 const mocks = vi.hoisted(() => ({
   parseCookie: vi.fn(),
   fetchMe: vi.fn(),
   getClaims: vi.fn(),
   sendClaimsToSystem: vi.fn(),
-  useLoaderData: vi.fn(),
+  useRouteLoaderData: vi.fn(),
+  useNavigation: vi.fn(),
+  ordersFetcher: vi.fn(),
+  loadOrders: vi.fn(),
   submit: vi.fn(),
   setSearchParams: vi.fn(),
 }));
@@ -31,6 +35,7 @@ vi.mock("~/api/ClaimApi", () => ({
 vi.mock("@navikt/ds-react", () => ({
   Box: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   HStack: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  Loader: () => <div />,
   Spacer: () => <div />,
   VStack: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   Search: ({
@@ -60,8 +65,10 @@ vi.mock("react-router", async () => {
   const actual = await vi.importActual<typeof import("react-router")>("react-router");
   return {
     ...actual,
-    useLoaderData: mocks.useLoaderData,
-    useFetcher: () => ({ submit: mocks.submit }),
+    useRouteLoaderData: mocks.useRouteLoaderData,
+    useNavigation: mocks.useNavigation,
+    useHref: () => "/afk/historikk",
+    useFetcher: () => ({ submit: mocks.submit, ...mocks.ordersFetcher() }),
     useSearchParams: () => [new URLSearchParams(), mocks.setSearchParams],
   };
 });
@@ -168,15 +175,11 @@ const makeClaim = (orderNumber: number, claimStatus: string) =>
     invoiceNumbers: [],
   }) as never;
 
-const makeLoaderData = (overrides: Record<string, unknown> = {}) => ({
-  claimHistory: [],
-  user: {
-    organisationUnits: [{ organisationNumber: "school-1", name: "School 1" }],
-  },
-  periodSelection: "WEEK",
-  schoolSelection: "school-1",
-  statusSelection: "",
-  ...overrides,
+const orderSearch = "periodSelection=WEEK&schoolSelection=school-1&status=";
+const makeOrdersData = (claimHistory: Array<ReturnType<typeof makeClaim>>) => ({
+  organisationNumber: "school-1",
+  search: orderSearch,
+  claimHistory,
 });
 
 describe("claim-history loader", () => {
@@ -203,10 +206,7 @@ describe("claim-history loader", () => {
       "MONTH",
       "123",
     );
-    expect(result.claimHistory).toEqual([{ orderNumber: 1 }]);
-    expect(result.periodSelection).toBe("MONTH");
-    expect(result.statusSelection).toBe("STORED");
-    expect(result.schoolSelection).toBe("123");
+    expect(result.data.claimHistory).toEqual([{ orderNumber: 1 }]);
   });
 
   it("defaults period to WEEK and status to empty when query missing", async () => {
@@ -261,13 +261,10 @@ describe("claim-history loader", () => {
     } as never);
 
     expect(mocks.getClaims).not.toHaveBeenCalled();
-    expect(result.claimHistory).toEqual([]);
-    expect(result.periodSelection).toBe("WEEK");
-    expect(result.statusSelection).toBe("");
-    expect(result.schoolSelection).toBe("");
+    expect(result.data.claimHistory).toEqual([]);
   });
 
-  it("returns empty list when ClaimApi reports failure", async () => {
+  it("reports an error when ClaimApi reports failure", async () => {
     mocks.parseCookie.mockResolvedValue("school.org");
     mocks.fetchMe.mockResolvedValue(MIN_USER("school.org"));
     mocks.getClaims.mockResolvedValue({
@@ -281,7 +278,7 @@ describe("claim-history loader", () => {
       context: {},
     } as never);
 
-    expect(result.claimHistory).toEqual([]);
+    expect(result.data.claimHistory).toBeNull();
   });
 
   it("treats missing data array as empty when success", async () => {
@@ -295,7 +292,7 @@ describe("claim-history loader", () => {
       context: {},
     } as never);
 
-    expect(result.claimHistory).toEqual([]);
+    expect(result.data.claimHistory).toEqual([]);
   });
 });
 
@@ -409,7 +406,52 @@ describe("claim-history action", () => {
 describe("ClaimHistory component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mocks.useLoaderData.mockReturnValue(makeLoaderData());
+    mocks.useRouteLoaderData.mockReturnValue({
+      user: MIN_USER("school-1"),
+      selectedOrganization: { organisationNumber: "school-1" },
+    });
+    mocks.useNavigation.mockReturnValue({ state: "idle" });
+    mocks.ordersFetcher.mockReturnValue({
+      state: "idle",
+      load: mocks.loadOrders,
+      data: makeOrdersData([]),
+    });
+  });
+
+  it("keeps the heading and filters visible while the first orders load", () => {
+    mocks.ordersFetcher.mockReturnValue({
+      state: "loading",
+      load: mocks.loadOrders,
+    });
+    const { rerender } = render(<ClaimHistory />);
+
+    expect(screen.getByText("Ordre historikk")).toBeTruthy();
+    expect(screen.getByText("set-date")).toBeTruthy();
+    expect(screen.getByText("Henter ordrehistorikk …")).toBeTruthy();
+    expect(screen.queryByText("Ingen ordrer funnet")).toBeNull();
+    expect(mocks.loadOrders).toHaveBeenCalledWith(`/_history/orders?${orderSearch}`);
+
+    mocks.ordersFetcher.mockReturnValue({
+      state: "idle",
+      load: mocks.loadOrders,
+      data: makeOrdersData([makeClaim(123, "STORED")]),
+    });
+    rerender(<ClaimHistory />);
+
+    expect(screen.queryByText("Henter ordrehistorikk …")).toBeNull();
+    expect(screen.getByText("tableClaims:1")).toBeTruthy();
+  });
+
+  it("shows the spinner during filter navigation", () => {
+    mocks.useNavigation.mockReturnValue({
+      state: "loading",
+      location: { pathname: "/afk/historikk", search: "?periodSelection=MONTH" },
+    });
+
+    render(<ClaimHistory />);
+
+    expect(screen.getByText("Henter ordrehistorikk …")).toBeTruthy();
+    expect(screen.queryByText("Ingen ordrer funnet")).toBeNull();
   });
 
   it("shows empty-state message and hides paging when there are no claims", () => {
@@ -421,11 +463,11 @@ describe("ClaimHistory component", () => {
   });
 
   it("filters claims by order number search", () => {
-    mocks.useLoaderData.mockReturnValue(
-      makeLoaderData({
-        claimHistory: [makeClaim(123, "STORED"), makeClaim(456, "SEND_ERROR")],
-      }),
-    );
+    mocks.ordersFetcher.mockReturnValue({
+      state: "idle",
+      load: mocks.loadOrders,
+      data: makeOrdersData([makeClaim(123, "STORED"), makeClaim(456, "SEND_ERROR")]),
+    });
 
     render(<ClaimHistory />);
     expect(screen.getByText("tableClaims:2")).toBeTruthy();
@@ -442,11 +484,11 @@ describe("ClaimHistory component", () => {
   });
 
   it("submits SEND_TO_FACTORING with selected ids and resets selection", () => {
-    mocks.useLoaderData.mockReturnValue(
-      makeLoaderData({
-        claimHistory: [makeClaim(123, "STORED")],
-      }),
-    );
+    mocks.ordersFetcher.mockReturnValue({
+      state: "idle",
+      load: mocks.loadOrders,
+      data: makeOrdersData([makeClaim(123, "STORED")]),
+    });
 
     render(<ClaimHistory />);
 

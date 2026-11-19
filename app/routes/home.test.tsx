@@ -1,96 +1,66 @@
-import { describe, expect, it, vi, beforeEach } from "vitest";
-import { loader } from "./home";
+import { render, screen } from "@testing-library/react";
+import { createMemoryRouter, Outlet, RouterProvider } from "react-router";
+import { describe, expect, it } from "vitest";
+import type { BatchData } from "~/components/dashboard/BatchHistory";
+import Home from "./home";
 
-const mocks = vi.hoisted(() => ({
-  parseCookie: vi.fn(),
-  fetchMe: vi.fn(),
-  getCountByStatus: vi.fn(),
-  getClaims: vi.fn(),
-}));
-
-vi.mock("~/utils/cookie", () => ({
-  selectOrgCookie: { parse: mocks.parseCookie },
-}));
-
-vi.mock("~/api/MeApi", () => ({
-  default: { fetchMe: mocks.fetchMe },
-}));
-
-vi.mock("~/api/ClaimApi", () => ({
-  default: {
-    getCountByStatus: mocks.getCountByStatus,
-    getClaims: mocks.getClaims,
-  },
-}));
-
-const makeClaim = (createdDate: string, claimStatus: string) =>
-  ({
-    orderNumber: Math.floor(Math.random() * 10000),
-    createdDate,
-    claimStatus,
-    orgId: "org",
-    invoiceDate: null,
-    paymentDueDate: null,
-    amountDue: 1000,
-    originalAmountDue: 1000,
-    requestedNumberOfDaysToPaymentDeadline: null,
-    customerName: "A",
-    createdByEmployee: "B",
-    organisationUnit: { organisationNumber: "1", name: "School" },
-    principalCode: "P",
-    invoiceUri: "",
-    orderItems: [],
-    statusMessage: "",
-    timestamp: 1,
-    invoiceNumbers: [],
-  }) as never;
-
-describe("home route loader", () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
-  });
-
-  it("aggregates counts and processes batches", async () => {
-    mocks.parseCookie.mockResolvedValue("school.org");
-    mocks.getCountByStatus
-      .mockResolvedValueOnce({ success: true, data: 3 })
-      .mockResolvedValueOnce({ success: true, data: 1 })
-      .mockResolvedValueOnce({ success: true, data: 2 })
-      .mockResolvedValueOnce({ success: false, data: 99 })
-      .mockResolvedValueOnce({ success: true, data: 4 });
-    mocks.getClaims.mockResolvedValue({
-      success: true,
-      data: [
-        makeClaim("2024-01-02T10:00:00Z", "STORED"),
-        makeClaim("2024-01-02T10:00:00Z", "SEND_ERROR"),
-        makeClaim("2024-01-03T10:00:00Z", "PAID"),
+describe("home dashboard", () => {
+  it("renders the dashboard and lets stats finish while batch history is pending", async () => {
+    const orders = { pendingOrders: 24, errorOrders: 3 };
+    let resolveStats!: (value: { stats: typeof orders }) => void;
+    const statsResponse = new Promise<{ stats: typeof orders }>((resolve) => {
+      resolveStats = resolve;
+    });
+    type BatchResponse = { batches: BatchData[]; paidOrders: number };
+    let resolveBatches!: (value: BatchResponse) => void;
+    const batchResponse = new Promise<BatchResponse>((resolve) => {
+      resolveBatches = resolve;
+    });
+    const router = createMemoryRouter(
+      [
+        {
+          path: "/",
+          element: (
+            <Outlet context={{ name: "Eksempelskolen", organisationNumber: "1" }} />
+          ),
+          children: [
+            { index: true, Component: Home },
+            { path: "_dashboard/stats", loader: () => statsResponse },
+            { path: "_dashboard/batches", loader: () => batchResponse },
+          ],
+        },
       ],
+      { basename: "/afk", initialEntries: ["/afk/"] },
+    );
+
+    render(<RouterProvider router={router} />);
+
+    expect(screen.getByText("Dashboard - Eksempelskolen")).toBeTruthy();
+    expect(screen.getAllByTitle(/^Henter/)).toHaveLength(3);
+    expect(screen.getByText("Henter batchhistorikk …")).toBeTruthy();
+
+    resolveStats({ stats: orders });
+
+    expect(await screen.findByText("24")).toBeTruthy();
+    expect(screen.getAllByTitle(/^Henter/)).toHaveLength(1);
+    expect(screen.getByTitle("Henter betalte ordrer")).toBeTruthy();
+    expect(screen.getByText("Henter batchhistorikk …")).toBeTruthy();
+
+    resolveBatches({
+      paidOrders: 121,
+      batches: [{
+        date: "2024-01-03T10:00:00Z",
+        totalRecords: 8,
+        sent: 8,
+        errors: 0,
+        stored: 0,
+        cancelled: 0,
+      }],
     });
 
-    const result = await loader({
-      request: new Request("http://localhost/home"),
-      params: {},
-      context: {},
-    } as never);
-
-    expect(result.pendingOrders).toBe(3);
-    expect(result.errorOrders).toBe(7);
-    expect(result.totalOrders).toBe(10);
-    expect(result.batches).toHaveLength(2);
-    expect(result.batches[0].date).toBe("2024-01-03T10:00:00Z");
-    expect(result.batches[1].errors).toBe(1);
-  });
-
-  it("throws 400 when no organisation can be resolved", async () => {
-    mocks.parseCookie.mockResolvedValue(null);
-    mocks.fetchMe.mockResolvedValue({ organisationUnits: [] });
-
-    await expect(
-      loader({
-        request: new Request("http://localhost/home"),
-        params: {},
-        context: {},
-      } as never),
-    ).rejects.toMatchObject({ status: 400 });
+    expect(await screen.findByRole("table")).toBeTruthy();
+    expect(screen.getByText("121")).toBeTruthy();
+    expect(screen.queryByTitle(/^Henter/)).toBeNull();
+    expect(screen.queryByText("Henter batchhistorikk …")).toBeNull();
   });
 });
