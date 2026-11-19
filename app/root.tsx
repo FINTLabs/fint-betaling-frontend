@@ -9,27 +9,24 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useLocation,
   useNavigate,
 } from "react-router";
 
-import type { Route } from "./+types/root";
-import { Box, Page, Theme } from "@navikt/ds-react";
-import { NovariFooter, NovariHeader } from "novari-frontend-components";
-import { footerLinks, novariMenu } from "~/components/MenuConfig";
+import type {Route} from "./+types/root";
+import {Box, Page, Theme} from "@navikt/ds-react";
+import {NovariFooter, NovariHeader} from "novari-frontend-components";
+import {footerLinks, novariMenu} from "~/components/MenuConfig";
 import themeHref from "./styles/novari-theme.css?url";
 import akselHref from "@navikt/ds-css?url";
 import MeApi from "~/api/MeApi";
-import { OrganisationUnitSelect } from "~/components/OrganisationUnitSelect";
-import { HeaderProperties } from "~/utils/headerProperties";
-import { selectOrgCookie } from "~/utils/cookie";
-import type { IOrganisationUnit, IUser } from "~/types/user";
-import { CustomErrorLayout } from "~/components/CustomErrorLayout";
+import {OrganisationUnitSelect} from "~/components/OrganisationUnitSelect";
+import {HeaderProperties} from "~/utils/headerProperties";
+import {selectOrgCookie} from "~/utils/cookie";
+import type {IOrganisationUnit, IUser} from "~/types/user";
+import {CustomErrorLayout} from "~/components/CustomErrorLayout";
 import CustomError from "~/components/CustomError";
-import { useTrackAnalyticsPageViews } from "~/hooks/useTrackAnalyticsPageViews";
-import AnalyticsApi from "~/api/AnalyticsApi";
-import { useEffect } from "react";
-import { cspReportOnly } from "~/utils/csp";
+import {useTrackAnalyticsPageViews} from "~/hooks/useTrackAnalyticsPageViews";
+import {cspReportOnly} from "~/utils/csp";
 
 //TODO: Clean up console.log lines
 export const links: Route.LinksFunction = () => [
