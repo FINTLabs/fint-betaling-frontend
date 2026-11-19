@@ -19,7 +19,7 @@ import type {IClaim} from "~/types/claim";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
   const cookieValue = await selectOrgCookie.parse(cookieHeader);
-  const meResponse = await MeApi.fetchMe(request);
+  const meResponse = await MeApi.fetchMe();
   const currentSchoolOrgId =
     cookieValue ?? meResponse.organisationUnits[0]?.organisationNumber;
 
@@ -40,10 +40,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     schoolResponse,
     principalsResponse,
   ] = await Promise.all([
-    SchoolGroupApi.getBasisGroups(currentSchoolOrgId, request),
-    SchoolGroupApi.getTeachingGroups(currentSchoolOrgId, request),
-    SchoolGroupApi.getSchool(currentSchoolOrgId, request),
-    PrincipalApi.getPrincipals(currentSchoolOrgId, request),
+    SchoolGroupApi.getBasisGroups(currentSchoolOrgId),
+    SchoolGroupApi.getTeachingGroups(currentSchoolOrgId),
+    SchoolGroupApi.getSchool(currentSchoolOrgId),
+    PrincipalApi.getPrincipals(currentSchoolOrgId),
   ]);
 
   return {
@@ -54,6 +54,39 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     currentSchoolOrgId,
     user: meResponse,
   };
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const actionType = formData.get("actionType") as string;
+  const selectedOrg = formData.get("selectedOrg") as string;
+  const claimBody = formData.get("newClaim") as string;
+
+  let response;
+  switch (actionType) {
+    case "SAVE_INVOICES":
+      response = ClaimApi.createClaim(selectedOrg, claimBody);
+      if((await response).success){
+        return redirect(`/send`);
+      }
+      break;
+    case "SEND_TO_FACTORING":
+      response = {
+        success: true,
+        message: "TESTING SEND_TO_FACTORING",
+        variant: "warning",
+      };
+      break;
+    default:
+      return {
+        success: false,
+        message: `Ukjent handlingstype: '${actionType}'`,
+        variant: "error",
+      };
+  }
+
+  return response;
+
 };
 
 export default function ClaimNew() {
@@ -214,35 +247,3 @@ export default function ClaimNew() {
   );
 }
 
-export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-  const actionType = formData.get("actionType") as string;
-  const selectedOrg = formData.get("selectedOrg") as string;
-  const claimBody = formData.get("newClaim") as string;
-
-  let response;
-    switch (actionType) {
-      case "SAVE_INVOICES":
-        response = ClaimApi.createClaim(selectedOrg, claimBody, request);
-        if((await response).success){
-          return redirect(`/send`);
-        }
-        break;
-      case "SEND_TO_FACTORING":
-        response = {
-          success: true,
-          message: "TESTING SEND_TO_FACTORING",
-          variant: "warning",
-        };
-        break;
-      default:
-        return {
-          success: false,
-          message: `Ukjent handlingstype: '${actionType}'`,
-          variant: "error",
-        };
-    }
-
-    return response;
-
-};

@@ -1,79 +1,111 @@
-import {Box, HStack, Search, Spacer, VStack} from "@navikt/ds-react";
+import {Box, HStack, Loader, Search, Spacer, VStack} from "@navikt/ds-react";
 import React, {useEffect, useMemo, useState} from "react";
 import type {IClaim} from "~/types/claim";
 import {PageHeader} from "~/components/PageHeader";
 import {ClaimHistoryFilters} from "~/components/claim-history/ClaimHistoryFilters";
 import {ClaimHistoryActions} from "~/components/claim-history/ClaimHistoryActions";
 import {ClaimHistoryTable} from "~/components/claim-history/ClaimHistoryTable";
-import {type ActionFunction, type LoaderFunctionArgs, useFetcher, useLoaderData, useSearchParams,} from "react-router";
+import {
+  type ActionFunction,
+  useFetcher,
+  useHref,
+  useNavigation,
+  useRouteLoaderData,
+  useSearchParams,
+} from "react-router";
 import {selectOrgCookie} from "~/utils/cookie";
 import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
-import type {IUser} from "~/types/user";
 import {SelectAndPaging} from "~/components/SelectAndPaging";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
+import type { loader as rootLoader } from "~/root";
+import type { loader as ordersLoader } from "./api.claim-history";
+
+const emptyClaims: IClaim[] = [];
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const actionType = formData.get("actionType") as string;
+  const inputSelectedClaimIds = formData.get("selectedClaims") as string;
+  const selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
   const user = await MeApi.fetchMe();
+  const selectedOrg =
+      cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
 
-  const organisationNumber =
-    cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
-  if (!organisationNumber) {
+  if (!selectedOrg) {
     return {
-      claimHistory: [],
-      user,
-      periodSelection: "WEEK",
-      schoolSelection: "",
-      statusSelection: "",
+      success: false,
+      message: "Ingen organisasjon valgt",
+      variant: "error",
     };
   }
 
-  // Parse query string parameters from URL
-  const url = new URL(request.url);
-  const periodSelection = url.searchParams.get("periodSelection") || "WEEK";
-  const schoolSelection =
-    url.searchParams.get("schoolSelection") || organisationNumber;
-  const statusSelection = url.searchParams.get("status") || "";
+  let response;
 
-  const claimHistoryResponse = await ClaimApi.getClaims(
-    organisationNumber,
-    statusSelection,
-    periodSelection,
-    schoolSelection,
-  );
+  switch (actionType) {
+    case "DOWNLOAD_SELECTED":
 
-  const claimHistory = claimHistoryResponse.success
-    ? claimHistoryResponse.data || []
-    : [];
+      response = {
+        success: true,
+        message: `${selectedClaimIds.length} ordre slettet`,
+        variant: "success",
+      };
 
-  return {
-    claimHistory,
-    user,
-    periodSelection,
-    schoolSelection,
-    statusSelection,
-  };
+      break;
+    case "SEND_TO_FACTORING":
+      response = ClaimApi.sendClaimsToSystem(
+          selectedOrg,
+          inputSelectedClaimIds,
+      );
+      break;
+    default:
+      response = {
+        success: false,
+        message: `Ukjent handlingstype: '${actionType}'`,
+        variant: "error",
+      };
+  }
+
+  return response;
 };
 
 export default function ClaimHistory() {
-  const {
-    claimHistory,
-    user,
+  const rootData = useRouteLoaderData<typeof rootLoader>("root");
+  const organisationNumber = rootData?.selectedOrganization?.organisationNumber ?? "";
+  const organisationUnits = rootData?.user.organisationUnits ?? [];
+  const [searchParams, setSearchParams] = useSearchParams();
+  const periodSelection = searchParams.get("periodSelection") || "WEEK";
+  const schoolSelection = searchParams.get("schoolSelection") || organisationNumber;
+  const statusSelection = searchParams.get("status") || "";
+  const search = new URLSearchParams({
     periodSelection,
     schoolSelection,
-    statusSelection,
-  } = useLoaderData<{
-    claimHistory: IClaim[];
-    user: IUser;
-    periodSelection: string;
-    schoolSelection: string;
-    statusSelection: string;
-  }>();
+    status: statusSelection,
+  }).toString();
 
-  //eslint-disable-next-line
-  const [searchParams, setSearchParams] = useSearchParams();
+  const navigation = useNavigation();
+  const historyPath = useHref(".");
   const fetcher = useFetcher();
+  const { data, load, state } = useFetcher<typeof ordersLoader>();
+
+  useEffect(() => {
+    if (organisationNumber) {
+      void load(`/_history/orders?${search}`);
+    }
+  }, [load, organisationNumber, search]);
+
+  const currentData =
+    data?.organisationNumber === organisationNumber && data?.search === search
+      ? data
+      : undefined;
+  const loading =
+    navigation.location?.pathname === historyPath ||
+    Boolean(organisationNumber &&
+      (state !== "idle" || !currentData || fetcher.state === "loading"));
+  const failed = currentData?.claimHistory === null;
+  const claimHistory = currentData?.claimHistory ?? emptyClaims;
 
   const [selectedOrderIds, setSelectedOrderIds] = useState<string[]>([]);
   const [page, setPage] = useState(1);
@@ -188,17 +220,19 @@ export default function ClaimHistory() {
           dateFilter={periodSelection}
           statusFilter={statusSelection}
           schoolSelection={schoolSelection}
-          organisationUnits={user.organisationUnits}
+          organisationUnits={organisationUnits}
           onDateFilterChange={handleDateFilterChange}
           onStatusFilterChange={handleStatusFilterChange}
           onSchoolSelectionChange={handleSchoolSelectionChange}
         />
         <Spacer />
-        <ClaimHistoryActions
-          selectedCount={selectedOrderIds.length}
-          onResend={handleResend}
-          claims={filteredClaimHistory}
-        />
+        {!loading && !failed && (
+          <ClaimHistoryActions
+            selectedCount={selectedOrderIds.length}
+            onResend={handleResend}
+            claims={filteredClaimHistory}
+          />
+        )}
       </HStack>
 
       <Box padding={"space-16"}>
@@ -215,80 +249,44 @@ export default function ClaimHistory() {
         </form>
       </Box>
 
-      <ClaimHistoryTable
-        claims={paginatedOrders}
-        selectedClaimIds={selectedOrderIds}
-        onSelectAll={handleSelectAll}
-        onSelectClaim={handleSelectOrder}
-        allSelected={allSelected}
-        someSelected={someSelected}
-        emptyMessage={
-          claimHistory.length === 0
-            ? "Ingen ordrer funnet"
-            : orderIdSearch.trim()
-              ? "Ingen ordrer matcher ordrenummeret"
-            : "Ingen ordrer tilgjengelig"
-        }
-      />
+      {loading ? (
+        <HStack gap="space-8" align="center" role="status">
+          <Loader size="small" aria-hidden="true" />
+          <span>Henter ordrehistorikk …</span>
+        </HStack>
+      ) : failed ? (
+        <p role="alert">Kunne ikke hente ordrehistorikk.</p>
+      ) : (
+        <>
+          <ClaimHistoryTable
+            claims={paginatedOrders}
+            selectedClaimIds={selectedOrderIds}
+            onSelectAll={handleSelectAll}
+            onSelectClaim={handleSelectOrder}
+            allSelected={allSelected}
+            someSelected={someSelected}
+            emptyMessage={
+              claimHistory.length === 0
+                ? "Ingen ordrer funnet"
+                : orderIdSearch.trim()
+                  ? "Ingen ordrer matcher ordrenummeret"
+                : "Ingen ordrer tilgjengelig"
+            }
+          />
 
-      {filteredClaimHistory.length > 0 && (
-        <SelectAndPaging
-          page={page}
-          totalPages={totalPages}
-          rowsPerPage={rowsPerPage}
-          totalOrders={filteredClaimHistory.length}
-          onPageChange={setPage}
-          onRowsPerPageChange={setRowsPerPage}
-        />
+          {filteredClaimHistory.length > 0 && (
+            <SelectAndPaging
+              page={page}
+              totalPages={totalPages}
+              rowsPerPage={rowsPerPage}
+              totalOrders={filteredClaimHistory.length}
+              onPageChange={setPage}
+              onRowsPerPageChange={setRowsPerPage}
+            />
+          )}
+        </>
       )}
     </VStack>
   );
 }
 
-export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-  const actionType = formData.get("actionType") as string;
-  const inputSelectedClaimIds = formData.get("selectedClaims") as string;
-  const selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
-  const cookieHeader = request.headers.get("Cookie");
-  const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
-  const user = await MeApi.fetchMe();
-  const selectedOrg =
-    cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
-
-  if (!selectedOrg) {
-    return {
-      success: false,
-      message: "Ingen organisasjon valgt",
-      variant: "error",
-    };
-  }
-
-  let response;
-
-  switch (actionType) {
-    case "DOWNLOAD_SELECTED":
-
-        response = {
-          success: true,
-          message: `${selectedClaimIds.length} ordre slettet`,
-          variant: "success",
-        };
-
-      break;
-    case "SEND_TO_FACTORING":
-      response = ClaimApi.sendClaimsToSystem(
-          selectedOrg,
-          inputSelectedClaimIds,
-      );
-      break;
-    default:
-      response = {
-        success: false,
-        message: `Ukjent handlingstype: '${actionType}'`,
-        variant: "error",
-      };
-  }
-
-  return response;
-};

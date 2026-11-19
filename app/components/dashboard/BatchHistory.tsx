@@ -1,5 +1,5 @@
-import { Box, Heading, Table, VStack } from "@navikt/ds-react";
-import {formatDate} from "~/utils/variousFormats";
+import { Box, Heading, HStack, Loader, Table, VStack } from "@navikt/ds-react";
+import { formatDate } from "~/utils/variousFormats";
 
 export interface BatchData {
   date: string;
@@ -12,9 +12,11 @@ export interface BatchData {
 
 interface BatchHistoryProps {
   batches: BatchData[];
+  loading?: boolean;
+  error?: boolean;
 }
 
-export function BatchHistory({ batches }: BatchHistoryProps) {
+export function BatchHistory({ batches, loading, error }: BatchHistoryProps) {
   return (
     <VStack gap="space-4" align="start">
       <Heading size="medium" level="3" spacing>
@@ -28,7 +30,14 @@ export function BatchHistory({ batches }: BatchHistoryProps) {
         width="100%"
         shadow="dialog"
       >
-        {batches.length === 0 ? (
+        {loading ? (
+          <HStack gap="space-8" align="center" role="status">
+            <Loader size="small" aria-hidden="true" />
+            <span>Henter batchhistorikk …</span>
+          </HStack>
+        ) : error ? (
+          <p role="alert">Kunne ikke hente batchhistorikk.</p>
+        ) : batches.length === 0 ? (
           <Box paddingBlock="space-4">
             <p
               style={{

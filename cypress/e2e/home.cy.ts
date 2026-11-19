@@ -12,12 +12,14 @@ describe("Home page", () => {
   });
 
   it("displays dashboard stats", () => {
-    cy.contains("Totalt antall ordrer").should("be.visible");
+    cy.contains("Betalte ordrer siste 12 måneder")
+      .closest(".novari-stats-link-card")
+      .find("h2")
+      .invoke("text")
+      .should("match", /^\d+$/);
     cy.contains("Ventende ordrer").should("be.visible");
     cy.contains("Antall feil").should("be.visible");
 
-    // From mock data: pendingOrders=5, errorOrders=2, totalOrders=7
-    cy.contains("7").should("be.visible"); // total
     cy.contains("5").should("be.visible"); // pending
     cy.contains("2").should("be.visible"); // errors
   });

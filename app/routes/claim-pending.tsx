@@ -45,6 +45,67 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   };
 };
 
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const actionType = formData.get("actionType") as string;
+  const inputSelectedClaimIds = formData.get("selectedClaims") as string;
+  const selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
+  const cookieHeader = request.headers.get("Cookie");
+  const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
+  const user = await MeApi.fetchMe();
+  const selectedOrg =
+      cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
+
+  if (!selectedOrg) {
+    return {
+      success: false,
+      message: "Ingen organisasjon valgt",
+      variant: "error",
+    };
+  }
+
+  let errors: number = 0;
+  let response;
+
+  switch (actionType) {
+    case "DELETE_CLAIMS":
+      for (const claimId of selectedClaimIds) {
+        response = await ClaimApi.cancelClaim(selectedOrg, claimId);
+        if (!response.success) {
+          errors++;
+        }
+      }
+      if (errors > 0) {
+        response = {
+          success: false,
+          message: `${errors} ordre ikke slettet`,
+          variant: "error",
+        };
+      } else {
+        response = {
+          success: true,
+          message: `${selectedClaimIds.length} ordre slettet`,
+          variant: "success",
+        };
+      }
+      break;
+    case "SEND_TO_FACTORING":
+      response = ClaimApi.sendClaimsToSystem(
+          selectedOrg,
+          inputSelectedClaimIds,
+      );
+      break;
+    default:
+      response = {
+        success: false,
+        message: `Ukjent handlingstype: '${actionType}'`,
+        variant: "error",
+      };
+  }
+
+  return response;
+};
+
 export default function ClaimPending() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedClaimIds, setSelectedClaimIds] = useState<string[]>([]);
@@ -171,63 +232,3 @@ export default function ClaimPending() {
   );
 }
 
-export const action: ActionFunction = async ({ request }) => {
-  const formData = await request.formData();
-  const actionType = formData.get("actionType") as string;
-  const inputSelectedClaimIds = formData.get("selectedClaims") as string;
-  const selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
-  const cookieHeader = request.headers.get("Cookie");
-  const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
-  const user = await MeApi.fetchMe();
-  const selectedOrg =
-    cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
-
-  if (!selectedOrg) {
-    return {
-      success: false,
-      message: "Ingen organisasjon valgt",
-      variant: "error",
-    };
-  }
-
-  let errors: number = 0;
-  let response;
-
-  switch (actionType) {
-    case "DELETE_CLAIMS":
-      for (const claimId of selectedClaimIds) {
-        response = await ClaimApi.cancelClaim(selectedOrg, claimId);
-        if (!response.success) {
-          errors++;
-        }
-      }
-      if (errors > 0) {
-        response = {
-          success: false,
-          message: `${errors} ordre ikke slettet`,
-          variant: "error",
-        };
-      } else {
-        response = {
-          success: true,
-          message: `${selectedClaimIds.length} ordre slettet`,
-          variant: "success",
-        };
-      }
-      break;
-    case "SEND_TO_FACTORING":
-      response = ClaimApi.sendClaimsToSystem(
-        selectedOrg,
-        inputSelectedClaimIds,
-      );
-      break;
-    default:
-      response = {
-        success: false,
-        message: `Ukjent handlingstype: '${actionType}'`,
-        variant: "error",
-      };
-  }
-
-  return response;
-};

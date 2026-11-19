@@ -11,16 +11,27 @@ Web app for creating and managing payment orders in FINT Betaling.
 
 ```bash
 npm install
-npm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001).
-
-The app talks to a backend API. Set the API URL if needed:
+Set `VITE_API_URL` to the backend base URL without a trailing slash or `/api`.
+For a backend running locally with the default Spring configuration, use:
 
 ```bash
-VITE_API_URL=https://your-api-url npm run dev
+VITE_API_URL=http://localhost:8080 npm run dev
 ```
+
+For a port forward to the FINTLabs beta backend on local port 8080, use:
+
+```bash
+VITE_API_URL=http://localhost:8080/fintlabs/beta npm run dev
+```
+
+Open [http://localhost:3001](http://localhost:3001). You can also set
+`VITE_API_URL` in `.env` and run `npm run dev`. Restart an existing dev server
+after changing the setting. A `401`
+from the beta backend means it received the request and requires an authorized
+FINT user token. The port forward connects directly to the pod and bypasses the
+ingress that handles SSO.
 
 ## Production
 

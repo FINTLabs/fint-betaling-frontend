@@ -194,14 +194,14 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   //TODO: POC tracking
-  const location = useLocation();
-  useEffect(() => {
-    void AnalyticsApi.trackError({
-      path: location.pathname,
-      message: details,
-      statusCode: 500,
-    });
-  }, [details, location.pathname]);
+  // const location = useLocation();
+  // useEffect(() => {
+  //   void AnalyticsApi.trackError({
+  //     path: location.pathname,
+  //     message: details,
+  //     statusCode: 500,
+  //   });
+  // }, [details, location.pathname]);
 
   return (
     <CustomErrorLayout>

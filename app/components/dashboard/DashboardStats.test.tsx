@@ -1,54 +1,45 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { MemoryRouter } from "react-router";
+import { describe, expect, it } from "vitest";
 import { DashboardStats } from "./DashboardStats";
 
-vi.mock("@navikt/ds-react", () => {
-  const Detail = ({ children }: { children: React.ReactNode }) => <p>{children}</p>;
-  const Heading = ({ children }: { children: React.ReactNode }) => <h3>{children}</h3>;
-  const HGrid = ({ children }: { children: React.ReactNode }) => <div>{children}</div>;
-  const InfoCard = ({
-    children,
-    "data-color": dataColor,
-  }: {
-    children: React.ReactNode;
-    "data-color"?: "success" | "info" | "danger";
-  }) => <section data-color={dataColor}>{children}</section>;
-
-  InfoCard.Header = ({ children }: { children: React.ReactNode }) => (
-    <header>{children}</header>
-  );
-  InfoCard.Title = ({ children }: { children: React.ReactNode }) => <h4>{children}</h4>;
-  InfoCard.Content = ({ children }: { children: React.ReactNode }) => (
-    <div>{children}</div>
-  );
-
-  return { Detail, Heading, HGrid, InfoCard };
-});
-
 describe("DashboardStats", () => {
-  it("renders stat titles, values and descriptions", () => {
+  it("renders stat titles, counts and links under the router basename", () => {
     render(
-      <DashboardStats totalOrders={100} pendingOrders={10} errorOrders={5} />,
+      <MemoryRouter basename="/afk" initialEntries={["/afk/"]}>
+        <DashboardStats paidOrders={100} pendingOrders={10} errorOrders={5} />
+      </MemoryRouter>,
     );
 
-    expect(screen.getByText("Totalt antall ordrer")).toBeTruthy();
+    expect(screen.getByText("Betalte ordrer siste 12 måneder")).toBeTruthy();
     expect(screen.getByText("Ventende ordrer")).toBeTruthy();
     expect(screen.getByText("Antall feil")).toBeTruthy();
     expect(screen.getByText("100")).toBeTruthy();
     expect(screen.getByText("10")).toBeTruthy();
     expect(screen.getByText("5")).toBeTruthy();
-    expect(screen.getByText("Total antall ordrer siste 14 dager")).toBeTruthy();
+    expect(
+      screen.getByRole("link", { name: "Se ventende ordrer" }).getAttribute("href"),
+    ).toBe("/afk/send");
   });
 
-  it("sets expected semantic colors for each card", () => {
-    const { container } = render(
-      <DashboardStats totalOrders={1} pendingOrders={2} errorOrders={3} />,
+  it("shows the loading indicators, then replaces them with the counts", () => {
+    const { rerender } = render(
+      <MemoryRouter>
+        <DashboardStats loading />
+      </MemoryRouter>,
     );
 
-    const cards = container.querySelectorAll("section[data-color]");
-    expect(cards[0]?.getAttribute("data-color")).toBe("success");
-    expect(cards[1]?.getAttribute("data-color")).toBe("info");
-    expect(cards[2]?.getAttribute("data-color")).toBe("danger");
+    expect(screen.getAllByTitle(/^Henter/)).toHaveLength(3);
+    expect(screen.queryByText("0")).toBeNull();
+
+    rerender(
+      <MemoryRouter>
+        <DashboardStats paidOrders={2} pendingOrders={2} errorOrders={0} />
+      </MemoryRouter>,
+    );
+
+    expect(screen.queryByTitle(/^Henter/)).toBeNull();
+    expect(screen.getAllByText("2")).toHaveLength(2);
+    expect(screen.getByText("0")).toBeTruthy();
   });
 });
