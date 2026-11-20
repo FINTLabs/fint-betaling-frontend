@@ -25,7 +25,7 @@ import {selectOrgCookie} from "~/utils/cookie";
 import type {IOrganisationUnit, IUser} from "~/types/user";
 import {CustomErrorLayout} from "~/components/CustomErrorLayout";
 import CustomError from "~/components/CustomError";
-import {useTrackAnalyticsPageViews} from "~/hooks/useTrackAnalyticsPageViews";
+// import {useTrackAnalyticsPageViews} from "~/hooks/useTrackAnalyticsPageViews";
 import {cspReportOnly} from "~/utils/csp";
 
 //TODO: Clean up console.log lines
@@ -118,7 +118,7 @@ export default function App() {
     selectedOrganization: IOrganisationUnit;
   }>();
 
-  useTrackAnalyticsPageViews(user?.organisation?.name || "unknown");
+  // useTrackAnalyticsPageViews(user?.organisation?.name || "unknown");
 
   const navigate = useNavigate();
 
