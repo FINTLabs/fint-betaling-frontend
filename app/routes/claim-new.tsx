@@ -19,7 +19,7 @@ import type {IClaim} from "~/types/claim";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
   const cookieValue = await selectOrgCookie.parse(cookieHeader);
-  const meResponse = await MeApi.fetchMe();
+  const meResponse = await MeApi.fetchMe(request);
   const currentSchoolOrgId =
     cookieValue ?? meResponse.organisationUnits[0]?.organisationNumber;
 

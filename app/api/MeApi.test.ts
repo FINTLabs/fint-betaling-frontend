@@ -26,12 +26,17 @@ describe("MeApi", () => {
       data: user,
     });
 
-    const result = await MeApi.fetchMe();
+    const request = new Request("https://example.test/", {
+      headers: { Cookie: "session=test-session" },
+    });
+
+    const result = await MeApi.fetchMe(request);
 
     expect(result).toEqual(user);
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "GET",
       endpoint: "/api/me",
+      additionalHeaders: { Cookie: "session=test-session" },
       functionName: "fetchMe",
       customErrorMessage: "Kunne ikke hente brukerdata",
       customSuccessMessage: "Brukerdata hentet",
@@ -44,7 +49,7 @@ describe("MeApi", () => {
       data: null,
     });
 
-    await expect(MeApi.fetchMe()).rejects.toEqual(
+    await expect(MeApi.fetchMe(new Request("https://example.test/"))).rejects.toEqual(
       expect.objectContaining({
         status: 500,
         statusText: "Ingen brukerdata funnet, vurder å logge ut og logge inn igjen.",

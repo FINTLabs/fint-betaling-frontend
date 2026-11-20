@@ -9,7 +9,7 @@ export function headers() {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const cookieOrgNumber = await selectOrgCookie.parse(request.headers.get("Cookie"));
-  const { organisationUnits } = await MeApi.fetchMe();
+  const { organisationUnits } = await MeApi.fetchMe(request);
   const organisationNumber = (
     organisationUnits.find((org) => org.organisationNumber === cookieOrgNumber) ??
     organisationUnits[0]
