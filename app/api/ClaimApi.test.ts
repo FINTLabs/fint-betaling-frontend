@@ -37,6 +37,7 @@ describe("ClaimApi", () => {
       additionalHeaders: {
         Cookie: "session=test-session",
         "x-school-org-id": "school.org",
+        Cookie: "session=test-session",
       },
     });
   });

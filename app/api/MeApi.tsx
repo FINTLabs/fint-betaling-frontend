@@ -12,6 +12,7 @@ const apiManager = new NovariApiManager({
 class MeApi {
   static async fetchMe(request: Request): Promise<IUser> {
     console.log("Fetching me");
+    const cookie = request.headers.get("Cookie");
     const res = await apiManager.call<IUser>({
       method: "GET",
       endpoint: "/api/me",

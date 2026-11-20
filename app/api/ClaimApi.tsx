@@ -34,6 +34,7 @@ class ClaimApi {
 
     const queryString = params.toString();
     const endpoint = `/api/claim${queryString ? `?${queryString}` : ""}`;
+    const cookie = request.headers.get("Cookie");
 
     return await apiManager.call<IClaim[]>({
       method: "GET",
@@ -44,6 +45,7 @@ class ClaimApi {
       additionalHeaders: {
         ...getRequestCookieHeaders(request),
         "x-school-org-id": selectedOrg,
+        ...(cookie ? { Cookie: cookie } : {}),
       },
     });
   }
