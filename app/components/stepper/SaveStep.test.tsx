@@ -74,7 +74,7 @@ describe("SaveStep", () => {
     expect(screen.getByText("price-3000")).toBeTruthy();
   });
 
-  it("tracks analytics and sends SAVE_INVOICES form action", () => {
+  it("sends the SAVE_INVOICES form action with analytics disabled", () => {
     const onSendToFactoring = vi.fn();
     render(
       <SaveStep
@@ -86,7 +86,7 @@ describe("SaveStep", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "mock-next" }));
 
-    expect(mocks.trackButtonClick).toHaveBeenCalled();
+    expect(mocks.trackButtonClick).not.toHaveBeenCalled();
     const formData = onSendToFactoring.mock.calls[0]?.[0] as FormData;
     expect(formData.get("actionType")).toBe("SAVE_INVOICES");
   });

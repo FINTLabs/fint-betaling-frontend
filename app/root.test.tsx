@@ -145,15 +145,11 @@ describe("root route module", () => {
     );
   });
 
-  it("error boundary tracks unexpected errors", () => {
+  it("displays unexpected errors with analytics disabled", () => {
     render(<ErrorBoundary params={{}} error={new Error("boom")} />);
 
     expect(screen.getByText("Noe gikk galt")).toBeTruthy();
     expect(screen.getByText("boom")).toBeTruthy();
-    expect(mocks.trackError).toHaveBeenCalledWith({
-      path: "/error",
-      message: "boom",
-      statusCode: 500,
-    });
+    expect(mocks.trackError).not.toHaveBeenCalled();
   });
 });
