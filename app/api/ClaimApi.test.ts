@@ -22,7 +22,10 @@ describe("ClaimApi", () => {
   it("builds getClaims request with query parameters", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await ClaimApi.getClaims("school.org", "PENDING", "LAST_30_DAYS", "school-a");
+    const request = new Request("https://example.test/", {
+      headers: { Cookie: "session=test-session" },
+    });
+    await ClaimApi.getClaims(request, "school.org", "PENDING", "LAST_30_DAYS", "school-a");
 
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "GET",
@@ -32,6 +35,7 @@ describe("ClaimApi", () => {
       customSuccessMessage: "Claims hentet.",
       additionalHeaders: {
         "x-school-org-id": "school.org",
+        Cookie: "session=test-session",
       },
     });
   });
@@ -39,7 +43,7 @@ describe("ClaimApi", () => {
   it("builds getClaims request without optional filters", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await ClaimApi.getClaims("school.org");
+    await ClaimApi.getClaims(new Request("https://example.test/"), "school.org");
 
     expect(mocks.callMock).toHaveBeenCalledWith(
       expect.objectContaining({

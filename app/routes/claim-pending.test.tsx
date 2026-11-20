@@ -158,13 +158,14 @@ describe("claim-pending loader", () => {
     mocks.fetchMe.mockResolvedValue(MIN_USER);
     mocks.getClaims.mockResolvedValue({ success: true, data: [{ orderNumber: 10 }] });
 
+    const request = new Request("http://localhost/claim-pending");
     const result = await loader({
-      request: new Request("http://localhost/claim-pending"),
+      request,
       params: {},
       context: {},
     } as never);
 
-    expect(mocks.getClaims).toHaveBeenCalledWith("school.org", "STORED", undefined, undefined);
+    expect(mocks.getClaims).toHaveBeenCalledWith(request, "school.org", "STORED");
     expect(result.pendingClaims).toEqual([{ orderNumber: 10 }]);
   });
 });

@@ -201,6 +201,7 @@ describe("claim-history loader", () => {
     } as never);
 
     expect(mocks.getClaims).toHaveBeenCalledWith(
+      expect.any(Request),
       "school.org",
       "STORED",
       "MONTH",
@@ -221,6 +222,7 @@ describe("claim-history loader", () => {
     } as never);
 
     expect(mocks.getClaims).toHaveBeenCalledWith(
+      expect.any(Request),
       "school.org",
       "",
       "WEEK",
@@ -240,6 +242,7 @@ describe("claim-history loader", () => {
     } as never);
 
     expect(mocks.getClaims).toHaveBeenCalledWith(
+      expect.any(Request),
       "fallback-org",
       "",
       "WEEK",
@@ -281,10 +284,13 @@ describe("claim-history loader", () => {
     expect(result.data.claimHistory).toBeNull();
   });
 
-  it("treats missing data array as empty when success", async () => {
+  it.each([
+    { status: 200, claimHistory: null },
+    { status: 204, claimHistory: [] },
+  ])("handles a missing claims array with HTTP $status", async ({ status, claimHistory }) => {
     mocks.parseCookie.mockResolvedValue("school.org");
     mocks.fetchMe.mockResolvedValue(MIN_USER("school.org"));
-    mocks.getClaims.mockResolvedValue({ success: true, data: undefined });
+    mocks.getClaims.mockResolvedValue({ success: true, status, data: undefined });
 
     const result = await loader({
       request: new Request("http://localhost/historikk"),
@@ -292,7 +298,7 @@ describe("claim-history loader", () => {
       context: {},
     } as never);
 
-    expect(result.data.claimHistory).toEqual([]);
+    expect(result.data.claimHistory).toEqual(claimHistory);
   });
 });
 

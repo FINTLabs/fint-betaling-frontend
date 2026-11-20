@@ -9,6 +9,7 @@ const apiManager = new NovariApiManager({
 
 class ClaimApi {
   static async getClaims(
+    request: Request,
     selectedOrg: string,
     status?: string,
     period?: string,
@@ -32,6 +33,7 @@ class ClaimApi {
 
     const queryString = params.toString();
     const endpoint = `/api/claim${queryString ? `?${queryString}` : ""}`;
+    const cookie = request.headers.get("Cookie");
 
     return await apiManager.call<IClaim[]>({
       method: "GET",
@@ -41,6 +43,7 @@ class ClaimApi {
       customSuccessMessage: "Claims hentet.",
       additionalHeaders: {
         "x-school-org-id": selectedOrg,
+        ...(cookie ? { Cookie: cookie } : {}),
       },
     });
   }

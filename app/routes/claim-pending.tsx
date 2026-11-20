@@ -30,7 +30,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   }
 
   const [pendingResponse] = await Promise.all([
-    ClaimApi.getClaims(organisationNumber, "STORED", undefined, undefined),
+    ClaimApi.getClaims(request, organisationNumber, "STORED"),
   ]);
 
   if (pendingResponse.success && pendingResponse.data) {

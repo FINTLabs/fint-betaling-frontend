@@ -11,7 +11,7 @@ const orderDateFormatter = new Intl.DateTimeFormat("sv-SE", {
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const organisationNumber = await getDashboardOrganizationNumber(request);
-  const orders = await ClaimApi.getClaims(organisationNumber);
+  const orders = await ClaimApi.getClaims(request, organisationNumber);
 
   if (!orders.success) {
     return { batches: null, paidOrders: null };
