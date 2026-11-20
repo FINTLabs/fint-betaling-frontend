@@ -1,0 +1,35 @@
+apiVersion: fintlabs.no/v1alpha1
+kind: Application
+metadata:
+  name: fint-betaling-frontend
+  labels:
+    app.kubernetes.io/name: fint-betaling-frontend
+    app.kubernetes.io/instance: fint-betaling-frontend_novari_no
+    app.kubernetes.io/version: latest
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/part-of: fint-core
+    novari.no/team: core
+    novari.no/org-id: novari.no
+spec:
+  env:
+    - name: VITE_API_URL
+      value: https://betaling-demo.felleskomponent.no
+    - name: ANALYTICS_URL
+      value: http://fint-analytics-frontend:3000
+  port: 8000
+  imagePullPolicy: Always
+  orgId: novari.no
+  image: ghcr.io/fintlabs/fint-betaling-frontend:latest-fintlabs-no
+  url:
+    hostname: betaling-demo.felleskomponent.no
+    basePath: /
+  ingress:
+    enabled: true
+  resources:
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+  restartPolicy: Always
