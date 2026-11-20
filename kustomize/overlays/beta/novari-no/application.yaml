@@ -22,7 +22,7 @@ spec:
   image: ghcr.io/fintlabs/fint-betaling-frontend:latest-fintlabs-no
   url:
     hostname: betaling-demo.felleskomponent.no
-    basePath: /
+    basePath: /novari
   ingress:
     enabled: true
   resources:
