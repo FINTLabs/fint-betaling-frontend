@@ -50,7 +50,7 @@ describe("dashboard stats loader", () => {
       pendingOrders: 3,
       errorOrders: 7,
     });
-    expect(mocks.getCountByStatus).toHaveBeenCalledWith("school.org", "STORED");
+    expect(mocks.getCountByStatus).toHaveBeenCalledWith(expect.any(Request), "school.org", "STORED");
   });
 
   it("throws 400 when no organisation can be resolved", async () => {

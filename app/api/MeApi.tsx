@@ -1,5 +1,6 @@
 import type { IUser } from "~/types/user";
 import {NovariApiManager} from "novari-frontend-components";
+import { getRequestCookieHeaders } from "~/utils/requestCookie.server";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 console.log("Base URL: ", baseUrl)
@@ -11,14 +12,13 @@ const apiManager = new NovariApiManager({
 class MeApi {
   static async fetchMe(request: Request): Promise<IUser> {
     console.log("Fetching me");
-    const cookie = request.headers.get("Cookie");
     const res = await apiManager.call<IUser>({
       method: "GET",
       endpoint: "/api/me",
       functionName: "fetchMe",
       customErrorMessage: "Kunne ikke hente brukerdata",
       customSuccessMessage: "Brukerdata hentet",
-      additionalHeaders: cookie ? { Cookie: cookie } : {},
+      additionalHeaders: getRequestCookieHeaders(request),
     });
     console.log("from backend", res);
     if (res.success && res.data) {

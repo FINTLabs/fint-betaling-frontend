@@ -5,11 +5,11 @@ import { getDashboardOrganizationNumber } from "~/utils/dashboardOrganization.se
 export async function loader({ request }: LoaderFunctionArgs) {
   const organisationNumber = await getDashboardOrganizationNumber(request);
   const [stored, ...errors] = await Promise.all([
-    ClaimApi.getCountByStatus(organisationNumber, "STORED"),
-    ClaimApi.getCountByStatus(organisationNumber, "SEND_ERROR", "YEAR"),
-    ClaimApi.getCountByStatus(organisationNumber, "ACCEPT_ERROR", "YEAR"),
-    ClaimApi.getCountByStatus(organisationNumber, "UPDATE_ERROR", "YEAR"),
-    ClaimApi.getCountByStatus(organisationNumber, "ERROR", "YEAR"),
+    ClaimApi.getCountByStatus(request, organisationNumber, "STORED"),
+    ClaimApi.getCountByStatus(request, organisationNumber, "SEND_ERROR", "YEAR"),
+    ClaimApi.getCountByStatus(request, organisationNumber, "ACCEPT_ERROR", "YEAR"),
+    ClaimApi.getCountByStatus(request, organisationNumber, "UPDATE_ERROR", "YEAR"),
+    ClaimApi.getCountByStatus(request, organisationNumber, "ERROR", "YEAR"),
   ]);
 
   if (!stored.success && errors.every((result) => !result.success)) {

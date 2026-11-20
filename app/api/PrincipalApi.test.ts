@@ -14,6 +14,10 @@ vi.mock("novari-frontend-components", () => ({
 
 import PrincipalApi from "./PrincipalApi";
 
+const request = new Request("https://example.test/", {
+  headers: { Cookie: "session=test-session" },
+});
+
 describe("PrincipalApi", () => {
   beforeEach(() => {
     mocks.callMock.mockReset();
@@ -22,7 +26,7 @@ describe("PrincipalApi", () => {
   it("builds getPrincipals request", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await PrincipalApi.getPrincipals("school.org");
+    await PrincipalApi.getPrincipals(request, "school.org");
 
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "GET",
@@ -31,6 +35,7 @@ describe("PrincipalApi", () => {
       customErrorMessage: "Kunne ikke hente principals.",
       customSuccessMessage: "Principals hentet.",
       additionalHeaders: {
+        Cookie: "session=test-session",
         "x-school-org-id": "school.org",
       },
     });

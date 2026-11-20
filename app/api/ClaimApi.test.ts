@@ -14,6 +14,10 @@ vi.mock("novari-frontend-components", () => ({
 
 import ClaimApi from "./ClaimApi";
 
+const request = new Request("https://example.test/", {
+  headers: { Cookie: "session=test-session" },
+});
+
 describe("ClaimApi", () => {
   beforeEach(() => {
     mocks.callMock.mockReset();
@@ -22,9 +26,6 @@ describe("ClaimApi", () => {
   it("builds getClaims request with query parameters", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    const request = new Request("https://example.test/", {
-      headers: { Cookie: "session=test-session" },
-    });
     await ClaimApi.getClaims(request, "school.org", "PENDING", "LAST_30_DAYS", "school-a");
 
     expect(mocks.callMock).toHaveBeenCalledWith({
@@ -34,8 +35,8 @@ describe("ClaimApi", () => {
       customErrorMessage: "Kunne ikke hente claims.",
       customSuccessMessage: "Claims hentet.",
       additionalHeaders: {
-        "x-school-org-id": "school.org",
         Cookie: "session=test-session",
+        "x-school-org-id": "school.org",
       },
     });
   });
@@ -56,7 +57,7 @@ describe("ClaimApi", () => {
   it("builds sendClaimsToSystem request and uses fixed org header", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await ClaimApi.sendClaimsToSystem("ignored.org", '{"claims":["1"]}');
+    await ClaimApi.sendClaimsToSystem(request, "ignored.org", '{"claims":["1"]}');
 
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "POST",
@@ -66,6 +67,7 @@ describe("ClaimApi", () => {
       customSuccessMessage: "Ordrer sendt.",
       body: '{"claims":["1"]}',
       additionalHeaders: {
+        Cookie: "session=test-session",
         "x-org-id": "fintlabs.no",
       },
     });
@@ -74,7 +76,7 @@ describe("ClaimApi", () => {
   it("builds getCountByStatus request with optional filters", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await ClaimApi.getCountByStatus("school.org", "PENDING", "THIS_YEAR", "school-a");
+    await ClaimApi.getCountByStatus(request, "school.org", "PENDING", "THIS_YEAR", "school-a");
 
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "GET",
@@ -83,6 +85,7 @@ describe("ClaimApi", () => {
       customErrorMessage: "Kunne ikke hente antall ordrer.",
       customSuccessMessage: "Antall ordrer hentet.",
       additionalHeaders: {
+        Cookie: "session=test-session",
         "x-school-org-id": "school.org",
       },
     });
@@ -91,7 +94,7 @@ describe("ClaimApi", () => {
   it("builds createClaim request and uses fixed school org header", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await ClaimApi.createClaim("ignored.org", '{"claim":"a"}');
+    await ClaimApi.createClaim(request, "ignored.org", '{"claim":"a"}');
 
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "POST",
@@ -101,6 +104,7 @@ describe("ClaimApi", () => {
       customSuccessMessage: "Ordre lagret.",
       body: '{"claim":"a"}',
       additionalHeaders: {
+        Cookie: "session=test-session",
         "x-school-org-id": "fake.fintlabs.no",
       },
     });
@@ -109,7 +113,7 @@ describe("ClaimApi", () => {
   it("builds cancelClaim request with claim-specific metadata", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await ClaimApi.cancelClaim("school.org", "ORDER-123");
+    await ClaimApi.cancelClaim(request, "school.org", "ORDER-123");
 
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "DELETE",
@@ -118,6 +122,7 @@ describe("ClaimApi", () => {
       customErrorMessage: "Kunne ikke kansellere ordre ORDER-123.",
       customSuccessMessage: "Ordre ORDER-123 kansellert.",
       additionalHeaders: {
+        Cookie: "session=test-session",
         "x-school-org-id": "school.org",
       },
     });

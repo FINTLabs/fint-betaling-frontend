@@ -70,7 +70,7 @@ export const action: ActionFunction = async ({ request }) => {
   switch (actionType) {
     case "DELETE_CLAIMS":
       for (const claimId of selectedClaimIds) {
-        response = await ClaimApi.cancelClaim(selectedOrg, claimId);
+        response = await ClaimApi.cancelClaim(request, selectedOrg, claimId);
         if (!response.success) {
           errors++;
         }
@@ -91,6 +91,7 @@ export const action: ActionFunction = async ({ request }) => {
       break;
     case "SEND_TO_FACTORING":
       response = ClaimApi.sendClaimsToSystem(
+          request,
           selectedOrg,
           inputSelectedClaimIds,
       );

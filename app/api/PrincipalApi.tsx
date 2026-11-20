@@ -1,5 +1,6 @@
 import {type ApiResponse, NovariApiManager} from "novari-frontend-components";
 import type { IClassGroup } from "~/types/group";
+import { getRequestCookieHeaders } from "~/utils/requestCookie.server";
 
 const apiManager = new NovariApiManager({
   baseUrl: import.meta.env.VITE_API_URL ?? "",
@@ -8,6 +9,7 @@ const apiManager = new NovariApiManager({
 
 class PrincipalApi {
   static async getPrincipals(
+    request: Request,
     selectedOrg: string,
   ): Promise<ApiResponse<IClassGroup[]>> {
     const functionName = "getPrincipals";
@@ -18,6 +20,7 @@ class PrincipalApi {
       customErrorMessage: "Kunne ikke hente principals.",
       customSuccessMessage: "Principals hentet.",
       additionalHeaders: {
+        ...getRequestCookieHeaders(request),
         "x-school-org-id": selectedOrg,
       },
     });

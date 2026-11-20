@@ -40,10 +40,10 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     schoolResponse,
     principalsResponse,
   ] = await Promise.all([
-    SchoolGroupApi.getBasisGroups(currentSchoolOrgId),
-    SchoolGroupApi.getTeachingGroups(currentSchoolOrgId),
-    SchoolGroupApi.getSchool(currentSchoolOrgId),
-    PrincipalApi.getPrincipals(currentSchoolOrgId),
+    SchoolGroupApi.getBasisGroups(request, currentSchoolOrgId),
+    SchoolGroupApi.getTeachingGroups(request, currentSchoolOrgId),
+    SchoolGroupApi.getSchool(request, currentSchoolOrgId),
+    PrincipalApi.getPrincipals(request, currentSchoolOrgId),
   ]);
 
   return {
@@ -65,7 +65,7 @@ export const action: ActionFunction = async ({ request }) => {
   let response;
   switch (actionType) {
     case "SAVE_INVOICES":
-      response = ClaimApi.createClaim(selectedOrg, claimBody);
+      response = ClaimApi.createClaim(request, selectedOrg, claimBody);
       if((await response).success){
         return redirect(`/send`);
       }
