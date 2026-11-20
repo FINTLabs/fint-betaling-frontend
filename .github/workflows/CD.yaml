@@ -36,7 +36,7 @@ jobs:
             ]'
           elif [[ "$cluster" == "aks-beta-fint-2021-11-23" ]]; then
             targets='[
-              {"org":"novari-no","basePath":"/novari","apiUrl":"/","analyticsUrl":"http://fint-analytics-frontend:3000"}
+              {"org":"novari-no","basePath":"/novari","apiUrl":"https://betaling.felleskomponent.no/novari/","analyticsUrl":"http://fint-analytics-frontend:3000"}
             ]'
           else
             echo "Unknown cluster: $cluster" >&2
