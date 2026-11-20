@@ -1,6 +1,7 @@
 import { data, type LoaderFunctionArgs } from "react-router";
 import ClaimApi from "~/api/ClaimApi";
 import MeApi from "~/api/MeApi";
+import type { IClaim } from "~/types/claim";
 import { selectOrgCookie } from "~/utils/cookie";
 
 export function headers() {
@@ -23,18 +24,26 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
   const orders = organisationNumber
     ? await ClaimApi.getClaims(
+        request,
         organisationNumber,
         statusSelection,
         periodSelection,
         schoolSelection,
       )
-    : { success: true, data: [] };
+    : { success: true, data: [], status: 204 };
+
+  let claimHistory: IClaim[] | null = null;
+  if (orders.success && Array.isArray(orders.data)) {
+    claimHistory = orders.data;
+  } else if (orders.success && orders.status === 204) {
+    claimHistory = [];
+  }
 
   return data(
     {
       organisationNumber,
       search,
-      claimHistory: orders.success ? (orders.data ?? []) : null,
+      claimHistory,
     },
     { headers: headers() },
   );

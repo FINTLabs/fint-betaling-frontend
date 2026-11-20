@@ -43,7 +43,7 @@ describe("dashboard batch history loader", () => {
 
     const { batches, paidOrders } = await loader(args);
 
-    expect(mocks.getClaims).toHaveBeenCalledWith("school.org");
+    expect(mocks.getClaims).toHaveBeenCalledWith(args.request, "school.org");
     expect(paidOrders).toBe(2);
     expect(batches).toHaveLength(14);
     expect(batches?.[0]).toEqual({
