@@ -30,7 +30,7 @@ export const action: ActionFunction = async ({ request }) => {
   const selectedClaimIds = JSON.parse(inputSelectedClaimIds) as string[];
   const cookieHeader = request.headers.get("Cookie");
   const cookieOrgNumber = await selectOrgCookie.parse(cookieHeader);
-  const user = await MeApi.fetchMe();
+  const user = await MeApi.fetchMe(request);
   const selectedOrg =
       cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
 
