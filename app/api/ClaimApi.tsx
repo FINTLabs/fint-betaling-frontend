@@ -1,5 +1,6 @@
 import {type ApiResponse, NovariApiManager} from "novari-frontend-components";
 import type { IClaim } from "~/types/claim";
+import { getRequestCookieHeaders } from "~/utils/requestCookie.server";
 
 const apiManager = new NovariApiManager({
   baseUrl: import.meta.env.VITE_API_URL ?? "",
@@ -42,6 +43,7 @@ class ClaimApi {
       customErrorMessage: "Kunne ikke hente claims.",
       customSuccessMessage: "Claims hentet.",
       additionalHeaders: {
+        ...getRequestCookieHeaders(request),
         "x-school-org-id": selectedOrg,
         ...(cookie ? { Cookie: cookie } : {}),
       },
@@ -49,6 +51,7 @@ class ClaimApi {
   }
 
   static async sendClaimsToSystem(
+    request: Request,
     orgId: string,
     claims: string,
   ): Promise<ApiResponse<IClaim[]>> {
@@ -63,12 +66,14 @@ class ClaimApi {
       customSuccessMessage: "Ordrer sendt.",
       body: claims,
       additionalHeaders: {
+        ...getRequestCookieHeaders(request),
         "x-org-id": orgId,
       },
     });
   }
 
   static async getCountByStatus(
+    request: Request,
     selectedOrg: string,
     status: string,
     period?: string,
@@ -95,12 +100,14 @@ class ClaimApi {
       customErrorMessage: "Kunne ikke hente antall ordrer.",
       customSuccessMessage: "Antall ordrer hentet.",
       additionalHeaders: {
+        ...getRequestCookieHeaders(request),
         "x-school-org-id": selectedOrg,
       },
     });
   }
 
   static async createClaim(
+    request: Request,
     orgId: string,
     claimBody: string,
   ): Promise<ApiResponse<IClaim[]>> {
@@ -115,12 +122,14 @@ class ClaimApi {
       customSuccessMessage: "Ordre lagret.",
       body: claimBody,
       additionalHeaders: {
+        ...getRequestCookieHeaders(request),
         "x-school-org-id": orgId,
       },
     });
   }
 
   static async cancelClaim(
+    request: Request,
     selectedOrg: string,
     claimId: string,
   ): Promise<ApiResponse<IClaim>> {
@@ -133,6 +142,7 @@ class ClaimApi {
       customErrorMessage: `Kunne ikke kansellere ordre ${claimId}.`,
       customSuccessMessage: `Ordre ${claimId} kansellert.`,
       additionalHeaders: {
+        ...getRequestCookieHeaders(request),
         "x-school-org-id": selectedOrg,
       },
     });

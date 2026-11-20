@@ -349,7 +349,7 @@ describe("claim-history action", () => {
 
     const result = await action(actionRequest(formData));
 
-    expect(mocks.sendClaimsToSystem).toHaveBeenCalledWith("school.org", '["1"]');
+    expect(mocks.sendClaimsToSystem).toHaveBeenCalledWith(expect.any(Request), "school.org", '["1"]');
     expect(result).toEqual({ success: true });
   });
 

@@ -56,6 +56,7 @@ export const action: ActionFunction = async ({ request }) => {
       break;
     case "SEND_TO_FACTORING":
       response = ClaimApi.sendClaimsToSystem(
+          request,
           selectedOrg,
           inputSelectedClaimIds,
       );

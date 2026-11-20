@@ -1,5 +1,6 @@
 import type { IUser } from "~/types/user";
 import {NovariApiManager} from "novari-frontend-components";
+import { getRequestCookieHeaders } from "~/utils/requestCookie.server";
 
 const baseUrl = import.meta.env.VITE_API_URL;
 console.log("Base URL: ", baseUrl)
@@ -18,7 +19,7 @@ class MeApi {
       functionName: "fetchMe",
       customErrorMessage: "Kunne ikke hente brukerdata",
       customSuccessMessage: "Brukerdata hentet",
-      additionalHeaders: cookie ? { Cookie: cookie } : {},
+      additionalHeaders: getRequestCookieHeaders(request),
     });
     console.log("from backend", res);
     if (res.success && res.data) {

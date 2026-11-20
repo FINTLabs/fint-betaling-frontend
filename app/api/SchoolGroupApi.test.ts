@@ -14,6 +14,10 @@ vi.mock("novari-frontend-components", () => ({
 
 import SchoolGroupApi from "./SchoolGroupApi";
 
+const request = new Request("https://example.test/", {
+  headers: { Cookie: "session=test-session" },
+});
+
 describe("SchoolGroupApi", () => {
   beforeEach(() => {
     mocks.callMock.mockReset();
@@ -22,7 +26,7 @@ describe("SchoolGroupApi", () => {
   it("builds getBasisGroups request", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await SchoolGroupApi.getBasisGroups("school.org");
+    await SchoolGroupApi.getBasisGroups(request, "school.org");
 
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "GET",
@@ -31,6 +35,7 @@ describe("SchoolGroupApi", () => {
       customErrorMessage: "Kunne ikke hente school groups.",
       customSuccessMessage: "School groups hentet.",
       additionalHeaders: {
+        Cookie: "session=test-session",
         "x-school-org-id": "school.org",
       },
     });
@@ -39,7 +44,7 @@ describe("SchoolGroupApi", () => {
   it("builds getTeachingGroups request", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await SchoolGroupApi.getTeachingGroups("school.org");
+    await SchoolGroupApi.getTeachingGroups(request, "school.org");
 
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "GET",
@@ -48,6 +53,7 @@ describe("SchoolGroupApi", () => {
       customErrorMessage: "Kunne ikke hente teaching groups.",
       customSuccessMessage: "Teaching groups hentet.",
       additionalHeaders: {
+        Cookie: "session=test-session",
         "x-school-org-id": "school.org",
       },
     });
@@ -56,7 +62,7 @@ describe("SchoolGroupApi", () => {
   it("builds getSchool request", async () => {
     mocks.callMock.mockResolvedValueOnce({ ok: true });
 
-    await SchoolGroupApi.getSchool("school.org");
+    await SchoolGroupApi.getSchool(request, "school.org");
 
     expect(mocks.callMock).toHaveBeenCalledWith({
       method: "GET",
@@ -65,6 +71,7 @@ describe("SchoolGroupApi", () => {
       customErrorMessage: "Kunne ikke hente schools.",
       customSuccessMessage: "School groups hentet.",
       additionalHeaders: {
+        Cookie: "session=test-session",
         "x-school-org-id": "school.org",
       },
     });
