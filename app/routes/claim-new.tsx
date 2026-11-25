@@ -1,11 +1,11 @@
-import {Box, Stepper, VStack} from "@navikt/ds-react";
-import React, {useEffect, useRef, useState} from "react";
-import {type ActionFunction, type LoaderFunctionArgs, redirect, useFetcher, useLoaderData,} from "react-router";
+import {Box, HStack, Loader, Stepper, VStack} from "@navikt/ds-react";
+import React, {Suspense, useState} from "react";
+import {Await, type ActionFunction, type LoaderFunctionArgs, redirect, useFetcher, useLoaderData} from "react-router";
 import {SelectRecipientStep} from "~/components/stepper/recipients/SelectRecipientStep";
 import {SelectProductStep} from "~/components/stepper/products/SelectProductStep";
 import {SaveStep} from "~/components/stepper/SaveStep";
-import type {IClassGroup, ICustomer, ISchool} from "~/types/group";
-import type {IProductData, ISelectedProduct} from "~/types/product";
+import type {ICustomer} from "~/types/group";
+import type {ISelectedProduct} from "~/types/product";
 import {selectOrgCookie} from "~/utils/cookie";
 import SchoolGroupApi from "~/api/SchoolGroupApi";
 import PrincipalApi from "~/api/PrincipalApi";
@@ -19,18 +19,24 @@ import type {IClaim} from "~/types/claim";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const cookieHeader = request.headers.get("Cookie");
   const cookieValue = await selectOrgCookie.parse(cookieHeader);
-  const meResponse = await MeApi.fetchMe(request);
+  const user = await MeApi.fetchMe(request);
   const currentSchoolOrgId =
-    cookieValue ?? meResponse.organisationUnits[0]?.organisationNumber;
+    cookieValue ?? user.organisationUnits[0]?.organisationNumber ?? "";
 
+  return {
+    currentSchoolOrgId,
+    user,
+    selection: loadClaimSelection(request, currentSchoolOrgId),
+  };
+};
+
+async function loadClaimSelection(request: Request, currentSchoolOrgId: string) {
   if (!currentSchoolOrgId) {
     return {
       schoolGroups: [],
       teachingGroups: [],
-      school: [],
-      principals: [],
-      currentSchoolOrgId: "",
-      user: meResponse,
+      school: null,
+      principals: null,
     };
   }
 
@@ -49,12 +55,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   return {
     schoolGroups: schoolGroupsResponse.data || [],
     teachingGroups: teachingGroupsResponse.data || [],
-    school: schoolResponse.data || [],
-    principals: principalsResponse.data || [],
-    currentSchoolOrgId,
-    user: meResponse,
+    school: schoolResponse.data ?? null,
+    principals: principalsResponse.data ?? null,
   };
-};
+}
+
+type ClaimSelection = Awaited<ReturnType<typeof loadClaimSelection>>;
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -90,45 +96,48 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function ClaimNew() {
+  const { currentSchoolOrgId, user, selection } = useLoaderData<typeof loader>();
+
+  return (
+    <Suspense
+      key={currentSchoolOrgId}
+      fallback={
+        <HStack gap="space-8" align="center" role="status">
+          <Loader size="small" aria-hidden="true" />
+          <span>Henter mottakere og produkter …</span>
+        </HStack>
+      }
+    >
+      <Await resolve={selection} errorElement={<p role="alert">Kunne ikke hente mottakere og produkter.</p>}>
+        {(data: ClaimSelection) => (
+          <ClaimNewSteps selection={data} currentSchoolOrgId={currentSchoolOrgId} user={user} />
+        )}
+      </Await>
+    </Suspense>
+  );
+}
+
+function ClaimNewSteps({
+  selection: { schoolGroups, teachingGroups, school, principals },
+  currentSchoolOrgId,
+  user,
+}: {
+  selection: ClaimSelection;
+  currentSchoolOrgId: string;
+  user: IUser;
+}) {
   const [activeStep, setActiveStep] = useState(1);
   const [selectedRecipients, setSelectedRecipients] = useState<ICustomer[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<ISelectedProduct[]>(
     [],
   );
 
-  const {
-    schoolGroups,
-    teachingGroups,
-    school,
-    principals,
-    currentSchoolOrgId,
-    user,
-  } = useLoaderData<{
-    schoolGroups: IClassGroup[];
-    teachingGroups: IClassGroup[];
-    school: ISchool;
-    principals: IProductData;
-    currentSchoolOrgId: string;
-    user: IUser;
-  }>();
-
   const fetcher = useFetcher();
   const actionData = fetcher.data;
   const { alertState } = useAlerts<IClaim>([], actionData, fetcher.state);
 
-  // Track the organization and clear state when it changes
-  const previousOrgRef = useRef<string>(currentSchoolOrgId);
-
-  useEffect(() => {
-    if (previousOrgRef.current !== currentSchoolOrgId) {
-      setSelectedRecipients([]);
-      setSelectedProducts([]);
-      setActiveStep(1);
-      previousOrgRef.current = currentSchoolOrgId;
-    }
-  }, [currentSchoolOrgId]);
-
- function onSaveInvoices(formData: FormData) {
+  function onSaveInvoices(formData: FormData) {
+    if (!principals) return;
 
     const orderItems = selectedProducts.map((product) => {
       return {
@@ -155,7 +164,9 @@ export default function ClaimNew() {
       orderItems: orderItems,
       customers: customers,
       organisationUnit: {
-        name: school.name,
+        name: school?.name ??
+          user.organisationUnits.find((org) => org.organisationNumber === currentSchoolOrgId)?.name ??
+          "",
         organisationNumber: currentSchoolOrgId,
       },
       principal: principals,
@@ -216,7 +227,7 @@ export default function ClaimNew() {
       {activeStep === 1 && (
         <SelectRecipientStep
           groupRecipients={[...schoolGroups, ...teachingGroups]}
-          personRecipients={school.customers}
+          personRecipients={school?.customers ?? []}
           selectedRecipients={selectedRecipients}
           setSelectedRecipients={setSelectedRecipients}
           onNext={() => setActiveStep(2)}
@@ -227,7 +238,7 @@ export default function ClaimNew() {
       {activeStep === 2 && (
         <SelectProductStep
           selectedRecipients={selectedRecipients}
-          products={principals.lineitems}
+          products={principals?.lineitems ?? []}
           selectedProducts={selectedProducts}
           setSelectedProducts={setSelectedProducts}
           onNext={() => setActiveStep(3)}

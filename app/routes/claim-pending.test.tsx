@@ -43,7 +43,10 @@ vi.mock("novari-frontend-components", () => ({
 
 vi.mock("@navikt/ds-react", () => ({
   Box: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  HStack: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  HStack: ({ children, role }: { children: React.ReactNode; role?: string }) => (
+    <div role={role}>{children}</div>
+  ),
+  Loader: () => <span />,
   VStack: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   Button: ({
     children,
@@ -166,7 +169,7 @@ describe("claim-pending loader", () => {
     } as never);
 
     expect(mocks.getClaims).toHaveBeenCalledWith(request, "school.org", "STORED");
-    expect(result.pendingClaims).toEqual([{ orderNumber: 10 }]);
+    expect(await result.pendingClaims).toEqual([{ orderNumber: 10 }]);
   });
 });
 
@@ -217,8 +220,23 @@ describe("ClaimPending component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocks.useLoaderData.mockReturnValue({
+      organisationNumber: "school-1",
       pendingClaims: [makeClaim(101), makeClaim(202)],
     });
+  });
+
+  it("shows a loading indicator until the pending orders are ready", async () => {
+    mocks.useLoaderData.mockReturnValue({
+      organisationNumber: "school-1",
+      pendingClaims: Promise.resolve([makeClaim(101)]),
+    });
+
+    render(<ClaimPending />);
+
+    expect(screen.getByRole("status").textContent).toContain("Henter ventende ordrer");
+    expect(screen.queryByText("claims:1")).toBeNull();
+    expect(await screen.findByText("claims:1")).toBeTruthy();
+    expect(screen.queryByRole("status")).toBeNull();
   });
 
   it("filters claims by order number search", () => {

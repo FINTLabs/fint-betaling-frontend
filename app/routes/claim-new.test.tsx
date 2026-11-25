@@ -53,6 +53,10 @@ vi.mock("@navikt/ds-react", () => {
   );
   return {
     Box: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+    HStack: ({ children, role }: { children: React.ReactNode; role?: string }) => (
+      <div role={role}>{children}</div>
+    ),
+    Loader: () => <span />,
     VStack: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
     Stepper: Object.assign(StepperRoot, { Step: StepperStep }),
   };
@@ -151,10 +155,12 @@ const actionRequest = (formData: FormData) =>
   }) as never;
 
 const makeLoaderData = () => ({
-  schoolGroups: [],
-  teachingGroups: [],
-  school: { name: "School 1", customers: [] },
-  principals: { lineitems: [] },
+  selection: {
+    schoolGroups: [],
+    teachingGroups: [],
+    school: { name: "School 1", customers: [] },
+    principals: { lineitems: [] },
+  },
   currentSchoolOrgId: "school-1",
   user: {
     name: "User Name",
@@ -182,10 +188,11 @@ describe("claim-new loader", () => {
     mocks.getPrincipals.mockResolvedValue({ data: { lineitems: [] } });
 
     const result = await loader(loaderRequest());
+    const selection = await result.selection;
 
     expect(result.currentSchoolOrgId).toBe("school.org");
-    expect(result.schoolGroups).toEqual([{ name: "1A" }]);
-    expect(result.teachingGroups).toEqual([{ name: "T1" }]);
+    expect(selection.schoolGroups).toEqual([{ name: "1A" }]);
+    expect(selection.teachingGroups).toEqual([{ name: "T1" }]);
   });
 });
 
@@ -227,6 +234,21 @@ describe("ClaimNew component", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocks.useLoaderData.mockReturnValue(makeLoaderData());
+  });
+
+  it("shows a loading indicator until recipients and products are ready", async () => {
+    const loaderData = makeLoaderData();
+    mocks.useLoaderData.mockReturnValue({
+      ...loaderData,
+      selection: Promise.resolve(loaderData.selection),
+    });
+
+    render(<ClaimNew />);
+
+    expect(screen.getByRole("status").textContent).toContain("Henter mottakere og produkter");
+    expect(screen.queryByText("set-recipients")).toBeNull();
+    expect(await screen.findByText("set-recipients")).toBeTruthy();
+    expect(screen.queryByRole("status")).toBeNull();
   });
 
   it("submits SAVE_INVOICES payload from step 3", () => {

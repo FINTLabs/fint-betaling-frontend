@@ -1,8 +1,9 @@
-import { Box, Button, HStack, TextField, VStack } from "@navikt/ds-react";
-import React, { useMemo, useState } from "react";
+import { Box, Button, HStack, Loader, TextField, VStack } from "@navikt/ds-react";
+import React, { Suspense, useMemo, useState } from "react";
 import type { IClaim } from "~/types/claim";
 import { PageHeader } from "~/components/PageHeader";
 import {
+  Await,
   type ActionFunction,
   type LoaderFunctionArgs,
   useFetcher,
@@ -24,24 +25,15 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const user = await MeApi.fetchMe(request);
 
   const organisationNumber =
-    cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber;
-  if (!organisationNumber) {
-    return { pendingClaims: [], user };
-  }
-
-  const [pendingResponse] = await Promise.all([
-    ClaimApi.getClaims(request, organisationNumber, "STORED"),
-  ]);
-
-  if (pendingResponse.success && pendingResponse.data) {
-    return {
-      pendingClaims: pendingResponse.data,
-    };
-  }
+    cookieOrgNumber ?? user.organisationUnits[0]?.organisationNumber ?? "";
 
   return {
-    pendingClaims: [],
-    user,
+    organisationNumber,
+    pendingClaims: organisationNumber
+      ? ClaimApi.getClaims(request, organisationNumber, "STORED").then(
+          ({ success, data }) => (success ? (data ?? []) : []),
+        )
+      : [],
   };
 };
 
@@ -108,15 +100,37 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export default function ClaimPending() {
+  const { organisationNumber, pendingClaims } = useLoaderData<typeof loader>();
+
+  return (
+    <VStack gap="space-20">
+      <PageHeader
+        title="Ordre som ikke er sendt til fakturering"
+        description="Søk på ordrenummer i feltet under. Oversikten viser kun ordrer du har opprettet."
+      />
+      <Suspense
+        key={organisationNumber}
+        fallback={
+          <HStack gap="space-8" align="center" role="status">
+            <Loader size="small" aria-hidden="true" />
+            <span>Henter ventende ordrer …</span>
+          </HStack>
+        }
+      >
+        <Await resolve={pendingClaims} errorElement={<p role="alert">Kunne ikke hente ventende ordrer.</p>}>
+          {(claims: IClaim[]) => <PendingClaimsTable pendingClaims={claims} />}
+        </Await>
+      </Suspense>
+    </VStack>
+  );
+}
+
+function PendingClaimsTable({ pendingClaims }: { pendingClaims: IClaim[] }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedClaimIds, setSelectedClaimIds] = useState<string[]>([]);
   const fetcher = useFetcher();
   const actionData = fetcher.data;
   const { alertState } = useAlerts<IClaim>([], actionData, fetcher.state);
-
-  const { pendingClaims } = useLoaderData<{
-    pendingClaims: IClaim[];
-  }>();
 
   const filteredClaims = useMemo(() => {
     let filtered = pendingClaims;
@@ -177,12 +191,6 @@ export default function ClaimPending() {
   return (
     <VStack gap="space-20">
       <NovariToaster items={alertState} position={"top-right"} />
-      <PageHeader
-        title="Ordre som ikke er sendt til fakturering"
-        description={
-          "Søk på ordrenummer i feltet under. Oversikten viser kun ordrer du har opprettet."
-        }
-      />
 
       <HStack gap="space-4" wrap align="end">
         <Box style={{ flex: 1, minWidth: "250px" }}>

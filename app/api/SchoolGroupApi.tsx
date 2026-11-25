@@ -1,5 +1,5 @@
 import {type ApiResponse, NovariApiManager} from "novari-frontend-components";
-import type { IClassGroup } from "~/types/group";
+import type { IClassGroup, ISchool } from "~/types/group";
 import { getRequestCookieHeaders } from "~/utils/requestCookie.server";
 
 const apiManager = new NovariApiManager({
@@ -49,10 +49,10 @@ class SchoolGroupApi {
   static async getSchool(
     request: Request,
     selectedOrg: string,
-  ): Promise<ApiResponse<IClassGroup[]>> {
+  ): Promise<ApiResponse<ISchool>> {
     const functionName = "getSchoolGroups";
 
-    return await apiManager.call<IClassGroup[]>({
+    return await apiManager.call<ISchool>({
       method: "GET",
       endpoint: `/api/group/school`,
       functionName,
